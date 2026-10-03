@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { CodeGate } from "@/components/CodeGate";
 import type { ChangeSet, Segment } from "@/lib/types";
@@ -13,23 +13,49 @@ export function UpdateClient() {
   const [res, setRes] = useState<{ draftId: string; segments: Segment[]; changeset: ChangeSet } | null>(null);
   const [error, setError] = useState("");
   const [needCode, setNeedCode] = useState<null | (() => void)>(null);
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const [elapsed, setElapsed] = useState(0);
+  const ctrl = useRef<AbortController | null>(null);
+  const analyzing = startedAt !== null;
+
+  // Running counter while the analysis runs, so a long wait never looks like a freeze.
+  useEffect(() => {
+    if (startedAt === null) return;
+    const t = setInterval(() => setElapsed(Math.round((Date.now() - startedAt) / 1000)), 500);
+    return () => clearInterval(t);
+  }, [startedAt]);
+
+  function cancel() {
+    ctrl.current?.abort();
+    ctrl.current = null;
+    setStartedAt(null); setBusy("");
+    setError("Analysis cancelled. Nothing was published; you can upload again.");
+  }
 
   async function upload(files: File[]) {
-    if (!files.length) return;
+    if (!files.length || analyzing) return;
     const total = files.reduce((n, f) => n + f.size, 0);
     if (total > 4.3 * 1024 * 1024 && !/^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)) {
       setError("These files are larger than the hosted demo accepts (4.5 MB per upload). Compress them, upload fewer at once, or use the local version.");
       return;
     }
-    setError(""); setRes(null); setBusy(`Reading ${files.length > 1 ? `${files.length} files` : "the file"} and matching it to the project…`);
+    setError(""); setRes(null); setElapsed(0); setStartedAt(Date.now());
+    setBusy(`${files.length > 1 ? `${files.length} files` : files[0].name}: reading, then comparing with the whole project`);
     const fd = new FormData(); files.forEach((f) => fd.append("file", f));
+    const c = new AbortController(); ctrl.current = c;
     try {
-      const r = await fetch("/api/update/analyze", { method: "POST", body: fd });
-      const j = await r.json();
-      if (r.status === 401 && j.needCode) { setNeedCode(() => () => upload(files)); setBusy(""); return; }
-      if (!r.ok) throw new Error(j.error); setRes(j);
-    } catch (e) { setError(String(e)); }
-    setBusy("");
+      const r = await fetch("/api/update/analyze", { method: "POST", body: fd, signal: c.signal });
+      const text = await r.text();
+      let j: { error?: string; needCode?: boolean; draftId?: string } & Record<string, unknown>;
+      try { j = JSON.parse(text); } catch { throw new Error(r.status === 504 ? "The server timed out. Try again, or use fewer files." : `Server error ${r.status}.`); }
+      if (r.status === 401 && j.needCode) { setNeedCode(() => () => upload(files)); return; }
+      if (!r.ok) throw new Error(j.error ?? `Server error ${r.status}.`);
+      setRes(j as unknown as { draftId: string; segments: Segment[]; changeset: ChangeSet });
+    } catch (e) {
+      if ((e as Error).name !== "AbortError") setError((e as Error).message || String(e));
+    } finally {
+      if (ctrl.current === c) { ctrl.current = null; setStartedAt(null); setBusy(""); }
+    }
   }
   async function publish() {
     if (!res) return;
@@ -62,13 +88,24 @@ export function UpdateClient() {
       <label
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); upload(Array.from(e.dataTransfer.files)); }}
-        className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-10 text-center ${drag ? "border-primary bg-primary/5" : "border-line bg-surface"}`}>
-        <span className="text-lg font-semibold">Drop the new information here (one file or several), or click to choose</span>
+        className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-10 text-center ${analyzing ? "pointer-events-none cursor-wait opacity-50" : "cursor-pointer"} ${drag ? "border-primary bg-primary/5" : "border-line bg-surface"}`}>
+        <span className="text-lg font-semibold">Drop the new information here (select all the files at once), or click to choose</span>
         <span className="text-sm text-muted">Any source: email (.eml), Word, PDF, Excel, PowerPoint, calendar invite (.ics), Teams/chat export (.json, .html), text, CSV, a screenshot, or a .zip of several files</span>
-        <input type="file" multiple className="sr-only" onChange={(e) => upload(Array.from(e.target.files ?? []))} />
+        <input type="file" multiple disabled={analyzing} className="sr-only" onChange={(e) => { upload(Array.from(e.target.files ?? [])); e.target.value = ""; }} />
       </label>
       {needCode && <CodeGate onUnlocked={() => { const retry = needCode; setNeedCode(null); retry(); }} />}
-      {busy && <p role="status" className="font-semibold text-primary">{busy}</p>}
+      {analyzing && (
+        <div role="status" className="flex flex-wrap items-center gap-3 rounded-md border border-primary/30 bg-primary/5 p-3">
+          <span className="h-3 w-3 animate-pulse rounded-full bg-primary" aria-hidden />
+          <span className="font-semibold text-primary">{busy}</span>
+          <span className="tabular-nums text-muted">{elapsed} s</span>
+          <span className="text-sm text-muted">
+            {elapsed < 60 ? "The deep analysis usually takes 30 to 90 seconds." : elapsed < 150 ? "Still working: long files take longer." : "Taking unusually long. You can wait or cancel."}
+          </span>
+          <button onClick={cancel} className="ml-auto rounded border border-line bg-white px-3 py-1 text-sm hover:border-blocker">Cancel</button>
+        </div>
+      )}
+      {busy && !analyzing && <p role="status" className="font-semibold text-primary">{busy}</p>}
       {error && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
       {res && (
         <section className="space-y-4 rounded-lg border-2 border-marker bg-surface p-5">
