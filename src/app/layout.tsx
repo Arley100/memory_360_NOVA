@@ -3,6 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { updates } from "@/lib/store";
+import { llmProvider, modelFor } from "@/lib/llm";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Mémoire 360 · NOVA", description: "Operational memory of project NOVA" };
@@ -10,6 +11,8 @@ export const metadata: Metadata = { title: "Mémoire 360 · NOVA", description: 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const ups = updates();
   const last = ups.at(-1)?.cs.id;
+  const ai = llmProvider();
+  const short = (m: string) => m.replace(/^claude-/, "").replace(/-(\d)-(\d)$/, " $1.$2");
   return (
     <html lang="en">
       <head>
@@ -34,6 +37,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   className="flex-1 rounded-md border border-line bg-canvas px-3 py-2 text-[15px]" />
                 <button className="rounded-md bg-primary px-4 py-2 font-semibold text-white">Ask</button>
               </form>
+              <div className="flex items-center gap-2 rounded-full border border-line px-3 py-1 text-xs"
+                title={ai ? `Ask: ${modelFor("ask")} · Update: ${modelFor("update")}. Run npm run check to test the connection.` : "No API key: evidence, search and manual updates still work."}>
+                <span className={`h-2.5 w-2.5 rounded-full ${ai ? "bg-validation" : "bg-muted"}`} aria-hidden />
+                {ai ? <span>AI configured · {short(modelFor("ask"))} / {short(modelFor("update"))}</span> : <span>AI off · evidence-only mode</span>}
+              </div>
               <div className="text-sm text-right leading-tight">
                 <div className="font-semibold">{last ? `Current state · after ${last}` : "Baseline state"}</div>
                 <div className="text-muted">Baseline: Sept 30, 2026, 09:00 (Montréal){ups.length ? ` · ${ups.length} update(s)` : ""}</div>

@@ -12,6 +12,12 @@ export const RULES = `Rules of reading (from the challenge README):
 8. If information is missing, say it is not documented. Never invent a decision, deadline, approval or owner.
 9. Label your own suggestions as recommendations, separate from documented commitments.`;
 
+export const CITATION_FORMAT = `Citation format (strict):
+- "src" is ONLY the source id before "#" in the segment marker. For [[M04#L23]] use "src": "M04", "loc": "L23".
+- "quote" is copied character for character from that one segment, in French, 3 to 20 words. No paraphrase,
+  no translation, no ellipsis, no added quotation marks.
+- Every factual sentence needs at least one citation. Prefer the most authoritative source (decision > validation > report).`;
+
 export function corpusContext(): string {
   const src = new Map(allSources().map((s) => [s.id, s]));
   return allSegments()

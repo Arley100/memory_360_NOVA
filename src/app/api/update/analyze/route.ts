@@ -3,7 +3,7 @@ import path from "path";
 import crypto from "crypto";
 import { parseFile } from "@/lib/ingest";
 import { llmJSON, llmProvider, visionTranscribe } from "@/lib/llm";
-import { corpusContext, kbContext, RULES } from "@/lib/prompts";
+import { CITATION_FORMAT, corpusContext, kbContext, RULES } from "@/lib/prompts";
 import { allSegments, ROOT } from "@/lib/store";
 import { applyGuardrails, emptyChangeSet } from "@/lib/update";
 import type { ChangeSet, Segment } from "@/lib/types";
@@ -44,14 +44,16 @@ Classify the new information exactly as the jury expects:
 - conditionChanges: go-live conditions are 1 = SEC-210 security validation (validating owner Sophie Lambert), 2 = ACC-303 closure (Mélissa Gagnon), 3 = runbook approval incl. rollback (Olivier Côté). Mark "met" ONLY if the NEW file quotes that owner closing/validating it. Never close other conditions.
 - affected: answer ids Q01-Q10, condition ids 1-3, action ids A1-A12 that this changes.
 - newActions: owner (ownerStatus confirmed|proposed), type COMMITMENT (documented) or RECOMMENDATION (yours), due date only if stated else "TBC".
-Citations: {"src": id from [[id#loc]], "quote": verbatim French text (3-20 words) copied from that segment}. New file ids start with NEW.
+Citations: {"src", "loc", "quote"}. New file ids start with NEW (e.g. [[NEW#body:P2]] → "src": "NEW", "loc": "body:P2").
+${CITATION_FORMAT}
 Return JSON only: {"summary": string (1-2 sentences, English), "problemStatus": [{"text","citations"}], "priorDecisions": [{"text","citations"}],
 "newProposals": [{"text","proposer","citations"}], "newDecisions": [{"text","authority","citations"}],
 "conditionChanges": [{"id","status","text","citations"}], "affected": {"answers": [], "conditions": [], "actions": []},
 "newActions": [{"title","owner","ownerStatus","type","due","citations"}]}`;
-  const user = `BASELINE KNOWLEDGE BASE:\n${kbContext()}\n\nBASELINE CORPUS:\n${corpusContext()}\n\nNEW FILE "${filename}":\n${segments.map((s) => `[[${s.src}#${s.loc}]] ${s.text}`).join("\n")}`;
+  const context = `KNOWLEDGE BASE (curated, verified):\n${kbContext()}\n\nCORPUS SEGMENTS:\n${corpusContext()}`;
+  const user = `NEW FILE "${filename}":\n${segments.map((s) => `[[${s.src}#${s.loc}]] ${s.text}`).join("\n")}`;
   try {
-    const raw = (await llmJSON(system, user)) as Partial<ChangeSet>;
+    const raw = (await llmJSON({ task: "update", system, context, user })) as Partial<ChangeSet>;
     const cs = applyGuardrails({ ...emptyChangeSet(filename), ...raw } as ChangeSet, allSegments(), segments);
     return Response.json({ draftId, segments, changeset: cs });
   } catch (e) {

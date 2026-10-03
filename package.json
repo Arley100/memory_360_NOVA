@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "ingest": "tsx scripts/ingest.ts"
+    "ingest": "tsx scripts/ingest.ts",
+    "check": "tsx scripts/check.ts"
   },
   "dependencies": {
     "mailparser": "^3.9.33",
