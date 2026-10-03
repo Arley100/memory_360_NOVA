@@ -1,0 +1,15 @@
+Date: Thu, 01 Oct 2026 14:10:00 -0400
+From: Sophie Lambert <sophie.lambert@demo.example>
+To: nicolas.perron@demo.example
+Subject: SEC-210 - re-test non concluant
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Bonjour Nicolas,
+
+Notre re-test de SEC-210 est non concluant : l'identifiant du dossier apparaît maintenant, mais le résultat de l'export est toujours absent du journal.
+
+Le ticket reste EN VALIDATION. Boréal propose un nouveau correctif le 8 octobre et suggère de déplacer la mise en production au 5 novembre.
+
+Sophie

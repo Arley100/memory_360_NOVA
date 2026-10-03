@@ -1,0 +1,5 @@
+Canal : Projet NOVA / Général
+2 octobre 2026
+
+10:02 - Julien (Boréal) : Build 2026.10.01 déployée avec le correctif ACC-303.
+10:40 - Mélissa : Re-test clavier OK sur Chrome et Edge, Enregistrer est atteint. Je ferme ACC-303.

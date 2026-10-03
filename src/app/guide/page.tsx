@@ -1,0 +1,26 @@
+export default function Guide() {
+  return (
+    <article className="max-w-3xl space-y-5 leading-relaxed">
+      <h1 className="text-3xl font-bold">Usage guide</h1>
+      <section><h2 className="text-xl font-bold">Opening</h2>
+        <p>Run locally with <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>, then open http://localhost:3000. No account or subscription is needed. Chat and automatic update analysis need an API key in <code>.env.local</code>; every other page works without it.</p></section>
+      <section><h2 className="text-xl font-bold">Navigation</h2>
+        <p>The sidebar follows the project: overview, one-page brief, the ten questions, timeline, decisions, contradictions, actions, sources, team, adding new information, and this guide. The header shows which version you are looking at.</p></section>
+      <section><h2 className="text-xl font-bold">Finding evidence</h2>
+        <p>Every statement carries an evidence chip such as <strong>M04 · L23</strong>. Clicking it opens the file at that exact line, page, cell or screenshot row, highlighted. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. The Sources page searches every line of every file, accents optional.</p></section>
+      <section><h2 className="text-xl font-bold">Asking questions</h2>
+        <p>Use the question bar (English or French). Answers come only from the NOVA files; each citation is checked against the source text and removed if it cannot be found.</p></section>
+      <section><h2 className="text-xl font-bold">Adding new information</h2>
+        <p>Open &quot;Add new information&quot;, drop the file, review the three columns (problem status, prior decision still in force, new proposal), the affected items, the actions and the guardrails, then publish. Each publication is a new version (U001, U002…); the baseline stays untouched.</p></section>
+      <section><h2 className="text-xl font-bold">Tools and manual steps</h2>
+        <p>Next.js, TypeScript, Tailwind, mailparser, unpdf, SheetJS, mammoth, and an LLM (Anthropic or any OpenAI-compatible model) for chat, screenshot reading and update analysis. The ten answers, timeline, decisions, contradictions, actions and brief were curated by the team and every quote is machine-verified against the corpus (<code>npm run ingest</code>). The eight baseline screenshots were transcribed and checked by a human. Every update is reviewed by a person before publishing.</p></section>
+      <section><h2 className="text-xl font-bold">Limits and uncertain information</h2>
+        <ul className="list-disc pl-5">
+          <li>Model answers can still misinterpret; citations are checked, interpretation is not.</li>
+          <li>Screenshots show past states; ticket status prevails.</li>
+          <li>Not documented as of Sept 30: the SEC-210 retest date, the ACC-303 fix build date, the final runbook date, the approval of INV-003&apos;s milestone line (36 000 $), and validation of SSO-only in production.</li>
+          <li>Data location: the target environment is verified in Canada Central; production is not live yet.</li>
+        </ul></section>
+    </article>
+  );
+}

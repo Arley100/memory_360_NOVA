@@ -1,0 +1,3837 @@
+[
+ {
+  "src": "E01",
+  "loc": "header:Subject",
+  "text": "Subject: NOVA - confirmation du démarrage"
+ },
+ {
+  "src": "E01",
+  "loc": "header:From",
+  "text": "From: \"Élodie Caron\" <elodie.caron@demo.example>"
+ },
+ {
+  "src": "E01",
+  "loc": "header:To",
+  "text": "To: equipe-nova@demo.example"
+ },
+ {
+  "src": "E01",
+  "loc": "header:Date",
+  "text": "Date: Tue, 07 Jul 2026 16:10:00 -0400"
+ },
+ {
+  "src": "E01",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E01",
+  "loc": "body:P2",
+  "text": "Merci pour la rencontre de ce matin. Je confirme le démarrage de NOVA."
+ },
+ {
+  "src": "E01",
+  "loc": "body:P3",
+  "text": "Les éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet."
+ },
+ {
+  "src": "E01",
+  "loc": "body:P4",
+  "text": "Merci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique."
+ },
+ {
+  "src": "E01",
+  "loc": "body:P5",
+  "text": "Élodie"
+ },
+ {
+  "src": "E02",
+  "loc": "header:Subject",
+  "text": "Subject: RE: NOVA - architecture v1"
+ },
+ {
+  "src": "E02",
+  "loc": "header:From",
+  "text": "From: \"Sophie Lambert\" <sophie.lambert@demo.example>"
+ },
+ {
+  "src": "E02",
+  "loc": "header:To",
+  "text": "To: elodie.caron@demo.example, marc.gervais@demo.example"
+ },
+ {
+  "src": "E02",
+  "loc": "header:Date",
+  "text": "Date: Wed, 22 Jul 2026 14:32:00 -0400"
+ },
+ {
+  "src": "E02",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E02",
+  "loc": "body:P2",
+  "text": "Je vois East US sur le diagramme joint. Avant qu'on aille plus loin, est-ce que quelqu'un peut confirmer si cette localisation est compatible avec nos exigences pour NOVA?"
+ },
+ {
+  "src": "E02",
+  "loc": "body:P3",
+  "text": "Pour ma part, je veux que les données de production demeurent au Canada. À trancher demain en atelier."
+ },
+ {
+  "src": "E02",
+  "loc": "body:P4",
+  "text": "Sophie"
+ },
+ {
+  "src": "E02",
+  "loc": "att:Architecture_NOVA_v1.pdf",
+  "text": "Attachment: Architecture_NOVA_v1.pdf"
+ },
+ {
+  "src": "E03",
+  "loc": "header:Subject",
+  "text": "Subject: NOVA - migration Canada Central complétée"
+ },
+ {
+  "src": "E03",
+  "loc": "header:From",
+  "text": "From: \"Julien Moreau\" <julien.moreau@boreal.example>"
+ },
+ {
+  "src": "E03",
+  "loc": "header:To",
+  "text": "To: marc.gervais@demo.example, elodie.caron@demo.example"
+ },
+ {
+  "src": "E03",
+  "loc": "header:Date",
+  "text": "Date: Wed, 26 Aug 2026 09:05:00 -0400"
+ },
+ {
+  "src": "E03",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E03",
+  "loc": "body:P2",
+  "text": "La migration des ressources prévues pour NOVA vers Canada Central est complétée. Vous trouverez le schéma v2 en pièce jointe."
+ },
+ {
+  "src": "E03",
+  "loc": "body:P3",
+  "text": "Nous avons fait un test de déploiement et de connectivité hier soir. Aucun blocage identifié."
+ },
+ {
+  "src": "E03",
+  "loc": "body:P4",
+  "text": "Julien\nBoréal Numérique"
+ },
+ {
+  "src": "E03",
+  "loc": "att:Architecture_NOVA_v2.pdf",
+  "text": "Attachment: Architecture_NOVA_v2.pdf"
+ },
+ {
+  "src": "E04",
+  "loc": "header:Subject",
+  "text": "Subject: RE: anomalies accessibilité NOVA"
+ },
+ {
+  "src": "E04",
+  "loc": "header:From",
+  "text": "From: \"Julien Moreau\" <julien.moreau@boreal.example>"
+ },
+ {
+  "src": "E04",
+  "loc": "header:To",
+  "text": "To: melissa.gagnon@demo.example"
+ },
+ {
+  "src": "E04",
+  "loc": "header:Date",
+  "text": "Date: Thu, 20 Aug 2026 15:44:00 -0400"
+ },
+ {
+  "src": "E04",
+  "loc": "body:P1",
+  "text": "Salut Mélissa,"
+ },
+ {
+  "src": "E04",
+  "loc": "body:P2",
+  "text": "On a poussé les corrections de labels et de contraste. Tout devrait maintenant être conforme de notre côté."
+ },
+ {
+  "src": "E04",
+  "loc": "body:P3",
+  "text": "Tu peux refaire ton passage quand tu veux."
+ },
+ {
+  "src": "E04",
+  "loc": "body:P4",
+  "text": "Julien"
+ },
+ {
+  "src": "E04",
+  "loc": "body:P5",
+  "text": "> Le 12 août, Mélissa écrivait :\n> Plusieurs points à corriger, notamment les labels et le contraste. Je veux aussi repasser les modales au clavier dans une prochaine build."
+ },
+ {
+  "src": "E05",
+  "loc": "header:Subject",
+  "text": "Subject: NOVA - risque sur la date du 15 octobre"
+ },
+ {
+  "src": "E05",
+  "loc": "header:From",
+  "text": "From: \"Julien Moreau\" <julien.moreau@boreal.example>"
+ },
+ {
+  "src": "E05",
+  "loc": "header:To",
+  "text": "To: elodie.caron@demo.example, nicolas.perron@demo.example"
+ },
+ {
+  "src": "E05",
+  "loc": "header:Date",
+  "text": "Date: Tue, 08 Sep 2026 11:16:00 -0400"
+ },
+ {
+  "src": "E05",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E05",
+  "loc": "body:P2",
+  "text": "Le problème du connecteur interne nous a fait perdre davantage de temps que prévu. Nous pouvons continuer à viser le 15 octobre, mais ce serait avec très peu de marge pour la stabilisation."
+ },
+ {
+  "src": "E05",
+  "loc": "body:P3",
+  "text": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+ },
+ {
+  "src": "E05",
+  "loc": "body:P4",
+  "text": "À ce stade, il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance."
+ },
+ {
+  "src": "E05",
+  "loc": "body:P5",
+  "text": "Julien"
+ },
+ {
+  "src": "E06",
+  "loc": "header:Subject",
+  "text": "Subject: NOVA - transition de la charge de projet"
+ },
+ {
+  "src": "E06",
+  "loc": "header:From",
+  "text": "From: \"Élodie Caron\" <elodie.caron@demo.example>"
+ },
+ {
+  "src": "E06",
+  "loc": "header:To",
+  "text": "To: equipe-nova@demo.example"
+ },
+ {
+  "src": "E06",
+  "loc": "header:Date",
+  "text": "Date: Wed, 16 Sep 2026 08:35:00 -0400"
+ },
+ {
+  "src": "E06",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E06",
+  "loc": "body:P2",
+  "text": "Comme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre."
+ },
+ {
+  "src": "E06",
+  "loc": "body:P3",
+  "text": "Je demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas."
+ },
+ {
+  "src": "E06",
+  "loc": "body:P4",
+  "text": "Merci à tous,\nÉlodie"
+ },
+ {
+  "src": "E07",
+  "loc": "header:Subject",
+  "text": "Subject: INV-003 - référence CR-04?"
+ },
+ {
+  "src": "E07",
+  "loc": "header:From",
+  "text": "From: \"Amélie Fortin\" <amelie.fortin@demo.example>"
+ },
+ {
+  "src": "E07",
+  "loc": "header:To",
+  "text": "To: nicolas.perron@demo.example"
+ },
+ {
+  "src": "E07",
+  "loc": "header:Date",
+  "text": "Date: Wed, 23 Sep 2026 10:18:00 -0400"
+ },
+ {
+  "src": "E07",
+  "loc": "body:P1",
+  "text": "Bonjour Nicolas,"
+ },
+ {
+  "src": "E07",
+  "loc": "body:P2",
+  "text": "Je valide INV-003 et j'ai une question avant de la libérer."
+ },
+ {
+  "src": "E07",
+  "loc": "body:P3",
+  "text": "Il y a une ligne de 18 000 $ « Optimisation interface mobile - CR-04 ». Peux-tu me transmettre l'approbation correspondante? Je trouve un brouillon de CR-04, mais rien qui indique qu'il a été approuvé."
+ },
+ {
+  "src": "E07",
+  "loc": "body:P4",
+  "text": "Je joins la facture reçue."
+ },
+ {
+  "src": "E07",
+  "loc": "body:P5",
+  "text": "Merci,\nAmélie\nFinances"
+ },
+ {
+  "src": "E07",
+  "loc": "att:INV-003.pdf",
+  "text": "Attachment: INV-003.pdf"
+ },
+ {
+  "src": "E08",
+  "loc": "header:Subject",
+  "text": "Subject: SEC-210 - correctif déployé"
+ },
+ {
+  "src": "E08",
+  "loc": "header:From",
+  "text": "From: \"Julien Moreau\" <julien.moreau@boreal.example>"
+ },
+ {
+  "src": "E08",
+  "loc": "header:To",
+  "text": "To: sophie.lambert@demo.example, nicolas.perron@demo.example"
+ },
+ {
+  "src": "E08",
+  "loc": "header:Date",
+  "text": "Date: Sat, 19 Sep 2026 10:20:00 -0400"
+ },
+ {
+  "src": "E08",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E08",
+  "loc": "body:P2",
+  "text": "Le correctif pour SEC-210 est déployé en validation depuis ce matin. Nos tests automatisés passent et, pour nous, le problème est corrigé."
+ },
+ {
+  "src": "E08",
+  "loc": "body:P3",
+  "text": "Sophie, tu peux faire ton re-test quand ton équipe est disponible."
+ },
+ {
+  "src": "E08",
+  "loc": "body:P4",
+  "text": "Julien"
+ },
+ {
+  "src": "E09",
+  "loc": "header:Subject",
+  "text": "Subject: NOVA - cible du 22 octobre et conditions restantes"
+ },
+ {
+  "src": "E09",
+  "loc": "header:From",
+  "text": "From: \"Nicolas Perron\" <nicolas.perron@demo.example>"
+ },
+ {
+  "src": "E09",
+  "loc": "header:To",
+  "text": "To: equipe-nova@demo.example"
+ },
+ {
+  "src": "E09",
+  "loc": "header:Date",
+  "text": "Date: Sun, 27 Sep 2026 17:02:00 -0400"
+ },
+ {
+  "src": "E09",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E09",
+  "loc": "body:P2",
+  "text": "Petit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre."
+ },
+ {
+  "src": "E09",
+  "loc": "body:P3",
+  "text": "Cette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer."
+ },
+ {
+  "src": "E09",
+  "loc": "body:P4",
+  "text": "Merci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées."
+ },
+ {
+  "src": "E09",
+  "loc": "body:P5",
+  "text": "Nicolas"
+ },
+ {
+  "src": "E10",
+  "loc": "header:Subject",
+  "text": "Subject: NOVA - CR-04 / mobile"
+ },
+ {
+  "src": "E10",
+  "loc": "header:From",
+  "text": "From: \"Nicolas Perron\" <nicolas.perron@demo.example>"
+ },
+ {
+  "src": "E10",
+  "loc": "header:To",
+  "text": "To: julien.moreau@boreal.example, amelie.fortin@demo.example"
+ },
+ {
+  "src": "E10",
+  "loc": "header:Date",
+  "text": "Date: Thu, 24 Sep 2026 13:42:00 -0400"
+ },
+ {
+  "src": "E10",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E10",
+  "loc": "body:P2",
+  "text": "Pour clarifier la portée : les optimisations mobiles avancées proposées dans CR-04 ne font pas partie de la phase 1 approuvée. Nous les reportons à la phase 2."
+ },
+ {
+  "src": "E10",
+  "loc": "body:P3",
+  "text": "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation."
+ },
+ {
+  "src": "E10",
+  "loc": "body:P4",
+  "text": "Nicolas"
+ },
+ {
+  "src": "E10",
+  "loc": "att:CR-04_Optimisation_mobile_BROUILLON.pdf",
+  "text": "Attachment: CR-04_Optimisation_mobile_BROUILLON.pdf"
+ },
+ {
+  "src": "E11",
+  "loc": "header:Subject",
+  "text": "Subject: Brouillon communication NOVA - projet au vert"
+ },
+ {
+  "src": "E11",
+  "loc": "header:From",
+  "text": "From: \"Alex Deschamps\" <alex.deschamps@demo.example>"
+ },
+ {
+  "src": "E11",
+  "loc": "header:To",
+  "text": "To: nicolas.perron@demo.example"
+ },
+ {
+  "src": "E11",
+  "loc": "header:Date",
+  "text": "Date: Mon, 21 Sep 2026 16:28:00 -0400"
+ },
+ {
+  "src": "E11",
+  "loc": "body:P1",
+  "text": "Salut Nicolas,"
+ },
+ {
+  "src": "E11",
+  "loc": "body:P2",
+  "text": "Je prépare le petit message de statut. Je pensais écrire :"
+ },
+ {
+  "src": "E11",
+  "loc": "body:P3",
+  "text": "« NOVA est au vert. La sécurité et l'accessibilité sont complétées et le projet vise le 22 octobre. »"
+ },
+ {
+  "src": "E11",
+  "loc": "body:P4",
+  "text": "Dis-moi si ça te va. Je me base surtout sur le rapport de statut que j'ai reçu."
+ },
+ {
+  "src": "E11",
+  "loc": "body:P5",
+  "text": "Alex"
+ },
+ {
+  "src": "E11",
+  "loc": "att:Rapport_Statut_21sept.pdf",
+  "text": "Attachment: Rapport_Statut_21sept.pdf"
+ },
+ {
+  "src": "E12",
+  "loc": "header:Subject",
+  "text": "Subject: INT-101 fermé - connecteur validé"
+ },
+ {
+  "src": "E12",
+  "loc": "header:From",
+  "text": "From: \"Marc Gervais\" <marc.gervais@demo.example>"
+ },
+ {
+  "src": "E12",
+  "loc": "header:To",
+  "text": "To: nicolas.perron@demo.example, julien.moreau@boreal.example"
+ },
+ {
+  "src": "E12",
+  "loc": "header:Date",
+  "text": "Date: Thu, 17 Sep 2026 16:22:00 -0400"
+ },
+ {
+  "src": "E12",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "E12",
+  "loc": "body:P2",
+  "text": "Je confirme que nous avons rejoué les scénarios du connecteur après le correctif. 120/120 recherches ont retourné les résultats attendus."
+ },
+ {
+  "src": "E12",
+  "loc": "body:P3",
+  "text": "INT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu."
+ },
+ {
+  "src": "E12",
+  "loc": "body:P4",
+  "text": "Marc"
+ },
+ {
+  "src": "M01",
+  "loc": "L1",
+  "text": "PROJET NOVA - COMPTE RENDU DE DÉMARRAGE"
+ },
+ {
+  "src": "M01",
+  "loc": "L2",
+  "text": "Date : 7 juillet 2026"
+ },
+ {
+  "src": "M01",
+  "loc": "L3",
+  "text": "Participants : Élodie Caron, Nicolas Perron, Marc Gervais, Sophie Lambert, Camille Beaulieu, représentant Boréal"
+ },
+ {
+  "src": "M01",
+  "loc": "L5",
+  "text": "Objectif"
+ },
+ {
+  "src": "M01",
+  "loc": "L6",
+  "text": "Lancer officiellement le projet NOVA et confirmer la portée de la phase 1."
+ },
+ {
+  "src": "M01",
+  "loc": "L8",
+  "text": "Décisions"
+ },
+ {
+  "src": "M01",
+  "loc": "L9",
+  "text": "- Élodie Caron agit comme chargée de projet."
+ },
+ {
+  "src": "M01",
+  "loc": "L10",
+  "text": "- Budget initial maximal : 180 000 $ CAD."
+ },
+ {
+  "src": "M01",
+  "loc": "L11",
+  "text": "- Cible de mise en production : 15 octobre 2026."
+ },
+ {
+  "src": "M01",
+  "loc": "L12",
+  "text": "- La phase 1 comprend SSO, création/suivi de demandes, pièces jointes, workflow, tableau de suivi et rapports standards."
+ },
+ {
+  "src": "M01",
+  "loc": "L14",
+  "text": "Actions"
+ },
+ {
+  "src": "M01",
+  "loc": "L15",
+  "text": "- Boréal : fournir le premier schéma d'architecture."
+ },
+ {
+  "src": "M01",
+  "loc": "L16",
+  "text": "- Marc : confirmer les modalités du connecteur interne."
+ },
+ {
+  "src": "M01",
+  "loc": "L17",
+  "text": "- Sophie : préparer les exigences de sécurité."
+ },
+ {
+  "src": "M01",
+  "loc": "L19",
+  "text": "Note"
+ },
+ {
+  "src": "M01",
+  "loc": "L20",
+  "text": "L'expérience mobile avancée n'a pas été discutée comme livrable distinct pendant cette rencontre."
+ },
+ {
+  "src": "M02",
+  "loc": "L1",
+  "text": "TRANSCRIPTION PARTIELLE - ATELIER ARCHITECTURE NOVA"
+ },
+ {
+  "src": "M02",
+  "loc": "L2",
+  "text": "23 juillet 2026 - 09:00 à 09:47"
+ },
+ {
+  "src": "M02",
+  "loc": "L3",
+  "text": "Participants : Élodie Caron (projet), Marc Gervais (architecture), Sophie Lambert (sécurité), Julien Moreau (Boréal)"
+ },
+ {
+  "src": "M02",
+  "loc": "L5",
+  "text": "09:00 Élodie : Bonjour, merci. On a 45 minutes. Avant de commencer, Marc, ton micro coupe un peu."
+ },
+ {
+  "src": "M02",
+  "loc": "L6",
+  "text": "09:01 Marc : Oui, je change de casque... c'est mieux?"
+ },
+ {
+  "src": "M02",
+  "loc": "L7",
+  "text": "09:01 Sophie : Oui."
+ },
+ {
+  "src": "M02",
+  "loc": "L8",
+  "text": "09:02 Élodie : L'objectif c'est surtout de fermer la question de la région d'hébergement. Julien nous a envoyé la v1 hier."
+ },
+ {
+  "src": "M02",
+  "loc": "L9",
+  "text": "09:03 Julien : Oui, la v1 est basée sur notre landing zone standard, donc East US pour l'instant. Ce n'est pas gravé dans le béton."
+ },
+ {
+  "src": "M02",
+  "loc": "L10",
+  "text": "09:05 Marc : Techniquement, le changement vers Canada Central est simple. Il faut juste le savoir maintenant avant qu'on commence à accumuler des ressources."
+ },
+ {
+  "src": "M02",
+  "loc": "L11",
+  "text": "09:06 Sophie : Pour moi, ce n'est pas juste une préférence. Les données de production NOVA doivent demeurer au Canada. Je veux qu'on le mette comme décision, pas comme note à revoir."
+ },
+ {
+  "src": "M02",
+  "loc": "L12",
+  "text": "09:08 Julien : Aucun problème. On peut basculer le design. Il faudra quelques jours pour recréer les ressources et valider les services disponibles."
+ },
+ {
+  "src": "M02",
+  "loc": "L13",
+  "text": "09:10 Élodie : Donc on tranche Canada Central?"
+ },
+ {
+  "src": "M02",
+  "loc": "L14",
+  "text": "09:10 Marc : Oui."
+ },
+ {
+  "src": "M02",
+  "loc": "L15",
+  "text": "09:10 Sophie : Oui."
+ },
+ {
+  "src": "M02",
+  "loc": "L16",
+  "text": "09:11 Julien : Oui de notre côté."
+ },
+ {
+  "src": "M02",
+  "loc": "L17",
+  "text": "09:12 Élodie : Parfait. Je vais noter la décision et on fera un ADR. La v1 devient donc obsolète pour la localisation des données."
+ },
+ {
+  "src": "M02",
+  "loc": "L18",
+  "text": "09:14 Marc : Autre point, l'authentification. On reste SSO seulement, pas de comptes locaux?"
+ },
+ {
+  "src": "M02",
+  "loc": "L19",
+  "text": "09:15 Sophie : SSO seulement en production."
+ },
+ {
+  "src": "M02",
+  "loc": "L20",
+  "text": "09:17 Julien : C'est déjà ce qui est prévu."
+ },
+ {
+  "src": "M02",
+  "loc": "L21",
+  "text": "09:20 Élodie : J'ai une question qui n'a rien à voir : quelqu'un sait si la salle 18B est réservée cet après-midi? J'ai un atelier qui vient de changer de local."
+ },
+ {
+  "src": "M02",
+  "loc": "L22",
+  "text": "09:21 Marc : Aucune idée."
+ },
+ {
+  "src": "M02",
+  "loc": "L23",
+  "text": "09:22 Sophie : Je pense que oui, mais à vérifier."
+ },
+ {
+  "src": "M02",
+  "loc": "L24",
+  "text": "09:24 Julien : Sur le stockage, on va utiliser du chiffrement géré côté plateforme. Je vous enverrai les paramètres."
+ },
+ {
+  "src": "M02",
+  "loc": "L25",
+  "text": "09:29 Marc : Pour le connecteur interne, j'attends encore le compte de service."
+ },
+ {
+  "src": "M02",
+  "loc": "L26",
+  "text": "09:31 Élodie : Est-ce que ça menace le 15 octobre?"
+ },
+ {
+  "src": "M02",
+  "loc": "L27",
+  "text": "09:31 Marc : Pas à ce stade. C'est tôt. Mais je veux l'avoir avant août."
+ },
+ {
+  "src": "M02",
+  "loc": "L28",
+  "text": "09:36 Sophie : J'aimerais aussi qu'on journalise toutes les actions administrateur, surtout consultation et export."
+ },
+ {
+  "src": "M02",
+  "loc": "L29",
+  "text": "09:38 Julien : Oui, notre composant a un audit log. On vous montrera ça en validation."
+ },
+ {
+  "src": "M02",
+  "loc": "L30",
+  "text": "09:43 Élodie : Donc résumé : Canada Central, SSO uniquement, audit admin à valider. Le reste continue."
+ },
+ {
+  "src": "M02",
+  "loc": "L31",
+  "text": "09:46 Marc : Correct."
+ },
+ {
+  "src": "M02",
+  "loc": "L32",
+  "text": "09:47 Élodie : Merci tout le monde."
+ },
+ {
+  "src": "M03",
+  "loc": "L1",
+  "text": "COMITÉ PROJET NOVA - 27 AOÛT 2026"
+ },
+ {
+  "src": "M03",
+  "loc": "L2",
+  "text": "Participants : Élodie, Marc, Sophie, Mélissa, Camille, Boréal"
+ },
+ {
+  "src": "M03",
+  "loc": "L4",
+  "text": "Résumé de gestion"
+ },
+ {
+  "src": "M03",
+  "loc": "L5",
+  "text": "- La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture."
+ },
+ {
+  "src": "M03",
+  "loc": "L6",
+  "text": "- Le développement fonctionnel avance selon la portée de phase 1."
+ },
+ {
+  "src": "M03",
+  "loc": "L7",
+  "text": "- Les tests d'accessibilité ont identifié plusieurs anomalies. Certaines sont déjà corrigées, d'autres restent en traitement."
+ },
+ {
+  "src": "M03",
+  "loc": "L8",
+  "text": "- Le connecteur interne demeure un point d'attention mais aucun retard officiel de la date du 15 octobre n'est approuvé à ce moment."
+ },
+ {
+  "src": "M03",
+  "loc": "L10",
+  "text": "Points discutés"
+ },
+ {
+  "src": "M03",
+  "loc": "L11",
+  "text": "Mélissa confirme que les anomalies de labels et de contraste ont été corrigées et validées les 15 et 20 août. Elle veut toutefois faire un deuxième passage clavier sur les modales. Sophie rappelle que la journalisation administrateur devra être vérifiée en situation réelle. Camille confirme que le premier lot de migration a produit quelques doublons à investiguer."
+ },
+ {
+  "src": "M03",
+  "loc": "L13",
+  "text": "Action : Boréal doit fournir une build de stabilisation début septembre."
+ },
+ {
+  "src": "M04",
+  "loc": "L1",
+  "text": "TRANSCRIPTION - COMITÉ DE DIRECTION NOVA"
+ },
+ {
+  "src": "M04",
+  "loc": "L2",
+  "text": "10 septembre 2026 - 15:00 à 15:42"
+ },
+ {
+  "src": "M04",
+  "loc": "L3",
+  "text": "Participants : Élodie Caron, Nicolas Perron, Marc Gervais, Sophie Lambert, Mélissa Gagnon, Olivier Côté, Camille Beaulieu, Julien Moreau (Boréal)"
+ },
+ {
+  "src": "M04",
+  "loc": "L5",
+  "text": "15:00 Élodie : Merci. Je veux qu'on sorte d'ici avec une décision claire sur la date."
+ },
+ {
+  "src": "M04",
+  "loc": "L6",
+  "text": "15:02 Julien : Comme écrit mardi, le connecteur nous a coûté plus de temps que prévu. Notre recommandation est de déplacer le lancement du 15 au 22 octobre."
+ },
+ {
+  "src": "M04",
+  "loc": "L7",
+  "text": "15:03 Nicolas : On parle d'une semaine complète. Qu'est-ce que ça nous achète exactement?"
+ },
+ {
+  "src": "M04",
+  "loc": "L8",
+  "text": "15:04 Julien : Stabilisation du connecteur, reprise des tests intégrés et une marge pour corriger les anomalies bloquantes."
+ },
+ {
+  "src": "M04",
+  "loc": "L9",
+  "text": "15:06 Marc : Je confirme que le connecteur est le chemin critique en ce moment. Le problème n'est pas juste un écran. Il touche les recherches et la synchronisation."
+ },
+ {
+  "src": "M04",
+  "loc": "L10",
+  "text": "15:08 Sophie : De mon côté, je ne veux pas compresser les tests sécurité pour sauver le 15. Le 22 me semble plus réaliste, sous réserve des validations."
+ },
+ {
+  "src": "M04",
+  "loc": "L11",
+  "text": "15:10 Mélissa : Même chose pour l'accessibilité. Je peux finir le cycle sans couper de scénarios."
+ },
+ {
+  "src": "M04",
+  "loc": "L12",
+  "text": "15:12 Olivier : Pour l'exploitation, une semaine de plus est utile, mais je veux un runbook final au moins quelques jours avant."
+ },
+ {
+  "src": "M04",
+  "loc": "L13",
+  "text": "15:15 Camille : La migration de données n'empêche pas le 15 pour l'instant. Le problème de doublons a été corrigé et le rejeu du 9 septembre a été validé sans doublon. DATA-401 est fermé."
+ },
+ {
+  "src": "M04",
+  "loc": "L14",
+  "text": "15:17 Nicolas : Est-ce qu'on a un impact contractuel à passer au 22?"
+ },
+ {
+  "src": "M04",
+  "loc": "L15",
+  "text": "15:18 Élodie : Pas de pénalité identifiée. C'est une date interne de mise en production, le contrat court jusqu'à fin octobre."
+ },
+ {
+  "src": "M04",
+  "loc": "L16",
+  "text": "15:20 Julien : Pour nous, le 22 est tenable."
+ },
+ {
+  "src": "M04",
+  "loc": "L17",
+  "text": "15:22 Élodie : Je vais formuler la décision. La date cible de mise en production NOVA est déplacée du 15 octobre au **22 octobre 2026**. Est-ce que quelqu'un s'oppose?"
+ },
+ {
+  "src": "M04",
+  "loc": "L18",
+  "text": "15:23 [silence]"
+ },
+ {
+  "src": "M04",
+  "loc": "L19",
+  "text": "15:23 Sophie : Non."
+ },
+ {
+  "src": "M04",
+  "loc": "L20",
+  "text": "15:23 Marc : Non."
+ },
+ {
+  "src": "M04",
+  "loc": "L21",
+  "text": "15:24 Olivier : Non."
+ },
+ {
+  "src": "M04",
+  "loc": "L22",
+  "text": "15:24 Nicolas : D'accord."
+ },
+ {
+  "src": "M04",
+  "loc": "L23",
+  "text": "15:25 Élodie : Donc **approuvé**. Le 22 devient la date officielle. On doit mettre les plans et communications à jour."
+ },
+ {
+  "src": "M04",
+  "loc": "L24",
+  "text": "15:27 Nicolas : Juste pour être sûr, le 22 n'est pas un go automatique. Les critères de sécurité, accessibilité et exploitation restent."
+ },
+ {
+  "src": "M04",
+  "loc": "L25",
+  "text": "15:28 Sophie : Absolument."
+ },
+ {
+  "src": "M04",
+  "loc": "L26",
+  "text": "15:30 Julien : Compris."
+ },
+ {
+  "src": "M04",
+  "loc": "L27",
+  "text": "15:31 Mélissa : J'ai encore un café froid depuis ce matin, donc si quelqu'un connaît un miracle pour ça aussi..."
+ },
+ {
+  "src": "M04",
+  "loc": "L28",
+  "text": "15:31 Camille : Là on dépasse le mandat du comité."
+ },
+ {
+  "src": "M04",
+  "loc": "L29",
+  "text": "15:32 [rires]"
+ },
+ {
+  "src": "M04",
+  "loc": "L30",
+  "text": "15:34 Élodie : Autre sujet, les optimisations mobiles. Julien, vous avez envoyé une estimation?"
+ },
+ {
+  "src": "M04",
+  "loc": "L31",
+  "text": "15:35 Julien : Oui, autour de 18 000 $. Ce serait mieux pour l'expérience sur petits écrans."
+ },
+ {
+  "src": "M04",
+  "loc": "L32",
+  "text": "15:36 Nicolas : Est-ce que c'est requis pour la phase 1?"
+ },
+ {
+  "src": "M04",
+  "loc": "L33",
+  "text": "15:37 Élodie : Pas selon la portée actuelle. On va traiter ça séparément, aucune approbation aujourd'hui."
+ },
+ {
+  "src": "M04",
+  "loc": "L34",
+  "text": "15:38 Sophie : Merci de ne pas mélanger ça avec les corrections d'accessibilité obligatoires."
+ },
+ {
+  "src": "M04",
+  "loc": "L35",
+  "text": "15:40 Élodie : Très bon point. On ferme. Nouvelle date officielle : 22 octobre. Mobile : aucune décision de dépense."
+ },
+ {
+  "src": "M04",
+  "loc": "L36",
+  "text": "15:42 Fin."
+ },
+ {
+  "src": "M05",
+  "loc": "L1",
+  "text": "SUIVI LIVRAISON - 18 SEPTEMBRE 2026"
+ },
+ {
+  "src": "M05",
+  "loc": "L3",
+  "text": "Participants : Nicolas Perron, Marc Gervais, Sophie Lambert, Mélissa Gagnon, Olivier Côté, Boréal"
+ },
+ {
+  "src": "M05",
+  "loc": "L5",
+  "text": "Faits saillants"
+ },
+ {
+  "src": "M05",
+  "loc": "L6",
+  "text": "- INT-101 : le connecteur interne a été validé et fermé le 17 septembre."
+ },
+ {
+  "src": "M05",
+  "loc": "L7",
+  "text": "- DATA-401 : la correction d'idempotence a été validée; aucun doublon dans le dernier rejeu."
+ },
+ {
+  "src": "M05",
+  "loc": "L8",
+  "text": "- PERF-501 : performance revenue sous la cible de 1 seconde sur les essais de recherche."
+ },
+ {
+  "src": "M05",
+  "loc": "L9",
+  "text": "- SEC-210 : Boréal prépare un correctif concernant la journalisation des exports administrateur. La validation sécurité restera requise après livraison."
+ },
+ {
+  "src": "M05",
+  "loc": "L10",
+  "text": "- Accessibilité : ACC-301 et ACC-302 sont fermés. Un scénario de navigation clavier sur modal doit encore être vérifié."
+ },
+ {
+  "src": "M05",
+  "loc": "L11",
+  "text": "- Exploitation : le runbook n'est pas final."
+ },
+ {
+  "src": "M05",
+  "loc": "L13",
+  "text": "Le 22 octobre reste la date approuvée. Les participants rappellent toutefois que la date n'annule pas les critères de go-live."
+ },
+ {
+  "src": "M06",
+  "loc": "L1",
+  "text": "TRANSCRIPTION PARTIELLE - COMITÉ DE DIRECTION NOVA"
+ },
+ {
+  "src": "M06",
+  "loc": "L2",
+  "text": "26 septembre 2026 - 10:00 à 10:34"
+ },
+ {
+  "src": "M06",
+  "loc": "L3",
+  "text": "Participants : Nicolas Perron, Sophie Lambert, Mélissa Gagnon, Olivier Côté, Julien Moreau (Boréal)"
+ },
+ {
+  "src": "M06",
+  "loc": "L5",
+  "text": "10:00 Nicolas : Je vais être bref. Je veux savoir ce qui peut encore empêcher le 22."
+ },
+ {
+  "src": "M06",
+  "loc": "L6",
+  "text": "10:01 Julien : Côté fournisseur, la build est stable. On a aussi livré le fix audit le 19."
+ },
+ {
+  "src": "M06",
+  "loc": "L7",
+  "text": "10:02 Sophie : Attention à la formulation. Vous avez livré un fix. Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+ },
+ {
+  "src": "M06",
+  "loc": "L8",
+  "text": "10:03 Julien : Oui, compris."
+ },
+ {
+  "src": "M06",
+  "loc": "L9",
+  "text": "10:05 Mélissa : Il reste ACC-303. La modale ne permet toujours pas d'atteindre Enregistrer au clavier. Pour moi c'est un bloquant d'accessibilité avant production."
+ },
+ {
+  "src": "M06",
+  "loc": "L10",
+  "text": "10:07 Olivier : Le runbook est encore incomplet. Il manque le rollback. Je ne donnerai pas mon go exploitation tant que je n'ai pas une procédure exécutable."
+ },
+ {
+  "src": "M06",
+  "loc": "L11",
+  "text": "10:09 Nicolas : Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback. Exact?"
+ },
+ {
+  "src": "M06",
+  "loc": "L12",
+  "text": "10:10 Sophie : Oui."
+ },
+ {
+  "src": "M06",
+  "loc": "L13",
+  "text": "10:10 Mélissa : Oui."
+ },
+ {
+  "src": "M06",
+  "loc": "L14",
+  "text": "10:10 Olivier : Oui."
+ },
+ {
+  "src": "M06",
+  "loc": "L15",
+  "text": "10:12 Julien : On vise le correctif ACC-303 dans la prochaine build. Pour le runbook je relance notre équipe ops."
+ },
+ {
+  "src": "M06",
+  "loc": "L16",
+  "text": "10:15 Nicolas : Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois éléments."
+ },
+ {
+  "src": "M06",
+  "loc": "L17",
+  "text": "10:17 Sophie : Parfait."
+ },
+ {
+  "src": "M06",
+  "loc": "L18",
+  "text": "10:19 Olivier : En passant, quelqu'un a récupéré le câble HDMI de la salle 4? On en cherche un depuis hier."
+ },
+ {
+  "src": "M06",
+  "loc": "L19",
+  "text": "10:20 Mélissa : Pas moi."
+ },
+ {
+  "src": "M06",
+  "loc": "L20",
+  "text": "10:21 Nicolas : Je pense qu'on peut laisser ce risque hors du registre NOVA."
+ },
+ {
+  "src": "M06",
+  "loc": "L21",
+  "text": "10:21 [rires]"
+ },
+ {
+  "src": "M06",
+  "loc": "L22",
+  "text": "10:24 Julien : Pour le mobile, on a déjà commencé à regarder quelques ajustements parce que ça aide aussi certains écrans."
+ },
+ {
+  "src": "M06",
+  "loc": "L23",
+  "text": "10:25 Nicolas : Regarder, oui. Facturer du CR-04, non. Il n'est pas approuvé."
+ },
+ {
+  "src": "M06",
+  "loc": "L24",
+  "text": "10:27 Julien : Compris."
+ },
+ {
+  "src": "M06",
+  "loc": "L25",
+  "text": "10:30 Nicolas : Très bien. Je publie le compte rendu : cible 22 octobre, trois conditions de go-live."
+ },
+ {
+  "src": "M06",
+  "loc": "L26",
+  "text": "10:34 Fin."
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L1",
+  "text": "TICKET ACC-301"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L2",
+  "text": "Titre : champs pas top lecteur écran"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L3",
+  "text": "Créé : 11 août 2026"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L4",
+  "text": "Demandeur : QA"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L5",
+  "text": "Priorité : Moyenne"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L6",
+  "text": "Statut : Fermé"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L8",
+  "text": "Description initiale :"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L9",
+  "text": "Il manque quelque chose sur le champ nom je pense. En visuel ça a l'air correct mais NVDA annonce juste « edit blank »."
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L11",
+  "text": "Pièce jointe : ACC-301_labels.png"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L13",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L14",
+  "text": "12 août - Mélissa : Le champ utilise uniquement le placeholder « Votre nom », aucun <label> associé."
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L15",
+  "text": "14 août - Boréal : Ajout du label programmatique et aria-describedby pour l'aide contextuelle."
+ },
+ {
+  "src": "ACC-301",
+  "loc": "L16",
+  "text": "15 août - Mélissa : Validé avec NVDA et VoiceOver. Fermé."
+ },
+ {
+  "src": "ACC-301.png",
+  "loc": "region=header",
+  "text": "NOVA · Test accessibilité"
+ },
+ {
+  "src": "ACC-301.png",
+  "loc": "region=title",
+  "text": "Formulaire de création"
+ },
+ {
+  "src": "ACC-301.png",
+  "loc": "region=row-1",
+  "text": "Créer une demande"
+ },
+ {
+  "src": "ACC-301.png",
+  "loc": "region=row-2",
+  "text": "Champ : Votre nom (placeholder)"
+ },
+ {
+  "src": "ACC-301.png",
+  "loc": "region=note-1",
+  "text": "Le placeholder disparaît dès la saisie; aucun libellé associé n'est exposé."
+ },
+ {
+  "src": "ACC-301.png",
+  "loc": "region=description",
+  "text": "[Description] Creation form with a name field that only has a placeholder (historical; ACC-301 closed Aug 15)."
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L1",
+  "text": "TICKET ACC-302"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L2",
+  "text": "Titre : Le bleu/gris est bizarre"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L3",
+  "text": "Créé : 12 août 2026"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L4",
+  "text": "Demandeur : QA"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L5",
+  "text": "Priorité : ?"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L6",
+  "text": "Statut : Fermé"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L8",
+  "text": "Description initiale :"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L9",
+  "text": "Le bleu/gris est bizarre. Je ne sais pas si c'est voulu. Voir screenshot."
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L11",
+  "text": "Pièce jointe : ACC-302_contraste.png"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L13",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L14",
+  "text": "13 août - Mélissa : J'ai mesuré 2,1:1 entre le texte de statut et le fond. Pour du texte normal on vise au moins 4,5:1."
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L15",
+  "text": "18 août - Boréal : Palette de statut corrigée."
+ },
+ {
+  "src": "ACC-302",
+  "loc": "L16",
+  "text": "20 août - Mélissa : Re-test OK à 5,3:1. Fermé."
+ },
+ {
+  "src": "ACC-302.png",
+  "loc": "region=header",
+  "text": "NOVA · Build 2026.08.12"
+ },
+ {
+  "src": "ACC-302.png",
+  "loc": "region=title",
+  "text": "Portail NOVA"
+ },
+ {
+  "src": "ACC-302.png",
+  "loc": "region=row-1",
+  "text": "État de la demande : EN ATTENTE DE VALIDATION"
+ },
+ {
+  "src": "ACC-302.png",
+  "loc": "region=note-1",
+  "text": "Capture reçue avec le ticket : « le bleu/gris est bizarre »"
+ },
+ {
+  "src": "ACC-302.png",
+  "loc": "region=description",
+  "text": "[Description] Low-contrast status badge (historical; ACC-302 closed Aug 20)."
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L1",
+  "text": "TICKET ACC-303"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L2",
+  "text": "Titre : tab dans popup"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L3",
+  "text": "Créé : 17 septembre 2026"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L4",
+  "text": "Demandeur : Mélissa Gagnon"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L5",
+  "text": "Priorité : Haute"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L6",
+  "text": "Statut : OUVERT"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L8",
+  "text": "Description initiale :"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L9",
+  "text": "Je peux ouvrir la popup au clavier mais après c'est bizarre. Tab ne va pas partout et j'ai dû prendre la souris pour sauver."
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L11",
+  "text": "Pièce jointe : ACC-303_focus.png"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L13",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L14",
+  "text": "17 sept 13:14 - Mélissa : Reproduit sur Chrome et Edge. Le focus reste entre le champ Nom et Commentaire; le bouton Enregistrer n'est jamais atteint avec Tab."
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L15",
+  "text": "18 sept 09:50 - Boréal : On a reproduit. Le composant modal intercepte le focus avec une liste d'éléments focusables incomplète."
+ },
+ {
+  "src": "ACC-303",
+  "loc": "L16",
+  "text": "26 sept 11:03 - Mélissa : Toujours ouvert. Correctif annoncé pour la prochaine build."
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=header",
+  "text": "NOVA · Build 2026.09.17"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=title",
+  "text": "Fenêtre de modification"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=row-1",
+  "text": "Modifier le dossier"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=row-2",
+  "text": "Nom du demandeur : Camille Roy"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=row-3",
+  "text": "Commentaire : (vide)"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=row-4",
+  "text": "Bouton : Enregistrer"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=note-1",
+  "text": "Le focus clavier ne rejoint pas ce bouton"
+ },
+ {
+  "src": "ACC-303.png",
+  "loc": "region=description",
+  "text": "[Description] Edit modal; the Save (Enregistrer) button is outlined in red because keyboard focus never reaches it."
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L1",
+  "text": "TICKET DATA-401"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L2",
+  "text": "Titre : Doublons migration - lot MIG-09-02"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L3",
+  "text": "Créé : 2 septembre 2026"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L4",
+  "text": "Demandeur : Camille Beaulieu"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L5",
+  "text": "Priorité : Haute"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L6",
+  "text": "Statut : Fermé"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L8",
+  "text": "Contexte :"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L9",
+  "text": "Le même dossier peut être créé deux fois lorsque deux messages Kafka concernant le même événement sont consommés presque simultanément."
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L11",
+  "text": "Preuve : DATA-401_doublons.png"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L13",
+  "text": "Analyse :"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L14",
+  "text": "Les dossiers 8401 et 8402 ont le même demandeur, la même adresse courriel et des timestamps espacés d'une seconde. Le mécanisme d'idempotence utilisait l'ID technique du message plutôt que l'ID métier."
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L16",
+  "text": "Correction : clé d'idempotence basée sur external_request_id."
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L18",
+  "text": "Validation :"
+ },
+ {
+  "src": "DATA-401",
+  "loc": "L19",
+  "text": "9 septembre - lot de 15 000 événements rejoué, aucun doublon détecté. Ticket fermé."
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=header",
+  "text": "NOVA · Lot MIG-09-02"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=title",
+  "text": "Résultats de migration"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=row-1",
+  "text": "ID | Demandeur | Courriel | Créé | Statut"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=row-2",
+  "text": "8401 | Alex Martin | alex.martin@example.org | 15:03:12 | Nouveau"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=row-3",
+  "text": "8402 | Alex Martin | alex.martin@example.org | 15:03:13 | Nouveau"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=row-4",
+  "text": "8403 | Sam Tremblay | sam.t@example.org | 15:04:01 | Nouveau"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=note-1",
+  "text": "Lignes 8401 et 8402 encadrées en rouge (doublons)"
+ },
+ {
+  "src": "DATA-401.png",
+  "loc": "region=description",
+  "text": "[Description] Duplicate records 8401/8402 (historical; DATA-401 closed Sept 9)."
+ },
+ {
+  "src": "DATA-401.csv",
+  "loc": "row=1",
+  "text": "record_id,external_request_id,email,created_at"
+ },
+ {
+  "src": "DATA-401.csv",
+  "loc": "row=2",
+  "text": "8401,REQ-4451,alex.martin@example.org,2026-09-02T15:03:12"
+ },
+ {
+  "src": "DATA-401.csv",
+  "loc": "row=3",
+  "text": "8402,REQ-4451,alex.martin@example.org,2026-09-02T15:03:13"
+ },
+ {
+  "src": "DATA-401.csv",
+  "loc": "row=4",
+  "text": "8403,REQ-4452,sam.t@example.org,2026-09-02T15:04:01"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L1",
+  "text": "TICKET INT-101"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L2",
+  "text": "Titre : Ça marche pas avec le connecteur"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L3",
+  "text": "Créé : 5 septembre 2026"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L4",
+  "text": "Demandeur : Marc Gervais"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L5",
+  "text": "Priorité : Haute"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L6",
+  "text": "Statut : Fermé"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L8",
+  "text": "Description initiale :"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L9",
+  "text": "Ça marche pas. On cherche un dossier existant et on a rien. Voir capture."
+ },
+ {
+  "src": "INT-101",
+  "loc": "L11",
+  "text": "Pièce jointe : INT-101_aucun_resultat.png"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L13",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "INT-101",
+  "loc": "L14",
+  "text": "05 sept 09:41 - Marc : C'était OK hier en DEV. Là en INT toutes les recherches par numéro retournent vide."
+ },
+ {
+  "src": "INT-101",
+  "loc": "L15",
+  "text": "05 sept 11:18 - Boréal : On voit des 401 sur l'appel vers le service interne. Le jeton de service semble expiré après le changement de secret."
+ },
+ {
+  "src": "INT-101",
+  "loc": "L16",
+  "text": "08 sept 16:02 - Marc : Le remplacement du secret est fait mais il reste des erreurs intermittentes. Ça met en risque le 15 octobre si on n'a pas de stabilité cette semaine."
+ },
+ {
+  "src": "INT-101",
+  "loc": "L17",
+  "text": "17 sept 14:23 - Boréal : Correctif déployé. 120 recherches rejouées, 120 réponses valides."
+ },
+ {
+  "src": "INT-101",
+  "loc": "L18",
+  "text": "17 sept 16:10 - Marc : Validé côté intégration. Je ferme."
+ },
+ {
+  "src": "INT-101",
+  "loc": "L20",
+  "text": "Résolution : rotation du secret + correction de la logique de renouvellement du jeton."
+ },
+ {
+  "src": "INT-101.png",
+  "loc": "region=header",
+  "text": "NOVA · Environnement intégration"
+ },
+ {
+  "src": "INT-101.png",
+  "loc": "region=title",
+  "text": "Recherche de dossiers"
+ },
+ {
+  "src": "INT-101.png",
+  "loc": "region=row-1",
+  "text": "Aucun résultat"
+ },
+ {
+  "src": "INT-101.png",
+  "loc": "region=note-1",
+  "text": "Le ticket original contient seulement : « ça marche pas »"
+ },
+ {
+  "src": "INT-101.png",
+  "loc": "region=description",
+  "text": "[Description] Empty search results in integration (historical; INT-101 closed Sept 17)."
+ },
+ {
+  "src": "INT-101.log",
+  "loc": "L1",
+  "text": "2026-09-05T11:15:03Z connector request GET /internal/cases/88401 -> 401 Unauthorized"
+ },
+ {
+  "src": "INT-101.log",
+  "loc": "L2",
+  "text": "2026-09-05T11:15:03Z auth token exp=2026-09-04T23:00:00Z refresh_attempt=false"
+ },
+ {
+  "src": "INT-101.log",
+  "loc": "L3",
+  "text": "2026-09-17T14:20:11Z connector request GET /internal/cases/88401 -> 200 OK 187ms"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L1",
+  "text": "TICKET OPS-601"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L2",
+  "text": "Titre : runbook pas prêt"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L3",
+  "text": "Créé : 25 septembre 2026"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L4",
+  "text": "Demandeur : Olivier Côté"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L5",
+  "text": "Priorité : Haute"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L6",
+  "text": "Statut : OUVERT"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L8",
+  "text": "Description initiale :"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L9",
+  "text": "Le doc est pas prêt pour prod."
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L11",
+  "text": "Pièce jointe : OPS-601_runbook.png"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L13",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L14",
+  "text": "25 sept - Olivier : Il manque au minimum la procédure de rollback. La capture jointe identifie aussi une autre étape à compléter. J'ai besoin de quelque chose qu'une autre personne peut exécuter sans appeler l'équipe projet."
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L15",
+  "text": "26 sept - Nicolas : D'accord. Ceci fait partie des conditions de go-live du comité."
+ },
+ {
+  "src": "OPS-601",
+  "loc": "L16",
+  "text": "29 sept - Olivier : Toujours pas reçu la version finale."
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=header",
+  "text": "NOVA · Version du 25 septembre"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=title",
+  "text": "Runbook de mise en production"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=row-1",
+  "text": "1. Vérifier la santé des services : OK"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=row-2",
+  "text": "2. Activer le mode maintenance : OK"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=row-3",
+  "text": "3. Déployer la version approuvée : OK"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=row-4",
+  "text": "4. Procédure de retour arrière : TODO"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=row-5",
+  "text": "5. Validation fonctionnelle post-déploiement : À compléter"
+ },
+ {
+  "src": "OPS-601.png",
+  "loc": "region=description",
+  "text": "[Description] Runbook (Sept 25 version): steps 1-3 OK, step 4 rollback TODO, step 5 post-deployment validation to complete."
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L1",
+  "text": "TICKET PERF-501"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L2",
+  "text": "Titre : c'est lent"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L3",
+  "text": "Créé : 3 septembre 2026"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L4",
+  "text": "Demandeur : utilisateur pilote"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L5",
+  "text": "Statut : Fermé"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L7",
+  "text": "Description :"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L8",
+  "text": "C'est lent depuis ce matin. Des fois j'attends et ça finit par afficher."
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L10",
+  "text": "Pièce jointe : PERF-501_lenteur.png"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L12",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L13",
+  "text": "03 sept 15:10 - Support : 3 utilisateurs rapportent surtout la recherche de dossiers."
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L14",
+  "text": "04 sept 10:44 - Dév : /dossiers/search fait un scan complet quand aucun filtre de statut n'est fourni. 6 à 8 s sur le dataset de validation."
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L15",
+  "text": "06 sept 18:02 - Dév : index ajouté + requête modifiée."
+ },
+ {
+  "src": "PERF-501",
+  "loc": "L16",
+  "text": "07 sept 09:12 - Support : moyenne observée 620 ms sur 50 essais. Aucun nouveau signalement. Fermé."
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=header",
+  "text": "NOVA · Chrome - réseau entreprise"
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=title",
+  "text": "Analyse de performance"
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=row-1",
+  "text": "DOMContentLoaded : 2.4 s"
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=row-2",
+  "text": "Largest Contentful Paint : 7.8 s"
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=row-3",
+  "text": "API /dossiers/search : 6.9 s"
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=row-4",
+  "text": "Transfert : 1.3 MB"
+ },
+ {
+  "src": "PERF-501.png",
+  "loc": "region=description",
+  "text": "[Description] Slow page metrics (historical; PERF-501 closed Sept 7 at 620 ms average)."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L1",
+  "text": "TICKET SEC-210"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L2",
+  "text": "Titre : Audit admin incomplet sur export"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L3",
+  "text": "Créé : 12 septembre 2026"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L4",
+  "text": "Demandeur : Sophie Lambert"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L5",
+  "text": "Priorité : Bloquante avant production"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L6",
+  "text": "Statut : EN VALIDATION"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L8",
+  "text": "Description :"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L9",
+  "text": "Les actions administratives sensibles doivent être traçables. Lors d'un export CSV, l'événement détaillé attendu n'apparaît pas dans le journal."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L11",
+  "text": "Étapes :"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L12",
+  "text": "1. Se connecter avec un compte administrateur."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L13",
+  "text": "2. Ouvrir un dossier."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L14",
+  "text": "3. Exporter les données en CSV."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L15",
+  "text": "4. Consulter le journal d'audit."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L17",
+  "text": "Attendu : événement EXPORT_CSV avec utilisateur, horodatage et identifiant du dossier."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L18",
+  "text": "Observé : une ligne EXPORT_CSV existe avec utilisateur et horodatage, mais l'objet (identifiant du dossier) et le résultat sont absents. La connexion, la consultation et la déconnexion sont présentes. Le défaut est une journalisation d'export incomplète, pas l'absence totale d'une ligne d'export."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L20",
+  "text": "Pièce jointe : SEC-210_audit.png"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L22",
+  "text": "Commentaires :"
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L23",
+  "text": "19 sept 10:22 - Boréal : Fix déployé sur l'environnement de validation. Pour nous c'est réglé."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L24",
+  "text": "19 sept 14:05 - Sophie : Merci. Nous devons refaire notre scénario et confirmer nous-mêmes. Ne pas fermer avant validation sécurité."
+ },
+ {
+  "src": "SEC-210",
+  "loc": "L25",
+  "text": "26 sept 15:40 - Sophie : Re-test planifié. Statut maintenu EN VALIDATION."
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=header",
+  "text": "NOVA · Environnement de validation"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=title",
+  "text": "Journal d'audit - administrateur"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=row-1",
+  "text": "Heure | Utilisateur | Action | Objet | Résultat"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=row-2",
+  "text": "14:02:10 | np.admin | LOGIN | Portail | SUCCÈS"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=row-3",
+  "text": "14:03:44 | np.admin | VIEW_RECORD | Dossier 8401 | SUCCÈS"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=row-4",
+  "text": "14:04:08 | np.admin | EXPORT_CSV | --- | ---"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=row-5",
+  "text": "14:05:12 | np.admin | LOGOUT | Portail | SUCCÈS"
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=note-1",
+  "text": "Observation QA : Une exportation CSV a été effectuée à 14:04, mais aucun événement détaillé n'est visible."
+ },
+ {
+  "src": "SEC-210.png",
+  "loc": "region=description",
+  "text": "[Description] Admin audit log: the EXPORT_CSV row has no object (case ID) and no result. Shows the original SEC-210 defect."
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L1",
+  "text": "CHARTE DE PROJET NOVA - VERSION 1"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L2",
+  "text": "Date : 7 juillet 2026"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L4",
+  "text": "Chargée de projet : Élodie Caron"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L5",
+  "text": "Fournisseur : Boréal Numérique"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L6",
+  "text": "Budget initial : 180 000 $ CAD"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L7",
+  "text": "Date cible de mise en production : 15 octobre 2026"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L9",
+  "text": "Objectif"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L10",
+  "text": "Remplacer le suivi dispersé par courriel et fichiers locaux par un portail centralisé de demandes opérationnelles."
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L12",
+  "text": "Portée phase 1"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L13",
+  "text": "- Authentification SSO"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L14",
+  "text": "- Création et suivi de demandes"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L15",
+  "text": "- Ajout de pièces jointes"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L16",
+  "text": "- Workflow de traitement"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L17",
+  "text": "- Tableau de suivi"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L18",
+  "text": "- Rapports standards"
+ },
+ {
+  "src": "CHARTER",
+  "loc": "L20",
+  "text": "Cette charte constitue le point de départ du projet et n'est pas mise à jour automatiquement après chaque décision de comité."
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L1",
+  "text": "NOTE DE TRANSITION - NOVA"
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L2",
+  "text": "16 septembre 2026"
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L4",
+  "text": "À compter d'aujourd'hui, Nicolas Perron reprend le rôle de chargé de projet NOVA."
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L6",
+  "text": "À surveiller :"
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L7",
+  "text": "- faire mettre à jour la date dans tous les plans (le comité a approuvé le 22 octobre);"
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L8",
+  "text": "- ne pas considérer le mobile avancé comme approuvé;"
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L9",
+  "text": "- suivre le connecteur jusqu'à fermeture formelle;"
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L10",
+  "text": "- obtenir le go sécurité et exploitation avant production."
+ },
+ {
+  "src": "TRANSITION",
+  "loc": "L12",
+  "text": "Élodie"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A1",
+  "text": "ID"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B1",
+  "text": "Activité"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C1",
+  "text": "Statut"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D1",
+  "text": "Responsable"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E1",
+  "text": "Début planifié"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F1",
+  "text": "Fin planifiée"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!G1",
+  "text": "Note"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A2",
+  "text": "P-01"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B2",
+  "text": "Cadrage"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C2",
+  "text": "Terminé"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D2",
+  "text": "Élodie Caron"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E2",
+  "text": "2026-07-07"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F2",
+  "text": "2026-07-18"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A3",
+  "text": "P-02"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B3",
+  "text": "Architecture"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C3",
+  "text": "Terminé"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D3",
+  "text": "Marc Gervais"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E3",
+  "text": "2026-07-14"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F3",
+  "text": "2026-08-28"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!G3",
+  "text": "Migration Canada requise"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A4",
+  "text": "P-03"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B4",
+  "text": "Développement phase 1"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C4",
+  "text": "En cours"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D4",
+  "text": "Boréal Numérique"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E4",
+  "text": "2026-07-20"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F4",
+  "text": "2026-09-30"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A5",
+  "text": "P-04"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B5",
+  "text": "Tests intégrés"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C5",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D5",
+  "text": "Mélissa Gagnon"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E5",
+  "text": "2026-09-21"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F5",
+  "text": "2026-10-05"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A6",
+  "text": "P-05"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B6",
+  "text": "Préparation exploitation"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C6",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D6",
+  "text": "Olivier Côté"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E6",
+  "text": "2026-09-28"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F6",
+  "text": "2026-10-10"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!A7",
+  "text": "P-06"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!B7",
+  "text": "Mise en production"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!C7",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!D7",
+  "text": "Élodie Caron"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!E7",
+  "text": "2026-10-15"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!F7",
+  "text": "2026-10-15"
+ },
+ {
+  "src": "PLAN-V2",
+  "loc": "Plan projet!G7",
+  "text": "Cible initiale"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A1",
+  "text": "ID"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B1",
+  "text": "Activité"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C1",
+  "text": "Statut"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D1",
+  "text": "Responsable"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E1",
+  "text": "Début planifié"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F1",
+  "text": "Fin planifiée"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!G1",
+  "text": "Note"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A2",
+  "text": "P-01"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B2",
+  "text": "Cadrage"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C2",
+  "text": "Terminé"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D2",
+  "text": "Élodie Caron"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E2",
+  "text": "2026-07-07"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F2",
+  "text": "2026-07-18"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A3",
+  "text": "P-02"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B3",
+  "text": "Architecture"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C3",
+  "text": "Terminé"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D3",
+  "text": "Marc Gervais"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E3",
+  "text": "2026-07-14"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F3",
+  "text": "2026-08-28"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!G3",
+  "text": "Migration Canada requise"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A4",
+  "text": "P-03"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B4",
+  "text": "Développement phase 1"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C4",
+  "text": "En cours"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D4",
+  "text": "Boréal Numérique"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E4",
+  "text": "2026-07-20"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F4",
+  "text": "2026-09-30"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A5",
+  "text": "P-04"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B5",
+  "text": "Tests intégrés"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C5",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D5",
+  "text": "Mélissa Gagnon"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E5",
+  "text": "2026-09-21"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F5",
+  "text": "2026-10-05"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A6",
+  "text": "P-05"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B6",
+  "text": "Préparation exploitation"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C6",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D6",
+  "text": "Olivier Côté"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E6",
+  "text": "2026-09-28"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F6",
+  "text": "2026-10-10"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!A7",
+  "text": "P-06"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!B7",
+  "text": "Mise en production"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!C7",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!D7",
+  "text": "Nicolas Perron"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!E7",
+  "text": "2026-10-15"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!F7",
+  "text": "2026-10-15"
+ },
+ {
+  "src": "PLAN-V3",
+  "loc": "Plan projet!G7",
+  "text": "Cible de planification"
+ },
+ {
+  "src": "STATUS-0921",
+  "loc": "page=1",
+  "text": "Rapport de statut fictif Page 1\nRAPPORT DE STATUT - NOVA - 21 SEPTEMBRE\n2026\nSynthèse\nDimension Statut Commentaire\nÉchéancier VERT Cible 22 octobre\nBudget VERT Sous le plafond contractuel\nSécurité VERT Correctif SEC-210 livré\nAccessibilité VERT Correctifs appliqués\nExploitation JAUNE Runbook à finaliser\nCommentaire de gestion\nLe projet est présenté comme globalement sous contrôle. Le rapport a été préparé avant la dernière\nvérification détaillée de certains tickets."
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!A1",
+  "text": "ID"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!B1",
+  "text": "Risque"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!C1",
+  "text": "Probabilité"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!D1",
+  "text": "Impact"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!E1",
+  "text": "Propriétaire"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!F1",
+  "text": "Statut"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!G1",
+  "text": "Mitigation"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!H1",
+  "text": "Commentaire"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!A2",
+  "text": "R-01"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!B2",
+  "text": "Retard du connecteur interne"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!C2",
+  "text": "Moyenne"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!D2",
+  "text": "Élevé"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!E2",
+  "text": "Marc Gervais"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!F2",
+  "text": "Ouvert"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!G2",
+  "text": "Suivi fournisseur hebdomadaire"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!H2",
+  "text": "Suivi au 9 septembre 2026"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!A3",
+  "text": "R-02"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!B3",
+  "text": "Validation sécurité incomplète"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!C3",
+  "text": "Élevée"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!D3",
+  "text": "Élevé"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!E3",
+  "text": "Sophie Lambert"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!F3",
+  "text": "Ouvert"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!G3",
+  "text": "Re-test de SEC-210 avant go-live"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!A4",
+  "text": "R-03"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!B4",
+  "text": "Préparation exploitation incomplète"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!C4",
+  "text": "Moyenne"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!D4",
+  "text": "Élevé"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!E4",
+  "text": "Olivier Côté"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!F4",
+  "text": "Ouvert"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!G4",
+  "text": "Finaliser le runbook et le rollback"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!A5",
+  "text": "R-04"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!B5",
+  "text": "Accessibilité"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!C5",
+  "text": "Moyenne"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!D5",
+  "text": "Moyen"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!E5",
+  "text": "Mélissa Gagnon"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!F5",
+  "text": "Ouvert"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!G5",
+  "text": "Fermer ACC-303"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!A6",
+  "text": "R-05"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!B6",
+  "text": "Migration données"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!C6",
+  "text": "Faible"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!D6",
+  "text": "Moyen"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!E6",
+  "text": "Camille Beaulieu"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!F6",
+  "text": "Fermé"
+ },
+ {
+  "src": "RISKS-0929",
+  "loc": "Risques!G6",
+  "text": "Contrôle de doublons"
+ },
+ {
+  "src": "CONTRACT",
+  "loc": "page=1",
+  "text": "Contrat fictif - Défi Projet 360 Page 1\nCONTRAT DE SERVICES - PROJET NOVA\nParties\nClient fictif : Organisation Démo\nFournisseur fictif : Boréal Numérique Inc.\nObjet\nConception et réalisation de la phase 1 du portail NOVA.\nValeur contractuelle\nÉlément Valeur\nMontant maximal initial 180 000 $\nDevise CAD\nPériode 7 juillet au 31 octobre 2026\nPortée incluse\nSSO, création et suivi de demandes, pièces jointes, workflow de traitement, tableau de suivi et rapports\nstandards.\nGestion des changements\nTout travail hors portée doit faire l’objet d’une demande de changement écrite et approuvée avant\nexécution et facturation."
+ },
+ {
+  "src": "CR-01",
+  "loc": "page=1",
+  "text": "Document fictif - Changement approuvé Page 1\nDEMANDE DE CHANGEMENT CR-01\nObjet\nAjout de rapports avancés et export de synthèse.\nImpact financier\nMontant 24 000 $\nDécision APPROUVÉE\nDate de décision 14 août 2026\nAutorité Comité de projet\nImpact calendrier\nAucun changement de la date cible annoncé au moment de l’approbation."
+ },
+ {
+  "src": "CR-04",
+  "loc": "page=1",
+  "text": "BROUILLON - Document fictif Page 1\nDEMANDE DE CHANGEMENT CR-04 - BROUILLON\nObjet\nOptimisation avancée de l’expérience mobile pour écrans de moins de 768 px.\nEstimation\nMontant estimé 18 000 $\nStatut BROUILLON - APPROBATION REQUISE\nDemande initiale 4 septembre 2026\nDemandeur Boréal Numérique\nNote\nAucun numéro d’approbation ni signature de comité n’est présent dans ce document."
+ },
+ {
+  "src": "INV-001",
+  "loc": "page=1",
+  "text": "Document synthétique - Aucun fournisseur réel Page 1\nFACTURE INV-001\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\nFacture INV-001\nProjet NOVA\nDate 2026-07-31\nStatut Payée\nFacturation\nDescription Montant\nDéveloppement phase 1 - acompte 60 000 $\nTOTAL 60 000 $"
+ },
+ {
+  "src": "INV-002",
+  "loc": "page=1",
+  "text": "Document synthétique - Aucun fournisseur réel Page 1\nFACTURE INV-002\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\nFacture INV-002\nProjet NOVA\nDate 2026-08-31\nStatut Payée\nFacturation\nDescription Montant\nDéveloppement phase 1 - jalon 2 48 000 $\nRapports avancés - CR-01 24 000 $\nTOTAL 72 000 $"
+ },
+ {
+  "src": "INV-003",
+  "loc": "page=1",
+  "text": "Document synthétique - Aucun fournisseur réel Page 1\nFACTURE INV-003\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\nFacture INV-003\nProjet NOVA\nDate 2026-09-22\nStatut En validation\nFacturation\nDescription Montant\nDéveloppement phase 1 - jalon 3 36 000 $\nOptimisation interface mobile - CR-04 18 000 $\nTOTAL 54 000 $\nNote\nLa référence CR-04 apparaît sur la ligne mobile."
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L1",
+  "text": "# ADR-007 - Localisation des données de production"
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L3",
+  "text": "**Date de décision :** 23 juillet 2026  "
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L4",
+  "text": "**Statut :** Acceptée"
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L6",
+  "text": "## Contexte"
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L7",
+  "text": "L'architecture initiale de NOVA utilisait une région américaine. L'équipe sécurité demande que les données de production du projet demeurent au Canada."
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L9",
+  "text": "## Décision"
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L10",
+  "text": "L'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point."
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L12",
+  "text": "## Conséquences"
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L13",
+  "text": "- Boréal doit migrer les ressources prévues."
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L14",
+  "text": "- L'équipe architecture doit publier une version mise à jour du schéma."
+ },
+ {
+  "src": "ADR-007",
+  "loc": "L15",
+  "text": "- Une validation technique doit confirmer la migration avant les tests de production."
+ },
+ {
+  "src": "ARCH-V1",
+  "loc": "page=1",
+  "text": "Architecture NOVA - v1 - 18 juillet 2026\nVersion initiale préparée avant la décision de localisation des données.\nUtilisateur Portail NOVA API\nDonnées\nEast US\nSchéma fictif - Projet 360"
+ },
+ {
+  "src": "ARCH-V2",
+  "loc": "page=1",
+  "text": "Architecture NOVA - v2 - 25 août 2026\nVersion révisée après ADR-007.\nUtilisateur Portail NOVA API\nDonnées\nCanada Central\nSchéma fictif - Projet 360"
+ },
+ {
+  "src": "DEC-PHASE2",
+  "loc": "L1",
+  "text": "# Décision de portée - expérience mobile avancée"
+ },
+ {
+  "src": "DEC-PHASE2",
+  "loc": "L3",
+  "text": "**Date :** 24 septembre 2026  "
+ },
+ {
+  "src": "DEC-PHASE2",
+  "loc": "L4",
+  "text": "**Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2."
+ },
+ {
+  "src": "DEC-PHASE2",
+  "loc": "L6",
+  "text": "La phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation."
+ },
+ {
+  "src": "TEAMS-0915",
+  "loc": "L1",
+  "text": "Canal : Projet NOVA / Général"
+ },
+ {
+  "src": "TEAMS-0915",
+  "loc": "L2",
+  "text": "15 septembre 2026"
+ },
+ {
+  "src": "TEAMS-0915",
+  "loc": "L4",
+  "text": "09:12 - Alex : On est toujours bons pour le 15 octobre? Je prépare la communication aux équipes."
+ },
+ {
+  "src": "TEAMS-0915",
+  "loc": "L5",
+  "text": "09:18 - Nicolas : Non, attention : le comité a approuvé le 22 octobre le 10 septembre. Le plan projet n'a visiblement pas encore été corrigé."
+ },
+ {
+  "src": "TEAMS-0915",
+  "loc": "L6",
+  "text": "09:20 - Alex : Merci, je change mon brouillon."
+ },
+ {
+  "src": "TEAMS-0916",
+  "loc": "L1",
+  "text": "Canal : Projet NOVA / Général"
+ },
+ {
+  "src": "TEAMS-0916",
+  "loc": "L2",
+  "text": "16 septembre 2026"
+ },
+ {
+  "src": "TEAMS-0916",
+  "loc": "L4",
+  "text": "08:45 - Élodie : Petit rappel : à partir d'aujourd'hui, Nicolas reprend officiellement NOVA. Merci de l'inclure dans les suivis et décisions. Je reste joignable quelques jours pour la transition."
+ },
+ {
+  "src": "TEAMS-0916",
+  "loc": "L5",
+  "text": "08:47 - Nicolas : Merci Élodie. Je reprends aussi le comité du vendredi."
+ },
+ {
+  "src": "TEAMS-0919",
+  "loc": "L1",
+  "text": "Canal : NOVA / Sécurité"
+ },
+ {
+  "src": "TEAMS-0919",
+  "loc": "L2",
+  "text": "19 septembre 2026"
+ },
+ {
+  "src": "TEAMS-0919",
+  "loc": "L4",
+  "text": "10:24 - Julien (Boréal) : SEC-210 devrait être good maintenant, le fix est déployé."
+ },
+ {
+  "src": "TEAMS-0919",
+  "loc": "L5",
+  "text": "10:31 - Sophie : Merci. On garde le ticket en validation jusqu'à notre re-test. « déployé » != « accepté » :)"
+ },
+ {
+  "src": "TEAMS-0919",
+  "loc": "L6",
+  "text": "10:34 - Julien : yep, compris."
+ },
+ {
+  "src": "TEAMS-0922",
+  "loc": "L1",
+  "text": "Canal : Projet NOVA / Général"
+ },
+ {
+  "src": "TEAMS-0922",
+  "loc": "L2",
+  "text": "22 septembre 2026"
+ },
+ {
+  "src": "TEAMS-0922",
+  "loc": "L4",
+  "text": "13:03 - Julien (Boréal) : Je pensais que le mobile était inclus dans le scope initial, au moins l'optimisation avancée."
+ },
+ {
+  "src": "TEAMS-0922",
+  "loc": "L5",
+  "text": "13:06 - Nicolas : La compatibilité de base oui. Le package d'optimisation CR-04 à 18k non. Il n'est pas approuvé."
+ },
+ {
+  "src": "TEAMS-0922",
+  "loc": "L6",
+  "text": "13:10 - Julien : Je vérifie avec mon équipe."
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "header:Subject",
+  "text": "Subject: INT-101 fermé - connecteur validé"
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "header:From",
+  "text": "From: \"Marc Gervais\" <marc.gervais@demo.example>"
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "header:To",
+  "text": "To: nicolas.perron@demo.example, julien.moreau@boreal.example"
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "header:Date",
+  "text": "Date: Thu, 17 Sep 2026 16:22:00 -0400"
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "body:P1",
+  "text": "Bonjour,"
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "body:P2",
+  "text": "Je confirme que nous avons rejoué les scénarios du connecteur après le correctif. 120/120 recherches ont retourné les résultats attendus."
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "body:P3",
+  "text": "INT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu."
+ },
+ {
+  "src": "ARCHIVE-E12",
+  "loc": "body:P4",
+  "text": "Marc"
+ },
+ {
+  "src": "INV-778",
+  "loc": "page=1",
+  "text": "Document synthétique - Aucun fournisseur réel Page 1\nFACTURE INV-778\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\nFacture INV-778\nProjet ORION\nDate 2026-09-20\nStatut Payée\nFacturation\nDescription Montant\nMigration données - projet ORION 41 000 $\nTOTAL 41 000 $\nNote\nCette facture concerne un autre projet."
+ },
+ {
+  "src": "EXCEL-TRAINING",
+  "loc": "L1",
+  "text": "Objet : Formation Excel - tableaux croisés dynamiques"
+ },
+ {
+  "src": "EXCEL-TRAINING",
+  "loc": "L2",
+  "text": "Date : 18 septembre 2026"
+ },
+ {
+  "src": "EXCEL-TRAINING",
+  "loc": "L3",
+  "text": "Une formation interne est offerte le 2 octobre de 9 h à 11 h. Inscription via le portail de formation."
+ },
+ {
+  "src": "NEWSLETTER",
+  "loc": "L1",
+  "text": "BORÉAL NUMÉRIQUE - INFOLETTRE SEPTEMBRE"
+ },
+ {
+  "src": "NEWSLETTER",
+  "loc": "L2",
+  "text": "Notre équipe sera présente au Salon Numérique Nordique. Venez découvrir nos ateliers sur l'architecture cloud, la livraison produit et les tendances UX."
+ },
+ {
+  "src": "PERSONAL-NOTES",
+  "loc": "L1",
+  "text": "penser à :"
+ },
+ {
+  "src": "PERSONAL-NOTES",
+  "loc": "L2",
+  "text": "- café pour vendredi"
+ },
+ {
+  "src": "PERSONAL-NOTES",
+  "loc": "L3",
+  "text": "- vérifier si 15 oct encore date? probablement"
+ },
+ {
+  "src": "PERSONAL-NOTES",
+  "loc": "L4",
+  "text": "- mobile nice to have"
+ },
+ {
+  "src": "PERSONAL-NOTES",
+  "loc": "L5",
+  "text": "- demander à Julien pour les logs"
+ },
+ {
+  "src": "PERSONAL-NOTES",
+  "loc": "L7",
+  "text": "Notes personnelles non officielles, auteur non identifié."
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!A1",
+  "text": "ID"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!B1",
+  "text": "Activité"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!C1",
+  "text": "Statut"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!D1",
+  "text": "Responsable"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!E1",
+  "text": "Début"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!F1",
+  "text": "Fin"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!G1",
+  "text": "Note"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!A2",
+  "text": "P-01"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!B2",
+  "text": "Cadrage"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!C2",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!D2",
+  "text": "Élodie Caron"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!E2",
+  "text": "2026-07-07"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!F2",
+  "text": "2026-07-18"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!A3",
+  "text": "P-06"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!B3",
+  "text": "Mise en production"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!C3",
+  "text": "À venir"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!D3",
+  "text": "Élodie Caron"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!E3",
+  "text": "2026-10-15"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!F3",
+  "text": "2026-10-15"
+ },
+ {
+  "src": "PLAN-JUNE",
+  "loc": "Plan projet!G3",
+  "text": "Version préliminaire"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=1",
+  "text": "fichier,extension,taille_octets"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=2",
+  "text": "01_Courriels/E01_Lancement_NOVA.eml,.eml,735"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=3",
+  "text": "01_Courriels/E02_Question_hebergement.eml,.eml,32535"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=4",
+  "text": "01_Courriels/E03_Confirmation_Canada_Central.eml,.eml,32692"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=5",
+  "text": "01_Courriels/E04_Corrections_accessibilite.eml,.eml,745"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=6",
+  "text": "01_Courriels/E05_Retard_integration.eml,.eml,794"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=7",
+  "text": "01_Courriels/E06_Transition_charge_projet.eml,.eml,648"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=8",
+  "text": "01_Courriels/E07_Facture_003_question.eml,.eml,33006"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=9",
+  "text": "01_Courriels/E08_Correctif_journalisation.eml,.eml,627"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=10",
+  "text": "01_Courriels/E09_Rappel_mise_en_production.eml,.eml,840"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=11",
+  "text": "01_Courriels/E10_Fonction_mobile.eml,.eml,32600"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=12",
+  "text": "01_Courriels/E11_Communication_statut.eml,.eml,33071"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=13",
+  "text": "01_Courriels/E12_Resolution_integration.eml,.eml,722"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=14",
+  "text": "02_Reunions/M01_CR_Demarrage_07juillet.txt,.txt,818"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=15",
+  "text": "02_Reunions/M02_Transcript_Architecture_23juillet.txt,.txt,2528"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=16",
+  "text": "02_Reunions/M03_CR_Comite_27aout.txt,.txt,1074"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=17",
+  "text": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt,.txt,3101"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=18",
+  "text": "02_Reunions/M05_CR_Suivi_18sept.txt,.txt,877"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=19",
+  "text": "02_Reunions/M06_Transcript_Comite_26sept.txt,.txt,1934"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=20",
+  "text": "03_Tickets/ACC-301.txt,.txt,591"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=21",
+  "text": "03_Tickets/ACC-301_labels.png,.png,21858"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=22",
+  "text": "03_Tickets/ACC-302.txt,.txt,493"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=23",
+  "text": "03_Tickets/ACC-302_contraste.png,.png,21911"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=24",
+  "text": "03_Tickets/ACC-303.txt,.txt,710"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=25",
+  "text": "03_Tickets/ACC-303_focus.png,.png,27160"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=26",
+  "text": "03_Tickets/DATA-401.txt,.txt,725"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=27",
+  "text": "03_Tickets/DATA-401_doublons.png,.png,34647"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=28",
+  "text": "03_Tickets/DATA-401_echantillon.csv,.csv,215"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=29",
+  "text": "03_Tickets/INT-101.txt,.txt,979"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=30",
+  "text": "03_Tickets/INT-101_aucun_resultat.png,.png,21845"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=31",
+  "text": "03_Tickets/INT-101_extrait_logs.txt,.txt,245"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=32",
+  "text": "03_Tickets/OPS-601.txt,.txt,628"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=33",
+  "text": "03_Tickets/OPS-601_runbook.png,.png,33973"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=34",
+  "text": "03_Tickets/PERF-501.txt,.txt,640"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=35",
+  "text": "03_Tickets/PERF-501_lenteur.png,.png,33583"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=36",
+  "text": "03_Tickets/SEC-210.txt,.txt,1267"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=37",
+  "text": "03_Tickets/SEC-210_audit.png,.png,44408"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=38",
+  "text": "04_Documents_projet/Charte_Projet_NOVA_v1.txt,.txt,632"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=39",
+  "text": "04_Documents_projet/Note_transition_Elodie_16sept.txt,.txt,416"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=40",
+  "text": "04_Documents_projet/Plan_Projet_NOVA_v2.xlsx,.xlsx,4520"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=41",
+  "text": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx,.xlsx,4569"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=42",
+  "text": "04_Documents_projet/Rapport_Statut_21sept.pdf,.pdf,23729"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=43",
+  "text": "04_Documents_projet/Registre_Risques_29sept.xlsx,.xlsx,4540"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=44",
+  "text": "05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf,.pdf,23752"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=45",
+  "text": "05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf,.pdf,23541"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=46",
+  "text": "05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf,.pdf,23365"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=47",
+  "text": "05_Contrats_et_finances/INV-001.pdf,.pdf,23376"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=48",
+  "text": "05_Contrats_et_finances/INV-002.pdf,.pdf,23396"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=49",
+  "text": "05_Contrats_et_finances/INV-003.pdf,.pdf,23639"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=50",
+  "text": "06_Architecture_et_decisions/ADR-007_Localisation_donnees.md,.md,680"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=51",
+  "text": "06_Architecture_et_decisions/Architecture_NOVA_v1.pdf,.pdf,23340"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=52",
+  "text": "06_Architecture_et_decisions/Architecture_NOVA_v2.pdf,.pdf,23423"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=53",
+  "text": "06_Architecture_et_decisions/Decision_Portee_Phase2.md,.md,465"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=54",
+  "text": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt,.txt,344"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=55",
+  "text": "07_Conversations_Teams/Teams_16sept_Transition.txt,.txt,325"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=56",
+  "text": "07_Conversations_Teams/Teams_19sept_Securite.txt,.txt,282"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=57",
+  "text": "07_Conversations_Teams/Teams_22sept_Mobile.txt,.txt,338"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=58",
+  "text": "08_Archives_et_documents_connexes/Courriel_archive_17sept.eml,.eml,722"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=59",
+  "text": "08_Archives_et_documents_connexes/INV-778_Projet_ORION.pdf,.pdf,23435"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=60",
+  "text": "08_Archives_et_documents_connexes/Invitation_Formation_Excel.txt,.txt,184"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=61",
+  "text": "08_Archives_et_documents_connexes/Newsletter_Boreal_Septembre.txt,.txt,201"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=62",
+  "text": "08_Archives_et_documents_connexes/Notes_personnelles_quelquun.txt,.txt,199"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=63",
+  "text": "08_Archives_et_documents_connexes/Plan_NOVA_preliminaire_juin.xlsx,.xlsx,4197"
+ },
+ {
+  "src": "MANIFEST",
+  "loc": "row=64",
+  "text": "README.txt,.txt,7103"
+ },
+ {
+  "src": "README",
+  "loc": "L1",
+  "text": "DÉFI 24H — PROJET 360 — NOVA"
+ },
+ {
+  "src": "README",
+  "loc": "L3",
+  "text": "MISSION"
+ },
+ {
+  "src": "README",
+  "loc": "L4",
+  "text": "Vous reprenez NOVA, un projet fictif dont les informations sont dispersées. En 24 heures, construisez une mémoire opérationnelle qui permet à une autre personne de comprendre l'état du projet, de retrouver les preuves et de préparer les prochaines actions."
+ },
+ {
+  "src": "README",
+  "loc": "L6",
+  "text": "Le dossier initial représente les informations disponibles le 30 septembre 2026 à 09 h 00, heure de Montréal (UTC−04:00). Répondez selon cette date fictive, et non selon la date réelle de l'épreuve. Une nouvelle information sera fournie pendant le défi."
+ },
+ {
+  "src": "README",
+  "loc": "L8",
+  "text": "FORMAT ET OUTILS"
+ },
+ {
+  "src": "README",
+  "loc": "L9",
+  "text": "- Aucune technologie imposée. Un dossier documentaire navigable, un site, un outil de recherche ou une application sont acceptés. Un chatbot et une ingestion entièrement automatique ne sont pas obligatoires."
+ },
+ {
+  "src": "README",
+  "loc": "L10",
+  "text": "- La solution doit permettre de retrouver une preuve, de répondre à une question et de mettre à jour l'état du projet sans effacer son historique."
+ },
+ {
+  "src": "README",
+  "loc": "L11",
+  "text": "- Outils d'IA, bibliothèques et services externes autorisés. Indiquez les outils utilisés et les étapes manuelles. Aucun abonnement payant ne doit être nécessaire au jury pour consulter le rendu; fournissez un export autonome si nécessaire."
+ },
+ {
+  "src": "README",
+  "loc": "L12",
+  "text": "- Les faits concernant NOVA doivent provenir du corpus remis. Une recherche externe peut aider à utiliser un outil, mais ne remplace pas une preuve du projet."
+ },
+ {
+  "src": "README",
+  "loc": "L14",
+  "text": "LIVRABLES"
+ },
+ {
+  "src": "README",
+  "loc": "L15",
+  "text": "1. Un brief de reprise d'une page maximum : responsable, date approuvée et conditions, portée, budget, situation des factures et priorités."
+ },
+ {
+  "src": "README",
+  "loc": "L16",
+  "text": "2. Une mémoire consultable avec chronologie, décisions, contradictions résolues, sources et actions restantes. Pour chaque action : responsable proposé ou confirmé, preuve, et échéance connue ou « à confirmer ». Distinguez une recommandation de votre équipe d'un engagement déjà documenté."
+ },
+ {
+  "src": "README",
+  "loc": "L17",
+  "text": "3. Les réponses aux dix questions ci-dessous, chacune avec un fichier source et un repère précis (page, cellule, commentaire daté, passage ou capture)."
+ },
+ {
+  "src": "README",
+  "loc": "L18",
+  "text": "4. Après la nouvelle information : état actualisé, changements par rapport au baseline, preuves et actions touchées. Conservez la version initiale."
+ },
+ {
+  "src": "README",
+  "loc": "L19",
+  "text": "5. Un court mode d'emploi : ouverture, navigation, outils utilisés, traitements manuels, limites et informations incertaines."
+ },
+ {
+  "src": "README",
+  "loc": "L21",
+  "text": "QUESTIONS INITIALES"
+ },
+ {
+  "src": "README",
+  "loc": "L22",
+  "text": "Q01. Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve?"
+ },
+ {
+  "src": "README",
+  "loc": "L23",
+  "text": "Q02. Pourquoi la date a-t-elle changé, et quel est l'état actuel de la cause initiale?"
+ },
+ {
+  "src": "README",
+  "loc": "L24",
+  "text": "Q03. Qui a approuvé le changement et quand? Distinguez proposition et approbation."
+ },
+ {
+  "src": "README",
+  "loc": "L25",
+  "text": "Q04. Qui est responsable du projet et depuis quand?"
+ },
+ {
+  "src": "README",
+  "loc": "L26",
+  "text": "Q05. Quel est le montant contractuel autorisé et comment se calcule-t-il?"
+ },
+ {
+  "src": "README",
+  "loc": "L27",
+  "text": "Q06. Quel problème présente INV-003? Précisez le montant concerné et le traitement à prévoir."
+ },
+ {
+  "src": "README",
+  "loc": "L28",
+  "text": "Q07. Où les données de production doivent-elles être hébergées? Quelle preuve confirme la mise en œuvre?"
+ },
+ {
+  "src": "README",
+  "loc": "L29",
+  "text": "Q08. La sécurité est-elle acceptée? Distinguez livraison et validation."
+ },
+ {
+  "src": "README",
+  "loc": "L30",
+  "text": "Q09. L'accessibilité est-elle complétée? Identifiez ce qui reste à corriger."
+ },
+ {
+  "src": "README",
+  "loc": "L31",
+  "text": "Q10. Quelles sont les trois conditions de go-live? Précisez les travaux manquants du runbook à partir de sa capture."
+ },
+ {
+  "src": "README",
+  "loc": "L33",
+  "text": "ÉVALUATION — 100 POINTS"
+ },
+ {
+  "src": "README",
+  "loc": "L34",
+  "text": "- Dix réponses factuelles initiales : 50 points. Chaque réponse vaut 0, 3 ou 5 points selon son exactitude et sa nuance."
+ },
+ {
+  "src": "README",
+  "loc": "L35",
+  "text": "- Preuves et navigation : 10 points."
+ },
+ {
+  "src": "README",
+  "loc": "L36",
+  "text": "- Chronologie et contradictions : 10 points."
+ },
+ {
+  "src": "README",
+  "loc": "L37",
+  "text": "- Brief et actions : 10 points."
+ },
+ {
+  "src": "README",
+  "loc": "L38",
+  "text": "- Utilisation et incertitude : 10 points."
+ },
+ {
+  "src": "README",
+  "loc": "L39",
+  "text": "- Mise à jour après l'événement : 10 points."
+ },
+ {
+  "src": "README",
+  "loc": "L40",
+  "text": "Chaque critère pratique comporte deux constats de 5 points :"
+ },
+ {
+  "src": "README",
+  "loc": "L41",
+  "text": "- Preuves : au moins trois réponses avec un fichier et un repère retrouvables; au moins deux de ces réponses croisent des sources distinctes."
+ },
+ {
+  "src": "README",
+  "loc": "L42",
+  "text": "- Chronologie : distinguer proposition, décision et validation avec dates/sources; expliquer au moins deux contradictions par l'autorité ou la date des faits, dont une dans un plan ou un registre de risques."
+ },
+ {
+  "src": "README",
+  "loc": "L43",
+  "text": "- Brief/actions : couvrir les cinq thèmes demandés dans une page; relier les trois conditions de lancement à des actions, responsables et échéances connues ou à confirmer."
+ },
+ {
+  "src": "README",
+  "loc": "L44",
+  "text": "- Utilisation : le jury peut ouvrir le rendu et retrouver une preuve; l'équipe montre sa recherche et explicite les limites lors de la question complémentaire."
+ },
+ {
+  "src": "README",
+  "loc": "L45",
+  "text": "- Mise à jour : distinguer statut du problème, décision antérieure et nouvelle proposition; conserver le baseline et produire les impacts/actions sourcés sans inventer d'approbation ni fermer d'autres conditions."
+ },
+ {
+  "src": "README",
+  "loc": "L47",
+  "text": "Les cinq critères pratiques valent chacun 0, 5 ou 10 points. Une belle interface, une technologie particulière ou le seul recours à l'IA ne donnent pas de points supplémentaires. La précision, les preuves et l'utilité priment."
+ },
+ {
+  "src": "README",
+  "loc": "L49",
+  "text": "RÈGLES DE LECTURE"
+ },
+ {
+  "src": "README",
+  "loc": "L50",
+  "text": "- Toutes les personnes, entreprises, adresses et données sont fictives."
+ },
+ {
+  "src": "README",
+  "loc": "L51",
+  "text": "- Certaines sources sont anciennes, incomplètes, contradictoires ou peu utiles. Les contradictions font partie du défi."
+ },
+ {
+  "src": "README",
+  "loc": "L52",
+  "text": "- Analysez le contenu et son autorité; une date de fichier récente ne garantit pas une information exacte."
+ },
+ {
+  "src": "README",
+  "loc": "L53",
+  "text": "- Les pièces jointes et captures font partie des sources. Certaines pièces jointes sont aussi présentes comme fichiers séparés : ne les comptez pas comme des confirmations indépendantes."
+ },
+ {
+  "src": "README",
+  "loc": "L54",
+  "text": "- Une correction annoncée n'est pas nécessairement acceptée. Une proposition n'est pas une décision."
+ },
+ {
+  "src": "README",
+  "loc": "L55",
+  "text": "- Une capture historique ne démontre pas à elle seule qu'un défaut reste ouvert."
+ },
+ {
+  "src": "README",
+  "loc": "L56",
+  "text": "- Si une information manque, indiquez-le. N'inventez ni décision, ni échéance, ni approbation."
+ },
+ {
+  "src": "README",
+  "loc": "L57",
+  "text": "- Pour cet exercice, les montants financiers sont comparables en CAD, hors taxes. Distinguez autorisé, facturé et payé; aucun calcul fiscal n’est demandé."
+ }
+]

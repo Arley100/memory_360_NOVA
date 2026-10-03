@@ -1,0 +1,514 @@
+{
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E01_Lancement_NOVA.eml": {
+  "id": "E01",
+  "title": "Kickoff confirmation (Élodie)",
+  "authority": "OFFICIAL",
+  "role": "CONTEXT",
+  "contentDate": "2026-07-07",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E02_Question_hebergement.eml": {
+  "id": "E02",
+  "title": "Hosting question: East US vs Canada (Sophie)",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-07-22",
+  "note": "Attachment duplicates Architecture v1"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E03_Confirmation_Canada_Central.eml": {
+  "id": "E03",
+  "title": "Migration to Canada Central completed (Boréal)",
+  "authority": "VENDOR_CLAIM",
+  "role": "CORE",
+  "contentDate": "2026-08-26",
+  "note": "Attachment duplicates Architecture v2"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E04_Corrections_accessibilite.eml": {
+  "id": "E04",
+  "title": "Accessibility fixes 'should be compliant' (Boréal)",
+  "authority": "VENDOR_CLAIM",
+  "role": "TRAP",
+  "contentDate": "2026-08-20",
+  "note": "Vendor claim, not a validation"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E05_Retard_integration.eml": {
+  "id": "E05",
+  "title": "Proposal: move go-live to Oct 22 (Boréal)",
+  "authority": "VENDOR_CLAIM",
+  "role": "CORE",
+  "contentDate": "2026-09-08",
+  "note": "PROPOSAL, not a decision"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E06_Transition_charge_projet.eml": {
+  "id": "E06",
+  "title": "Nicolas Perron takes over as PM",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-09-16",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E07_Facture_003_question.eml": {
+  "id": "E07",
+  "title": "Finance question on INV-003 / CR-04",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-09-23",
+  "note": "Attachment duplicates INV-003"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E08_Correctif_journalisation.eml": {
+  "id": "E08",
+  "title": "SEC-210 fix deployed (Boréal)",
+  "authority": "VENDOR_CLAIM",
+  "role": "CORE",
+  "contentDate": "2026-09-19",
+  "note": "Delivery, not validation"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E09_Rappel_mise_en_production.eml": {
+  "id": "E09",
+  "title": "Oct 22 approved but conditional (Nicolas)",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-09-27",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E10_Fonction_mobile.eml": {
+  "id": "E10",
+  "title": "CR-04 mobile deferred to phase 2 (Nicolas)",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-09-24",
+  "note": "Attachment duplicates CR-04 draft"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E11_Communication_statut.eml": {
+  "id": "E11",
+  "title": "Draft status message 'NOVA au vert' (Alex)",
+  "authority": "DRAFT",
+  "role": "TRAP",
+  "contentDate": "2026-09-21",
+  "note": "Based on outdated status report"
+ },
+ "Projet360_NOVA_ETUDIANTS/01_Courriels/E12_Resolution_integration.eml": {
+  "id": "E12",
+  "title": "INT-101 closed, connector validated (Marc)",
+  "authority": "VALIDATION",
+  "role": "CORE",
+  "contentDate": "2026-09-17",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/02_Reunions/M01_CR_Demarrage_07juillet.txt": {
+  "id": "M01",
+  "title": "Kickoff minutes",
+  "authority": "DECISION",
+  "role": "CONTEXT",
+  "contentDate": "2026-07-07",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/02_Reunions/M02_Transcript_Architecture_23juillet.txt": {
+  "id": "M02",
+  "title": "Architecture workshop transcript",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-07-23",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/02_Reunions/M03_CR_Comite_27aout.txt": {
+  "id": "M03",
+  "title": "Committee minutes, Aug 27",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-08-27",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/02_Reunions/M04_Transcript_Comite_direction_10sept.txt": {
+  "id": "M04",
+  "title": "Steering committee transcript, Sept 10",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-09-10",
+  "note": "Approval of Oct 22"
+ },
+ "Projet360_NOVA_ETUDIANTS/02_Reunions/M05_CR_Suivi_18sept.txt": {
+  "id": "M05",
+  "title": "Delivery follow-up minutes, Sept 18",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-09-18",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/02_Reunions/M06_Transcript_Comite_26sept.txt": {
+  "id": "M06",
+  "title": "Steering committee transcript, Sept 26",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-09-26",
+  "note": "Three go-live conditions"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-301.txt": {
+  "id": "ACC-301",
+  "title": "Ticket ACC-301 labels (closed)",
+  "authority": "VALIDATION",
+  "role": "TRAP",
+  "contentDate": "2026-08-11",
+  "note": "Closed Aug 15"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-301_labels.png": {
+  "id": "ACC-301.png",
+  "title": "Screenshot ACC-301 (historical)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-08-11",
+  "note": "Historical screenshot"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-302.txt": {
+  "id": "ACC-302",
+  "title": "Ticket ACC-302 contrast (closed)",
+  "authority": "VALIDATION",
+  "role": "TRAP",
+  "contentDate": "2026-08-12",
+  "note": "Closed Aug 20"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-302_contraste.png": {
+  "id": "ACC-302.png",
+  "title": "Screenshot ACC-302 (historical)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-08-12",
+  "note": "Historical screenshot"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-303.txt": {
+  "id": "ACC-303",
+  "title": "Ticket ACC-303 modal keyboard focus (OPEN)",
+  "authority": "VALIDATION",
+  "role": "CORE",
+  "contentDate": "2026-09-17",
+  "note": "Go-live condition 2"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-303_focus.png": {
+  "id": "ACC-303.png",
+  "title": "Screenshot ACC-303 focus",
+  "authority": "REPORT",
+  "role": "CORE",
+  "contentDate": "2026-09-17",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/DATA-401.txt": {
+  "id": "DATA-401",
+  "title": "Ticket DATA-401 migration duplicates (closed)",
+  "authority": "VALIDATION",
+  "role": "TRAP",
+  "contentDate": "2026-09-02",
+  "note": "Closed Sept 9"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/DATA-401_doublons.png": {
+  "id": "DATA-401.png",
+  "title": "Screenshot DATA-401 (historical)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-09-02",
+  "note": "Historical screenshot"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/DATA-401_echantillon.csv": {
+  "id": "DATA-401.csv",
+  "title": "DATA-401 sample CSV",
+  "authority": "REPORT",
+  "role": "CONTEXT",
+  "contentDate": "2026-09-02",
+  "note": "Evidence, not an answer key"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/INT-101.txt": {
+  "id": "INT-101",
+  "title": "Ticket INT-101 connector (closed)",
+  "authority": "VALIDATION",
+  "role": "CORE",
+  "contentDate": "2026-09-05",
+  "note": "Original cause of the delay"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/INT-101_aucun_resultat.png": {
+  "id": "INT-101.png",
+  "title": "Screenshot INT-101 (historical)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-09-05",
+  "note": "Historical screenshot"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/INT-101_extrait_logs.txt": {
+  "id": "INT-101.log",
+  "title": "INT-101 log extract (UTC)",
+  "authority": "REPORT",
+  "role": "CORE",
+  "contentDate": "2026-09-05",
+  "note": "Timestamps in UTC (Z)"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/OPS-601.txt": {
+  "id": "OPS-601",
+  "title": "Ticket OPS-601 runbook (OPEN)",
+  "authority": "VALIDATION",
+  "role": "CORE",
+  "contentDate": "2026-09-25",
+  "note": "Go-live condition 3"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/OPS-601_runbook.png": {
+  "id": "OPS-601.png",
+  "title": "Screenshot runbook (Sept 25 version)",
+  "authority": "REPORT",
+  "role": "CORE",
+  "contentDate": "2026-09-25",
+  "note": "Steps 4 and 5 incomplete"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/PERF-501.txt": {
+  "id": "PERF-501",
+  "title": "Ticket PERF-501 slowness (closed)",
+  "authority": "VALIDATION",
+  "role": "TRAP",
+  "contentDate": "2026-09-03",
+  "note": "Closed Sept 7"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/PERF-501_lenteur.png": {
+  "id": "PERF-501.png",
+  "title": "Screenshot PERF-501 (historical)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-09-03",
+  "note": "Historical screenshot"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/SEC-210.txt": {
+  "id": "SEC-210",
+  "title": "Ticket SEC-210 admin export audit (IN VALIDATION)",
+  "authority": "VALIDATION",
+  "role": "CORE",
+  "contentDate": "2026-09-12",
+  "note": "Go-live condition 1"
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/SEC-210_audit.png": {
+  "id": "SEC-210.png",
+  "title": "Screenshot SEC-210 audit log",
+  "authority": "REPORT",
+  "role": "CORE",
+  "contentDate": "2026-09-12",
+  "note": "Shows original defect"
+ },
+ "Projet360_NOVA_ETUDIANTS/04_Documents_projet/Charte_Projet_NOVA_v1.txt": {
+  "id": "CHARTER",
+  "title": "Project charter v1",
+  "authority": "OFFICIAL",
+  "role": "CONTEXT",
+  "contentDate": "2026-07-07",
+  "note": "Not updated after committee decisions"
+ },
+ "Projet360_NOVA_ETUDIANTS/04_Documents_projet/Note_transition_Elodie_16sept.txt": {
+  "id": "TRANSITION",
+  "title": "Transition note (Élodie)",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-09-16",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/04_Documents_projet/Plan_Projet_NOVA_v2.xlsx": {
+  "id": "PLAN-V2",
+  "title": "Project plan v2",
+  "authority": "REPORT",
+  "role": "CONTEXT",
+  "contentDate": "",
+  "note": "Superseded"
+ },
+ "Projet360_NOVA_ETUDIANTS/04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx": {
+  "id": "PLAN-V3",
+  "title": "Project plan v3 (Sept 12)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-09-12",
+  "note": "Still shows Oct 15 (stale)"
+ },
+ "Projet360_NOVA_ETUDIANTS/04_Documents_projet/Rapport_Statut_21sept.pdf": {
+  "id": "STATUS-0921",
+  "title": "Status report Sept 21",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-09-21",
+  "note": "Prepared before detailed ticket check"
+ },
+ "Projet360_NOVA_ETUDIANTS/04_Documents_projet/Registre_Risques_29sept.xlsx": {
+  "id": "RISKS-0929",
+  "title": "Risk register Sept 29",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-09-29",
+  "note": "R-01 stale (follow-up Sept 9)"
+ },
+ "Projet360_NOVA_ETUDIANTS/05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf": {
+  "id": "CONTRACT",
+  "title": "Contract Boréal / NOVA",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-07-07",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf": {
+  "id": "CR-01",
+  "title": "Change request CR-01 (approved)",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-08-14",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf": {
+  "id": "CR-04",
+  "title": "Change request CR-04 (DRAFT)",
+  "authority": "DRAFT",
+  "role": "CORE",
+  "contentDate": "2026-09-04",
+  "note": "Not approved"
+ },
+ "Projet360_NOVA_ETUDIANTS/05_Contrats_et_finances/INV-001.pdf": {
+  "id": "INV-001",
+  "title": "Invoice INV-001",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-07-31",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/05_Contrats_et_finances/INV-002.pdf": {
+  "id": "INV-002",
+  "title": "Invoice INV-002",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-08-31",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/05_Contrats_et_finances/INV-003.pdf": {
+  "id": "INV-003",
+  "title": "Invoice INV-003",
+  "authority": "OFFICIAL",
+  "role": "CORE",
+  "contentDate": "2026-09-22",
+  "note": "Contains unapproved CR-04 line"
+ },
+ "Projet360_NOVA_ETUDIANTS/06_Architecture_et_decisions/ADR-007_Localisation_donnees.md": {
+  "id": "ADR-007",
+  "title": "ADR-007 data location",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-07-23",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/06_Architecture_et_decisions/Architecture_NOVA_v1.pdf": {
+  "id": "ARCH-V1",
+  "title": "Architecture v1 (East US)",
+  "authority": "REPORT",
+  "role": "TRAP",
+  "contentDate": "2026-07-18",
+  "note": "Superseded by ADR-007"
+ },
+ "Projet360_NOVA_ETUDIANTS/06_Architecture_et_decisions/Architecture_NOVA_v2.pdf": {
+  "id": "ARCH-V2",
+  "title": "Architecture v2 (Canada Central)",
+  "authority": "REPORT",
+  "role": "CORE",
+  "contentDate": "2026-08-25",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/06_Architecture_et_decisions/Decision_Portee_Phase2.md": {
+  "id": "DEC-PHASE2",
+  "title": "Scope decision: mobile to phase 2",
+  "authority": "DECISION",
+  "role": "CORE",
+  "contentDate": "2026-09-24",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt": {
+  "id": "TEAMS-0915",
+  "title": "Teams Sept 15 (date question)",
+  "authority": "INFORMAL",
+  "role": "CORE",
+  "contentDate": "2026-09-15",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/07_Conversations_Teams/Teams_16sept_Transition.txt": {
+  "id": "TEAMS-0916",
+  "title": "Teams Sept 16 (transition)",
+  "authority": "INFORMAL",
+  "role": "CORE",
+  "contentDate": "2026-09-16",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/07_Conversations_Teams/Teams_19sept_Securite.txt": {
+  "id": "TEAMS-0919",
+  "title": "Teams Sept 19 (security)",
+  "authority": "INFORMAL",
+  "role": "CORE",
+  "contentDate": "2026-09-19",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/07_Conversations_Teams/Teams_22sept_Mobile.txt": {
+  "id": "TEAMS-0922",
+  "title": "Teams Sept 22 (mobile scope)",
+  "authority": "INFORMAL",
+  "role": "CORE",
+  "contentDate": "2026-09-22",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/08_Archives_et_documents_connexes/Courriel_archive_17sept.eml": {
+  "id": "ARCHIVE-E12",
+  "title": "Archived copy of E12",
+  "authority": "DUPLICATE",
+  "role": "NOISE",
+  "contentDate": "2026-09-17",
+  "note": "Identical to E12"
+ },
+ "Projet360_NOVA_ETUDIANTS/08_Archives_et_documents_connexes/INV-778_Projet_ORION.pdf": {
+  "id": "INV-778",
+  "title": "Invoice INV-778 (project ORION)",
+  "authority": "UNRELATED",
+  "role": "NOISE",
+  "contentDate": "2026-09-20",
+  "note": "Other project"
+ },
+ "Projet360_NOVA_ETUDIANTS/08_Archives_et_documents_connexes/Invitation_Formation_Excel.txt": {
+  "id": "EXCEL-TRAINING",
+  "title": "Excel training invitation",
+  "authority": "UNRELATED",
+  "role": "NOISE",
+  "contentDate": "2026-09-18",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/08_Archives_et_documents_connexes/Newsletter_Boreal_Septembre.txt": {
+  "id": "NEWSLETTER",
+  "title": "Boréal newsletter",
+  "authority": "UNRELATED",
+  "role": "NOISE",
+  "contentDate": "",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/08_Archives_et_documents_connexes/Notes_personnelles_quelquun.txt": {
+  "id": "PERSONAL-NOTES",
+  "title": "Unofficial personal notes",
+  "authority": "UNOFFICIAL",
+  "role": "TRAP",
+  "contentDate": "",
+  "note": "Unknown author"
+ },
+ "Projet360_NOVA_ETUDIANTS/08_Archives_et_documents_connexes/Plan_NOVA_preliminaire_juin.xlsx": {
+  "id": "PLAN-JUNE",
+  "title": "Preliminary plan (June)",
+  "authority": "REPORT",
+  "role": "CONTEXT",
+  "contentDate": "2026-06-01",
+  "note": "Superseded"
+ },
+ "Projet360_NOVA_ETUDIANTS/MANIFEST.csv": {
+  "id": "MANIFEST",
+  "title": "Corpus manifest",
+  "authority": "REPORT",
+  "role": "CONTEXT",
+  "contentDate": "",
+  "note": ""
+ },
+ "Projet360_NOVA_ETUDIANTS/README.txt": {
+  "id": "README",
+  "title": "Challenge README (questions, rubric)",
+  "authority": "OFFICIAL",
+  "role": "CONTEXT",
+  "contentDate": "",
+  "note": ""
+ }
+}

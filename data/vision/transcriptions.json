@@ -1,0 +1,104 @@
+{
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-301_labels.png": {
+  "header": "NOVA · Test accessibilité",
+  "title": "Formulaire de création",
+  "rows": [
+   "Créer une demande",
+   "Champ : Votre nom (placeholder)"
+  ],
+  "notes": [
+   "Le placeholder disparaît dès la saisie; aucun libellé associé n'est exposé."
+  ],
+  "description": "Creation form with a name field that only has a placeholder (historical; ACC-301 closed Aug 15)."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-302_contraste.png": {
+  "header": "NOVA · Build 2026.08.12",
+  "title": "Portail NOVA",
+  "rows": [
+   "État de la demande : EN ATTENTE DE VALIDATION"
+  ],
+  "notes": [
+   "Capture reçue avec le ticket : « le bleu/gris est bizarre »"
+  ],
+  "description": "Low-contrast status badge (historical; ACC-302 closed Aug 20)."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/ACC-303_focus.png": {
+  "header": "NOVA · Build 2026.09.17",
+  "title": "Fenêtre de modification",
+  "rows": [
+   "Modifier le dossier",
+   "Nom du demandeur : Camille Roy",
+   "Commentaire : (vide)",
+   "Bouton : Enregistrer"
+  ],
+  "notes": [
+   "Le focus clavier ne rejoint pas ce bouton"
+  ],
+  "description": "Edit modal; the Save (Enregistrer) button is outlined in red because keyboard focus never reaches it."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/DATA-401_doublons.png": {
+  "header": "NOVA · Lot MIG-09-02",
+  "title": "Résultats de migration",
+  "rows": [
+   "ID | Demandeur | Courriel | Créé | Statut",
+   "8401 | Alex Martin | alex.martin@example.org | 15:03:12 | Nouveau",
+   "8402 | Alex Martin | alex.martin@example.org | 15:03:13 | Nouveau",
+   "8403 | Sam Tremblay | sam.t@example.org | 15:04:01 | Nouveau"
+  ],
+  "notes": [
+   "Lignes 8401 et 8402 encadrées en rouge (doublons)"
+  ],
+  "description": "Duplicate records 8401/8402 (historical; DATA-401 closed Sept 9)."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/INT-101_aucun_resultat.png": {
+  "header": "NOVA · Environnement intégration",
+  "title": "Recherche de dossiers",
+  "rows": [
+   "Aucun résultat"
+  ],
+  "notes": [
+   "Le ticket original contient seulement : « ça marche pas »"
+  ],
+  "description": "Empty search results in integration (historical; INT-101 closed Sept 17)."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/OPS-601_runbook.png": {
+  "header": "NOVA · Version du 25 septembre",
+  "title": "Runbook de mise en production",
+  "rows": [
+   "1. Vérifier la santé des services : OK",
+   "2. Activer le mode maintenance : OK",
+   "3. Déployer la version approuvée : OK",
+   "4. Procédure de retour arrière : TODO",
+   "5. Validation fonctionnelle post-déploiement : À compléter"
+  ],
+  "notes": [],
+  "description": "Runbook (Sept 25 version): steps 1-3 OK, step 4 rollback TODO, step 5 post-deployment validation to complete."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/PERF-501_lenteur.png": {
+  "header": "NOVA · Chrome - réseau entreprise",
+  "title": "Analyse de performance",
+  "rows": [
+   "DOMContentLoaded : 2.4 s",
+   "Largest Contentful Paint : 7.8 s",
+   "API /dossiers/search : 6.9 s",
+   "Transfert : 1.3 MB"
+  ],
+  "notes": [],
+  "description": "Slow page metrics (historical; PERF-501 closed Sept 7 at 620 ms average)."
+ },
+ "Projet360_NOVA_ETUDIANTS/03_Tickets/SEC-210_audit.png": {
+  "header": "NOVA · Environnement de validation",
+  "title": "Journal d'audit - administrateur",
+  "rows": [
+   "Heure | Utilisateur | Action | Objet | Résultat",
+   "14:02:10 | np.admin | LOGIN | Portail | SUCCÈS",
+   "14:03:44 | np.admin | VIEW_RECORD | Dossier 8401 | SUCCÈS",
+   "14:04:08 | np.admin | EXPORT_CSV | --- | ---",
+   "14:05:12 | np.admin | LOGOUT | Portail | SUCCÈS"
+  ],
+  "notes": [
+   "Observation QA : Une exportation CSV a été effectuée à 14:04, mais aucun événement détaillé n'est visible."
+  ],
+  "description": "Admin audit log: the EXPORT_CSV row has no object (case ID) and no result. Shows the original SEC-210 defect."
+ }
+}
