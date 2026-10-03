@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "./UI";
 import type { ResolvedCite } from "@/lib/types";
 
 // Evidence chip: every claim links to the exact place in the source.
@@ -8,11 +9,11 @@ export function Chip({ c }: { c: ResolvedCite }) {
     <Link
       href={href}
       title={`« ${c.quote} »${c.verified ? "" : " (not verified)"}`}
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold leading-5 whitespace-nowrap hover:bg-marker ${
+      className={`evidence-chip ${
         c.verified ? "border-primary/40 text-primary bg-primary/5" : "border-blocker/50 text-blocker bg-blocker/5"
       }`}
     >
-      {c.label}
+      <Icon name="file" size={12} />{c.label}
     </Link>
   );
 }
@@ -39,7 +40,7 @@ const LABELS: Record<string, string> = {
 
 export function Tag({ t }: { t: string }) {
   return (
-    <span className={`inline-block rounded border px-1.5 py-0 text-xs font-semibold ${TAGS[t] ?? "bg-canvas text-muted border-line"}`}>
+    <span className={`semantic-tag ${TAGS[t] ?? "bg-canvas text-muted border-line"}`}>
       {LABELS[t] ?? t}
     </span>
   );
