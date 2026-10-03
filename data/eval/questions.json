@@ -1,0 +1,360 @@
+[
+ {
+  "id": "Q01",
+  "category": "readme",
+  "question": "Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve?",
+  "mustInclude": [
+   "22 oct|oct(ober|\\.)? 22|10-22",
+   "condition",
+   "sec-210",
+   "acc-303",
+   "runbook|rollback|retour arriere"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Date + three go-live conditions"
+ },
+ {
+  "id": "Q02",
+  "category": "readme",
+  "question": "Pourquoi la date a-t-elle changé, et quel est l'état actuel de la cause initiale?",
+  "mustInclude": [
+   "int-101|connecteur|connector",
+   "ferme|resolu|closed|resolved",
+   "17 sept|sept(ember|\\.)? 17|09-17"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Connector cause, closed Sept 17"
+ },
+ {
+  "id": "Q03",
+  "category": "readme",
+  "question": "Qui a approuvé le changement et quand? Distinguez proposition et approbation.",
+  "mustInclude": [
+   "julien|boreal",
+   "8 sept|sept(ember|\\.)? 8\\b|09-08",
+   "comite|committee",
+   "10 sept|sept(ember|\\.)? 10|09-10"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Proposal Sept 8 (Boréal) vs approval Sept 10 (committee)"
+ },
+ {
+  "id": "Q04",
+  "category": "readme",
+  "question": "Qui est responsable du projet et depuis quand?",
+  "mustInclude": [
+   "nicolas perron",
+   "16 sept|sept(ember|\\.)? 16|09-16"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Nicolas since Sept 16"
+ },
+ {
+  "id": "Q05",
+  "category": "readme",
+  "question": "Quel est le montant contractuel autorisé et comment se calcule-t-il?",
+  "mustInclude": [
+   "204[ ,.]?000",
+   "180[ ,.]?000",
+   "24[ ,.]?000",
+   "cr-01"
+  ],
+  "mustNotInclude": [
+   "222[ ,.]?000"
+  ],
+  "expectNotDocumented": false,
+  "why": "180k + CR-01 24k, CR-04 excluded"
+ },
+ {
+  "id": "Q06",
+  "category": "readme",
+  "question": "Quel problème présente INV-003? Précisez le montant concerné et le traitement à prévoir.",
+  "mustInclude": [
+   "18[ ,.]?000",
+   "cr-04",
+   "non approuv|pas approuv|pas ete approuv|jamais approuv|not approved|never approved|brouillon|draft"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "18k CR-04 line not approved"
+ },
+ {
+  "id": "Q07",
+  "category": "readme",
+  "question": "Où les données de production doivent-elles être hébergées? Quelle preuve confirme la mise en œuvre?",
+  "mustInclude": [
+   "canada central",
+   "verifi|m03|27 aout|aug(ust|\\.)? 27|08-27"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Canada Central, verified by architecture team"
+ },
+ {
+  "id": "Q08",
+  "category": "readme",
+  "question": "La sécurité est-elle acceptée? Distinguez livraison et validation.",
+  "mustInclude": [
+   "en validation|in validation|pas (encore )?(ete )?accept|not (yet )?(been )?accepted|non accept|n'est pas accept|pas encore valid|not (yet )?validated",
+   "19 sept|sept(ember|\\.)? 19|09-19|livr|deliver"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Delivered Sept 19, not validated"
+ },
+ {
+  "id": "Q09",
+  "category": "readme",
+  "question": "L'accessibilité est-elle complétée? Identifiez ce qui reste à corriger.",
+  "mustInclude": [
+   "acc-303",
+   "enregistrer|save",
+   "clavier|keyboard|tab"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "ACC-303 Save unreachable by keyboard"
+ },
+ {
+  "id": "Q10",
+  "category": "readme",
+  "question": "Quelles sont les trois conditions de go-live? Précisez les travaux manquants du runbook à partir de sa capture.",
+  "mustInclude": [
+   "sec-210",
+   "acc-303",
+   "rollback|retour arriere",
+   "validation fonctionnelle|post-deploiement|post-deployment"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Three conditions + runbook steps 4 and 5"
+ },
+ {
+  "id": "C01",
+  "category": "consignes",
+  "question": "Quelle est la date de livraison actuellement prévue et pourquoi?",
+  "mustInclude": [
+   "22 oct|oct(ober|\\.)? 22|10-22",
+   "connecteur|connector|int-101"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C02",
+  "category": "consignes",
+  "question": "Quelles décisions ont été prises concernant le fournisseur?",
+  "mustInclude": [
+   "boreal",
+   "cr-04|cr-01|canada central|22 oct"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C03",
+  "category": "consignes",
+  "question": "Quels engagements ne sont toujours pas complétés?",
+  "mustInclude": [
+   "sec-210",
+   "acc-303",
+   "runbook"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C04",
+  "category": "consignes",
+  "question": "Existe-t-il des informations contradictoires?",
+  "mustInclude": [
+   "plan|registre|risk register",
+   "15 oct|oct(ober|\\.)? 15|r-01|rapport|status report"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C05",
+  "category": "consignes",
+  "question": "Quels sont les trois principaux risques du projet aujourd'hui?",
+  "mustInclude": [
+   "securite|security|sec-210",
+   "accessibilite|accessibility|acc-303",
+   "exploitation|runbook|operations"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C06",
+  "category": "consignes",
+  "question": "Pourquoi la décision de reporter l'optimisation mobile avancée a-t-elle été prise?",
+  "mustInclude": [
+   "phase 2",
+   "portee|scope|pas approuv|non approuv|not approved|cr-04"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C07",
+  "category": "consignes",
+  "question": "Qu'est-ce qui a changé depuis la semaine dernière?",
+  "mustInclude": [
+   "26 sept|sept(ember|\\.)? 26|trois conditions|three conditions|conditions de go-live|go-live conditions"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "C08",
+  "category": "consignes",
+  "question": "Si je devais reprendre le projet demain matin, que devrais-je savoir?",
+  "mustInclude": [
+   "nicolas perron",
+   "22 oct|oct(ober|\\.)? 22|10-22",
+   "sec-210|acc-303|runbook",
+   "inv-003|cr-04|18[ ,.]?000"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": ""
+ },
+ {
+  "id": "T01",
+  "category": "trap",
+  "question": "Le correctif SEC-210 a été livré, la sécurité est donc acceptée, n'est-ce pas?",
+  "mustInclude": [
+   "en validation|in validation|pas (encore )?(ete )?accept|not (yet )?(been )?accepted|n'a pas|has not|non accept|n'est pas accept"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Delivered ≠ accepted"
+ },
+ {
+  "id": "T02",
+  "category": "trap",
+  "question": "Le rapport du 21 septembre indique que la sécurité et l'accessibilité sont au vert. Est-ce exact?",
+  "mustInclude": [
+   "sec-210|acc-303",
+   "non|not|pas exact|inexact|incorrect|perime|obsolete|outdated|avant|before|contradi"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Status report is outdated"
+ },
+ {
+  "id": "T03",
+  "category": "trap",
+  "question": "Le plan projet v3 indique le 15 octobre. Est-ce la date approuvée?",
+  "mustInclude": [
+   "22 oct|oct(ober|\\.)? 22|10-22"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Plan v3 is stale"
+ },
+ {
+  "id": "T04",
+  "category": "trap",
+  "question": "Le risque de retard du connecteur est-il toujours ouvert?",
+  "mustInclude": [
+   "ferme|resolu|closed|resolved",
+   "17 sept|sept(ember|\\.)? 17|int-101"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Risk register R-01 is stale"
+ },
+ {
+  "id": "T05",
+  "category": "trap",
+  "question": "Quel est le montant de la facture INV-778 pour NOVA?",
+  "mustInclude": [
+   "orion|autre projet|another project|other project|different project|ne concerne pas|not related|doesn't concern|does not concern"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "ORION invoice is a distractor"
+ },
+ {
+  "id": "T06",
+  "category": "trap",
+  "question": "Combien a été payé à Boréal jusqu'à présent pour NOVA?",
+  "mustInclude": [
+   "132[ ,.]?000"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Paid ≠ invoiced"
+ },
+ {
+  "id": "T07",
+  "category": "trap",
+  "question": "La capture d'INT-101 montre « Aucun résultat ». Le problème est-il encore actif?",
+  "mustInclude": [
+   "ferme|resolu|closed|resolved|n'est plus|no longer"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": false,
+  "why": "Historical screenshot"
+ },
+ {
+  "id": "T08",
+  "category": "trap",
+  "question": "Le CR-04 a-t-il été approuvé?",
+  "mustInclude": [
+   "brouillon|draft|pas (ete )?approuv|non approuv|jamais approuv|not (been )?approved|never approved|phase 2"
+  ],
+  "mustNotInclude": [
+   "cr-04 (a ete|was|est|is) approuve"
+  ],
+  "expectNotDocumented": false,
+  "why": "CR-04 is a draft"
+ },
+ {
+  "id": "N01",
+  "category": "not-documented",
+  "question": "Quelle est la date exacte du re-test de sécurité de SEC-210?",
+  "mustInclude": [
+   "(aucun|aucune|pas d[e'] ?|sans|ni) .{0,40}(information|mention|donnee|reference|trace|indication|detail|cout|prix|tarif|numero|coordonnee|date)|ne (contient|mentionne|precise|fournit|donne|indique|documente|comporte|fait) (pas|aucun|mention)|n'(est|apparait|y a|existe) (pas|aucun|nulle part)|ne figure (pas|nulle part)|introuvable|non (document|disponible|precis|indiqu|mentionn)|absent|not (documented|mentioned|specified|stated|available|included|provided|found|in the corpus)|no (information|mention|data|record|specific|exact)|does(n't| not) (contain|mention|include|specify)|isn't (documented|mentioned)|a confirmer|tbc|to be confirmed"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": true,
+  "why": ""
+ },
+ {
+  "id": "N02",
+  "category": "not-documented",
+  "question": "Combien coûtent les licences Microsoft Teams pour l'équipe NOVA?",
+  "mustInclude": [
+   "(aucun|aucune|pas d[e'] ?|sans|ni) .{0,40}(information|mention|donnee|reference|trace|indication|detail|cout|prix|tarif|numero|coordonnee|date)|ne (contient|mentionne|precise|fournit|donne|indique|documente|comporte|fait) (pas|aucun|mention)|n'(est|apparait|y a|existe) (pas|aucun|nulle part)|ne figure (pas|nulle part)|introuvable|non (document|disponible|precis|indiqu|mentionn)|absent|not (documented|mentioned|specified|stated|available|included|provided|found|in the corpus)|no (information|mention|data|record|specific|exact)|does(n't| not) (contain|mention|include|specify)|isn't (documented|mentioned)|a confirmer|tbc|to be confirmed"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": true,
+  "why": ""
+ },
+ {
+  "id": "N03",
+  "category": "not-documented",
+  "question": "Quel est le numéro de téléphone de Nicolas Perron?",
+  "mustInclude": [
+   "(aucun|aucune|pas d[e'] ?|sans|ni) .{0,40}(information|mention|donnee|reference|trace|indication|detail|cout|prix|tarif|numero|coordonnee|date)|ne (contient|mentionne|precise|fournit|donne|indique|documente|comporte|fait) (pas|aucun|mention)|n'(est|apparait|y a|existe) (pas|aucun|nulle part)|ne figure (pas|nulle part)|introuvable|non (document|disponible|precis|indiqu|mentionn)|absent|not (documented|mentioned|specified|stated|available|included|provided|found|in the corpus)|no (information|mention|data|record|specific|exact)|does(n't| not) (contain|mention|include|specify)|isn't (documented|mentioned)|a confirmer|tbc|to be confirmed"
+  ],
+  "mustNotInclude": [],
+  "expectNotDocumented": true,
+  "why": ""
+ }
+]

@@ -71,12 +71,14 @@ export interface LlmRequest {
   user: string;      // the question or the new file
   images?: Img[];
   maxTokens?: number;
+  model?: string;   // override the per-task model (evaluation)
+  effort?: string;  // override the per-task effort (evaluation)
 }
 
 export async function llmJSON(req: LlmRequest): Promise<unknown> {
   const provider = llmProvider();
   if (!provider) throw new Error("No LLM key configured");
-  const model = modelFor(req.task);
+  const model = req.model || modelFor(req.task);
   const started = Date.now();
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS[req.task]);
@@ -96,7 +98,7 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
         body: JSON.stringify({
           model,
           max_tokens: req.maxTokens ?? 16000, // thinking counts toward this limit
-          output_config: { effort: effortFor(req.task) },
+          output_config: { effort: req.effort || effortFor(req.task) },
           system,
           messages: [{
             role: "user",
