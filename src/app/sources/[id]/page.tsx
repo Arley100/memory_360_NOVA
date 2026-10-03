@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ScrollToMark } from "@/components/ScrollToMark";
-import { allSegments, allSources } from "@/lib/store";
+import { allSegments, allSources, updates } from "@/lib/store";
 import { norm, prettyLoc } from "@/lib/text";
-import type { Segment } from "@/lib/types";
+import { IMAGE_KINDS, type Segment } from "@/lib/types";
 
 function highlight(text: string, q: string) {
   if (!q) return text;
@@ -28,10 +28,11 @@ export default async function SourceView({ params, searchParams }: { params: Pro
   const { id: raw } = await params;
   const { loc = "", q = "" } = await searchParams;
   const id = decodeURIComponent(raw);
-  const sources = allSources();
+  const ups = await updates();
+  const sources = await allSources(ups);
   const s = sources.find((x) => x.id === id);
   if (!s) notFound();
-  const segs = allSegments().filter((x) => x.src === id);
+  const segs = (await allSegments(ups)).filter((x) => x.src === id);
   const rawPath = s.path.split("#")[0];
   const children = sources.filter((x) => x.parent === s.id);
   const target = s.duplicateOf ? sources.find((x) => x.id === s.duplicateOf) : undefined;
@@ -101,7 +102,7 @@ export default async function SourceView({ params, searchParams }: { params: Pro
       </p>
       {s.note && <p className="rounded-md border border-line bg-surface p-2 text-sm">Note: {s.note}</p>}
       {target && <p className="rounded-md border border-delivery/40 bg-delivery/5 p-2 text-sm">Identical to <Link className="underline" href={`/sources/${encodeURIComponent(target.id)}`}>{target.id}</Link>: not an independent confirmation.</p>}
-      {(s.kind === "png" || s.kind === "jpg") && (
+      {IMAGE_KINDS.includes(s.kind) && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`/api/raw?path=${encodeURIComponent(rawPath)}`} alt={`Screenshot ${s.id}`} className="max-h-[480px] rounded border border-line" />

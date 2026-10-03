@@ -1,9 +1,9 @@
 import { Chips } from "@/components/Chip";
 import { kb, resolver } from "@/lib/store";
 
-export default function Contradictions() {
+export default async function Contradictions() {
   const k = kb();
-  const r = resolver();
+  const r = await resolver();
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Contradictions</h1>

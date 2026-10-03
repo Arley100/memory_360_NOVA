@@ -2,7 +2,7 @@
 // so the evaluation measures exactly what the jury sees.
 import { lastUsage, llmJSON, type LlmUsage } from "./llm";
 import { CITATION_FORMAT, corpusContext, kbContext, RULES } from "./prompts";
-import { resolver } from "./store";
+import { resolver, updates } from "./store";
 import type { Cite, ResolvedCite } from "./types";
 
 export interface AskResult {
@@ -23,16 +23,17 @@ and whether something is a proposal, a decision, a delivery or a validation.
 If the corpus does not contain the answer, say so plainly and put what is missing in "missing".
 Return JSON only: {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}], "missing": [string], "recommendations": [string]}`;
 
-export function askContext(): string {
-  return `KNOWLEDGE BASE (curated, verified):\n${kbContext()}\n\nCORPUS SEGMENTS:\n${corpusContext()}`;
+export async function askContext(): Promise<string> {
+  const ups = await updates();
+  return `KNOWLEDGE BASE (curated, verified):\n${await kbContext(ups)}\n\nCORPUS SEGMENTS:\n${await corpusContext(ups)}`;
 }
 
 export async function askProject(question: string, opts: { model?: string; effort?: string } = {}): Promise<AskResult> {
-  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: askContext(), user: `QUESTION: ${question}`, ...opts })) as {
+  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: await askContext(), user: `QUESTION: ${question}`, ...opts })) as {
     answer?: string; citations?: Cite[]; missing?: string[]; recommendations?: string[];
   };
   const usage = lastUsage;
-  const r = resolver();
+  const r = await resolver();
   const cites = (out.citations ?? []).map(r);
   const verified = cites.filter((c) => c.verified);
   return {

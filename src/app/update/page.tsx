@@ -1,9 +1,10 @@
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { updates } from "@/lib/store";
 import { UpdateClient } from "./UpdateClient";
+import { ResetButton } from "./ResetButton";
 
-export default function Update() {
-  const ups = updates();
+export default async function Update() {
+  const ups = await updates();
   return (
     <div className="space-y-8">
       <div>
@@ -12,7 +13,10 @@ export default function Update() {
       </div>
       <UpdateClient />
       <section className="space-y-6">
-        <h2 className="text-2xl font-bold">Published versions</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-2xl font-bold">Published versions</h2>
+          <ResetButton count={ups.length} />
+        </div>
         <p className="rounded-md border border-line bg-surface p-3"><strong>Baseline</strong> · Sept 30, 2026, 09:00 · 64 files · frozen</p>
         {ups.length === 0 && <p className="text-muted">No update yet.</p>}
         {ups.slice().reverse().map((u) => (

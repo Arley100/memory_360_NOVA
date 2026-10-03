@@ -8,8 +8,8 @@ import { llmProvider, modelFor } from "@/lib/llm";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Mémoire 360 · NOVA", description: "Operational memory of project NOVA" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const ups = updates();
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const ups = await updates();
   const last = ups.at(-1)?.cs.id;
   const ai = llmProvider();
   const short = (m: string) => m.replace(/^claude-/, "").replace(/-(\d)-(\d)$/, " $1.$2");

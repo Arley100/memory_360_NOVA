@@ -29,12 +29,12 @@ async function main() {
   console.log("\nWarming the cache with a real question…");
   const { corpusContext, kbContext, RULES, CITATION_FORMAT } = await import("../src/lib/prompts");
   const { resolver } = await import("../src/lib/store");
-  const context = `KNOWLEDGE BASE (curated, verified):\n${kbContext()}\n\nCORPUS SEGMENTS:\n${corpusContext()}`;
+  const context = `KNOWLEDGE BASE (curated, verified):\n${await kbContext()}\n\nCORPUS SEGMENTS:\n${await corpusContext()}`;
   const system = `You are Mémoire 360.\n${RULES}\nAnswer ONLY from the context.\n${CITATION_FORMAT}\nReturn JSON: {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}]}`;
   for (const round of [1, 2]) {
     try {
       const out = (await llmJSON({ task: "ask", system, context, user: "QUESTION: Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve?" })) as { answer: string; citations?: { src: string; quote: string }[] };
-      const r = resolver();
+      const r = await resolver();
       const cites = (out.citations ?? []).map(r);
       const v = cites.filter((c) => c.verified).length;
       const u = (await import("../src/lib/llm")).lastUsage ?? lastUsage;
@@ -48,6 +48,13 @@ async function main() {
       if (!/22/.test(out.answer)) bad("The answer does not mention Oct 22: check the model output.");
     } catch (e) { bad(`Round ${round}: ${(e as Error).message}`); }
   }
+  console.log("\nWarming the update-analysis cache (Opus)…");
+  try {
+    const t0 = Date.now();
+    await llmJSON({ task: "update", system: "Reply with JSON only.", context, user: 'Return exactly {"ok": true}', maxTokens: 2000 });
+    const u = (await import("../src/lib/llm")).lastUsage;
+    ok(`update cache ready in ${Date.now() - t0} ms · cache write ${u?.cacheWrite} · cache read ${u?.cacheRead} tokens`);
+  } catch (e) { bad(`update warm-up: ${(e as Error).message}`); }
   console.log(process.exitCode ? "\nSome checks failed (see above).\n" : "\nAll good: ready to demo. The cache stays warm ~5 min (set LLM_CACHE_TTL=1h on demo day).\n");
 }
 main();

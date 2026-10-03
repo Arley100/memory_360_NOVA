@@ -1,7 +1,12 @@
 import { askProject } from "@/lib/ask";
 import { llmProvider } from "@/lib/llm";
+import { guard } from "@/lib/access";
+
+export const maxDuration = 120;
 
 export async function POST(req: Request) {
+  const denied = guard(req, "ask");
+  if (denied) return denied;
   const { question } = (await req.json()) as { question: string };
   if (!question?.trim()) return Response.json({ error: "Empty question" }, { status: 400 });
   if (!llmProvider()) {

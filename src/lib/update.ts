@@ -11,7 +11,7 @@ const LATE_DATE = /(\d{1,2})(?:er)?\s+(novembre|d[ée]cembre|november|december)|
 export function emptyChangeSet(filename: string): ChangeSet {
   return {
     id: "draft", filename, summary: "", problemStatus: [], priorDecisions: [], newProposals: [], newDecisions: [],
-    conditionChanges: [], affected: { answers: [], conditions: [], actions: [] }, newActions: [],
+    conditionChanges: [], affected: { answers: [], conditions: [], actions: [] }, newActions: [], revisedAnswers: [], revisedBrief: [],
     guardrails: { approvalInvented: false, otherConditionsClosed: false, beyondContractEnd: false, notes: [] },
   };
 }
@@ -61,7 +61,29 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
     });
   }
 
-  // 4. Contract end check (Oct 31, 2026).
+  // 4. Revised answers and brief: verified citations only, known ids/themes only, and a check that a proposed
+  //    date is never presented as approved when no approval was quoted.
+  const validIds = new Set(["Q01","Q02","Q03","Q04","Q05","Q06","Q07","Q08","Q09","Q10"]);
+  out.revisedAnswers = (cs.revisedAnswers ?? []).filter((a) => validIds.has(a.id) && a.text?.trim()).map((a) => ({ ...a, citations: clean(a.citations) }));
+  out.revisedBrief = (cs.revisedBrief ?? []).filter((b) => b.text?.trim()).map((b) => ({ ...b, citations: clean(b.citations) }));
+  for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, ...a })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, ...b }))]) {
+    if (!x.citations.length) notes.push(`${x.label}: revised text has no verified citation. Review it before publishing.`);
+  }
+  if (out.newDecisions.length === 0) {
+    const DATE = /(\d{1,2})(?:er)?\s+(janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre)|(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}/gi;
+    const proposed = new Set(out.newProposals.flatMap((p) => p.text.match(DATE) ?? []).map((d) => d.toLowerCase()).filter((d) => !/22/.test(d)));
+    for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, text: a.text })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, text: b.text }))]) {
+      for (const d of proposed) {
+        const i = x.text.toLowerCase().indexOf(d);
+        if (i >= 0 && /approuv|approved|officiel|official|confirm[ée]|d[ée]cid/i.test(x.text.slice(Math.max(0, i - 80), i + 80))
+            && !/non approuv|pas approuv|not approved|not yet approved|unapproved|proposal|proposition|propos/i.test(x.text.slice(Math.max(0, i - 80), i + 80))) {
+          notes.push(`${x.label}: may present the proposed date (${d}) as approved, but no approval was quoted. Review before publishing.`);
+        }
+      }
+    }
+  }
+
+  // 5. Contract end check (Oct 31, 2026).
   const text = [...out.newProposals, ...out.newDecisions].map((x) => x.text).join(" ") + " " + fresh.map((s) => s.text).join(" ");
   const late = LATE_DATE.test(text);
   if (late) notes.push("A date after Oct 31, 2026 appears: outside the contract period, a contractual amendment would be needed.");

@@ -1,5 +1,5 @@
 // Shared grounding context and rules (see SPEC.md section 21).
-import { allSegments, allSources, kb, updates } from "./store";
+import { allSegments, allSources, kb, updates, type Update } from "./store";
 
 export const RULES = `Rules of reading (from the challenge README):
 1. Reference date: baseline = 2026-09-30 09:00 Montréal (UTC-04:00). Later facts only come from published updates (U001...).
@@ -18,23 +18,25 @@ export const CITATION_FORMAT = `Citation format (strict):
   no translation, no ellipsis, no added quotation marks.
 - Every factual sentence needs at least one citation. Prefer the most authoritative source (decision > validation > report).`;
 
-export function corpusContext(): string {
-  const src = new Map(allSources().map((s) => [s.id, s]));
-  return allSegments()
+export async function corpusContext(ups?: Update[]): Promise<string> {
+  const list = ups ?? (await updates());
+  const src = new Map((await allSources(list)).map((s) => [s.id, s]));
+  return (await allSegments(list))
     .filter((s) => { const x = src.get(s.src); return x && x.role !== "NOISE" && !x.duplicateOf; })
     .map((s) => `[[${s.src}#${s.loc}]] ${s.text.replace(/\s+/g, " ")}`)
     .join("\n");
 }
 
-export function kbContext(): string {
+export async function kbContext(ups?: Update[]): Promise<string> {
   const k = kb();
+  const list = ups ?? (await updates());
   const slim = {
     goLive: k.goLive, conditions: k.conditions.map(({ citations, ...c }) => c),
     answers: k.answers.map((a) => ({ id: a.id, q: a.question_en, a: a.answer_en })),
     actions: k.actions.map(({ citations, ...a }) => a),
     contradictions: k.contradictions.map((c) => ({ id: c.id, topic: c.topic, resolution: c.resolution })),
     decisions: k.decisions, budget: k.budget,
-    updates: updates().map((u) => u.cs),
+    updates: list.map((u) => u.cs),
   };
   return JSON.stringify(slim);
 }

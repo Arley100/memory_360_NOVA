@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Comité NOVA - décision sur la nouvelle date
+DTSTART;TZID=America/Montreal:20261002T100000
+DTEND;TZID=America/Montreal:20261002T110000
+LOCATION:Salle 4
+ORGANIZER;CN="Nicolas Perron":mailto:nicolas.perron@demo.example
+ATTENDEE;CN="Sophie Lambert":mailto:sophie.lambert@demo.example
+DESCRIPTION:Ordre du jour : re-test SEC-210 non concluant\, proposition Boréal de
+  déplacer au 29 octobre.
+END:VEVENT
+END:VCALENDAR

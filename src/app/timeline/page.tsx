@@ -1,10 +1,10 @@
 import { Chips, Tag } from "@/components/Chip";
 import { kb, resolver, updates } from "@/lib/store";
 
-export default function Timeline() {
+export default async function Timeline() {
   const k = kb();
-  const r = resolver();
-  const ups = updates();
+  const ups = await updates();
+  const r = await resolver([], ups);
   const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
   const big = new Set(["DECISION"]);
   return (

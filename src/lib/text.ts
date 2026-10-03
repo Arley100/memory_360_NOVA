@@ -25,6 +25,12 @@ export function prettyLoc(loc: string): string {
   if (loc.startsWith("region=")) return loc.slice(7);
   if (loc.startsWith("att:")) return "attachment " + loc.slice(4);
   if (/^P\d+$/.test(loc)) return "¶" + loc.slice(1);
+  let m = /^(slide|notes)=(\d+):P(\d+)$/.exec(loc);
+  if (m) return `${m[1]} ${m[2]} ¶${m[3]}`;
+  m = /^event-(\d+):([A-Z]+)$/.exec(loc);
+  if (m) return `event ${m[1]} · ${m[2].toLowerCase()}`;
+  if (loc.startsWith("$")) return loc.length > 28 ? "…" + loc.slice(-27) : loc;
+  if (loc === "file") return "file";
   if (loc.includes("!")) return loc.split("!")[1];
   return loc;
 }

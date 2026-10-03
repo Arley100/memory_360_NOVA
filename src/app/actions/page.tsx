@@ -1,10 +1,11 @@
 import { Chips, Tag } from "@/components/Chip";
 import { kb, resolver, updates } from "@/lib/store";
 
-export default function Actions() {
+export default async function Actions() {
   const k = kb();
-  const r = resolver();
-  const extra = updates().flatMap((u) => u.cs.newActions.map((a, i) => ({ ...a, id: `${u.cs.id}-A${i + 1}`, condition: undefined as number | undefined })));
+  const ups = await updates();
+  const r = await resolver([], ups);
+  const extra = ups.flatMap((u) => u.cs.newActions.map((a, i) => ({ ...a, id: `${u.cs.id}-A${i + 1}`, condition: undefined as number | undefined })));
   const rows = [...k.actions, ...extra];
   return (
     <div className="space-y-6">

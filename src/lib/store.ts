@@ -1,9 +1,12 @@
-// Server-side data access. Baseline files are read-only; updates are additive (data/updates/U00n/).
+// Server-side data access. The baseline is read-only (files in the repo); updates come from the update store
+// (local files or Redis when hosted). The current state = baseline + published updates.
 import fs from "fs";
 import path from "path";
 import { indexSegments, resolveCite } from "./cite";
-import type { ChangeSet, Cite, ResolvedCite, Segment, Source } from "./types";
+import { updateStore, type Update } from "./updateStore";
+import type { Cite, ResolvedCite, Segment, Source } from "./types";
 
+export type { Update } from "./updateStore";
 export const ROOT = process.cwd();
 // Paths are relative to data/ (keeps file tracing scoped to that folder).
 const readJSON = <T,>(rel: string): T => JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", rel), "utf8")) as T;
@@ -25,38 +28,60 @@ export interface KB {
   people: { name: string; role: string; since: string; owns: string }[];
 }
 
-export interface Update { cs: ChangeSet; sources: Source[]; segments: Segment[] }
-
-export const kb = () => readJSON<KB>("baseline/kb.json");
-export const baselineSources = () => readJSON<Source[]>("registry.json");
-export const baselineSegments = () => readJSON<Segment[]>("segments.json");
-
-export function updates(): Update[] {
-  const dir = path.join(process.cwd(), "data", "updates");
-  if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).filter((d) => /^U\d{3}$/.test(d)).sort().map((d) => ({
-    cs: readJSON<ChangeSet>(`updates/${d}/changeset.json`),
-    sources: readJSON<Source[]>(`updates/${d}/sources.json`),
-    segments: readJSON<Segment[]>(`updates/${d}/segments.json`),
-  }));
+// Baseline: read once per server instance (it never changes at runtime).
+let baselineCache: { kb: KB; sources: Source[]; segments: Segment[] } | null = null;
+function baseline() {
+  if (!baselineCache) baselineCache = { kb: readJSON<KB>("baseline/kb.json"), sources: readJSON<Source[]>("registry.json"), segments: readJSON<Segment[]>("segments.json") };
+  return baselineCache;
 }
+export const kb = () => baseline().kb;
+export const baselineSources = () => baseline().sources;
+export const baselineSegments = () => baseline().segments;
 
-export function allSources(): Source[] { return [...baselineSources(), ...updates().flatMap((u) => u.sources)]; }
-export function allSegments(): Segment[] { return [...baselineSegments(), ...updates().flatMap((u) => u.segments)]; }
+export const updates = (): Promise<Update[]> => updateStore().list();
 
-export function resolver(extra: Segment[] = []): (c: Cite) => ResolvedCite {
-  const idx = indexSegments([...allSegments(), ...extra]);
+export async function allSources(ups?: Update[]): Promise<Source[]> { return [...baselineSources(), ...(ups ?? (await updates())).flatMap((u) => u.sources)]; }
+export async function allSegments(ups?: Update[]): Promise<Segment[]> { return [...baselineSegments(), ...(ups ?? (await updates())).flatMap((u) => u.segments)]; }
+
+export async function resolver(extra: Segment[] = [], ups?: Update[]): Promise<(c: Cite) => ResolvedCite> {
+  const idx = indexSegments([...(await allSegments(ups)), ...extra]);
   return (c: Cite) => resolveCite(c, idx);
 }
 
-// Current view = baseline + published ChangeSets (baseline itself is never modified).
-export function currentConditions(): (Condition & { changedIn?: string; changeText?: string; changeCites?: Cite[] })[] {
-  const conds = kb().conditions.map((c) => ({ ...c })) as (Condition & { changedIn?: string; changeText?: string; changeCites?: Cite[] })[];
-  for (const u of updates()) {
+type CurrentCondition = Condition & { changedIn?: string; changeText?: string; changeCites?: Cite[] };
+export async function currentConditions(ups?: Update[]): Promise<CurrentCondition[]> {
+  const conds = kb().conditions.map((c) => ({ ...c })) as CurrentCondition[];
+  for (const u of ups ?? (await updates())) {
     for (const ch of u.cs.conditionChanges ?? []) {
       const c = conds.find((x) => x.id === ch.id);
       if (c) Object.assign(c, { status: ch.status, changedIn: u.cs.id, changeText: ch.text, changeCites: ch.citations });
     }
   }
   return conds;
+}
+
+export interface Revised<T> { item: T; current?: { text: string; citations: Cite[]; changedIn: string } }
+
+export async function currentAnswers(ups?: Update[]): Promise<Revised<Answer>[]> {
+  const list = ups ?? (await updates());
+  return kb().answers.map((a) => {
+    let current: Revised<Answer>["current"];
+    for (const u of list) {
+      const r = u.cs.revisedAnswers?.find((x) => x.id === a.id);
+      if (r) current = { text: r.text, citations: r.citations, changedIn: u.cs.id };
+    }
+    return { item: a, current };
+  });
+}
+
+export async function currentBrief(ups?: Update[]): Promise<Revised<KB["brief"]["sections"][number]>[]> {
+  const list = ups ?? (await updates());
+  return kb().brief.sections.map((sec) => {
+    let current: Revised<KB["brief"]["sections"][number]>["current"];
+    for (const u of list) {
+      const r = u.cs.revisedBrief?.find((x) => x.theme.toLowerCase() === sec.theme.toLowerCase());
+      if (r) current = { text: r.text, citations: r.citations, changedIn: u.cs.id };
+    }
+    return { item: sec, current };
+  });
 }

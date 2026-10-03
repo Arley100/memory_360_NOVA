@@ -12,6 +12,7 @@
     "eval": "tsx scripts/eval.ts"
   },
   "dependencies": {
+    "jszip": "^3.10.2",
     "mailparser": "^3.9.33",
     "mammoth": "^1.13.0",
     "next": "16.3.8",

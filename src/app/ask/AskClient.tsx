@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Chip } from "@/components/Chip";
+import { CodeGate } from "@/components/CodeGate";
 import type { ResolvedCite } from "@/lib/types";
 
 const SUGGESTIONS = [
@@ -12,21 +13,30 @@ const SUGGESTIONS = [
   "Who approved the move to October 22?",
 ];
 
-type Res = { answer?: string; citations?: ResolvedCite[]; dropped?: number; missing?: string[]; recommendations?: string[]; status?: string; error?: string };
+type Res = { needCode?: boolean; answer?: string; citations?: ResolvedCite[]; dropped?: number; missing?: string[]; recommendations?: string[]; status?: string; error?: string };
 
 export function AskClient({ initial }: { initial: string }) {
   const [q, setQ] = useState(initial);
   const [res, setRes] = useState<Res | null>(null);
   const [busy, setBusy] = useState(false);
+  const [asked, setAsked] = useState("");          // the question the displayed answer belongs to
+  const latest = useRef(0);                         // only the most recent request may update the screen
+  const lastInitial = useRef<string | null>(null);  // ask once per question from the header (no double run)
   async function ask(question: string) {
-    setQ(question); setBusy(true); setRes(null);
+    const text = question.trim();
+    if (!text) return;
+    const id = ++latest.current;
+    setQ(text); setAsked(text); setBusy(true); setRes(null);
     try {
-      const r = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question }) });
-      setRes(await r.json());
-    } catch (e) { setRes({ error: String(e) }); }
-    setBusy(false);
+      const r = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: text }) });
+      const j = (await r.json()) as Res;
+      if (id === latest.current) setRes(j);
+    } catch (e) { if (id === latest.current) setRes({ error: String(e) }); }
+    if (id === latest.current) setBusy(false);
   }
-  useEffect(() => { if (initial) ask(initial); }, [initial]);
+  useEffect(() => {
+    if (initial && initial !== lastInitial.current) { lastInitial.current = initial; ask(initial); }
+  }, [initial]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="space-y-5">
       <form onSubmit={(e) => { e.preventDefault(); ask(q); }} className="flex gap-2">
@@ -35,11 +45,13 @@ export function AskClient({ initial }: { initial: string }) {
         <button disabled={busy} className="rounded-md bg-primary px-5 font-semibold text-white disabled:opacity-50">{busy ? "Reading the files…" : "Ask"}</button>
       </form>
       <div className="flex flex-wrap gap-2">
-        {SUGGESTIONS.map((s) => <button key={s} onClick={() => ask(s)} className="rounded-full border border-line bg-surface px-3 py-1 text-sm hover:border-primary">{s}</button>)}
+        {SUGGESTIONS.map((s) => <button key={s} disabled={busy} onClick={() => ask(s)} className="rounded-full border border-line bg-surface px-3 py-1 text-sm hover:border-primary disabled:opacity-50">{s}</button>)}
       </div>
-      {res?.error && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{res.error}</p>}
+      {res?.needCode && <CodeGate onUnlocked={() => ask(asked)} />}
+      {res?.error && !res.needCode && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{res.error}</p>}
       {res?.answer && (
         <section className="rounded-lg border border-line bg-surface p-5" aria-live="polite">
+          <p className="mb-3 border-b border-line pb-2 text-sm text-muted">Answer to: <span className="font-semibold text-ink">{asked}</span></p>
           <p className="whitespace-pre-wrap text-[17px] leading-relaxed">{res.answer}</p>
           <div className="mt-3 flex flex-wrap gap-1.5">{res.citations?.map((c, i) => <Chip key={i} c={c} />)}</div>
           <p className="mt-2 text-sm text-muted">

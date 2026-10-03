@@ -1,4 +1,5 @@
-export type Kind = "eml" | "txt" | "md" | "csv" | "pdf" | "xlsx" | "png" | "jpg" | "docx" | "other";
+export type Kind = "eml" | "txt" | "md" | "csv" | "pdf" | "xlsx" | "png" | "jpg" | "webp" | "gif" | "docx" | "pptx" | "ics" | "json" | "html" | "rtf" | "zip" | "other";
+export const IMAGE_KINDS: Kind[] = ["png", "jpg", "webp", "gif"];
 
 export interface Source {
   id: string;
@@ -45,5 +46,7 @@ export interface ChangeSet {
   conditionChanges: ConditionChange[];
   affected: { answers: string[]; conditions: number[]; actions: string[] };
   newActions: NewAction[];
+  revisedAnswers?: { id: string; text: string; citations: Cite[] }[];
+  revisedBrief?: { theme: string; text: string; citations: Cite[] }[];
   guardrails: { approvalInvented: boolean; otherConditionsClosed: boolean; beyondContractEnd: boolean; notes: string[] };
 }

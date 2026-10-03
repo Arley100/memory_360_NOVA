@@ -91,7 +91,7 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
         ...(req.context ? [{ type: "text", text: req.context, cache_control: cache }] : []),
         { type: "text", text: req.system },
       ];
-      const res = await fetchRetry("https://api.anthropic.com/v1/messages", {
+      const res = await fetchRetry(`${process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com"}/v1/messages`, {
         method: "POST",
         signal: ctrl.signal,
         headers: { "content-type": "application/json", "x-api-key": process.env.ANTHROPIC_API_KEY!, "anthropic-version": "2023-06-01" },

@@ -43,3 +43,6 @@ next-env.d.ts
 
 # Mémoire 360
 data/updates/_pending/
+# local rehearsal updates are never committed (hosted updates live in Redis)
+data/updates/U*
+data/updates/*.tmp

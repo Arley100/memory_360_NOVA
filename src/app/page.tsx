@@ -3,12 +3,12 @@ import { Chips, Tag } from "@/components/Chip";
 import { currentConditions, kb, resolver, updates } from "@/lib/store";
 import { money } from "@/lib/text";
 
-export default function Overview() {
+export default async function Overview() {
   const k = kb();
-  const r = resolver();
-  const conds = currentConditions();
+  const ups = await updates();
+  const r = await resolver([], ups);
+  const conds = await currentConditions(ups);
   const met = conds.filter((c) => c.status === "met").length;
-  const ups = updates();
   const b = k.budget;
   const pct = (n: number) => `${(n / b.authorized) * 100}%`;
   const proposals = ups.flatMap((u) => u.cs.newProposals.map((p) => ({ ...p, id: u.cs.id })));
