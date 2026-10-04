@@ -1,0 +1,7 @@
+﻿const fs=require('fs'),ts=require('typescript');
+const catalog=JSON.parse(fs.readFileSync('.translation-catalog.json','utf8'));
+const map=Object.assign({},...['.translation-fr.json','.translation-fr2.json','.translation-fr3.json'].map(f=>JSON.parse(fs.readFileSync(f,'utf8'))));
+const edits=new Map();
+for(const unit of catalog){if(!(unit.id in map))continue;for(const p of unit.locations){const source=fs.readFileSync(p.file,'utf8');const original=source.slice(p.start,p.end);const translated=p.raw.replace(unit.text,map[unit.id]);let value;if(p.kind===ts.SyntaxKind.JsxText){value=translated.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}else if(p.kind===ts.SyntaxKind.StringLiteral){value=JSON.stringify(translated);if(original.includes('&quot;')||original.includes('&apos;')) value=JSON.stringify(translated.replaceAll('&quot;','"').replaceAll('&apos;',"'"));}else {let a=p.kind===ts.SyntaxKind.TemplateHead||p.kind===ts.SyntaxKind.NoSubstitutionTemplateLiteral?'`':'}';let b=p.kind===ts.SyntaxKind.TemplateTail||p.kind===ts.SyntaxKind.NoSubstitutionTemplateLiteral?'`':'${';value=a+translated.replaceAll('`','\\`').replaceAll('${','\\${')+b;}if(!edits.has(p.file))edits.set(p.file,[]);edits.get(p.file).push({...p,value});}}
+for(const [file,list] of edits){let s=fs.readFileSync(file,'utf8');for(const e of list.sort((a,b)=>b.start-a.start))s=s.slice(0,e.start)+e.value+s.slice(e.end);fs.writeFileSync(file,s)}
+console.log('Translated '+Object.keys(map).length+' texts in '+edits.size+' files');

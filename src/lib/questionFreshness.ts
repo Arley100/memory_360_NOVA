@@ -80,6 +80,6 @@ export function getQuestionContextDelta(questionId: string, computation: Questio
     }
   }
   const relevantUpdateIds = [...new Set([...freshness.changedUpdates, ...freshness.removedUpdates, ...changed.map((c) => c.updateId).filter((id) => id !== "baseline")])];
-  const uncertainReason = changed.some((c) => c.updateId === "baseline" && c.changeType === "added") ? "New baseline files have no question relevance mapping." : relevantUpdateIds.some((id) => !changed.some((c) => c.updateId === id)) ? "A changed update has no identifiable source delta." : changed.some((c) => c.changeType !== "removed" && (c.changeType === "changed" || !c.sha256 || !c.version)) ? "Changed source fingerprints are incomplete." : undefined;
+  const uncertainReason = changed.some((c) => c.updateId === "baseline" && c.changeType === "added") ? "Les nouveaux fichiers de référence ne sont associés à aucune question." : relevantUpdateIds.some((id) => !changed.some((c) => c.updateId === id)) ? "Une mise à jour modifiée ne comporte aucun changement de source identifiable." : changed.some((c) => c.changeType !== "removed" && (c.changeType === "changed" || !c.sha256 || !c.version)) ? "Empreintes des sources modifiées incomplètes." : undefined;
   return { addedSources: changed.filter((c) => c.changeType === "added"), modifiedSources: changed.filter((c) => c.changeType === "modified" || c.changeType === "changed"), removedSources: changed.filter((c) => c.changeType === "removed"), relevantUpdateIds, uncertainReason };
 }

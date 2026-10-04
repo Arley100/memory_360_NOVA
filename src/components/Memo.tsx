@@ -15,7 +15,7 @@ export type StageItem = { stage: string; label: string; status: "pending" | "sta
 
 export function StageList({ stages }: { stages: StageItem[] }) {
   return (
-    <ol className="panel divide-y divide-line" aria-label="Steps">
+    <ol className="panel divide-y divide-line" aria-label="Étapes">
       {stages.map((s) => (
         <li key={s.stage} className={`flex items-start gap-3 p-4 text-xs transition-colors ${s.status === "start" ? "bg-primary/5" : ""}`}>
           <span className={`mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-bold ${

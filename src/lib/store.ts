@@ -1,3 +1,4 @@
+import { frenchAppContent, frenchText } from "./frenchContent";
 // Server-side data access. The baseline is read-only (files in the repo); updates come from the update store
 // (local files or Redis when hosted). The current state = baseline + published updates.
 import fs from "fs";
@@ -70,10 +71,10 @@ function generatedFile(): KB | null {
 
 /** The knowledge base shown by the app. KB_SOURCE=curated forces the hand-curated answer key. */
 export async function getKB(): Promise<KB> {
-  if (process.env.KB_SOURCE === "curated") return { ...curatedKB(), meta: { source: "curated" } };
+  if (process.env.KB_SOURCE === "curated") return frenchAppContent({ ...curatedKB(), meta: { source: "curated" } });
   const stored = await updateStore().loadKB().catch(() => null);
   const gen = (stored as KB | null) ?? generatedFile();
-  return gen ?? { ...curatedKB(), meta: { source: "curated" } };
+  return frenchAppContent(gen ?? { ...curatedKB(), meta: { source: "curated" } });
 }
 export function invalidateGeneratedFile() { generatedFileCache = null; }
 export const baselineSources = () => baseline().sources;
@@ -95,7 +96,7 @@ export async function currentConditions(ups?: Update[]): Promise<CurrentConditio
   for (const u of ups ?? (await updates())) {
     for (const ch of u.cs.conditionChanges ?? []) {
       const c = conds.find((x) => x.id === ch.id);
-      if (c) Object.assign(c, { status: ch.status, changedIn: u.cs.id, changeText: ch.text, changeCites: ch.citations });
+      if (c) Object.assign(c, { status: ch.status, changedIn: u.cs.id, changeText: frenchText(ch.text), changeCites: ch.citations });
     }
   }
   return conds;
@@ -109,7 +110,7 @@ export async function currentAnswers(ups?: Update[]): Promise<Revised<Answer>[]>
     let current: Revised<Answer>["current"];
     for (const u of list) {
       const r = u.cs.revisedAnswers?.find((x) => x.id === a.id);
-      if (r) current = { text: r.text, citations: r.citations, changedIn: u.cs.id };
+      if (r) current = { text: frenchText(r.text), citations: r.citations, changedIn: u.cs.id };
     }
     return { item: a, current };
   });
@@ -120,7 +121,7 @@ export async function currentBrief(ups?: Update[]): Promise<Revised<KB["brief"][
   return (await getKB()).brief.sections.map((sec) => {
     let current: Revised<KB["brief"]["sections"][number]>["current"];
     for (const u of list) {
-      const r = u.cs.revisedBrief?.find((x) => x.theme.toLowerCase() === sec.theme.toLowerCase());
+      const r = u.cs.revisedBrief?.find((x) => frenchText(x.theme).toLowerCase() === sec.theme.toLowerCase());
       if (r) current = { text: r.text, citations: r.citations, changedIn: u.cs.id };
     }
     return { item: sec, current };

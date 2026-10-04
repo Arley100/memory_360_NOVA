@@ -60,7 +60,7 @@ function extractJSON(text: string): unknown {
   const t = text.replace(/```json|```/g, "").trim();
   const start = t.indexOf("{");
   const end = t.lastIndexOf("}");
-  if (start < 0 || end < 0) throw new Error("The model did not return JSON");
+  if (start < 0 || end < 0) throw new Error("Le modèle n’a pas renvoyé de JSON");
   return JSON.parse(t.slice(start, end + 1));
 }
 
@@ -78,7 +78,7 @@ export interface LlmRequest {
 
 export async function llmJSON(req: LlmRequest): Promise<unknown> {
   const provider = llmProvider();
-  if (!provider) throw new Error("No LLM key configured");
+  if (!provider) throw new Error("Aucun fournisseur d’IA configuré");
   const model = req.model || modelFor(req.task);
   const started = Date.now();
   const ctrl = new AbortController();
@@ -118,7 +118,7 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
       const u = data.usage ?? {};
       lastUsage = { task: req.task, model, ms: Date.now() - started, input: u.input_tokens ?? 0, cacheWrite: u.cache_creation_input_tokens ?? 0, cacheRead: u.cache_read_input_tokens ?? 0, output: u.output_tokens ?? 0 };
       console.log(`[llm] ${req.task} ${model} ${lastUsage.ms}ms in=${lastUsage.input} cacheWrite=${lastUsage.cacheWrite} cacheRead=${lastUsage.cacheRead} out=${lastUsage.output}`);
-      if (data.stop_reason === "max_tokens") throw new Error("The answer was cut off (max_tokens). Lower the effort level or raise maxTokens.");
+      if (data.stop_reason === "max_tokens") throw new Error("Réponse interrompue (max_tokens). Réduisez l’effort ou augmentez maxTokens.");
       const text = (data.content ?? []).filter((b: { type: string }) => b.type === "text").map((b: { text: string }) => b.text).join("\n");
       return extractJSON(text);
     }
@@ -151,8 +151,8 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
     console.log(`[llm] ${req.task} ${model} ${lastUsage.ms}ms in=${lastUsage.input} out=${lastUsage.output}`);
     return extractJSON(data.choices?.[0]?.message?.content ?? "");
   } catch (e) {
-    if (req.signal?.aborted) throw new DOMException("Generation stopped.", "AbortError");
-    if ((e as Error).name === "AbortError") throw new Error(`The model took longer than ${TIMEOUT_MS[req.task] / 1000}s (${req.task}). Try again or switch to manual mode.`);
+    if (req.signal?.aborted) throw new DOMException("Génération arrêtée.", "AbortError");
+    if ((e as Error).name === "AbortError") throw new Error(`Le modèle a dépassé ${TIMEOUT_MS[req.task] / 1000}s (${req.task}). Réessayez ou passez en mode manuel.`);
     throw e;
   } finally {
     clearTimeout(timer);
@@ -164,10 +164,10 @@ export async function visionTranscribe(buf: Buffer, mime: string): Promise<Trans
   if (!llmProvider()) return null;
   const out = (await llmJSON({
     task: "vision",
-    system: "You transcribe screenshots from project NOVA exactly. Never infer anything that is not visible. Keep French text verbatim with accents.",
-    user: `Return JSON only: {"header": string (app header line, e.g. version/build/environment), "title": string,
-"rows": [string] (each visible row or list item in order; for tables use "a | b | c"; for label/value use "label : value"),
-"notes": [string] (annotations, red notes, QA observations, verbatim), "description": string (1-2 neutral sentences in English)}`,
+    system: "Transcris exactement les captures du projet NOVA. Ne déduis jamais ce qui n’est pas visible. Conserve chaque texte source mot pour mot dans sa langue d’origine, avec ses accents. Rédige uniquement la description ajoutée en français.",
+    user: `Renvoie uniquement du JSON en conservant ces clés : {"header": texte (en-tête de l’application, par exemple version/compilation/environnement), "title": texte,
+"rows": [texte] (chaque ligne ou élément visible, dans l’ordre ; pour les tableaux : "a | b | c" ; pour les paires : "libellé : valeur"),
+"notes": [texte] (annotations, notes rouges, observations qualité, mot pour mot), "description": texte (1 à 2 phrases neutres en français)}`,
     images: [{ data: buf, mime }],
     maxTokens: 8000,
   })) as Transcription;

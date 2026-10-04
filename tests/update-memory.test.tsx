@@ -48,14 +48,14 @@ test("published proposals, formal decisions, evidence, refresh and reset preserv
     const proposalLineage = decisionLineages(kb, ups).find((g) => g.steps.some((s) => s.stage === "PROPOSED"));
     assert.ok(proposalLineage?.baseline);
     assert.equal(proposalLineage.steps.filter((s) => s.stage === "PROPOSED").length, 1);
-    assert.match(proposalLineage.current, /2026-10-22 remains approved/);
+    assert.match(proposalLineage.current, /2026-10-22 reste approuvée/);
     assert.ok(!proposalLineage.steps.some((s) => s.stage === "DECIDED"));
     const proposalTimeline = renderToStaticMarkup(await Timeline());
-    assert.match(proposalTimeline, /UPDATE U001/);
+    assert.match(proposalTimeline, /MISE À JOUR U001/);
     assert.match(proposalTimeline, /Move go-live to Oct 29/);
     const proposalDecisions = renderToStaticMarkup(await Decisions());
-    assert.match(proposalDecisions, /PROPOSED:/);
-    assert.ok(!proposalDecisions.includes("UPDATE DECISION"));
+    assert.match(proposalDecisions, /proposition :/);
+    assert.ok(!proposalDecisions.includes("NOUVELLE DÉCISION"));
     assert.equal(renderToStaticMarkup(await Timeline()), proposalTimeline);
     assert.equal(renderToStaticMarkup(await Decisions()), proposalDecisions);
 
@@ -64,13 +64,13 @@ test("published proposals, formal decisions, evidence, refresh and reset preserv
     const lineage = decisionLineages(kb, ups).find((g) => g.id === proposalLineage.id)!;
     assert.equal(lineage.steps.filter((s) => s.stage === "PROPOSED").length, 1);
     assert.equal(lineage.steps.filter((s) => s.stage === "DECIDED").length, 1);
-    assert.match(lineage.current, /Oct 29.*DECIDED.*U002/);
+    assert.match(lineage.current, /Oct 29.*DÉCIDÉ.*U002/);
     assert.deepEqual(lineage.baseline, proposalLineage.baseline);
     const timeline = renderToStaticMarkup(await Timeline());
     const decisions = renderToStaticMarkup(await Decisions());
-    assert.match(timeline, /UPDATE U002/);
-    assert.match(decisions, /UPDATE DECISION/);
-    assert.match(decisions, /BASELINE DECISION/);
+    assert.match(timeline, /MISE À JOUR U002/);
+    assert.match(decisions, /NOUVELLE DÉCISION/);
+    assert.match(decisions, /DÉCISION DE RÉFÉRENCE/);
     for (const html of [timeline, decisions]) {
       assert.match(html, /\/sources\/U002-S1\?loc=L1&amp;q=Steering/);
     }
@@ -109,7 +109,7 @@ test("consequences deduplicate within an update, preserve later history and avoi
   assert.equal(events[0].date, "2026-10-03");
   assert.equal(events[0].tag, "VALIDATION");
   assert.equal(events[0].citations.length, 1);
-  assert.match(events.find((e) => e.tag === "ACTION")!.title, /Nicolas.*due 2026-10-05/);
+  assert.match(events.find((e) => e.tag === "ACTION")!.title, /Nicolas.*échéance 2026-10-05/);
   const kb = structuredClone(curatedKB());
   const before = structuredClone(kb);
   const groups = decisionLineages(kb, [u]);

@@ -9,9 +9,9 @@ export async function POST(req: Request) {
   if (denied) return denied;
   let ids: string[];
   let mode: "incremental" | "full";
-  try { const body = await req.json(); ids = validateQuestionIds(body.ids); mode = body.mode ?? "incremental"; if (mode !== "incremental" && mode !== "full") throw new Error("Mode must be incremental or full."); }
+  try { const body = await req.json(); ids = validateQuestionIds(body.ids); mode = body.mode ?? "incremental"; if (mode !== "incremental" && mode !== "full") throw new Error("Le mode doit être incremental ou full."); }
   catch (error) { return Response.json({ error: (error as Error).message }, { status: 400 }); }
-  if (!llmProvider()) return Response.json({ error: "Recomputation requires the configured LLM provider." }, { status: 503 });
+  if (!llmProvider()) return Response.json({ error: "Le recalcul nécessite un fournisseur d’IA configuré." }, { status: 503 });
   if (!req.headers.get("accept")?.includes("application/x-ndjson")) {
     try { return Response.json({ results: await recomputeQuestions(ids, undefined, undefined, mode) }); }
     catch (error) { return Response.json({ error: (error as Error).message }, { status: 500 }); }

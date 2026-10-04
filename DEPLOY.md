@@ -1,55 +1,37 @@
-# Deploying Mémoire 360 on Vercel (shared test environment)
+﻿# Déployer Mémoire 360 sur Vercel (environnement de test partagé)
 
-The live demo still runs from the presenter's laptop (fastest, no cold starts). The hosted copy lets the whole
-team test and rehearse from a browser.
+La démonstration en direct fonctionne toujours sur l’ordinateur de la personne qui présente (plus rapide, sans démarrage à froid). La copie hébergée permet à toute l’équipe de tester et de répéter depuis un navigateur.
 
-## What changes when hosted
+## Différences en hébergement
 
-- **Updates are stored outside the repository** in Upstash Redis (the hosted filesystem is read-only).
-  The baseline (corpus + knowledge base) ships with the code and is never modified.
-- **A demo code protects everything that spends API credits or changes the state**: Ask, update analysis,
-  publish and reset. Browsing, evidence and search stay open. A browser stays unlocked for 7 days.
-- **Uploads are limited to about 4.5 MB per request** (hosting limit). Compress or split larger files.
+- **Les mises à jour sont stockées hors du dépôt**, dans Upstash Redis : le système de fichiers hébergé est en lecture seule. La référence initiale (corpus et base de connaissances) accompagne le code et n’est jamais modifiée.
+- **Un code de démonstration protège les fonctions qui consomment des crédits API ou modifient l’état** : interrogation, analyse des mises à jour, publication et réinitialisation. Consultation, preuves et recherche restent accessibles. Un navigateur reste déverrouillé pendant 7 jours.
+- **Les téléversements sont limités à environ 4,5 Mo par requête** par l’hébergeur. Compressez ou divisez les fichiers plus volumineux.
 
-Jurors need no paid subscription or personal Claude/OpenAI account. AI access is provided by the
-deployment/team's server configuration; jurors use the supplied demo code.
+Le jury n’a besoin ni d’abonnement payant ni de compte personnel Claude ou OpenAI. L’accès à l’IA est fourni par la configuration du serveur de l’équipe ; le jury utilise le code de démonstration remis.
 
-Without a configured AI provider, browsing, evidence and search still work. Source files can be uploaded,
-supported text extracted and reviewed, and published as a new version (with the demo code if configured).
-The manual fallback edits only problem status, prior decisions and proposal text. It has no controls for
-citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions,
-condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was
-not performed, not that no items are affected. Publishing runs code guardrails and preserves the baseline;
-it does not complete impact analysis or recompute answers.
+Sans fournisseur d’IA configuré, consultation, preuves et recherche fonctionnent. Les fichiers peuvent être téléversés, leur texte pris en charge extrait et vérifié, puis publié dans une nouvelle version (avec le code de démonstration, s’il est configuré). Le mode manuel permet uniquement de modifier l’état du problème, les décisions antérieures et le texte des propositions. Il ne propose aucun contrôle pour les citations, les métadonnées du proposant ou de l’autorité, les nouvelles décisions formelles, les questions, conditions ou actions touchées, les changements d’état des conditions, les nouvelles actions ou les réponses et la fiche révisées. Des champs d’incidence vides signifient que l’analyse n’a pas été effectuée. La publication applique les garde-fous du code et préserve la référence initiale ; elle ne termine pas l’analyse des incidences et ne recalcule pas les réponses.
 
-Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update
-interpretation require a configured provider. New images need a vision-capable provider for transcription;
-scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically
-read. Existing baseline screenshot transcriptions remain available.
+La conversation, la construction de la base de connaissances, l’analyse automatique des incidences, le recalcul des réponses et l’interprétation des mises à jour par l’IA exigent un fournisseur configuré. Les nouvelles images nécessitent un modèle capable de les lire. Les PDF numérisés sans couche de texte et les formats illisibles sont conservés pour révision manuelle. Les transcriptions existantes des captures du dossier initial restent disponibles.
 
-## Steps (about 10 minutes)
+## Étapes (environ 10 minutes)
 
-1. **Push the repo to GitHub** (private is fine).
-2. **Import it in Vercel**: vercel.com → Add New → Project → pick `memory_360_NOVA` → Framework: Next.js
-   (detected). Don't deploy yet if it offers; or let it deploy and redeploy after step 4.
-3. **Add storage**: in the project, open **Storage** → create or connect an **Upstash for Redis** database
-   (free plan) → connect it to this project. This adds the connection variables automatically
-   (`KV_REST_API_URL`/`KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN`; both work).
-4. **Add environment variables** (Settings → Environment Variables, Production):
-   - `ANTHROPIC_API_KEY` = a key created for this deployment only (e.g. `codeml-nova-vercel`), marked **Sensitive**
-   - `DEMO_CODE` = a code you choose (not a password you use anywhere else)
-   - optional: `LLM_CACHE_TTL` = `1h`
-5. **Deploy** (Deployments → Redeploy if it was already deployed). Open the URL:
-   the header should show the green "AI configured" dot, and Ask should ask for the demo code.
-6. **Share the URL and the code with teammates privately** (team DM, never a public channel).
+1. **Poussez le dépôt sur GitHub** ; un dépôt privé convient.
+2. **Importez-le dans Vercel** : vercel.com → Add New → Project → choisissez `memory_360_NOVA` → Framework : Next.js (détecté). Attendez l’étape 4 pour déployer, ou redéployez ensuite.
+3. **Ajoutez le stockage** : dans le projet, ouvrez **Storage** → créez ou connectez une base **Upstash for Redis** avec l’offre gratuite → associez-la au projet. Les variables de connexion sont ajoutées automatiquement : `KV_REST_API_URL`/`KV_REST_API_TOKEN` ou `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` ; les deux conventions fonctionnent.
+4. **Ajoutez les variables d’environnement** dans Settings → Environment Variables, Production :
+   - `ANTHROPIC_API_KEY` : une clé réservée à ce déploiement (par exemple `codeml-nova-vercel`), marquée **Sensitive**.
+   - `DEMO_CODE` : un code de votre choix, différent de vos mots de passe habituels.
+   - Facultatif : `LLM_CACHE_TTL` = `1h`.
+5. **Déployez** ; utilisez Deployments → Redeploy si le projet était déjà déployé. Ouvrez l’URL : l’en-tête doit afficher le point vert « IA configurée », et l’interrogation doit demander le code de démonstration.
+6. **Partagez l’URL et le code en privé avec l’équipe**, par message direct, jamais sur un canal public.
 
-Every `git push` to `main` redeploys automatically.
+Chaque `git push` vers `main` déclenche automatiquement un nouveau déploiement.
 
-## Rehearsing on the hosted copy
+## Répéter sur la copie hébergée
 
-Add new information → drop the files from `rehearsal/` → review → publish. Use **Reset to baseline** on the
-same page when you're done, so the next person starts clean. Reset before the real presentation.
+Ajouter une information → déposer les fichiers de `rehearsal/` → réviser → publier. Utilisez **Rétablir la référence initiale** sur la même page à la fin, afin que la personne suivante reparte d’un état propre. Réinitialisez avant la présentation réelle.
 
-## After the hackathon
+## Après le hackathon
 
-Delete the Vercel project (or its `ANTHROPIC_API_KEY` variable) and delete the API key in the Claude Console.
+Supprimez le projet Vercel (ou sa variable `ANTHROPIC_API_KEY`), puis supprimez la clé API dans la console Claude.

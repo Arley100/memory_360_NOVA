@@ -1,4 +1,6 @@
 "use client";
+import { frenchText } from "@/lib/frenchContent";
+import { frenchLabel } from "@/lib/locale";
 import Link from "next/link";
 import { Icon } from "./UI";
 import { useEffect, useId, useRef, useState } from "react";
@@ -6,24 +8,60 @@ import { createPortal } from "react-dom";
 import type { ResolvedCite } from "@/lib/types";
 
 type Preview = {
-  verified: boolean; title: string; kind: string; authority: string; contentDate?: string; path: string; duplicateOf: string | null;
-  before: { loc: string; text: string } | null; at: { loc: string; text: string } | null; after: { loc: string; text: string } | null;
+  verified: boolean;
+  title: string;
+  kind: string;
+  authority: string;
+  contentDate?: string;
+  path: string;
+  duplicateOf: string | null;
+  before: { loc: string; text: string } | null;
+  at: { loc: string; text: string } | null;
+  after: { loc: string; text: string } | null;
 };
-async function load(src: string, loc: string, quote: string): Promise<Preview | null> {
-  return fetch(`/api/segment?src=${encodeURIComponent(src)}&loc=${encodeURIComponent(loc)}&quote=${encodeURIComponent(quote)}`, { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null);
+async function load(
+  src: string,
+  loc: string,
+  quote: string,
+): Promise<Preview | null> {
+  return fetch(
+    `/api/segment?src=${encodeURIComponent(src)}&loc=${encodeURIComponent(loc)}&quote=${encodeURIComponent(quote)}`,
+    { cache: "no-store" },
+  )
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
 }
 
 function Highlight({ text, quote }: { text: string; quote: string }) {
-  const t = text.replace(/\u2019/g, "'"), q = quote.replace(/\u2019/g, "'").replace(/^["«\s]+|["»\s]+$/g, "").split(/…|\.\.\./)[0].trim();
+  const t = text.replace(/\u2019/g, "'"),
+    q = quote
+      .replace(/\u2019/g, "'")
+      .replace(/^["«\s]+|["»\s]+$/g, "")
+      .split(/…|\.\.\./)[0]
+      .trim();
   const i = q ? t.toLowerCase().indexOf(q.toLowerCase()) : -1;
   if (i < 0) return <>{text}</>;
-  return <>{text.slice(0, i)}<mark>{text.slice(i, i + q.length)}</mark>{text.slice(i + q.length)}</>;
+  return (
+    <>
+      {text.slice(0, i)}
+      <mark>{text.slice(i, i + q.length)}</mark>
+      {text.slice(i + q.length)}
+    </>
+  );
 }
 
 const IMG = ["png", "jpg", "webp", "gif"];
 
 // Evidence chip: every claim links to the exact place in the source. Hover or focus shows the passage itself.
-export function Chip({ c, variant, index }: { c: ResolvedCite; variant?: "number"; index?: number }) {
+export function Chip({
+  c,
+  variant,
+  index,
+}: {
+  c: ResolvedCite;
+  variant?: "number";
+  index?: number;
+}) {
   const href = `/sources/${encodeURIComponent(c.src)}?loc=${encodeURIComponent(c.loc)}&q=${encodeURIComponent(c.quote)}`;
   const id = useId();
   const ref = useRef<HTMLAnchorElement>(null);
@@ -31,7 +69,11 @@ export function Chip({ c, variant, index }: { c: ResolvedCite; variant?: "number
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState<Preview | null>(null);
-  const [pos, setPos] = useState<{ top: number; left: number; above: boolean } | null>(null);
+  const [pos, setPos] = useState<{
+    top: number;
+    left: number;
+    above: boolean;
+  } | null>(null);
 
   function show(delay: number) {
     if (timer.current) clearTimeout(timer.current);
@@ -40,60 +82,163 @@ export function Chip({ c, variant, index }: { c: ResolvedCite; variant?: "number
       if (!r) return;
       const width = Math.min(440, window.innerWidth - 16);
       const above = r.bottom + 260 > window.innerHeight && r.top > 280;
-      setPos({ top: above ? r.top - 8 : r.bottom + 8, left: Math.max(8, Math.min(r.left, window.innerWidth - width - 8)), above });
-      setOpen(true); setLoaded(false);
-      setData(await load(c.src, c.loc, c.quote)); setLoaded(true);
+      setPos({
+        top: above ? r.top - 8 : r.bottom + 8,
+        left: Math.max(8, Math.min(r.left, window.innerWidth - width - 8)),
+        above,
+      });
+      setOpen(true);
+      setLoaded(false);
+      setData(await load(c.src, c.loc, c.quote));
+      setLoaded(true);
     }, delay);
   }
-  function hide() { if (timer.current) clearTimeout(timer.current); timer.current = setTimeout(() => setOpen(false), 120); }
-  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  function hide() {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setOpen(false), 120);
+  }
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { e.preventDefault(); e.stopImmediatePropagation(); setOpen(false); } };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        setOpen(false);
+      }
+    };
     const onScroll = () => setOpen(false);
-    window.addEventListener("keydown", onKey, true); window.addEventListener("scroll", onScroll, true);
-    return () => { window.removeEventListener("keydown", onKey, true); window.removeEventListener("scroll", onScroll, true); };
+    window.addEventListener("keydown", onKey, true);
+    window.addEventListener("scroll", onScroll, true);
+    return () => {
+      window.removeEventListener("keydown", onKey, true);
+      window.removeEventListener("scroll", onScroll, true);
+    };
   }, [open]);
 
   return (
     <>
-      <Link ref={ref} href={href} aria-describedby={open ? id : undefined}
-        aria-label={variant === "number" ? `Source ${index}: ${c.label}` : undefined}
-        onMouseEnter={() => show(220)} onMouseLeave={hide} onFocus={() => show(0)} onBlur={hide}
-        className={`evidence-chip ${c.verified ? "text-primary border-primary/30" : "text-blocker border-blocker/30"}`}>
-        {variant === "number" ? `[${index}]` : <><Icon name="file" size={12} />{c.label}</>}
+      <Link
+        ref={ref}
+        href={href}
+        aria-describedby={open ? id : undefined}
+        aria-label={
+          variant === "number" ? `Source ${index}: ${c.label}` : undefined
+        }
+        onMouseEnter={() => show(220)}
+        onMouseLeave={hide}
+        onFocus={() => show(0)}
+        onBlur={hide}
+        className={`evidence-chip ${c.verified ? "text-primary border-primary/30" : "text-blocker border-blocker/30"}`}
+      >
+        {variant === "number" ? (
+          `[${index}]`
+        ) : (
+          <>
+            <Icon name="file" size={12} />
+            {c.label}
+          </>
+        )}
       </Link>
-      {open && pos && typeof document !== "undefined" && createPortal(
-        <div id={id} role="tooltip"
-          className="peek pointer-events-none fixed z-50 w-[min(440px,calc(100vw-16px))] rounded-lg border border-line bg-surface p-3 text-left shadow-xl"
-          onMouseEnter={() => { if (timer.current) clearTimeout(timer.current); }} onMouseLeave={hide}
-          style={{ top: pos.top, left: pos.left, zIndex: 80, pointerEvents: "auto", maxHeight: pos.above ? pos.top - 12 : window.innerHeight - pos.top - 12, overflowY: "auto", transform: pos.above ? "translateY(-100%)" : undefined }}>
-          {!data ? <p className="text-sm text-muted">{loaded ? "Source preview unavailable. Open the source to inspect it." : "Opening the source"}…</p> : (
-            <>
-              <p className="text-sm font-semibold leading-tight">{data.title}</p>
-              <p className="text-xs text-muted">{c.label} · {data.authority.toLowerCase().replace("_", " ")}{data.contentDate ? ` · ${data.contentDate}` : ""}</p>
-              {IMG.includes(data.kind) && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={`/api/raw?path=${encodeURIComponent(data.path)}`} alt="" className="mt-2 max-h-32 rounded border border-line" />
-              )}
-              <div className="quote mt-2 space-y-1 text-sm leading-snug">
-                {data.before && <p className="line-clamp-2 text-muted">{data.before.text}</p>}
-                {data.at && <p className="rounded bg-marker/25 px-1"><Highlight text={data.at.text} quote={c.quote} /></p>}
-                {data.after && <p className="line-clamp-2 text-muted">{data.after.text}</p>}
-              </div>
-              <p className={`mt-2 text-xs font-semibold ${data.verified ? "text-validation" : "text-blocker"}`}>
-                {data.verified ? "✓ Quote found word for word in this file" : "✗ Quote not found in this file"} · click the chip to open the full source
+      {open &&
+        pos &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            id={id}
+            role="tooltip"
+            className="peek pointer-events-none fixed z-50 w-[min(440px,calc(100vw-16px))] rounded-lg border border-line bg-surface p-3 text-left shadow-xl"
+            onMouseEnter={() => {
+              if (timer.current) clearTimeout(timer.current);
+            }}
+            onMouseLeave={hide}
+            style={{
+              top: pos.top,
+              left: pos.left,
+              zIndex: 80,
+              pointerEvents: "auto",
+              maxHeight: pos.above
+                ? pos.top - 12
+                : window.innerHeight - pos.top - 12,
+              overflowY: "auto",
+              transform: pos.above ? "translateY(-100%)" : undefined,
+            }}
+          >
+            {!data ? (
+              <p className="text-sm text-muted">
+                {loaded
+                  ? "Aperçu indisponible. Ouvrez la source pour la consulter."
+                  : "Ouverture de la source"}
+                …
               </p>
-              {data.duplicateOf && <p className="text-xs text-muted">Identical copy of {data.duplicateOf}: not an independent confirmation.</p>}
-            </>
-          )}
-        </div>, document.body)}
+            ) : (
+              <>
+                <p className="text-sm font-semibold leading-tight">
+                  {frenchText(data.title)}
+                </p>
+                <p className="text-xs text-muted">
+                  {c.label} · {frenchLabel(data.authority)}
+                  {data.contentDate ? ` · ${data.contentDate}` : ""}
+                </p>
+                {IMG.includes(data.kind) && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={`/api/raw?path=${encodeURIComponent(data.path)}`}
+                    alt=""
+                    className="mt-2 max-h-32 rounded border border-line"
+                  />
+                )}
+                <div className="quote mt-2 space-y-1 text-sm leading-snug">
+                  {data.before && (
+                    <p className="line-clamp-2 text-muted">
+                      {data.before.text}
+                    </p>
+                  )}
+                  {data.at && (
+                    <p className="rounded bg-marker/25 px-1">
+                      <Highlight text={data.at.text} quote={c.quote} />
+                    </p>
+                  )}
+                  {data.after && (
+                    <p className="line-clamp-2 text-muted">{data.after.text}</p>
+                  )}
+                </div>
+                <p
+                  className={`mt-2 text-xs font-semibold ${data.verified ? "text-validation" : "text-blocker"}`}
+                >
+                  {data.verified
+                    ? "✓ Citation retrouvée mot pour mot dans ce fichier"
+                    : "✗ Citation introuvable dans ce fichier"}{" "}
+                  · cliquez sur la référence pour ouvrir la source complète
+                </p>
+                {data.duplicateOf && (
+                  <p className="text-xs text-muted">
+                    Copie identique de {data.duplicateOf} : aucune confirmation
+                    indépendante.
+                  </p>
+                )}
+              </>
+            )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
 
 export function Chips({ cites }: { cites: ResolvedCite[] }) {
-  return <span className="inline-flex flex-wrap gap-1.5 align-middle">{cites.map((c, i) => <Chip key={i} c={c} />)}</span>;
+  return (
+    <span className="inline-flex flex-wrap gap-1.5 align-middle">
+      {cites.map((c, i) => (
+        <Chip key={i} c={c} />
+      ))}
+    </span>
+  );
 }
 
 const TAGS: Record<string, string> = {
@@ -107,14 +252,27 @@ const TAGS: Record<string, string> = {
   TBC: "bg-white text-muted border-muted border-dashed",
 };
 const LABELS: Record<string, string> = {
-  PROPOSAL: "Proposal", DECISION: "Decision", DELIVERY: "Delivery (vendor says done)", VALIDATION: "Validation",
-  ISSUE: "Issue", FINANCE: "Finance", ORG: "Organization", REPORT: "Report", STATUS: "Status", OPEN: "Open", MET: "Met", TBC: "To be confirmed",
-  COMMITMENT: "Documented commitment", RECOMMENDATION: "Our recommendation",
+  PROPOSAL: "Proposition",
+  DECISION: "Décision",
+  DELIVERY: "Livraison (déclarée par le fournisseur)",
+  VALIDATION: "Validation",
+  ISSUE: "Problème",
+  FINANCE: "Finance",
+  ORG: "Organisation",
+  REPORT: "Rapport",
+  STATUS: "Statut",
+  OPEN: "Ouverte",
+  MET: "Satisfaite",
+  TBC: "À confirmer",
+  COMMITMENT: "Engagement documenté",
+  RECOMMENDATION: "Notre recommandation",
 };
 
 export function Tag({ t }: { t: string }) {
   return (
-    <span className={`semantic-tag ${TAGS[t] ?? "bg-canvas text-muted border-line"}`}>
+    <span
+      className={`semantic-tag ${TAGS[t] ?? "bg-canvas text-muted border-line"}`}
+    >
       {LABELS[t] ?? t}
     </span>
   );

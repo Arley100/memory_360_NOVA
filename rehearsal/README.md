@@ -1,18 +1,18 @@
-# Rehearsal files (simulations, NOT NOVA facts)
+﻿# Fichiers de répétition (simulations, sans valeur factuelle pour NOVA)
 
-Use these to practice the live "Add new information" step. Never present them as real project information.
+Utilisez ces fichiers pour répéter l’étape « Ajouter une information » en direct. Ne les présentez jamais comme de véritables informations du projet.
 
-| File | What it tests | Expected result |
+| Fichier | Ce qu’il vérifie | Résultat attendu |
 |---|---|---|
-| `R1_retest_SEC-210_echec.eml` | Failed security retest + vendor proposes Nov 5 | SEC-210 stays open; Oct 22 decision stays in force; Nov 5 is a proposal (not approved) and is flagged as after the contract end (Oct 31) |
-| `R2_Teams_ACC-303_valide.txt` | Mélissa closes ACC-303 | Condition 2 met (validating owner quoted); conditions 1 and 3 unchanged |
-| `formats/cr.docx` | Committee minutes approving a move to Oct 29 | A new decision is accepted only if the approval is quoted; otherwise it stays a proposal |
-| `formats/invite.ics` | Calendar invite for a committee meeting | Read as event fields (title, start, organizer, description) |
-| `formats/teams_export.json` | Teams export where Mélissa closes ACC-303 | Read as "time - author : message" |
-| `formats/deck.pptx` | Status slide + speaker notes | Slide text and notes are read; the Oct 29 note is a proposal |
-| `formats/plan_v4.xls` | Updated plan with go-live 2026-10-22 | Plan now matches the approved date (contradiction C1 resolved going forward) |
-| `formats/html_only.eml` | Email with an HTML body only | Body read correctly |
-| `formats/notes_win.txt` | French text saved in Windows-1252 | Accents read correctly |
-| `formats/page.html`, `formats/note.rtf` | Web page and rich text | Text read correctly |
+| `R1_retest_SEC-210_echec.eml` | Échec du nouvel essai de sécurité et proposition du 5 novembre par le fournisseur | SEC-210 reste ouvert ; la décision du 22 octobre reste en vigueur ; le 5 novembre reste une proposition non approuvée et est signalé comme postérieur à la fin du contrat, le 31 octobre |
+| `R2_Teams_ACC-303_valide.txt` | Mélissa ferme ACC-303 | Condition 2 remplie, avec citation de la responsable de validation ; conditions 1 et 3 inchangées |
+| `formats/cr.docx` | Compte rendu du comité approuvant un report au 29 octobre | Une nouvelle décision n’est acceptée que si l’approbation est citée ; sinon elle reste une proposition |
+| `formats/invite.ics` | Invitation à une réunion du comité | Lecture des champs de l’événement : titre, début, organisateur, description |
+| `formats/teams_export.json` | Export Teams où Mélissa ferme ACC-303 | Lecture sous la forme « heure - auteur : message » |
+| `formats/deck.pptx` | Diapositive d’état avec notes de présentation | Lecture du texte et des notes ; la mention du 29 octobre reste une proposition |
+| `formats/plan_v4.xls` | Plan actualisé avec mise en production le 2026-10-22 | Le plan correspond désormais à la date approuvée ; la contradiction C1 est résolue pour la suite |
+| `formats/html_only.eml` | Courriel dont le corps est uniquement en HTML | Lecture correcte du corps |
+| `formats/notes_win.txt` | Texte français enregistré en Windows-1252 | Lecture correcte des accents |
+| `formats/page.html`, `formats/note.rtf` | Page web et texte enrichi | Lecture correcte du texte |
 
-Several files at once: select or drop them together, or put them in a `.zip`.
+Pour plusieurs fichiers, sélectionnez-les ou déposez-les ensemble, ou regroupez-les dans une archive `.zip`.

@@ -15,11 +15,11 @@ export function NewConversationDialog({ onCancel, onConfirm }: { onCancel: () =>
           else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         }
       }}>
-      <h3 id="nova-new-conversation-title">Start a new conversation?</h3>
-      <p id="nova-new-conversation-description">Your current messages and draft will be cleared.</p>
+      <h3 id="nova-new-conversation-title">Commencer une nouvelle conversation ?</h3>
+      <p id="nova-new-conversation-description">Vos messages et votre brouillon actuels seront effacés.</p>
       <div className="nova-confirm-actions">
-        <button ref={cancel} type="button" className="button-secondary" onClick={onCancel}>Cancel</button>
-        <button type="button" className="button-primary" onClick={onConfirm}>Start new conversation</button>
+        <button ref={cancel} type="button" className="button-secondary" onClick={onCancel}>Annuler</button>
+        <button type="button" className="button-primary" onClick={onConfirm}>Nouvelle conversation</button>
       </div>
     </div>
   </div>;

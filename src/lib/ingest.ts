@@ -97,7 +97,7 @@ export function rtfToText(rtf: string): string {
 function parseIcs(text: string) {
   const unfolded = text.replace(/\r?\n[ \t]/g, "");
   const out: { loc: string; text: string }[] = [];
-  const LABEL: Record<string, string> = { SUMMARY: "Title", DTSTART: "Start", DTEND: "End", LOCATION: "Location", ORGANIZER: "Organizer", ATTENDEE: "Attendee", DESCRIPTION: "Description", STATUS: "Status" };
+  const LABEL: Record<string, string> = { SUMMARY: "Titre", DTSTART: "Début", DTEND: "Fin", LOCATION: "Lieu", ORGANIZER: "Organisateur", ATTENDEE: "Participant", DESCRIPTION: "Description", STATUS: "Statut" };
   let n = 0;
   for (const block of unfolded.split(/BEGIN:VEVENT/).slice(1)) {
     n++;
@@ -172,15 +172,15 @@ export async function parseFile(
   try {
     if (kind === "eml") {
       const m = await simpleParser(buf);
-      if (m.subject) res.segments.push({ loc: "header:Subject", text: `Subject: ${m.subject}` });
-      if (m.from?.text) res.segments.push({ loc: "header:From", text: `From: ${m.from.text}` });
+      if (m.subject) res.segments.push({ loc: "header:Subject", text: `Objet : ${m.subject}` });
+      if (m.from?.text) res.segments.push({ loc: "header:From", text: `De : ${m.from.text}` });
       const to = Array.isArray(m.to) ? m.to.map((x) => x.text).join(", ") : m.to?.text;
-      if (to) res.segments.push({ loc: "header:To", text: `To: ${to}` });
+      if (to) res.segments.push({ loc: "header:To", text: `À : ${to}` });
       const cc = Array.isArray(m.cc) ? m.cc.map((x) => x.text).join(", ") : m.cc?.text;
-      if (cc) res.segments.push({ loc: "header:Cc", text: `Cc: ${cc}` });
+      if (cc) res.segments.push({ loc: "header:Cc", text: `Cc : ${cc}` });
       if (m.date) {
         res.contentDate = m.date.toISOString();
-        const line = m.headerLines.find((h) => h.key === "date")?.line ?? `Date: ${m.date.toISOString()}`;
+        const line = m.headerLines.find((h) => h.key === "date")?.line ?? `Date : ${m.date.toISOString()}`;
         res.segments.push({ loc: "header:Date", text: line });
       }
       res.title = m.subject ?? filename;
@@ -188,9 +188,9 @@ export async function parseFile(
       body.split(/\r?\n\s*\r?\n/).map((p) => p.trim()).filter(Boolean)
         .forEach((p, i) => res.segments.push({ loc: `body:P${i + 1}`, text: p }));
       for (const a of m.attachments) {
-        const name = a.filename ?? "attachment";
+        const name = a.filename ?? "piece-jointe";
         res.attachments.push({ filename: name, content: a.content });
-        res.segments.push({ loc: `att:${name}`, text: `Attachment: ${name}` });
+        res.segments.push({ loc: `att:${name}`, text: `Pièce jointe : ${name}` });
       }
     } else if (kind === "txt" || kind === "md") {
       res.segments = lines(decodeText(buf), (n) => `L${n}`);
@@ -206,7 +206,7 @@ export async function parseFile(
       const pdf = await getDocumentProxy(new Uint8Array(buf));
       const { text } = await extractText(pdf, { mergePages: false });
       (text as string[]).forEach((t, i) => res.segments.push({ loc: `page=${i + 1}`, text: t }));
-      if (res.segments.every((s) => !s.text.trim())) res.segments = [{ loc: "page=1", text: "[Scanned PDF without a text layer: export a page as an image to have it read]" }];
+      if (res.segments.every((s) => !s.text.trim())) res.segments = [{ loc: "page=1", text: "[PDF numérisé sans couche de texte : exportez une page en image pour la faire lire]" }];
     } else if (kind === "xlsx") {
       const wb = XLSX.read(buf);
       for (const name of wb.SheetNames) {
@@ -215,13 +215,13 @@ export async function parseFile(
           const cell = ws[addr] as XLSX.CellObject & { c?: { t: string }[] };
           const v = cell.w ?? String(cell.v ?? "");
           if (v.trim()) res.segments.push({ loc: `${name}!${addr}`, text: v });
-          if (cell.c?.length) res.segments.push({ loc: `${name}!${addr}#note`, text: `Comment: ${cell.c.map((x) => x.t).join(" ")}` });
+          if (cell.c?.length) res.segments.push({ loc: `${name}!${addr}#note`, text: `Commentaire : ${cell.c.map((x) => x.t).join(" ")}` });
         }
       }
     } else if (kind in IMAGE_MIME) {
       let t = opts.transcription ?? null;
       if (!t && opts.vision) t = await opts.vision(buf, IMAGE_MIME[kind]);
-      res.segments = t ? transcriptionSegments(t) : [{ loc: "region=image", text: "[Image without transcription: configure an LLM key to read it]" }];
+      res.segments = t ? transcriptionSegments(t) : [{ loc: "region=image", text: "[Image sans transcription : configurez un fournisseur d’IA pour la lire]" }];
     } else if (kind === "docx") {
       const { value } = await mammoth.extractRawText({ buffer: buf });
       value.split(/\r?\n/).map((p) => p.trim()).filter(Boolean).forEach((p, i) => res.segments.push({ loc: `P${i + 1}`, text: p }));
@@ -235,17 +235,17 @@ export async function parseFile(
       for (const [name, entry] of Object.entries(zip.files)) {
         if (entry.dir || name.startsWith("__MACOSX") || name.split("/").pop()!.startsWith(".")) continue;
         res.attachments.push({ filename: name.split("/").pop()!, content: Buffer.from(await entry.async("uint8array")) });
-        res.segments.push({ loc: `att:${name.split("/").pop()}`, text: `Archive entry: ${name}` });
+        res.segments.push({ loc: `att:${name.split("/").pop()}`, text: `Entrée de l’archive : ${name}` });
       }
     } else if (looksLikeText(buf)) {
       kind = res.kind = "txt";
       res.segments = lines(decodeText(buf), (n) => `L${n}`);
     } else {
-      res.segments = [{ loc: "file", text: `[Unsupported binary format: ${filename}. Kept for manual review. Export it as PDF, text or an image.]` }];
+      res.segments = [{ loc: "file", text: `[Format binaire non pris en charge : ${filename}. Conservé pour vérification manuelle. Exportez en PDF, texte ou image.]` }];
     }
   } catch (e) {
-    res.segments = [{ loc: "file", text: `[Could not read ${filename}: ${(e as Error).message}. Kept for manual review.]` }];
+    res.segments = [{ loc: "file", text: `[Lecture impossible de ${filename}: ${(e as Error).message}. Conservé pour vérification manuelle.]` }];
   }
-  if (res.segments.length === 0) res.segments = [{ loc: "file", text: `[No readable text found in ${filename}.]` }];
+  if (res.segments.length === 0) res.segments = [{ loc: "file", text: `[Aucun texte lisible dans ${filename}.]` }];
   return res;
 }

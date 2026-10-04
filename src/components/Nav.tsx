@@ -4,33 +4,33 @@ import { usePathname } from "next/navigation";
 import { Icon } from "./UI";
 const GROUPS = [
   {
-    title: "Project",
+    title: "Projet",
     items: [
-      ["/", "Overview", "overview"],
-      ["/brief", "Handover brief", "file"],
+      ["/", "Vue d’ensemble", "overview"],
+      ["/brief", "Fiche de passation", "file"],
       ["/questions", "Questions", "questions"],
-      ["/timeline", "Timeline", "timeline"],
-      ["/decisions", "Decisions", "decisions"],
+      ["/timeline", "Chronologie", "timeline"],
+      ["/decisions", "Décisions", "decisions"],
       ["/contradictions", "Contradictions", "contradictions"],
     ],
   },
   {
-    title: "Operations",
+    title: "Opérations",
     items: [
-      ["/build", "Build from sources", "sources"],
+      ["/build", "Reconstruire depuis les sources", "sources"],
       ["/actions", "Actions", "actions"],
-      ["/risks", "Risks", "warning"],
+      ["/risks", "Risques", "warning"],
       ["/sources", "Sources", "sources"],
-      ["/team", "Team", "team"],
-      ["/update", "Add new information", "upload"],
+      ["/team", "Équipe", "team"],
+      ["/update", "Ajouter des informations", "upload"],
     ],
   },
-  { title: "Support", items: [["/guide", "Usage guide", "guide"]] },
+  { title: "Aide", items: [["/guide", "Guide d’utilisation", "guide"]] },
 ];
 export function Nav() {
   const path = usePathname();
   return (
-    <nav aria-label="Main" className="main-nav">
+    <nav aria-label="Navigation principale" className="main-nav">
       {GROUPS.map((g) => (
         <div key={g.title} className="nav-group">
           <p className="nav-label">{g.title}</p>

@@ -20,12 +20,12 @@ export async function POST(req: Request) {
       typeof body.draftId !== "string" ||
       !/^[\w-]+$/.test(body.draftId)
     )
-      throw new Error("Invalid draft id.");
+      throw new Error("Identifiant de brouillon invalide.");
     draftId = body.draftId;
     changeset = body.changeset;
   } catch {
     return Response.json(
-      { error: "Invalid publish request." },
+      { error: "Demande de publication invalide." },
       { status: 400 },
     );
   }
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     return Response.json(
       {
         error:
-          "Draft not found or expired (drafts are kept 1 hour). Upload the file again.",
+          "Brouillon introuvable ou expiré (conservation : 1 heure). Téléversez à nouveau le fichier.",
       },
       { status: 404 },
     );
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     edited = normalizeChangeSet(changeset, draft.filename);
   } catch {
     return Response.json(
-      { error: "Invalid ChangeSet. Check the editable fields and citations." },
+      { error: "Ensemble de modifications invalide. Vérifiez les champs modifiables et les citations." },
       { status: 400 },
     );
   }
@@ -103,7 +103,7 @@ export async function POST(req: Request) {
     ...(guarded.guardrails.reviewWarnings ?? []),
     ...(material(edited) !== material(guarded)
       ? [
-          "Guardrails changed the edited ChangeSet. Review the guarded version before publishing.",
+          "Les garde-fous ont modifié les changements proposés. Vérifiez la version corrigée avant de publier.",
         ]
       : []),
   ]);

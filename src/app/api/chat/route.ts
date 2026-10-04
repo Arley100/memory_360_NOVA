@@ -7,13 +7,13 @@ export const maxDuration = 120;
 // Limit bytes while reading, including requests without a Content-Length header.
 async function body(req: Request) {
   const reader = req.body?.getReader();
-  if (!reader) throw new Error("Missing request body.");
+  if (!reader) throw new Error("Corps de la requête manquant.");
   const decoder = new TextDecoder(); let size = 0, text = "";
   try {
     for (;;) {
       const { done, value } = await reader.read(); if (done) break;
       size += value.byteLength;
-      if (size > 100_000) throw new Error("Conversation payload is too large.");
+      if (size > 100_000) throw new Error("La conversation dépasse la taille autorisée.");
       text += decoder.decode(value, { stream: true });
     }
     return JSON.parse(text + decoder.decode());
@@ -23,8 +23,8 @@ export async function POST(req: Request) {
   const denied = guard(req, "ask"); if (denied) return denied;
   let input;
   try { input = parseChatRequest(await body(req)); }
-  catch (e) { return Response.json({ error: e instanceof SyntaxError ? "Invalid JSON request." : (e as Error).message }, { status: 400 }); }
-  if (!llmProvider()) return Response.json({ error: "AI answering is not configured. Project evidence remains available elsewhere in Mémoire 360." }, { status: 503 });
+  catch (e) { return Response.json({ error: e instanceof SyntaxError ? "Requête JSON invalide." : (e as Error).message }, { status: 400 }); }
+  if (!llmProvider()) return Response.json({ error: "Les réponses par IA ne sont pas configurées. Les preuves restent accessibles dans Mémoire 360." }, { status: 503 });
   const snapshot = input.mode === "baseline" ? [] : await updates();
   const ctrl = new AbortController();
   let timedOut = false;
@@ -39,10 +39,10 @@ export async function POST(req: Request) {
       const send = (v: unknown) => { if (!closed) try { controller.enqueue(encoder.encode(JSON.stringify(v) + "\n")); } catch { closed = true; ctrl.abort(); } };
       try {
         const [sources, segments] = await Promise.all([allSources(snapshot), allSegments(snapshot)]);
-        send({ type: "stage", stage: "read", detail: `${segments.length} passages from ${sources.filter((s) => !s.parent).length} files` });
+        send({ type: "stage", stage: "read", detail: `${segments.length} passages provenant de ${sources.filter((s) => !s.parent).length} fichiers` });
         const answer = await chatProject(input.question, input.mode, input.history, { snapshot, signal: ctrl.signal, onStage: (stage) => send({ type: "stage", stage }) });
         send({ type: "result", answer });
-      } catch { send({ type: "error", error: !timedOut && ctrl.signal.aborted ? "Generation stopped." : "Unable to answer right now. The provider timed out or returned an invalid response. Please retry." }); }
+      } catch { send({ type: "error", error: !timedOut && ctrl.signal.aborted ? "Génération arrêtée." : "Réponse indisponible : délai dépassé ou réponse du fournisseur invalide. Réessayez." }); }
       finally { clearTimeout(timer); req.signal.removeEventListener("abort", abort); if (!closed) { closed = true; controller.close(); } }
     },
     cancel() { closed = true; ctrl.abort(); clearTimeout(timer); req.signal.removeEventListener("abort", abort); },

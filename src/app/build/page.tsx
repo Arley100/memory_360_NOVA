@@ -7,10 +7,8 @@ export default async function Build() {
   const k = await getKB();
   return (
     <div className="space-y-6">
-      <PageHeader title="Build from sources" subtitle={<>
-          Mémoire 360 reads all the project files, answers the questions listed in the dossier&apos;s README, works out the current state,
-          rebuilds the timeline, resolves contradictions, plans the actions and writes the brief. Every citation is checked against the files,
-          and the result is scored against a hand-curated answer key.
+      <PageHeader title="Reconstruire depuis les sources" subtitle={<>
+          Mémoire 360 lit les fichiers du projet, répond aux questions du README du dossier, établit l’état actuel, reconstitue la chronologie, résout les contradictions, planifie les actions et rédige la fiche de passation. Chaque citation est vérifiée et les résultats sont comparés aux faits requis validés par l’équipe.
       </>} />
       <BuildClient current={{ source: k.meta?.source ?? "curated", meta: k.meta }} hasKey={Boolean(llmProvider())} />
     </div>

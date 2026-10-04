@@ -1,0 +1,4 @@
+﻿const fs=require('fs');let map={};for(const [c,files] of [['.translation-data.json',['.translation-data-fr.json','.translation-data-fr2.json','.translation-cached-fr.json']],['.translation-new-data.json',['.translation-new-data-fr.json']]]){const catalog=JSON.parse(fs.readFileSync(c,'utf8'));const fr=Object.assign({},...files.map(f=>JSON.parse(fs.readFileSync(f,'utf8'))));for(const u of catalog)if(fr[u.id])map[u.text]=fr[u.id];}
+Object.assign(map,JSON.parse(fs.readFileSync('.translation-extra-fr.json','utf8')));
+const ui=JSON.parse(fs.readFileSync('.translation-catalog.json','utf8'));const fr=Object.assign({},...['.translation-fr.json','.translation-fr2.json','.translation-fr3.json'].map(f=>JSON.parse(fs.readFileSync(f,'utf8'))));for(const u of ui)if(fr[u.id]&&u.text.length>12&&!u.text.includes('\n'))map[u.text]=fr[u.id];
+fs.writeFileSync('src/lib/frenchContent.json',JSON.stringify(map,null,2)+'\n');console.log(Object.keys(map).length+' French translations');

@@ -22,7 +22,7 @@ export function Icon({ name, size = 18 }: { name: string; size?: number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">{paths[name] ?? paths.file}</svg>;
 }
 export function PageHeader({ title, subtitle, children }: { title: string; subtitle?: ReactNode; children?: ReactNode }) {
-  return <div className="page-header"><div><p className="section-label mb-2">Project NOVA / Operational memory</p><h1>{title}</h1>{subtitle && <p className="mt-2 max-w-4xl text-muted">{subtitle}</p>}</div>{children}</div>;
+  return <div className="page-header"><div><p className="section-label mb-2">Projet NOVA / Mémoire opérationnelle</p><h1>{title}</h1>{subtitle && <p className="mt-2 max-w-4xl text-muted">{subtitle}</p>}</div>{children}</div>;
 }
 export function SectionHeader({ title, children }: { title: string; children?: ReactNode }) {
   return <div className="section-header"><h2>{title}</h2>{children}</div>;

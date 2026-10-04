@@ -1,0 +1,6738 @@
+[
+  {
+    "id": 0,
+    "text": "Approved by the steering committee on Sept 10 after Boréal's Sept 8 proposal. It is not a guaranteed go.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "goLive",
+          "headline"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "text": "The contract ends Oct 31, 2026, so any slip past Oct 22 eats the margin. Due dates for all three conditions are not documented (to be confirmed).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "goLive",
+          "contractEndNote"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "text": "Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "text": "What is the currently approved go-live date, and with what reservation?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "text": "October 22, 2026, approved by the steering committee on Sept 10. Reservation: it is conditional, not a guaranteed go. It depends on three conditions confirmed on Sept 26: security validation of SEC-210, closure of ACC-303, and approval of the runbook including rollback. As of Sept 30, 09:00, none of the three is met.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "text": "22 octobre 2026, approuvée le 10 septembre. Date conditionnelle (pas un go garanti) : validation sécurité de SEC-210, fermeture d'ACC-303 et approbation du runbook incluant le rollback.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "text": "Plan v3 (Sept 12) still shows Oct 15: stale.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "text": "The status report shows the schedule as GREEN, hiding the conditions.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "text": "Pourquoi la date a-t-elle changé, et quel est l'état actuel de la cause initiale?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "text": "Why did the date change, and what is the current state of the original cause?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "question_en"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "text": "Because of the internal connector problem (INT-101): searches returned nothing due to 401 errors (service token expired after a secret change), then intermittent errors put Oct 15 at risk. Boréal recommended Oct 22 to stabilize the connector, re-run integrated tests and keep a margin for blocking defects; the connector was the critical path. Current state: resolved. After the fix (secret rotation + token-renewal logic), 120/120 searches succeeded and Marc Gervais validated and closed INT-101 on Sept 17. The date stays Oct 22; the 29 Sept risk register still lists R-01 as open, which is stale.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "text": "Problème du connecteur interne (INT-101 : jeton expiré, erreurs 401 puis intermittentes). Cause résolue : INT-101 validé et fermé le 17 septembre (120/120). La date reste le 22 octobre.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "text": "The archived copy of E12 is a duplicate, not extra confirmation.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "text": "DATA-401 and PERF-501 were not the cause; both were already closed.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "text": "Risk register R-01 'Ouvert' is stale (last follow-up Sept 9).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "text": "Qui a approuvé le changement et quand? Distinguez proposition et approbation.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "text": "Who approved the change and when? Distinguish proposal and approval.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "text": "Proposal: Julien Moreau (Boréal, the vendor) by email on Sept 8, 2026, explicitly labeled as a proposal awaiting a governance decision. Approval: the NOVA steering committee on Sept 10, 2026 (about 15:22–15:25). Élodie Caron, then project manager, formulated the decision; Sophie Lambert, Marc Gervais and Olivier Côté raised no objection and Nicolas Perron agreed. The approval covers the target date, not an automatic go.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "text": "Proposition : Julien Moreau (Boréal), courriel du 8 septembre. Approbation : comité de direction, 10 septembre 2026, décision formulée par Élodie Caron, sans objection.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "text": "Nicolas was not yet PM on Sept 10; he agreed as a member.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "text": "The vendor proposed; it did not approve.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "text": "Qui est responsable du projet et depuis quand?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "text": "Who is responsible for the project and since when?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "question_en"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "text": "Nicolas Perron, project manager, officially since Sept 16, 2026 (he also took over the Friday committee). Before that, Élodie Caron was project manager from kickoff on July 7, 2026, and stayed available a few days for the handover.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "text": "Nicolas Perron, chargé de projet officiellement depuis le 16 septembre 2026 (succède à Élodie Caron).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "text": "The charter still names Élodie (it is not updated automatically).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "text": "Plan v3 lists Nicolas on Sept 12, before the official handover.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "text": "Quel est le montant contractuel autorisé et comment se calcule-t-il?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "text": "What is the authorized contract amount and how is it calculated?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "question_en"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "text": "204 000 $ CAD before tax = 180 000 $ initial maximum contract amount + 24 000 $ for change request CR-01 (advanced reports), approved by the project committee on Aug 14, 2026. CR-04 (18 000 $, advanced mobile) is excluded: it is only a draft and was deferred to phase 2. For context: invoiced 186 000 $ as received (of which 18 000 $ unauthorized), paid 132 000 $.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "text": "204 000 $ CAD hors taxes = 180 000 $ (montant maximal initial) + 24 000 $ (CR-01 approuvée le 14 août 2026). CR-04 (18 000 $) est un brouillon non approuvé.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "text": "180 000 $ forgets CR-01; 222 000 $ wrongly adds CR-04.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "text": "Do not mix authorized, invoiced and paid.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "text": "Exclude INV-778 (project ORION).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "text": "Quel problème présente INV-003? Précisez le montant concerné et le traitement à prévoir.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "text": "What problem does INV-003 present? State the amount and the treatment to plan.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "text": "INV-003 (Sept 22; 54 000 $; in validation) bills 18 000 $ for 'Optimisation interface mobile - CR-04', but CR-04 was never approved and was deferred to phase 2; the contract requires an approved change request before execution and invoicing. Treatment (our recommendation, grounded in documented rules): do not pay the 18 000 $ line; request a corrected invoice or credit note; process the 36 000 $ milestone-3 line through the normal validation path. Owners: Amélie Fortin (Finances) and Nicolas Perron. Due date: TBC.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "text": "INV-003 facture 18 000 $ pour CR-04, jamais approuvée. Ne pas payer cette ligne; demander une facture corrigée ou une note de crédit; traiter le jalon 3 (36 000 $) séparément.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "text": "The whole invoice is not invalid, only the CR-04 line.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "text": "INV-003 is not paid.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "text": "E07's attachment is the same INV-003 file.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "text": "Où les données de production doivent-elles être hébergées? Quelle preuve confirme la mise en œuvre?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "text": "Where must production data be hosted? What evidence confirms the implementation?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "question_en"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "text": "In Canada, region Canada Central: decided at the July 23 workshop and recorded in ADR-007 (accepted), after Sophie Lambert required production data to stay in Canada; architecture v1 (East US) is obsolete. Evidence: Boréal reported the migration complete on Aug 26 with architecture v2 (Canada Central), and the Aug 27 committee recorded it as verified by the architecture team. Limit: production is not live yet, so this proves the target environment.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "text": "Au Canada, région Canada Central (ADR-007). Preuve : migration déclarée par Boréal (26 août, schéma v2) et vérifiée par l'équipe architecture (comité du 27 août).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "text": "Do not cite v1 (East US).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "text": "The E03 attachment and the standalone v2 count as one source.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "text": "La sécurité est-elle acceptée? Distinguez livraison et validation.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "text": "Is security accepted? Distinguish delivery and validation.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "text": "No. SEC-210 (admin CSV export logged without case ID and result; blocking before production) was delivered: Boréal deployed a fix to validation on Sept 19 and considers it fixed. It is not validated: the security team must retest; on Sept 26 the retest was planned and the status kept EN VALIDATION, and Sophie stated security acceptance has not been given. Retest date: TBC.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "text": "Non. Correctif SEC-210 livré le 19 septembre, mais non validé : statut EN VALIDATION, re-test planifié (date non documentée).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "text": "Status report says Security GREEN: outdated.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "text": "The screenshot shows the original defect, not the fix result.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "text": "L'accessibilité est-elle complétée? Identifiez ce qui reste à corriger.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "text": "Is accessibility completed? Identify what remains to fix.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "text": "No. Labels (ACC-301, validated Aug 15) and contrast (ACC-302, 2.1:1 to 5.3:1, closed Aug 20) are done. ACC-303 is still OPEN (high): in the edit modal, keyboard focus cycles between the name and comment fields and the 'Enregistrer' (Save) button is never reached with Tab. Boréal announced a fix for the next build (date TBC); Mélissa Gagnon calls it a blocker before production. Remaining: fix the modal focus management, then Mélissa's keyboard retest and closure.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "text": "Non. ACC-301 et ACC-302 sont fermés; ACC-303 reste ouvert : le bouton Enregistrer de la modale est inatteignable au clavier. Correctif annoncé pour la prochaine build.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "text": "Julien's Aug 20 email ('tout devrait être conforme') is a vendor claim.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "text": "ACC-301/302 screenshots are historical.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "text": "Quelles sont les trois conditions de go-live? Précisez les travaux manquants du runbook à partir de sa capture.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "question_fr"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "question_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "text": "What are the three go-live conditions? Specify the missing runbook work from its screenshot.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "text": "(1) Security validation of SEC-210 (Sophie Lambert); (2) closure of ACC-303 (Mélissa Gagnon; fix by Boréal); (3) approval of the runbook including rollback (Olivier Côté). Runbook screenshot (Sept 25 version): steps 1–3 OK; step 4 'Procédure de retour arrière' (rollback) is TODO and step 5 'Validation fonctionnelle post-déploiement' is still to complete. On Sept 29 Olivier had not received the final version.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "text": "(1) validation sécurité de SEC-210, (2) fermeture d'ACC-303, (3) approbation du runbook incluant le rollback. Capture : étape 4 retour arrière TODO, étape 5 validation post-déploiement à compléter.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "text": "Naming only rollback misses step 5 (visible only in the screenshot).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "text": "Security validation of SEC-210",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "conditions",
+          0,
+          "title"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "conditions",
+          0,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "text": "Fix delivered Sept 19; retest planned; EN VALIDATION",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "conditions",
+          0,
+          "state"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "text": "Closure of ACC-303",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "conditions",
+          1,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "text": "Save button unreachable by keyboard; fix promised for next build",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "conditions",
+          1,
+          "state"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "text": "Runbook approval incl. rollback",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "conditions",
+          2,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "text": "Rollback TODO, post-deploy validation incomplete; final version not received Sept 29",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "conditions",
+          2,
+          "state"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "text": "Retest SEC-210 and give or refuse security acceptance",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          0,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "text": "TBC (before Oct 22)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          0,
+          "due"
+        ]
+      },
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          2,
+          "due"
+        ]
+      },
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          4,
+          "due"
+        ]
+      },
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          9,
+          "due"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "text": "Deliver the ACC-303 fix in the next build",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          1,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "text": "TBC (\"next build\")",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          1,
+          "due"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "text": "Keyboard retest and close ACC-303",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          2,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "text": "Complete runbook: step 4 rollback + step 5 post-deployment validation",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          3,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "text": "TBC (\"a few days before\" go-live)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          3,
+          "due"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "text": "Approve the runbook (operations go)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          4,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "text": "Block the 18 000 $ CR-04 line on INV-003; request corrected invoice or credit note",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          5,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "text": "Update plan v3: go-live 15 Oct → 22 Oct",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          6,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "text": "Close or refresh risk R-01 (connector) in the register",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          7,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "text": "Correct the status report and Alex's draft message (security/accessibility not complete)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          8,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "text": "Before any communication",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          8,
+          "due"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "text": "Formal go/no-go checkpoint on the three conditions before Oct 22",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          9,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "text": "Confirm in writing to Boréal: no CR-04 work billed in phase 1",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          10,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "text": "Stated Sept 24 and 26; written follow-up TBC",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          10,
+          "due"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "text": "Watch contract end (Oct 31): any slip past Oct 22 shrinks the margin",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          11,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "text": "Monitor",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "actions",
+          11,
+          "due"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "text": "Go-live date in the project plan",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "text": "Plan v3 (Sept 12) still shows Oct 15 for go-live",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "text": "Steering committee approved Oct 22 on Sept 10; Nicolas notes the plan was not corrected",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "text": "Committee decision (higher authority, earlier fact) prevails; the plan is stale.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "text": "Connector risk in the risk register",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "text": "Risk register (Sept 29) keeps R-01 connector delay 'Ouvert', last follow-up Sept 9",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "text": "INT-101 validated and closed on Sept 17",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "text": "The row's content dates from Sept 9; a recent file date does not make it current. Closure by the integration owner prevails.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "text": "Security and accessibility shown GREEN",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "text": "Status report (Sept 21): security and accessibility GREEN; draft message says both completed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "text": "SEC-210 still in validation; ACC-303 open since Sept 17",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "text": "Validating owners prevail over a report that admits it predates the detailed ticket check.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "text": "SEC-210 'fixed'",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "text": "Boréal: the problem is fixed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "text": "Security: deployed is not accepted",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "text": "Only the security team can accept. Delivery ≠ validation.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "text": "Advanced mobile in scope?",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "text": "Julien thought advanced mobile was in initial scope; INV-003 bills CR-04",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "text": "CR-04 is a draft; deferred to phase 2",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "text": "Contract, committee and decision document prevail over the vendor's belief.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "text": "Hosting region",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "text": "Architecture v1: data in East US",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "text": "ADR-007: production in Canada Central",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "text": "The ADR explicitly supersedes v1.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "text": "Kickoff: Élodie PM, budget 180 000 $, target Oct 15",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          0,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "text": "Sophie questions East US hosting",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          1,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "text": "Canada Central chosen; ADR-007 accepted",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          2,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "text": "INV-001 60 000 $ paid",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          3,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "text": "CR-01 advanced reports +24 000 $ approved",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          4,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "text": "ACC-301 labels validated and closed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          5,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "text": "Boréal claims accessibility compliant",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          6,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "text": "ACC-302 contrast retest OK, closed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          7,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "text": "Boréal: migration to Canada Central completed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          8,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "text": "Committee: migration verified by architecture team",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          9,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "text": "INV-002 72 000 $ (incl. CR-01) paid",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          10,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "text": "CR-04 advanced mobile 18 000 $ requested (draft)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          11,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "text": "INT-101 connector: 401 errors, empty searches",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          12,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "text": "Boréal proposes moving go-live to Oct 22",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          13,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "text": "DATA-401 replay without duplicates, closed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          14,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "text": "Steering committee approves Oct 22 (not an automatic go)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          15,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "text": "Plan v3 issued, still showing Oct 15",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          16,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "text": "SEC-210 opened: incomplete export audit",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          17,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "text": "Nicolas Perron officially becomes PM",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          18,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "text": "INT-101 validated (120/120) and closed",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          19,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "text": "ACC-303 opened: Save unreachable by keyboard",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          20,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "text": "SEC-210 fix deployed to validation",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          21,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "text": "Status report shows security/accessibility GREEN",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          22,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "text": "INV-003 54 000 $ incl. 18 000 $ CR-04, in validation",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          23,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "text": "Finance asks for CR-04 approval",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          24,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "text": "CR-04 advanced mobile deferred to phase 2",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          25,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "text": "OPS-601: runbook missing rollback",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          26,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "text": "Committee sets three go-live conditions",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          27,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "text": "Nicolas: Oct 22 approved but conditional",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          28,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "text": "Final runbook still not received",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "timeline",
+          29,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "text": "Data location: Canada Central",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "text": "Sophie, Jul 22 (E02)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 144,
+    "text": "Workshop + ADR-007, Jul 23",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "text": "Boréal, Aug 26 (E03)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "text": "Architecture team, Aug 27 (M03)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "validated"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "text": "Go-live Oct 15 → Oct 22",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          1,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "text": "Julien / Boréal, Sept 8 (E05)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          1,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "text": "Steering committee, Sept 10 (M04)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          1,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 150,
+    "text": "Three go-live conditions",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          2,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "text": "Sophie, Mélissa, Olivier (M06)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          2,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 152,
+    "text": "Steering committee, Sept 26 (M06)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          2,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "text": "PM handover to Nicolas Perron",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          3,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 154,
+    "text": "Planned",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          3,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "text": "Élodie, Sept 16 (E06)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          3,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 156,
+    "text": "CR-01 advanced reports +24 000 $",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 157,
+    "text": "Project committee, Aug 14 (CR-01)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 158,
+    "text": "Invoiced INV-002",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 159,
+    "text": "Paid",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "validated"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 160,
+    "text": "CR-04 advanced mobile 18 000 $",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 161,
+    "text": "Boréal, Sept 4 (CR-04 draft)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 162,
+    "text": "Not approved (M04); deferred to phase 2, Sept 24",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 163,
+    "text": "Boréal 'looking at adjustments' (M06)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 164,
+    "text": "Admin audit logging (SEC-210)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 165,
+    "text": "Sophie, Jul 23 (M02)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 166,
+    "text": "Agreed to validate (M02)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 167,
+    "text": "Fix, Sept 19 (E08)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 168,
+    "text": "Pending (EN VALIDATION)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "validated"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 169,
+    "text": "initial contract",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "budget",
+          "components",
+          0,
+          "label"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 170,
+    "text": "CR-01 (approved)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "budget",
+          "components",
+          1,
+          "label"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 171,
+    "text": "CR-04 line on INV-003, never approved",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "budget",
+          "unapprovedLabel"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 172,
+    "text": "Sept 30, 2026, 09:00 (Montréal)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "asOf"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "asOf"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "text": "Owner",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          0,
+          "theme"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          0,
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 174,
+    "text": "Nicolas Perron, project manager since Sept 16, 2026 (took over from Élodie Caron).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          0,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 175,
+    "text": "Approved date and conditions",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          1,
+          "theme"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          1,
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 176,
+    "text": "Go-live Oct 22, 2026, approved by the steering committee on Sept 10 (proposed by Boréal Sept 8). Conditional, not a guaranteed go: (1) SEC-210 security validation, (2) ACC-303 closure, (3) runbook approval incl. rollback. None met yet. The original cause (INT-101) is resolved since Sept 17.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          1,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 177,
+    "text": "Scope",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          2,
+          "theme"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          2,
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 178,
+    "text": "Phase 1: SSO, request creation and tracking, attachments, workflow, dashboard, standard reports, plus CR-01 advanced reports. Data in Canada Central. Advanced mobile (CR-04) is out, deferred to phase 2.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          2,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 179,
+    "text": "Budget",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          3,
+          "theme"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          3,
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 180,
+    "text": "Authorized 204 000 $ CAD before tax (180 000 $ + CR-01 24 000 $).",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          3,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 181,
+    "text": "Invoices",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          4,
+          "theme"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          4,
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 182,
+    "text": "INV-001 60 000 $ paid; INV-002 72 000 $ paid; INV-003 54 000 $ in validation, includes 18 000 $ for unapproved CR-04. Paid 132 000 $; valid invoiced 168 000 $; 36 000 $ authorized remaining.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          4,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 183,
+    "text": "Priorities",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          5,
+          "theme"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          5,
+          "theme"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 184,
+    "text": "1) Close the three conditions, then a go/no-go checkpoint before Oct 22 (our recommendation). 2) Block the CR-04 line on INV-003 (recommendation based on E10 and the contract). 3) Fix stale sources: plan v3 date, risk R-01, status report and draft message. Watch: contract ends Oct 31; all condition due dates are TBC.",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          5,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 185,
+    "text": "Project manager",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          0,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 186,
+    "text": "Sept 16, 2026",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          0,
+          "since"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 187,
+    "text": "Overall, go/no-go, CR-04 position",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          0,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 188,
+    "text": "Former project manager",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          1,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "text": "Jul 7 → Sept 16, 2026",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          1,
+          "since"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 190,
+    "text": "Chaired Sept 10 decision",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          1,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 191,
+    "text": "Security",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          2,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 192,
+    "text": "SEC-210 validation (condition 1)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          2,
+          "owns"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          2,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 193,
+    "text": "Accessibility / QA",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          3,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 194,
+    "text": "ACC-303 closure (condition 2)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          3,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 195,
+    "text": "Operations",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          4,
+          "role"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          4,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 196,
+    "text": "Runbook approval (condition 3)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          4,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 197,
+    "text": "Architecture / integration",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          5,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 198,
+    "text": "INT-101 (closed), risk R-01",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          5,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 199,
+    "text": "Data migration",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          6,
+          "role"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          8,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 200,
+    "text": "DATA-401 (closed)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          6,
+          "owns"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          8,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 201,
+    "text": "Boréal Numérique (vendor)",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          7,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 202,
+    "text": "Fixes, runbook content, proposals",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          7,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "text": "Finances",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          8,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 204,
+    "text": "INV-003 validation",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          8,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 205,
+    "text": "Communications",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          9,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 206,
+    "text": "Status message draft",
+    "locations": [
+      {
+        "file": "data/baseline/kb.json",
+        "keys": [
+          "people",
+          9,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 207,
+    "text": "The 22 October 2026 go-live was proposed by Boréal (Julien Moreau) on 8 September and approved by the steering committee on 10 September (Élodie Caron stated the decision, no objection raised); it is conditional on three go-live validations (security, accessibility, operations).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "goLive",
+          "headline"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 208,
+    "text": "The 22 October date leaves about nine days before the contract period ends on 31 October; no penalty was identified for the move, but any further slip approaches contract end and an extension is not documented.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "goLive",
+          "contractEndNote"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 209,
+    "text": "What production go-live date is currently approved, and with what reservation?",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 210,
+    "text": "The currently approved production date is 22 October 2026. It was proposed by the vendor Boréal (Julien Moreau) on 8 September 2026, then approved at the steering committee of 10 September 2026, where Élodie Caron stated the decision after no one objected (Sophie, Marc, Olivier and Nicolas voiced no objection). The date is conditional, not a guaranteed go: it depends on three open validations, namely the security validation of SEC-210, the closure of ACC-303 (accessibility) and the approval of the runbook including rollback. Nicolas Perron, project lead since 16 September, reconfirmed this on 26 September and in his email of 27 September. As of the baseline, these three conditions are still open (SEC-210 in validation, ACC-303 open, OPS-601 open), and no document shows a go-live approval.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 211,
+    "text": "La date de mise en production approuvée est le 22 octobre 2026 (décision du comité du 10 septembre), mais elle est conditionnelle à trois validations : sécurité SEC-210, fermeture d'ACC-303 et runbook approuvé avec rollback.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 212,
+    "text": "The charter and meeting minutes M01 state 15 October; that is the initial target and is superseded by the 10 September committee decision.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 213,
+    "text": "PLAN-V2, PLAN-V3 and PLAN-JUNE still show 15 October (the plan was not updated, as TEAMS-0915 notes); they are stale and have no decision authority.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 214,
+    "text": "The vendor email of 8 September is only a proposal; the approval is the committee of 10 September.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 215,
+    "text": "The status report of 21 September shows everything green and the draft message from Alex says security and accessibility are completed; both are inaccurate, as SEC-210 is awaiting validation and ACC-303 is open.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 216,
+    "text": "Boréal saying the SEC-210 fix is deployed is a delivery, not a security acceptance.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 217,
+    "text": "Personal notes saying 15 October is probably still the date are unofficial and of unknown authorship.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 218,
+    "text": "The 22 October date is not a go: the closed connector ticket INT-101 does not remove the three remaining conditions.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          0,
+          "traps",
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": 219,
+    "text": "The go-live date moved from 15 October to 22 October 2026 because the internal connector problem (INT-101) cost more time than planned. On 8 September Boréal (Julien Moreau) only proposed the move, leaving the governance decision to the client. The steering committee approved it on 10 September, with Élodie Caron stating the decision and Sophie, Marc, Olivier and Nicolas not objecting. The original cause is now resolved: on 17 September Boréal deployed a fix and replayed 120 searches with 120 valid responses, and Marc Gervais validated it on the integration side and closed INT-101. The 18 September follow-up also records the connector as validated and closed. The 22 October date remains approved but conditional on other items (SEC-210, ACC-303, runbook), which are unrelated to the connector cause. The risk register dated 29 September still shows R-01 as open, but its comment refers to a 9 September status, so it is stale.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 220,
+    "text": "La date est passée du 15 au 22 octobre 2026, car le connecteur interne (INT-101) a coûté plus de temps que prévu; proposé par Boréal le 8 septembre, approuvé par le comité le 10 septembre. La cause initiale est résolue : INT-101 a été validé et fermé par Marc Gervais le 17 septembre (120/120 recherches).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 221,
+    "text": "Reading E05 (8 Sept) as the decision: it is only a vendor proposal; approval happened at the 10 Sept committee (M04).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 222,
+    "text": "Trusting the risk register dated 29 Sept: R-01 'Ouvert' has a comment from 9 Sept and predates the 17 Sept closure of INT-101.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 223,
+    "text": "Using the charter, plan v2 or v3 (15 Oct) as current: they are stale; the charter is not updated after committee decisions.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 224,
+    "text": "Treating Boréal's deployment of a fix as validation: here validation is Marc's closure on 17 Sept after 120/120 replayed searches.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 225,
+    "text": "Assuming that closing INT-101 makes 22 Oct a guaranteed go: it stays conditional on SEC-210, ACC-303 and the runbook.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 226,
+    "text": "Counting E12, M05 and the INT-101 ticket as independent confirmations: they report the same closure.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 227,
+    "text": "Missing that INT-101.png is a historical capture and does not show the problem is still open.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": 228,
+    "text": "Mixing in DATA-401 or PERF-501 as the cause of the delay: they are separate, closed tickets.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          1,
+          "traps",
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": 229,
+    "text": "Who approved the change and when? Distinguish proposal from approval.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 230,
+    "text": "The change is the move of the NOVA production target date from 15 October to 22 October 2026. It started as a proposal: on 8 September 2026 Julien Moreau (Boréal, the vendor) recommended 22 October and explicitly left the governance decision to the client. It was decided at the steering committee on 10 September 2026 (15:00-15:42): Élodie Caron, then project manager, stated the decision, asked whether anyone objected, and declared it approved after Sophie Lambert, Marc Gervais, Olivier Côté and Nicolas Perron expressed no objection or agreement. The committee as a body is therefore the approving authority, with Élodie Caron formally announcing it; no signed document is in the dossier, only the meeting transcript. The approval is conditional: Nicolas Perron stressed that 22 October is not an automatic go, and the 26 September committee tied it to three conditions (SEC-210 security validation, ACC-303 closure, runbook with rollback), which are still open at the baseline. Nothing in the dossier shows a contractual penalty, since it is an internal date.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 231,
+    "text": "Le comité de direction du 10 septembre 2026 a approuvé le passage du 15 au 22 octobre, annoncé par Élodie Caron, à la suite de la recommandation de Boréal (Julien Moreau) du 8 septembre, qui n'était qu'une proposition; la date reste conditionnelle à trois validations.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 232,
+    "text": "Treating Julien Moreau's 8 September email as the approval: it is a vendor recommendation and a proposal only.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 233,
+    "text": "Using the charter, PLAN-V2, PLAN-V3 (both still show 15 October) or the June plan as current: they are stale and not updated after the committee decision.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 234,
+    "text": "Reading the 22 October date as a guaranteed go: it is conditional on security, accessibility and operations validations.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 235,
+    "text": "Citing the 27 September email (E09) or the 26 September transcript as the approval date: they only restate or condition a decision taken on 10 September.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 236,
+    "text": "Believing the 15 October date still stands because of personal notes (PERSONAL-NOTES) or the first project manager's emails: these have no authority.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 237,
+    "text": "Assuming the 21 September status report (STATUS-0921) with its green cible 22 octobre confirms readiness: it is not an approval and was prepared before detailed ticket checks.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          2,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 238,
+    "text": "Nicolas Perron has been the project lead (chargé de projet) of NOVA since 16 September 2026. This is a documented handover announced by the previous lead, Élodie Caron, who had held the role since the 7 July 2026 kickoff and the charter. The transition note and the Teams message confirm the same date and say Nicolas also took over the Friday committee. Nicolas then acted as owner in later documents: he chaired the 26 September committee, published the minutes, and sent the 27 September reminder that the 22 October target is conditional. Élodie remained available for a few days only to support the transfer; no later document gives her a decision role. The planning documents are stale on this point.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 239,
+    "text": "Nicolas Perron est chargé de projet de NOVA depuis le 16 septembre 2026, en remplacement d'Élodie Caron, qui occupait le rôle depuis le lancement du 7 juillet 2026.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 240,
+    "text": "The charter (7 July) names Élodie Caron as lead, but it states it is not updated after later decisions; it is a starting point, not the current owner.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 241,
+    "text": "Plan v2 and the June plan list Élodie Caron as owner of P-06 Mise en production. Plan v3 lists Nicolas but still shows 15 October, so plans are stale and unreliable on owner and date.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 242,
+    "text": "The 7 July kickoff email and minutes (E01, M01) show the original role, not the current one.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 243,
+    "text": "The handover was announced in three places (E06, TRANSITION, TEAMS-0916). These are the same event, not independent confirmations.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 244,
+    "text": "Élodie stays reachable for a few days only; this is transition support, not shared ownership.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 245,
+    "text": "No document gives a formal handover end date for Élodie; that is not documented.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          3,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 246,
+    "text": "The authorized contract amount is 204,000 CAD before tax: the initial maximum of 180,000 CAD (contract and charter, set at kickoff on 7 July 2026) plus 24,000 CAD from change request CR-01. CR-01 was approved by the project committee on 14 August 2026, so it is a decision and not a proposal. CR-04 (18,000 CAD, mobile optimization) is only a draft with no approval number or committee signature. It was postponed to phase 2 on 24 September 2026 and must not be added to the authorized total. This is an authorization figure only. Invoiced to date is 60,000 (INV-001) + 72,000 (INV-002, which includes 24,000 for CR-01) + 54,000 (INV-003, under validation) = 186,000 CAD, and INV-001 and INV-002 are marked paid (132,000 CAD). The 204,000 figure is my computation from two sourced components; no single document states the sum.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 247,
+    "text": "Le montant autorisé est de 204 000 $ CAD, soit le plafond initial de 180 000 $ plus 24 000 $ approuvés par CR-01 le 14 août 2026; CR-04 (18 000 $) n'est pas approuvé et est reporté à la phase 2.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 248,
+    "text": "Taking the charter or kickoff figure of 180,000 CAD as the final authorized amount and ignoring the approved CR-01 (+24,000 CAD).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 249,
+    "text": "Adding CR-04 (18,000 CAD) to reach 222,000 CAD: it is an unapproved draft, deferred to phase 2.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 250,
+    "text": "Confusing authorized, invoiced and paid amounts: invoiced is 186,000 CAD, and INV-003 (54,000 CAD) is still under validation and unpaid.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 251,
+    "text": "The status report of 21 September says budget is green 'under the contractual ceiling', but it predates detailed verification and is not an authority on the amount.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 252,
+    "text": "Treating the CR-04 reference on the INV-003 line as proof of approval; the vendor invoice does not authorize the work.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 253,
+    "text": "Counting INV-778 (41,000 CAD) as NOVA spend: it belongs to project ORION.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 254,
+    "text": "Counting the CR-04 draft attachment in the email and the standalone file as two independent confirmations.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          4,
+          "traps",
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": 255,
+    "text": "What problem does INV-003 present? Specify the amount concerned and the treatment to plan.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 256,
+    "text": "INV-003 (dated 2026-09-22, status under validation, total 54,000 $) contains an 18,000 $ line 'Optimisation interface mobile - CR-04' that has no approval behind it. CR-04 exists only as a draft that states approval is required and carries no approval number or committee signature. The contract requires any out-of-scope work to have a written approved change request before execution and invoicing. On 2026-09-24 Nicolas Perron stated that the advanced mobile optimizations are deferred to phase 2 and that no CR-04 spending may be committed or invoiced without new approval. Finance (Amélie Fortin) asked on 2026-09-23 for the approval and had not released the invoice. Recommendation (not a documented commitment): do not release the 18,000 $ line and have Finance and Nicolas Perron ask Boréal to remove or credit it, while the 36,000 $ phase 1 milestone 3 line can be processed through the normal validation. The treatment is not formally documented; the handling of the 36,000 $ line and any reissue date are TBC.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 257,
+    "text": "INV-003 (54 000 $) comporte une ligne de 18 000 $ liée à CR-04, qui n'est qu'un brouillon non approuvé et reporté à la phase 2; cette ligne ne doit pas être libérée sans nouvelle approbation (recommandation : demander son retrait ou un crédit à Boréal).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 258,
+    "text": "Assuming the CR-04 reference on the invoice means the change was approved; the document is a draft (BROUILLON) with no approval number.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 259,
+    "text": "Confusing CR-04 (mobile, 18,000 $, unapproved) with CR-01 (advanced reports, 24,000 $, approved 14 Aug and already invoiced on INV-002).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 260,
+    "text": "Rejecting the whole 54,000 $ invoice when only the 18,000 $ line is problematic.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 261,
+    "text": "Treating the vendor's belief that mobile was in scope (Teams 22 Sept) or the 10 Sept committee discussion of the ~18,000 $ estimate as approval; the committee explicitly decided no spend.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 262,
+    "text": "Counting INV-003.pdf attached to the E07 email and the separate file as two independent confirmations.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 263,
+    "text": "Mixing in INV-778, which belongs to project ORION, or treating INV-003 as paid; its status is 'En validation'.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          5,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 264,
+    "text": "Production data must be hosted in Canada, specifically Canada Central. Sophie Lambert (security) required this on 23 July 2026 in the architecture workshop. Marc, Sophie and Julien (Boréal) all agreed, and Élodie recorded it as a decision. ADR-007 (accepted, 23 July 2026) formalizes it and states that architecture v1 (East US) is superseded on this point. Implementation evidence: on 26 August 2026 Boréal (Julien Moreau) announced the migration to Canada Central as complete, with a connectivity and deployment test showing no blocker, and attached schema v2. The 27 August committee minutes record that the architecture team verified it, so the vendor claim is independently validated. Architecture v2 (25 August 2026) shows Data in Canada Central. A technical validation of the migration was required by ADR-007 before production tests.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 265,
+    "text": "Les données de production doivent être hébergées au Canada, dans Canada Central (ADR-007, décision du 23 juillet 2026). La mise en œuvre est confirmée par le schéma v2 et par le comité du 27 août, où l'équipe architecture a vérifié la migration annoncée par Boréal.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 266,
+    "text": "Architecture v1 (18 July) and the East US diagram in E02 are stale; ADR-007 supersedes them on location.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 267,
+    "text": "Boréal's email E03 alone is a vendor claim of delivery; the independent verification is in the 27 August committee minutes (M03).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 268,
+    "text": "The v2 schema exists both as an attachment to E03 and as a separate file; count it as one source, not two confirmations.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 269,
+    "text": "Sophie's 22 July email (E02) only asked the question and stated a wish; the decision came on 23 July in the workshop and ADR-007.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 270,
+    "text": "The charter and the 2026-07 plan do not mention the location and are not updated automatically after decisions.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 271,
+    "text": "The README requires an ADR-mandated technical validation before production tests; the dossier shows only the committee's statement of verification, not a separate technical report (not documented).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          6,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 272,
+    "text": "Is security accepted? Distinguish delivery from validation.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 273,
+    "text": "No, security is not accepted as of 2026-09-30. Boréal (Julien Moreau) delivered the SEC-210 fix to the validation environment on 19 September 2026 and considers the problem corrected based on its automated tests. That is a delivery and a vendor claim, not a validation. Sophie Lambert (security) said that she and her team must redo their scenario and confirm it themselves, and that the ticket must not be closed before security validation. On 26 September she scheduled the re-test and kept the status EN VALIDATION, and the same day's committee confirmed that security acceptance of SEC-210 has not yet been given. Security validation of SEC-210 is one of the three go-live conditions for the approved 22 October target. No re-test result or acceptance is documented in the dossier; the re-test date is TBC and the proposed owner for the action is Sophie Lambert.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 274,
+    "text": "Non : le correctif SEC-210 a été livré par Boréal le 19 septembre, mais Sophie Lambert n'a pas encore donné l'acceptation sécurité; le ticket reste EN VALIDATION et le re-test est planifié, sans résultat documenté.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 275,
+    "text": "Taking Julien Moreau's email of 19 Sept (E08) or the Teams message saying the fix is good as acceptance: it is a vendor delivery claim based on automated tests.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 276,
+    "text": "Relying on the 21 Sept status report (STATUS-0921), which shows Security as VERT because the fix was delivered. It was prepared before detailed ticket checks and is non-authoritative.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 277,
+    "text": "Repeating Alex Deschamps's draft message that security and accessibility are completed (E11); it rests on that stale report.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 278,
+    "text": "Treating the SEC-210 screenshot as proof the defect is still present: it is historical and shows the original defect. The ticket status EN VALIDATION and the comments prevail.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 279,
+    "text": "Misreading the defect as a missing export line: the ticket says an EXPORT_CSV line exists but the object and result are missing.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 280,
+    "text": "Counting E08 and the Teams message as independent confirmations: they come from the same vendor claim.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 281,
+    "text": "Assuming that the 26 Sept re-test being planned means it passed: no result is documented.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          7,
+          "traps",
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": 282,
+    "text": "Is accessibility completed? Identify what remains to be corrected.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 283,
+    "text": "No, accessibility is not completed as of 2026-09-30. ACC-301 (missing field label) was validated and closed by Mélissa on 15 August, and ACC-302 (contrast) was re-tested OK at 5.3:1 and closed on 20 August. ACC-303, however, is still OPEN with High priority: keyboard focus in the edit modal never reaches the Enregistrer (Save) button. Boréal reproduced it on 18 September and announced a fix for the next build. That is only an announcement, not a delivery that has been validated. Mélissa, the accessibility tester, called it a blocker before production at the 26 September committee, and it is one of the three go-live conditions set by Nicolas Perron. No closing date is documented for ACC-303, so the deadline is TBC. As a recommendation, re-test ACC-303 on the next build and keep it open until Mélissa validates it.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 284,
+    "text": "Non : ACC-301 et ACC-302 sont fermés, mais ACC-303 reste ouvert (le bouton Enregistrer de la modale est inaccessible au clavier) et constitue un bloquant avant production, sans correctif validé.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 285,
+    "text": "The 21 September status report (STATUS-0921) shows Accessibility as VERT with 'Correctifs appliqués'. It predates the 26 September committee and the ACC-303 follow-up, so it is stale and not authoritative.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 286,
+    "text": "Alex's draft message ('la sécurité et l'accessibilité sont complétées') relies on that report and is wrong.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 287,
+    "text": "Julien's 20 August email ('Tout devrait maintenant être conforme') is a vendor claim covering only labels and contrast, not the modal keyboard navigation, and it predates ACC-303 (created 17 September).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 288,
+    "text": "The ACC-301 and ACC-302 screenshots show historical defects that are already closed; they do not mean those defects are still open.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 289,
+    "text": "M05 says 'ACC-301 et ACC-302 sont fermés' and mentions a keyboard scenario still to be checked, which is only a preliminary mention. ACC-303 is the formal ticket.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 290,
+    "text": "ACC-303 is the ticket status 'OUVERT', and the fix is announced for the next build, not delivered or validated.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 291,
+    "text": "The risk register labels accessibility impact as Moyen, but the committee treats ACC-303 as a go-live blocker.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          8,
+          "traps",
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": 292,
+    "text": "What are the three go-live conditions? Specify the missing runbook work based on its screenshot.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "question_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 293,
+    "text": "The three go-live conditions were stated by Nicolas Perron at the 26 September 2026 steering committee, and Sophie, Mélissa and Olivier each confirmed them: (1) security validation of SEC-210, (2) closure of ACC-303, and (3) approval of the runbook including rollback. As of the 30 September baseline, none is documented as met. SEC-210 is still EN VALIDATION (the vendor delivered a fix on 19 September, but delivery is not security acceptance, and Sophie's re-test is only planned). ACC-303 is still OPEN: the modal never lets keyboard focus reach Enregistrer, and the fix is only announced for the next build. OPS-601 is still OPEN: the 25 September runbook capture shows steps 1-3 OK, step 4 (rollback procedure) as TODO, and step 5 (post-deployment functional validation) as 'À compléter'. Olivier noted on 29 September that he had still not received the final version. The 22 October date is approved but explicitly conditional on these three items, and no deadline for closing them is documented (TBC).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "answer_en"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 294,
+    "text": "Les trois conditions de go-live sont : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook avec rollback. Au 30 septembre, aucune n'est remplie ; dans la capture du runbook, il manque la procédure de retour arrière (étape 4, TODO) et la validation fonctionnelle post-déploiement (étape 5, à compléter).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "answer_fr"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 295,
+    "text": "Taking the vendor's 'SEC-210 corrigé/réglé' (E08, 19 September) as security acceptance: it is only a delivery, and Sophie has not validated it.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 296,
+    "text": "Using the 21 September status report (all green for security and accessibility) or Alex's draft message 'NOVA est au vert': both are stale and contradicted by the tickets and the 26 September committee.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": 297,
+    "text": "Treating the closed ACC-301 and ACC-302 as proof that accessibility is complete: ACC-303 is open and is the blocker.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": 298,
+    "text": "Reading the OPS-601 capture as only the rollback gap: step 5 (post-deployment functional validation) is also incomplete.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": 299,
+    "text": "Treating the 22 October date as a guaranteed go: Nicolas explicitly said it is conditional (M06, E09).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": 300,
+    "text": "Counting INT-101 or DATA-401 as remaining conditions: both are closed and are not among the three.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": 301,
+    "text": "Counting the OPS-601 ticket and its PNG as independent confirmations: the screenshot is an attachment of the same ticket.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "text": "Relying on the 29 September risk register, whose R-01 comment dates from 9 September and is out of date.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "answers",
+          9,
+          "traps",
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "text": "Fix deployed to validation on 19 Sept (delivery) but security has not accepted it; re-test planned, ticket remains EN VALIDATION as of 26 Sept.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "conditions",
+          0,
+          "state"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "text": "Close accessibility ticket ACC-303",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "conditions",
+          1,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 305,
+    "text": "Ticket still open: keyboard focus in the modal never reaches the Enregistrer button; fix announced for next build, not yet validated.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "conditions",
+          1,
+          "state"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 306,
+    "text": "Approved runbook including rollback",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "conditions",
+          2,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 307,
+    "text": "As of 29 Sept the final version had not been received; rollback step 4 is TODO and step 5 post-deployment validation is to be completed.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "conditions",
+          2,
+          "state"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "text": "Re-test SEC-210 and give or refuse the security acceptance (the re-test was planned on 26 September, no date given)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          0,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 309,
+    "text": "Deliver the ACC-303 fix in the next build so that Tab reaches the Enregistrer button",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          1,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 310,
+    "text": "Re-test the modal with the keyboard and close ACC-303 if it passes",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          2,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 311,
+    "text": "Chase the Boréal ops team for the runbook content (rollback procedure and post-deployment functional validation)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          3,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 312,
+    "text": "Complete the runbook: step 4 rollback (TODO) and step 5 post-deployment validation (À compléter)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          4,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "text": "Review the final runbook and give the operations go only once the procedure is executable (the final version was not received on 29 September)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          5,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 314,
+    "text": "Hold the release of INV-003 and ask Boréal for a corrected invoice without the 18,000 $ CR-04 line, or for a documented approval",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          6,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 315,
+    "text": "Answer Finance on the INV-003 question: CR-04 is unapproved and deferred to phase 2 (no reply is documented in the files)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          7,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 316,
+    "text": "Update the project plan so go-live reads 22 October and the owner is Nicolas Perron, per the transition note",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          8,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 317,
+    "text": "Update the risk register: close or downgrade R-01 (INT-101 closed on 17 September) and refresh the status report",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          9,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 318,
+    "text": "Do not publish the 'projet au vert' message and do not present 22 October as a guaranteed go",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          10,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 319,
+    "text": "Raise a formal change request for the mobile optimizations if they are wanted in phase 2, and do not bill CR-04 until it is approved",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "actions",
+          11,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 320,
+    "text": "Go-live date: 15 October vs 22 October",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 321,
+    "text": "The project plan v3 still shows the production go-live on 15 October as the planning target, with Nicolas Perron as owner.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 322,
+    "text": "The steering committee of 10 September approved 22 October as the official date.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 323,
+    "text": "The committee decision is more authoritative and more recent than the plan. The plan was not updated, and Nicolas himself noted this on Teams. The date is 22 October, conditional on the three go-live conditions.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          0,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 324,
+    "text": "Vendor proposal vs approval of the 22 October date",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 325,
+    "text": "Boréal's email of 8 September only recommends moving to 22 October and leaves the governance decision to the client.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 326,
+    "text": "On 10 September the committee approved the move after verbal consultation, with no objection raised.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 327,
+    "text": "The email is a proposal. The committee transcript records the decision, and the decision is what prevails.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          1,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 328,
+    "text": "Risk register: connector delay still open",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 329,
+    "text": "The risk register dated 29 September lists R-01, connector delay, as Open, with a comment dated 9 September.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 330,
+    "text": "INT-101 was validated and closed by Marc Gervais on 17 September after 120/120 searches passed.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 331,
+    "text": "The register entry rests on facts from 9 September, before the 17 September closure. The ticket validated by the integration owner prevails, so the connector cause is resolved. R-01 should be reviewed and closed (recommendation).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          2,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 332,
+    "text": "Status report: security and accessibility green",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 333,
+    "text": "The 21 September status report shows security and accessibility as green and completed.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 334,
+    "text": "The tickets show SEC-210 still In validation and ACC-303 still Open. The 26 September committee confirms that both remain conditions.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 335,
+    "text": "The report states that it was prepared before the detailed ticket checks. Current ticket statuses and the 26 September committee prevail, so security and accessibility are not complete. Alex's draft of 'au vert' should not be published.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          3,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 336,
+    "text": "SEC-210: vendor says fixed vs security validation",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 337,
+    "text": "Boréal says the fix is deployed and the problem is corrected.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 338,
+    "text": "Sophie states that security acceptance has not been given and the ticket must not be closed before security validation.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 339,
+    "text": "The fix is delivered, not validated. The security owner decides acceptance, and the ticket stays In validation until her re-test.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          4,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 340,
+    "text": "INV-003: CR-04 reference vs approval status",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 341,
+    "text": "INV-003 bills 18,000 $ for mobile optimization and cites CR-04 as its basis.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 342,
+    "text": "CR-04 is only a draft with no approval number. The mobile work is deferred to phase 2, and the contract requires prior written approval.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 343,
+    "text": "Citing CR-04 on an invoice does not make it approved. The 18,000 $ line is unauthorized and should not be released. Only the unapproved CR-04 line is in question; the rest of INV-003 needs separate review.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          5,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 344,
+    "text": "Hosting region: East US vs Canada Central",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          6,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 345,
+    "text": "Architecture v1 shows East US, the vendor's standard landing zone.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          6,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 346,
+    "text": "ADR-007 decided on Canada Central, and the v1 diagram was declared obsolete on this point. Boréal reported the migration complete with a v2 diagram.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          6,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 347,
+    "text": "The ADR of 23 July supersedes the v1 diagram of 18 July. The v2 diagram and the committee summary confirm the implementation.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          6,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 348,
+    "text": "Accessibility: vendor says all compliant vs open ACC-303",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          7,
+          "topic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "text": "On 20 August Boréal said everything should be compliant on its side.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          7,
+          "a"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 350,
+    "text": "On 17 September ACC-303 was opened as a blocker: keyboard focus never reaches the Enregistrer button in the modal. It was still open on 26 September.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          7,
+          "b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "text": "The 20 August email predates ACC-303 and covered only labels and contrast (ACC-301 and ACC-302, both closed). The newer ticket prevails, so accessibility is not complete.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "contradictions",
+          7,
+          "resolution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 352,
+    "text": "NOVA kickoff: project manager, budget and target date set",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          0,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 353,
+    "text": "Phase 1 scope fixed; advanced mobile not discussed as a deliverable",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          1,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "text": "Contract: CAD 180,000 maximum, written approved change request required for out-of-scope work",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          2,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 355,
+    "text": "Sophie questions East US hosting shown in architecture v1",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          3,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 356,
+    "text": "Workshop decides Canada Central; ADR-007 accepted",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          4,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 357,
+    "text": "SSO only in production; admin audit to be validated",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          5,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 358,
+    "text": "ACC-301 opened: screen reader label missing",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          6,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 359,
+    "text": "CR-01 advanced reports approved (24,000)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          7,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 360,
+    "text": "ACC-301 validated and closed by Mélissa",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          8,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 361,
+    "text": "ACC-302 contrast re-test OK and closed",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          9,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 362,
+    "text": "Boréal announces Canada Central migration complete (architecture v2)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          10,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 363,
+    "text": "Committee records migration verified by architecture team; 15 Oct unchanged",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          11,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 364,
+    "text": "INV-001 (60,000) and INV-002 (72,000) invoiced and paid",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          12,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 365,
+    "text": "DATA-401 duplicates in migration batch opened",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          13,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 366,
+    "text": "Boréal drafts CR-04 mobile optimization (18,000), approval required",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          14,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 367,
+    "text": "INT-101 connector failure opened (expired token, 401s)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          15,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 368,
+    "text": "PERF-501 closed at 620 ms average",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          16,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 369,
+    "text": "Boréal recommends moving go-live to 22 October",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          17,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 370,
+    "text": "DATA-401 replay of 15,000 events shows no duplicates; closed",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          18,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 371,
+    "text": "Steering committee approves 22 October; not an automatic go; mobile has no spend decision",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          19,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 372,
+    "text": "SEC-210 opened: EXPORT_CSV audit incomplete, blocking before production",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          20,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 373,
+    "text": "Nicolas Perron takes over project management",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          21,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 374,
+    "text": "INT-101 validated (120/120) and closed by Marc",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          22,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 375,
+    "text": "ACC-303 opened: keyboard focus never reaches Enregistrer in modal",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          23,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 376,
+    "text": "SEC-210 fix deployed to validation; security acceptance not given",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          24,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 377,
+    "text": "Status report shows green (prepared before detailed ticket checks); stale",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          25,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 378,
+    "text": "INV-003 (54,000) issued including 18,000 CR-04 line",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          26,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 379,
+    "text": "Finance asks for CR-04 approval; none found",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          27,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 380,
+    "text": "Advanced mobile deferred to phase 2; no CR-04 spend without new approval",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          28,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 381,
+    "text": "OPS-601 opened: runbook missing rollback and post-deployment validation",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          29,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 382,
+    "text": "Committee: 22 Oct conditional on three go-live conditions",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          30,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 383,
+    "text": "OPS-601 still open: final runbook not received",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "timeline",
+          31,
+          "title"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 384,
+    "text": "Production data hosting in Canada Central",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 385,
+    "text": "Sophie Lambert, 2026-07-22 (Canada requirement)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 386,
+    "text": "Élodie, Marc, Sophie, Julien at the workshop, 2026-07-23 (ADR-007 accepted)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 387,
+    "text": "Boréal, 2026-08-26 (migration complete, v2)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 388,
+    "text": "Architecture team, 2026-08-27 committee record",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          0,
+          "validated"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 389,
+    "text": "Go-live date moved from 15 to 22 October",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          1,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 390,
+    "text": "Boréal (Julien Moreau), 2026-09-08",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          1,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 391,
+    "text": "Steering committee (Élodie announced, no objection), 2026-09-10",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          1,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 392,
+    "text": "Three go-live conditions for 22 October",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          2,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 393,
+    "text": "Nicolas Perron, 2026-09-26",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          2,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 394,
+    "text": "Committee 2026-09-26, confirmed by Sophie, Mélissa, Olivier",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          2,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 395,
+    "text": "Project manager transition",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          3,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 396,
+    "text": "Élodie Caron, 2026-09-16",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          3,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 397,
+    "text": "Élodie Caron announced, effective 2026-09-16",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          3,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "text": "Advanced mobile (CR-04) deferred to phase 2",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 399,
+    "text": "Boréal draft CR-04, 2026-09-04",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 400,
+    "text": "Nicolas Perron, 2026-09-24 (DEC-PHASE2)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          4,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 401,
+    "text": "INT-101 connector issue closure",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 402,
+    "text": "Boréal fix, 2026-09-17",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "proposed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 403,
+    "text": "Boréal, 2026-09-17",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 404,
+    "text": "Marc Gervais, 2026-09-17",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          5,
+          "validated"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 405,
+    "text": "SEC-210 export audit fix",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 406,
+    "text": "Boréal, 2026-09-19",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "delivered"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 407,
+    "text": "— (security re-test planned, not yet accepted)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          6,
+          "validated"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 408,
+    "text": "CR-01 advanced reports change",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          7,
+          "subject"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 409,
+    "text": "Project committee, 2026-08-14",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "decisions",
+          7,
+          "decided"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 410,
+    "text": "Initial contract maximum",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "budget",
+          "components",
+          0,
+          "label"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 411,
+    "text": "Approved change request CR-01 (advanced reports)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "budget",
+          "components",
+          1,
+          "label"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 412,
+    "text": "INV-003 line 'Optimisation interface mobile - CR-04': CR-04 is only a draft, not approved, and deferred to phase 2; to be held or rejected pending approval",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "budget",
+          "unapprovedLabel"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 413,
+    "text": "Nicolas Perron has been the official project lead of NOVA since 16 September 2026, taking over from Élodie Caron, who stays available for a few days for the transition. Decisions and follow-ups go to Nicolas.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          0,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 414,
+    "text": "Boréal proposed 22 October on 8 September. The steering committee approved it on 10 September, and it is the official date. It is conditional: it is not an automatic go and depends on three validations, namely security (SEC-210), accessibility (ACC-303) and an approved runbook with rollback. As of 29 September all three are still open: SEC-210 is under validation, ACC-303 is open and the final runbook has not been received. The contract period ends on 31 October, and no extension is documented.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          1,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 415,
+    "text": "Phase 1 covers SSO, request creation and tracking, attachments, workflow, tracking dashboard and standard reports. The advanced mobile optimizations of CR-04 are deferred to phase 2, and no CR-04 spending is allowed without new approval. Production data must stay in Canada Central (ADR-007).",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          2,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 416,
+    "text": "The authorized amount is 204,000 $ CAD: the 180,000 $ initial maximum plus the approved CR-01 of 24,000 $. Of this, 132,000 $ is paid, leaving 36,000 $ remaining against invoices that are valid.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          3,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 417,
+    "text": "INV-001 (60,000 $) and INV-002 (72,000 $) are paid. INV-003 (54,000 $) is under validation and is not released. It includes an 18,000 $ line citing CR-04, which is only a draft, not approved and deferred to phase 2. Finance asked for the approval, and no reply is documented. Recommendation: hold INV-003 and request a corrected invoice without that line, or a documented approval.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          4,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 418,
+    "text": "First, obtain the three go-live validations. Security: Sophie Lambert re-tests SEC-210, with no date documented. Accessibility: Boréal delivers the ACC-303 fix and Mélissa Gagnon re-tests it. Operations: Boréal completes runbook step 4 (rollback, TODO) and step 5 (post-deployment validation), and Olivier Côté reviews it before giving the go. Due dates are TBC for all of these. Second, answer Finance on INV-003; owner and timing are my recommendation, not a documented commitment.",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "brief",
+          "sections",
+          5,
+          "text"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 419,
+    "text": "Project manager (took over from Élodie Caron)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          0,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 420,
+    "text": "Overall project, committee decisions, go-live conditions, CR-04 stance",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          0,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 421,
+    "text": "Former project manager, available for transition",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          1,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 422,
+    "text": "Handover only",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          1,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 423,
+    "text": "Security lead",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          2,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 424,
+    "text": "not documented",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          2,
+          "since"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          3,
+          "since"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          4,
+          "since"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          5,
+          "since"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          6,
+          "since"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          7,
+          "since"
+        ]
+      },
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          8,
+          "since"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 425,
+    "text": "Accessibility / testing",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          3,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 426,
+    "text": "ACC-303 validation (condition 2)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          3,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 427,
+    "text": "Runbook and rollback approval (condition 3), OPS-601",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          4,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 428,
+    "text": "Architecture and integration",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          5,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 429,
+    "text": "Connector INT-101 (closed 17 Sept)",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          5,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 430,
+    "text": "Vendor representative, Boréal Numérique",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          6,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 431,
+    "text": "Vendor deliveries: SEC-210 fix, ACC-303 fix, runbook content",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          6,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 432,
+    "text": "Finance",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          7,
+          "role"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 433,
+    "text": "INV-003 validation and release",
+    "locations": [
+      {
+        "file": "data/generated/kb.json",
+        "keys": [
+          "people",
+          7,
+          "owns"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 434,
+    "text": "The approved go-live target is 22 October 2026. It was proposed by Boréal (Julien Moreau) on 8 Sept and approved at the 10 Sept steering committee, when Élodie Caron stated the decision and Sophie, Marc, Olivier and Nicolas raised no objection. The 22 October date is conditional, not a guaranteed go: the 26 Sept committee, reported by Nicolas Perron on 27 Sept, tied it to three remaining validations: SEC-210 security acceptance, closure of ACC-303 (accessibility), and approval of the runbook including rollback (OPS-601). As of 30 Sept, SEC-210 is still 'EN VALIDATION', ACC-303 is OPEN and OPS-601 is OPEN with no final version received, so none of the three conditions is documented as met. No contractual penalty was identified for the shift, and the committee has given no go-live approval.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q01.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q01.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 435,
+    "text": "The go-live date moved from 15 October to 22 October 2026 because the internal connector problem (ticket INT-101) cost more time than planned and left very little stabilization margin. Boréal (Julien Moreau) first PROPOSED the move on 8 Sept 2026; the steering committee APPROVED it on 10 Sept 2026 after Élodie Caron put the decision to the room and no one objected (Marc confirmed the connector was the critical path). The initial cause is now resolved: Boréal deployed a fix on 17 Sept (120 replayed searches, 120 valid responses), and Marc Gervais, the integration owner, validated it and closed INT-101 on 17 Sept 2026 (confirmed by email and the 18 Sept delivery follow-up). The 22 October date remains approved but conditional on three go-live conditions (SEC-210 security validation, ACC-303, runbook with rollback), which are separate from the connector cause. Note: the risk register (29 Sept) still lists R-01 connector delay as Open with a 9 Sept comment, which is stale relative to the INT-101 closure.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q02.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q02.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 436,
+    "text": "**Proposal (8 September 2026):** Julien Moreau (Boréal, the vendor) emailed Élodie Caron and Nicolas Perron recommending that go-live move to 22 October. He stated that this was only a proposal and that the governance decision was up to the client. He repeated the recommendation at the 10 September committee.\n\n**Approval (10 September 2026, 15:22–15:25):** At the steering committee (comité de direction), Élodie Caron, then project manager, worded the decision: the target date moves from 15 to 22 October 2026. She asked whether anyone objected. Sophie Lambert, Marc Gervais and Olivier Côté each answered \"Non\", and Nicolas Perron said \"D'accord\". Élodie then declared the decision \"approuvé\" and made 22 October the official date. The approver is therefore the steering committee as a body, with Élodie Caron formalizing the decision. No signed document is in the corpus; the approval is documented only in the meeting transcript, and later sources confirm it (Nicolas's 15 September Teams message, and his 27 September email).\n\n**Reservation:** Approval of the date is not an automatic go. It remains subject to the security, accessibility and operations criteria. Nicolas Perron said so during the committee itself.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "history",
+          1,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 437,
+    "text": "No signed or formal written approval document (e.g. committee minutes) for the 10 September decision; only the transcript and later confirmations exist.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "current",
+          "missing",
+          0
+        ]
+      },
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "history",
+          1,
+          "missing",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 438,
+    "text": "Obtain or file the official minutes of the 10 September committee as the formal record of the approval.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "current",
+          "recommendations",
+          0
+        ]
+      },
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "history",
+          1,
+          "recommendations",
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": 439,
+    "text": "The change was first a PROPOSAL: on 8 September 2026 Julien Moreau (Boréal, the vendor) emailed Élodie Caron and Nicolas Perron recommending a move of production to 22 October, and explicitly said governance had to confirm. The DECISION was taken orally at the steering committee (comité de direction) on 10 September 2026: Élodie Caron formulated the decision, asked whether anyone objected, Sophie Lambert, Marc Gervais and Olivier Côté said no, Nicolas Perron said 'D'accord', and Élodie declared it approved. So the approver is the steering committee (chaired by Élodie, who was project manager at that date), by consensus with no objection, on 10 September 2026. The approval is not an unconditional go: Nicolas stated the 22 October date is not an automatic go, as security, accessibility and operations criteria remain. No separate signed approval document is in the dossier; the transcript is the authoritative evidence, and later notes (Nicolas's 27 September email, the 16 September transition note) confirm 22 October as the approved target.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q03.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 440,
+    "text": "Nicolas Perron has been the project lead (chargé de projet) of NOVA since 16 September 2026. This is a documented transition decision announced by Élodie Caron, the previous lead, by email to the team. It is corroborated by her transition note, which states that he takes over the NOVA project lead role from that date. A Teams message the same day confirms it, and Nicolas adds that he also takes over the Friday committee. Élodie was the lead from the 7 July 2026 kickoff (charter and kickoff minutes) and stayed available for a few days for the handover. Decisions and follow-ups should now go to Nicolas. The 'Mise en production' owner in the plan v3 still showing Nicolas with the 15 October date is a planning artifact, not an authority on the date.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q04.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q04.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 441,
+    "text": "The initial maximum contract amount is 180,000 CAD, set in the contract (CONTRACT) and the charter, and confirmed at the kickoff meeting (M01). CR-01 (advanced reports, 24,000 CAD) was approved by the project committee on 14 August 2026, so it is an approved change on top of the base amount. The currently authorized total is therefore 180,000 + 24,000 = 204,000 CAD. This sum is my own calculation: no document states the 204,000 total explicitly, and the contract text only says that out-of-scope work requires a written, approved change request before execution and billing. CR-04 (18,000 CAD, mobile optimization) is only a draft with no approval, and it was deferred to phase 2 (DEC-PHASE2), so it adds nothing to the authorized amount. For distinction: invoiced to date is 60,000 (INV-001, paid) + 72,000 (INV-002, paid, including 24,000 for CR-01) + 54,000 (INV-003, under validation, including the unapproved 18,000 CR-04 line) = 186,000. Paid is 132,000, and INV-003 has not been released.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q05.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q05.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 442,
+    "text": "INV-003 (dated 2026-09-22, status 'En validation', total $54,000 CAD) contains an $18,000 line 'Optimisation interface mobile - CR-04' that has no approval behind it. CR-04 is only a DRAFT ('BROUILLON - APPROBATION REQUISE') with no approval number or committee signature, and the contract requires written approval of any out-of-scope work before execution and invoicing. On 24 Sept 2026 Nicolas Perron (project lead since 16 Sept) documented the decision that advanced mobile optimizations are deferred to phase 2 and that no CR-04 spending may be engaged or invoiced without new approval; on 10 Sept the committee had likewise made no spending decision on mobile. Amélie Fortin (Finance) asked on 23 Sept for the approval and has not released the invoice. Treatment to plan (recommendation, not a documented commitment): do not release or pay the $18,000 line, and have the vendor correct or credit it. The remaining $36,000 line ('Développement phase 1 - jalon 3') is in scope, but how it is to be paid is not documented. No dispute or credit-note outcome is documented in the dossier as of 30 Sept 2026.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q06.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q06.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 443,
+    "text": "Production data must be hosted in Canada, specifically Canada Central. This was a decision: Sophie Lambert (security) required it, and at the 23 July 2026 architecture workshop Marc, Sophie and Julien (Boréal) agreed, with Élodie recording it. It was formalised in ADR-007 (status Accepted, 23 July 2026), which says v1 (East US) is superseded on this point. Implementation is evidenced by Boréal's email of 26 August 2026 declaring the migration complete, with architecture schema v2 attached and a deployment/connectivity test showing no blockers. The 27 August committee minutes add that the migration was declared complete by Boréal and verified by the architecture team. The v2 schema, dated 25 August, shows Canada Central. Caveat: the Boréal email is a vendor claim; the independent verification comes from the committee minutes, and no separate technical validation report is in the dossier. ADR-007 required such a validation before production tests.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q07.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q07.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 444,
+    "text": "No. As of 2026-09-30 09:00, security is not accepted. Boréal delivered the SEC-210 fix to the validation environment on 19 Sept 2026 (a delivery, backed by the vendor's own automated tests). Sophie Lambert (security, ticket requester) has not validated it: on 19 Sept she asked that the ticket not be closed before security validation, and on 26 Sept she wrote that a re-test is planned and the status stays EN VALIDATION. At the 26 Sept committee she stated that security acceptance of SEC-210 had not yet been given. Security validation of SEC-210 is one of the three go-live conditions for the approved 22 October target, so the 22 Oct date remains conditional. The risk register (R-02, security validation incomplete) is still Open, with the re-test of SEC-210 before go-live as mitigation. No re-test date or result is documented (re-test date: TBC with Sophie).",
+    "locations": [
+      {
+        "file": "data/question-computations/Q08.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q08.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 445,
+    "text": "No, accessibility is not complete as of 2026-09-30. ACC-301 (labels, closed 15 Aug) and ACC-302 (contrast, closed 20 Aug) were each re-tested and validated by Mélissa Gagnon, but ACC-303 (keyboard focus in the edit modal) is still OPEN with High priority. In that modal, Tab never reaches the Enregistrer button; Boréal reproduced it on 18 Sept and attributed it to an incomplete list of focusable elements. At the 26 Sept committee, Mélissa called ACC-303 an accessibility blocker before production, and Julien (Boréal) only said they aim to fix it in the next build. That is an announced fix, not a delivery or a validation. Nicolas Perron then recorded closing ACC-303 as one of the three go-live conditions for the 22 Oct target. Mélissa owns the validation; the fix owner is Boréal; no fix date is documented (TBC).",
+    "locations": [
+      {
+        "file": "data/question-computations/Q09.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q09.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 446,
+    "text": "The three go-live conditions were stated by Nicolas Perron at the 26 Sept 2026 steering committee and confirmed by Sophie, Mélissa and Olivier: (1) security validation of SEC-210, (2) closure of ACC-303, and (3) approval of the runbook including rollback. Nicolas said the 22 October target is conditional on these three items; he planned to publish the minutes. As of 30 Sept 2026, none is documented as met. SEC-210 is EN VALIDATION: Boréal delivered a fix on 19 Sept, but Sophie has not accepted it and her re-test is only planned. ACC-303 is OUVERT, with a fix announced for the next build. OPS-601 is OUVERT and Olivier reported on 29 Sept that he had still not received the final runbook. The OPS-601 screenshot (25 Sept version) shows steps 1-3 as OK, step 4 'Procédure de retour arrière' (rollback) as TODO, and step 5 'Validation fonctionnelle post-déploiement' as À compléter. The missing runbook work is therefore the rollback procedure and the post-deployment functional validation. No owner or deadline for finishing the runbook is documented (TBC); Julien said he would chase the Boréal ops team, which is only an intention, not a dated commitment.",
+    "locations": [
+      {
+        "file": "data/question-computations/Q10.json",
+        "keys": [
+          "current",
+          "answer"
+        ]
+      },
+      {
+        "file": "data/question-computations/Q10.json",
+        "keys": [
+          "history",
+          0,
+          "answer"
+        ]
+      }
+    ]
+  }
+]
