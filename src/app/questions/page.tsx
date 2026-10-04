@@ -1,9 +1,11 @@
+import { QuestionsWorkspace } from "./QuestionsWorkspace";
 import { PageHeader } from "@/components/UI";
 import { Chips } from "@/components/Chip";
 import Link from "next/link";
 import { currentAnswers, getKB, resolver, updates } from "@/lib/store";
 
-export default async function Questions() {
+export default async function Questions({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q = "" } = await searchParams;
   const ups = await updates();
   const r = await resolver([], ups);
   const rows = await currentAnswers(ups);
@@ -11,13 +13,11 @@ export default async function Questions() {
   const keyOf = (id: string) => meta?.answerKey?.details.find((d) => d.id === id);
   return (
     <div className="space-y-6">
-      <PageHeader title="The ten questions" subtitle={<>Answered as of the baseline (Sept 30, 2026, 09:00). The questions come from the dossier&apos;s README; click a chip to open the exact passage.</>} />
+      <PageHeader title="Questions" subtitle={<>Project answers with evidence from the NOVA files. Ask another question to add its answer below; click a citation to open the exact passage.</>} />
       <div className="panel p-4 text-xs text-muted">
         {meta?.source === "ai" ? <><strong className="text-ink">AI analysis of the raw files</strong> · {meta.citations?.verified} citations verified · Answer key: <strong className="text-ink">{meta.answerKey?.score ?? "Not scored"}</strong>. <Link className="text-primary underline" href="/build">Rebuild from sources</Link></> : <>Showing the hand-curated answer key. <Link className="text-primary underline" href="/build">Build from sources</Link> to see the system&apos;s own analysis.</>}
       </div>
-      <div className="questions-workspace">
-      <nav aria-label="Question index" className="question-index"><p className="section-label mb-3">Answer index</p>{rows.map(({ item }) => <a key={item.id} href={`#${item.id}`}><span>{item.id}</span><span>{item.question_en}</span></a>)}</nav>
-      <div className="answer-document">
+      <QuestionsWorkspace initial={q} questions={rows.map(({ item }) => ({ id: item.id, question: item.question_en }))}>
       {rows.map(({ item: a, current }) => {
         const changes = ups.filter((u) => u.cs.affected.answers.includes(a.id) && !u.cs.revisedAnswers?.some((x) => x.id === a.id));
         return (
@@ -52,7 +52,7 @@ export default async function Questions() {
           </section>
         );
       })}
-      </div></div>
+      </QuestionsWorkspace>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </aside>
           <div className="workspace">
             <header className="no-print workspace-header">
-              <form action="/ask" className="header-search" role="search">
+              <form action="/questions" className="header-search" role="search">
                 <Icon name="search" />
                 <label htmlFor="q" className="sr-only">Ask a question about NOVA</label>
                 <input id="q" name="q" placeholder="Ask a question about NOVA (EN or FR)…"

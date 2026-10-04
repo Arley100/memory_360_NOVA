@@ -6,7 +6,7 @@ export default function Guide() {
       <section><h2 className="text-xl font-bold">Opening</h2>
         <p>Run locally with <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>, then open http://localhost:3000. No account or subscription is needed. Chat and automatic update analysis need an API key in <code>.env.local</code>; every other page works without it.</p></section>
       <section><h2 className="text-xl font-bold">Navigation</h2>
-        <p>The sidebar follows the project: overview, one-page brief, the ten questions, timeline, decisions, contradictions, actions, sources, team, adding new information, and this guide. The header shows which version you are looking at.</p></section>
+        <p>The sidebar follows the project: overview, one-page brief, questions, timeline, decisions, contradictions, actions, sources, team, adding new information, and this guide. Ask from the header or the Questions page to add a sourced answer underneath the existing questions. The header shows which version you are looking at.</p></section>
       <section><h2 className="text-xl font-bold">Finding evidence</h2>
         <p>Every statement carries an evidence chip such as <strong>M04 · L23</strong>. Clicking it opens the file at that exact line, page, cell or screenshot row, highlighted. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. The Sources page searches every line of every file, accents optional.</p></section>
       <section><h2 className="text-xl font-bold">Asking questions</h2>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "./UI";
 const GROUPS = [
-  { title: "Project", items: [["/", "Overview", "overview"], ["/brief", "Handover brief", "file"], ["/questions", "Ten questions", "questions"], ["/timeline", "Timeline", "timeline"], ["/decisions", "Decisions", "decisions"], ["/contradictions", "Contradictions", "contradictions"]] },
+  { title: "Project", items: [["/", "Overview", "overview"], ["/brief", "Handover brief", "file"], ["/questions", "Questions", "questions"], ["/timeline", "Timeline", "timeline"], ["/decisions", "Decisions", "decisions"], ["/contradictions", "Contradictions", "contradictions"]] },
   { title: "Operations", items: [["/build", "Build from sources", "sources"], ["/actions", "Actions", "actions"], ["/sources", "Sources", "sources"], ["/team", "Team", "team"], ["/update", "Add new information", "upload"]] },
   { title: "Support", items: [["/guide", "Usage guide", "guide"]] },
 ];
