@@ -53,55 +53,68 @@ export default async function Guide() {
     <article className="guide-article">
       <PageHeader title="Usage guide" subtitle="Start with Overview, ask NOVA, then inspect the evidence." />
       <section><h2 className="text-xl font-bold">Opening</h2>
-        <ul className="list-disc pl-5">
-          <li>Open <a className="text-primary underline" href="https://memory-360-nova.vercel.app">the deployed application</a> and start at <Link className="text-primary underline" href="/">Overview</Link>. Enter the jury demo code when prompted for protected operations.</li>
-          <li>Locally: Node.js 20.9+, <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>; open <code>http://localhost:3000</code>.</li>
-        </ul>
-        <p>Jurors need no paid subscription or personal AI account; hosted AI uses the team&apos;s configured provider and demo code.</p></section>
+        <p>Open <a className="text-primary underline" href="https://memory-360-nova.vercel.app">the deployed application</a> at <Link className="text-primary underline" href="/">Overview</Link>. Enter the jury demo code when prompted for protected operations. No paid subscription or personal Claude/OpenAI account is needed.</p>
+        <p>Local setup and deployment instructions are in README.md and DEPLOY.md.</p></section>
       <section><h2 className="text-xl font-bold">Navigation</h2>
         <ul className="list-disc pl-5">
-          <li><strong>Overview / Handover brief:</strong> readiness, budget, conditions and next actions / printable project summary.</li>
-          <li><strong>Build from sources:</strong> AI rebuild from indexed files, with citation checks and internal required-fact coverage.</li>
-          <li><strong>Timeline / Decisions:</strong> dated baseline/update events / cited proposal → decision → delivery → validation lineage.</li>
-          <li><strong>Contradictions / Risks:</strong> conflicting claims and their resolution / register entries, current interpretations, stale evidence and baseline comparisons.</li>
-          <li><strong>Actions / Team:</strong> commitments or recommendations, confirmed or proposed owners, dates or TBC / roles and responsibilities.</li>
-          <li><strong>Questions / Sources / Add new information:</strong> official answers and freshness / searchable evidence / reviewed updates.</li>
+          <li><strong>Overview / Handover brief:</strong> readiness, budget, conditions and next actions / printable project summary (Ctrl+P).</li>
+          <li><strong>Build from sources:</strong> rebuilds memory from indexed files, verifies citations and cross-checks required facts.</li>
+          <li><strong>Timeline / Decisions:</strong> dated project evolution / proposal → decision → delivery → validation.</li>
+          <li><strong>Contradictions / Risks:</strong> conflicting records and resolution / risk entries, current interpretation and stale evidence.</li>
+          <li><strong>Actions / Team:</strong> commitments and recommendations, confirmed or proposed owners, deadlines or TBC / roles and responsibilities.</li>
+          <li><strong>Questions:</strong> official Q01–Q10 answers, freshness and recomputation.</li>
+          <li><strong>Sources:</strong> searchable evidence, exact locators and original files.</li>
+          <li><strong>Add new information:</strong> analyze, review and publish evidence while preserving the baseline.</li>
+          <li><strong>NOVA Assistant:</strong> persistent evidence-grounded chat in English or French.</li>
         </ul></section>
-      <section><h2 className="text-xl font-bold">Search / chat</h2>
-        <p>Header <strong>Ask</strong> opens the persistent global <strong>NOVA Assistant</strong> (EN/FR), with follow-ups and Current/Baseline modes. History stays across navigation, saved in this browser when available. Header answers stay in chat, separate from official Q01–Q10. <strong>Sources</strong> searches text without AI.</p>
-      </section>
-      <section><h2 className="text-xl font-bold">Questions and freshness</h2>
+      <section><h2 className="text-xl font-bold">Asking questions and checking evidence</h2>
         <ul className="list-disc pl-5">
-          <li><strong>Q01–Q10</strong> are the ten official dossier questions: cached answers, computation times, changed files and Up to date / Needs recompute / Requires review status.</li>
-          <li>Use individual refresh or Select stale → Recompute selected. More → Recompute from all sources gives full verification. After publishing, trigger recomputation of affected answers separately; this requires a configured AI provider, and failures preserve previous answers.</li>
-          <li>Expand original answers/traps. The page’s separate “Ask another question” form adds session answers below, outside official recomputation and header chat.</li>
+          <li>Header <strong>Ask</strong> opens <strong>NOVA Assistant</strong>: English/French, follow-ups and Current/Baseline modes. History survives navigation and refresh when local storage is available.</li>
+          <li>Chat stays separate from the ten official Q01–Q10 answers in <strong>Questions</strong>:  <strong>Up to date</strong>, <strong>Needs recompute</strong> or <strong>Requires review</strong>; stale answers show changed files.</li>
+          <li>Use individual refresh, <strong>Select stale → Recompute selected</strong>, or <strong>More → Recompute from all sources</strong>. Recomputation requires configured AI.</li>
+          <li>Hover/focus citations for evidence previews; click for the exact source location: line, email paragraph, PDF page, spreadsheet cell or screenshot row.</li>
+          <li><strong>Sources</strong> supports direct text search without AI.</li>
         </ul></section>
-      <section><h2 className="text-xl font-bold">Evidence and source navigation</h2>
-        <p>Hover or focus a citation for passage, context, authority and quote verification; click for its highlighted source location. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. Inspect metadata, attachments and original files; return via Sources. Search ignores accents; “Show noise and duplicates” reveals hidden files.</p>
-      </section>
       <section><h2 className="text-xl font-bold">Adding new information</h2>
-        <ul className="list-disc pl-5">
-          <li><strong>Upload → analyze → review → publish → affected memory.</strong> Drop files/ZIP. With AI configured, review problem status, prior decisions still in force, new proposals, affected items, actions, revised answers/brief and guardrails.</li>
-          <li>Correct flagged content, then publish U001, U002… with sources/history. Inspect current conditions/brief and recompute affected official questions separately.</li>
-          <li>AI off: supported text is extracted; manual fallback edits only the three status/decision/proposal text columns before publication. It cannot author citations, approvals or structured impacts/actions/revisions. Empty impacts mean unassessed. Guardrails still run; demo-code protection still applies.</li>
-        </ul>
+        <p><strong>Upload → analyze → review → publish → inspect affected memory.</strong></p>
+        <p>With configured AI, NOVA extracts content, identifies problem status, proposals, formal decisions and affected questions/conditions/actions, proposes actions/brief updates, verifies citations and applies guardrails.</p>
+        <p>Human review is required. Publication creates U001, U002… and preserves the baseline. Inspect affected memory; recompute stale official answers as needed.</p>
+        <p>Without AI, ingest and review supported text; publish source/version information and available manual fields. Automatic impact analysis, citation generation and answer recomputation are unavailable.</p>
+        <p>New image transcription needs a vision-capable provider. Unreadable/scanned files without extractable text remain for manual review, subject to the storage limit below.</p>
       </section>
       <section><h2 className="text-xl font-bold">Baseline vs current</h2>
-        <p><strong>Sep 30, 2026, 09:00 Montréal</strong> is the preserved baseline. Current includes published updates. Check header version, history and Assistant mode; earlier replies keep their original context. Ask again after updates.</p>
+        <p><strong>September 30, 2026 at 09:00 Montréal time</strong> is the preserved baseline. <strong>Current = baseline + published updates.</strong> New information never rewrites the baseline.</p>
+        <p>Use the header version, update history and Assistant Current/Baseline selector. Earlier replies retain their context; recheck after updates.</p>
       </section>
-      <section><h2 className="text-xl font-bold">Tools and automation</h2>
+      <section><h2 className="text-xl font-bold">Tools</h2>
         <ul className="list-disc pl-5">
-          <li>AI accelerates analysis through Anthropic or an OpenAI-compatible provider. Build, chat, recomputation and automatic impact analysis require configured AI; new image transcription also needs vision support. Local setup: <code>.env.local</code>, following <code>.env.example</code>.</li>
-          <li>Browsing, indexed evidence, search and supported text extraction work without AI. Publication always requires human review.</li>
-          <li>Next.js/React/TypeScript, document parsers and Vercel/Upstash hosting/storage. Claude, ChatGPT and Codex assisted development; required-fact coverage is the team&apos;s internal verification.</li>
-        </ul></section>
-      <section><h2 className="text-xl font-bold">Manual review and limitations</h2>
+          <li><strong>NOVA Assistant:</strong> evidence-grounded questions in English/French.</li>
+          <li><strong>Build from sources:</strong> reconstructs memory from indexed evidence.</li>
+          <li><strong>Questions:</strong> tracks ten official answers and freshness.</li>
+          <li><strong>Sources:</strong> searches and opens original evidence at precise locators.</li>
+          <li><strong>Add new information:</strong> analyzes and publishes reviewed updates.</li>
+          <li><strong>Evidence previews:</strong> source context, authority and verified quotes.</li>
+        </ul>
+        <p>AI uses Anthropic or an OpenAI-compatible provider configured server-side. Browsing memory and evidence requires no jury AI account.</p></section>
+      <section><h2 className="text-xl font-bold">Manual review</h2>
+        <p>Before publishing, verify:</p>
         <ul className="list-disc pl-5">
-          <li>NOVA facts require supplied corpus evidence. Citations are verified against indexed sources; AI can be wrong, unsupported claims are flagged, and quote matching does not prove conclusions.</li>
-          <li>Human-review changes before publishing: extracted text, authority, approvals, owners and TBC dates. Baseline screenshots were human-transcribed; verify new image extraction.</li>
-          <li>Scanned PDFs without a text layer and unreadable formats need manual inspection; uploading a file does not guarantee its contents were extracted.</li>
-          <li>Newer timestamps do not necessarily mean higher authority. Screenshots show past states; compare validation and dates of facts. Duplicates are not independent evidence.</li>
-          <li>Undocumented outcomes remain unknown; recommendations are not commitments. Split oversized uploads as prompted. Configured AI can still fail.</li>
+          <li>extracted text and attachments;</li>
+          <li>source authority;</li>
+          <li>proposal vs formal decision, delivery or validation;</li>
+          <li>owners and due dates;</li>
+          <li>affected questions, conditions and actions;</li>
+          <li>guardrail warnings.</li>
+        </ul>
+        <p>Unknown information stays <strong>TBC</strong> or <strong>undocumented</strong>, rather than inferred.</p></section>
+      <section><h2 className="text-xl font-bold">Limitations</h2>
+        <ul className="list-disc pl-5">
+          <li>NOVA facts must come from the supplied corpus. AI can be wrong; unsupported claims are flagged and citations checked against indexed sources.</li>
+          <li>A valid quote alone does not prove an authoritative conclusion; newer timestamps do not automatically mean higher authority.</li>
+          <li>Historical screenshots can be stale; duplicate attachments are not independent confirmation.</li>
+          <li>Missing approvals, owners or deadlines remain undocumented/TBC.</li>
+          <li>AI-assisted features may be unavailable if the configured provider fails.</li>
+          <li>Hosted picker: 4.3 MiB total; retained originals: 4 MiB (4,194,304 bytes) per file. Larger originals are not retained; split oversized files before uploading.</li>
         </ul></section>
       <section className="guide-limits"><h2 className="text-xl font-bold">Current documented uncertainties</h2>
         <p>Verified baseline gaps below; published updates may supersede them. Check current evidence and question freshness.</p>
