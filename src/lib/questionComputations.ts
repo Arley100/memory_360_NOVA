@@ -1,3 +1,4 @@
+import { stripQ } from "./text";
 import { askProject, type AskResult } from "./ask";
 import { modelFor } from "./llm";
 import { allSources, currentAnswers, getKB, resolver, updates, type Answer, type KB, type Revised, type Update } from "./store";
@@ -30,7 +31,7 @@ export function validateQuestionIds(ids: unknown): string[] {
 function view(answer: Answer, computation: QuestionComputation, ups: Update[], resolve: (c: Cite) => ResolvedCite): QuestionView {
   const currentSourceIds = new Set(ups.flatMap((u) => u.sources.map((s) => s.id)));
   const unavailableCitationSources = Object.values(computation.sourceSnapshot).filter((s) => s.updateId && !currentSourceIds.has(s.id)).map((s) => s.id);
-  return { id: answer.id, question: answer.question_en, questionFr: answer.question_fr, traps: answer.traps, baseline: { answer: answer.answer_en, answerFr: answer.answer_fr, citations: answer.citations.map(resolve) }, computation, citations: computation.citations.map(resolve), unavailableCitationSources, freshness: getQuestionFreshness(answer.id, computation, ups) };
+  return { id: answer.id, question: stripQ(answer.question_en), questionFr: answer.question_fr, traps: answer.traps, baseline: { answer: answer.answer_en, answerFr: answer.answer_fr, citations: answer.citations.map(resolve) }, computation, citations: computation.citations.map(resolve), unavailableCitationSources, freshness: getQuestionFreshness(answer.id, computation, ups) };
 }
 
 async function initialize(row: Revised<Answer>, ups: Update[], sources: Source[], store: QuestionComputationStore): Promise<QuestionComputation> {

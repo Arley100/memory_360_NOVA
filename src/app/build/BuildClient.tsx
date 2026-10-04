@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CodeGate } from "@/components/CodeGate";
-import { Icon } from "@/components/UI";
+import { Memo, StageList, type Mood } from "@/components/Memo";
+import { fmtDateTime } from "@/lib/text";
 
 type Stage = { stage: string; label: string; status: "pending" | "start" | "done" | "error"; detail?: string; done?: number; total?: number };
 type Meta = { generatedAt?: string; model?: string; durationMs?: number; citations?: { verified: number; dropped: number }; answerKey?: { score: string } };
@@ -21,19 +22,10 @@ const PLAN: Stage[] = [
   { stage: "key", label: "Comparing with the curated answer key", status: "pending" },
 ];
 
-type Mood = "idle" | "reading" | "thinking" | "checking" | "done" | "error";
 const MOOD_TEXT: Record<Mood, string> = {
   idle: "Ready to read the raw files.", reading: "Reading every file…", thinking: "Connecting the facts…",
   checking: "Checking every quote against the files…", done: "The memory is built.", error: "Something went wrong.",
 };
-
-function Memo({ mood }: { mood: Mood }) {
-  return (
-    <div className="upload-icon mx-auto" aria-hidden="true">
-      <Icon name={mood === "done" ? "check" : mood === "error" ? "warning" : "sources"} size={24} />
-    </div>
-  );
-}
 
 export function BuildClient({ current, hasKey }: { current: { source: string; meta?: Meta } ; hasKey: boolean }) {
   const router = useRouter();
@@ -45,7 +37,6 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
   const [needCode, setNeedCode] = useState(false);
   const [t0, setT0] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
-  const log = useRef<HTMLOListElement>(null);
 
   useEffect(() => {
     if (t0 === null) return;
@@ -95,7 +86,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
     }
   }
 
-  const when = (iso?: string) => (iso ? new Date(iso).toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" }) : "");
+  const when = fmtDateTime;
   return (
     <div className="grid gap-8 lg:grid-cols-[18rem_1fr]">
       <div className="panel h-fit space-y-4 p-5 text-center">
@@ -121,25 +112,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
           )}
         </div>
 
-        <ol ref={log} className="panel divide-y divide-line" aria-label="Analysis steps">
-          {stages.map((s) => (
-            <li key={s.stage} className={`flex items-start gap-3 p-4 text-xs transition-colors ${s.status === "start" ? "bg-primary/5" : ""}`}>
-              <span className={`mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                s.status === "done" ? "bg-validation text-white" : s.status === "error" ? "bg-blocker text-white" : s.status === "start" ? "bg-primary text-white" : "border border-line text-muted"}`}>
-                {s.status === "done" ? "✓" : s.status === "error" ? "!" : s.status === "start" ? "…" : ""}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className={s.status === "pending" ? "text-muted" : "font-semibold"}>{s.label}</p>
-                {s.total !== undefined && s.status === "start" && (
-                  <div className="mt-1 h-2 overflow-hidden rounded bg-canvas" role="progressbar" aria-label={s.label} aria-valuemin={0} aria-valuenow={s.done ?? 0} aria-valuemax={s.total}>
-                    <div className="h-full bg-primary transition-all duration-500" style={{ width: `${((s.done ?? 0) / Math.max(1, s.total)) * 100}%` }} />
-                  </div>
-                )}
-                {s.detail && <p className="text-sm text-muted">{s.detail}</p>}
-              </div>
-            </li>
-          ))}
-        </ol>
+        <StageList stages={stages} />
 
         {error && <p role="alert" className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
         {result && (

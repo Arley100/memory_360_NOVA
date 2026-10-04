@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/UI";
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { updates } from "@/lib/store";
+import { fmtDateTime } from "@/lib/text";
 import { UpdateClient } from "./UpdateClient";
 import { ResetButton } from "./ResetButton";
 
@@ -19,7 +20,7 @@ export default async function Update() {
         {ups.length === 0 && <p className="text-muted">No update yet.</p>}
         {ups.slice().reverse().map((u) => (
           <details key={u.cs.id} className="published-version">
-            <summary className="version-summary">{u.cs.id} · {u.cs.filename} <span className="text-sm font-normal text-muted">published {u.cs.publishedAt?.slice(0, 16).replace("T", " ")}</span></summary>
+            <summary className="version-summary">{u.cs.id} · {u.cs.filename} <span className="text-sm font-normal text-muted">published {fmtDateTime(u.cs.publishedAt)}</span></summary>
             <div className="p-5"><ChangeSetView cs={u.cs} /></div>
           </details>
         ))}

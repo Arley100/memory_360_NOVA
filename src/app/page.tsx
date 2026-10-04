@@ -2,16 +2,22 @@ import Link from "next/link";
 import { Chips, Tag } from "@/components/Chip";
 import { Icon, MetricCell, PageHeader, Panel, SectionHeader } from "@/components/UI";
 import { currentConditions, getKB, resolver, updates } from "@/lib/store";
-import { money } from "@/lib/text";
+import { fmtDay, money } from "@/lib/text";
 
-const fmtDate = (d?: string) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(`${d}T12:00:00`).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" }) : d ?? "TBC");
+const fmtDate = fmtDay;
 
-export default async function Overview() {
+export default async function Overview({ searchParams }: { searchParams: Promise<{ changed?: string }> }) {
+  const { changed } = await searchParams;
   const ups = await updates();
   const k = await getKB();
   const r = await resolver([], ups);
   const conds = await currentConditions(ups);
   const met = conds.filter((c) => c.status === "met").length;
+  // Just published? Compare with the state before that update, to show exactly what changed.
+  const justPublished = changed ? ups.find((u) => u.cs.id === changed) : undefined;
+  const before = justPublished ? await currentConditions(ups.slice(0, ups.indexOf(justPublished))) : null;
+  const metBefore = before ? before.filter((c) => c.status === "met").length : null;
+  const statusBefore = (id: number) => before?.find((c) => c.id === id)?.status;
   const b = k.budget;
   const pct = (n: number) => `${Math.max(0, (n / Math.max(b.authorized, 1)) * 100)}%`;
   const proposals = ups.flatMap((u) => u.cs.newProposals.map((p) => ({ ...p, id: u.cs.id })));
@@ -23,6 +29,7 @@ export default async function Overview() {
       <PageHeader title="NOVA" subtitle={`Where NOVA stands ${ups.length ? `(current state, after ${ups.at(-1)!.cs.id})` : "on Sept 30, 2026, 09:00"}`}>
         <span className="readiness-label"><span className="status-dot" />Go-live readiness · {status}</span>
       </PageHeader>
+      {justPublished && <div role="status" className="panel mb-5 p-4 text-sm"><strong>{justPublished.cs.id} published.</strong> {justPublished.cs.summary} <Link href="/questions" className="text-primary underline">Review question freshness</Link>; affected answers need manual recomputation.</div>}
       <div className="metric-strip">
         <MetricCell label="Paid to date" value={money(b.paid)}>CAD · before tax</MetricCell>
         <MetricCell label="Go-live" value={fmtDate(k.goLive.date)}><span className="text-delivery">{status}</span></MetricCell>
@@ -32,14 +39,14 @@ export default async function Overview() {
       <div className="overview-grid">
         <div className="space-y-5 min-w-0">
           <Panel>
-            <SectionHeader title="The go-live conditions"><span className="text-xs text-muted">{met} of {conds.length} met</span></SectionHeader>
+            <SectionHeader title="The go-live conditions"><span className="text-xs text-muted">{met} of {conds.length} met{metBefore !== null && metBefore !== met ? ` (previously ${metBefore})` : ""}</span></SectionHeader>
             <div className="px-5 pt-4"><div className="progress-track" role="img" aria-label={`${met} of {conds.length} go-live conditions met`}><div style={{ width: `${met / Math.max(conds.length, 1) * 100}%` }} /></div></div>
             {conds.length === 0 && <p className="p-5 text-sm text-muted">No go-live conditions documented in this analysis.</p>}
             <ol className="condition-list">
-              {conds.map((c) => <li key={c.id}>
+              {conds.map((c) => <li key={c.id} className={justPublished && c.changedIn === changed ? "flash-marker" : undefined}>
                 <span className={`condition-index ${c.status === "met" ? "is-met" : ""}`}>{String(c.id).padStart(2, "0")}</span>
                 <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2"><h3>{c.title}</h3><Tag t={c.status === "met" ? "MET" : "OPEN"} />{c.changedIn && <span className="version-delta">changed in {c.changedIn}</span>}</div>
+                  <div className="flex flex-wrap items-center gap-2"><h3>{c.title}</h3>{statusBefore(c.id) && statusBefore(c.id) !== c.status && <span className="text-xs text-muted">Previously {statusBefore(c.id)}</span>}<Tag t={c.status === "met" ? "MET" : "OPEN"} />{c.changedIn && <span className="version-delta">changed in {c.changedIn}</span>}</div>
                   <p className="mt-1 text-xs text-muted">Owner: {c.owner}</p>
                   <p className="mt-2 text-[13px]">{c.changeText ?? c.state}</p>
                 </div>

@@ -37,3 +37,31 @@ export function prettyLoc(loc: string): string {
 
 export const money = (n: number) =>
   n.toLocaleString("fr-CA").replace(/\u202f|\u00a0/g, " ") + " $";
+
+// Plain text for display: removes Markdown emphasis/headers/bullets a model may add.
+export function plain(s: string | undefined | null): string {
+  if (!s) return "";
+  return s
+    .replace(/\*\*(.+?)\*\*/g, "$1").replace(/__(.+?)__/g, "$1")
+    .replace(/(^|\s)\*(\S[^*]*?)\*(?=[\s.,;:!?)]|$)/g, "$1$2")
+    .replace(/^#{1,6}\s+/gm, "").replace(/^\s*[-*•]\s+/gm, "")
+    .replace(/\*\*/g, "").trim();
+}
+
+// Dates and times are always shown in the project's time zone (Montréal, Eastern Time), whatever the machine:
+// laptop, browser or hosted server (Vercel servers run in UTC).
+export const PROJECT_TZ = "America/Toronto";
+const DT = new Intl.DateTimeFormat("en-CA", { timeZone: PROJECT_TZ, dateStyle: "medium", timeStyle: "short" });
+export function fmtDateTime(iso?: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return Number.isNaN(+d) ? iso : `${DT.format(d)} ET`;
+}
+// A calendar day "YYYY-MM-DD" -> "Oct 22, 2026", with no time-zone conversion (it can never shift by a day).
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export function fmtDay(ymd?: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd ?? "");
+  return m ? `${MONTHS[+m[2] - 1]} ${+m[3]}, ${m[1]}` : ymd ?? "TBC";
+}
+// "Q01. What is…" -> "What is…" (the question number is shown separately).
+export const stripQ = (q: string) => q.replace(/^\s*Q\d{1,2}[.):]\s*/i, "");

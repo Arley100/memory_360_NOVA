@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 import { Icon } from "@/components/UI";
 import { Chips } from "@/components/Chip";
 import { CodeGate } from "@/components/CodeGate";
+import { readStream } from "@/lib/stream";
 import type { ResolvedCite } from "@/lib/types";
 
 type Answer = { needCode?: boolean; answer?: string; citations?: ResolvedCite[]; dropped?: number; missing?: string[]; recommendations?: string[]; status?: string; error?: string };
-type Entry = { id: string; question: string; result?: Answer };
+type Entry = { id: string; question: string; stage?: string; result?: Answer };
 const STORAGE = "nova-additional-questions";
 
 export function QuestionsWorkspace({ initial, questions, children }: {
@@ -42,8 +43,16 @@ export function QuestionsWorkspace({ initial, questions, children }: {
     scrollTo.current = id;
     update(retryId ? history.current.map((e) => e.id === id ? { id, question: text } : e) : [...history.current, { id, question: text }]);
     try {
-      const response = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: text }) });
-      const result = await response.json() as Answer;
+      const response = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json", accept: "application/x-ndjson" }, body: JSON.stringify({ question: text }) });
+      let result: Answer | undefined;
+      if (response.ok && response.headers.get("content-type")?.includes("application/x-ndjson")) {
+        await readStream(response, (m) => {
+          if (m.type === "stage") update(history.current.map((e) => e.id === id ? { ...e, stage: m.stage === "read" ? "Reading the NOVA files..." : m.stage === "think" ? "Connecting the documented facts..." : "Checking every citation..." } : e));
+          else if (m.type === "result") result = m as Answer;
+          else if (m.type === "error") throw new Error(String(m.error));
+        });
+        if (!result) throw new Error("The connection ended before the answer completed. Try again.");
+      } else result = await response.json() as Answer;
       if (!response.ok && !result.error) result.error = `Unable to answer (${response.status}). Try again.`;
       update(history.current.map((e) => e.id === id ? { ...e, result } : e));
     } catch (error) {
@@ -83,7 +92,7 @@ export function QuestionsWorkspace({ initial, questions, children }: {
       {children}
       {entries.map((entry) => <section key={entry.id} id={entry.id} className="question-section" aria-live="polite">
         <h2 className="text-lg font-semibold"><span className="text-muted">{entry.id}.</span> {entry.question}</h2>
-        {!entry.result && <p className="loading-status mt-3" role="status">Reading the NOVA files and checking evidence...</p>}
+        {!entry.result && <p className="loading-status mt-3" role="status">{entry.stage ?? "Reading the NOVA files and checking evidence..."}</p>}
         {entry.result?.needCode && <CodeGate onUnlocked={() => void ask(entry.question, entry.id)} />}
         {entry.result?.error && !entry.result.needCode && <div className="mt-3"><p role="alert" className="text-sm text-blocker">{entry.result.error}</p><button disabled={busy} onClick={() => void ask(entry.question, entry.id)} className="button-secondary mt-3 disabled:opacity-50">Try again</button></div>}
         {entry.result?.answer && <>

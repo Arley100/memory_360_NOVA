@@ -2,6 +2,7 @@
 // can never invent an approval, close another condition, or miss a contract-end issue.
 import type { ChangeSet, Cite, Item, Segment } from "./types";
 import { indexSegments, resolveCite } from "./cite";
+import { plain } from "./text";
 
 export interface ProjectFacts {
   conditions: { id: number; title: string; owner: string }[];
@@ -44,7 +45,7 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
     dropped += cites.length - ok.length;
     return ok;
   };
-  const items = (xs: Item[] = []) => xs.map((x) => ({ ...x, citations: clean(x.citations) }));
+  const items = (xs: Item[] = []) => xs.map((x) => ({ ...x, text: plain(x.text), citations: clean(x.citations) }));
   const fromNew = (c: Cite) => c.src.startsWith("NEW");
   const segText = (c: Cite) => (idx.get(c.src) ?? []).map((s) => s.text).join(" ");
   const newHeaders = fresh.filter((s) => s.loc === "header:From").map((s) => s.text).join(" ");
@@ -89,8 +90,9 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   // 4. Revised answers and brief: verified citations only, known ids/themes only, and a check that a proposed
   //    date is never presented as approved when no approval was quoted.
   const validIds = new Set(["Q01","Q02","Q03","Q04","Q05","Q06","Q07","Q08","Q09","Q10"]);
-  out.revisedAnswers = (cs.revisedAnswers ?? []).filter((a) => validIds.has(a.id) && a.text?.trim()).map((a) => ({ ...a, citations: clean(a.citations) }));
-  out.revisedBrief = (cs.revisedBrief ?? []).filter((b) => b.text?.trim()).map((b) => ({ ...b, citations: clean(b.citations) }));
+  out.revisedAnswers = (cs.revisedAnswers ?? []).filter((a) => validIds.has(a.id) && a.text?.trim()).map((a) => ({ ...a, text: plain(a.text), citations: clean(a.citations) }));
+  out.revisedBrief = (cs.revisedBrief ?? []).filter((b) => b.text?.trim()).map((b) => ({ ...b, text: plain(b.text), citations: clean(b.citations) }));
+  out.summary = plain(cs.summary);
   for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, ...a })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, ...b }))]) {
     if (!x.citations.length) notes.push(`${x.label}: revised text has no verified citation. Review it before publishing.`);
   }

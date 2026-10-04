@@ -326,3 +326,12 @@
  .workspace-content:has(.brief-sheet) { background: white; min-height: 0; }
  .brief-sheet, .brief-sheet * { color: black !important; box-shadow: none !important; }
 }
+
+/* Subtle feedback within the existing compact panels. */
+@keyframes merge-reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes merge-flash { from { background-color: var(--color-marker); } to { background-color: transparent; } }
+@keyframes merge-peek { from { opacity: 0; } to { opacity: 1; } }
+.reveal { animation: merge-reveal .3s ease both; }
+.flash-marker { animation: merge-flash 3s ease both; }
+.peek { animation: merge-peek .12s ease both; }
+@media (prefers-reduced-motion: reduce) { .reveal, .flash-marker, .peek { animation: none; } }

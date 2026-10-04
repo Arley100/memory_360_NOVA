@@ -4,22 +4,38 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/UI";
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { CodeGate } from "@/components/CodeGate";
+import { Memo, StageList, readStream, type Mood, type StageItem } from "@/components/Memo";
 import type { ChangeSet, Segment } from "@/lib/types";
 
+type Result = { draftId: string; segments: Segment[]; changeset: ChangeSet };
+
+// The update's stages, in order. The server reports when each one starts and finishes.
+const PLAN: StageItem[] = [
+  { stage: "read", label: "Reading the new information", status: "pending" },
+  { stage: "compare", label: "Comparing it with the whole project", status: "pending" },
+  { stage: "guard", label: "Checking the guardrails", status: "pending" },
+];
+const CAPTION: Record<string, string> = {
+  read: "Reading the new information…", compare: "Comparing it with everything the project already knows…", guard: "Checking that nothing is invented…",
+};
 
 export function UpdateClient() {
   const router = useRouter();
-  const [busy, setBusy] = useState("");
   const [drag, setDrag] = useState(false);
-  const [res, setRes] = useState<{ draftId: string; segments: Segment[]; changeset: ChangeSet } | null>(null);
+  const [res, setRes] = useState<Result | null>(null);
   const [error, setError] = useState("");
   const [needCode, setNeedCode] = useState<null | (() => void)>(null);
+  const [stages, setStages] = useState<StageItem[]>(PLAN);
+  const [mood, setMood] = useState<Mood>("idle");
+  const [caption, setCaption] = useState("");
+  const [names, setNames] = useState("");
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
+  const [publishing, setPublishing] = useState(false);
   const ctrl = useRef<AbortController | null>(null);
   const analyzing = startedAt !== null;
+  const busy = analyzing || publishing;
 
-  // Running counter while the analysis runs, so a long wait never looks like a freeze.
   useEffect(() => {
     if (startedAt === null) return;
     const t = setInterval(() => setElapsed(Math.round((Date.now() - startedAt) / 1000)), 500);
@@ -29,7 +45,7 @@ export function UpdateClient() {
   function cancel() {
     ctrl.current?.abort();
     ctrl.current = null;
-    setStartedAt(null); setBusy("");
+    setStartedAt(null); setMood("idle"); setStages(PLAN);
     setError("Analysis cancelled. Nothing was published; you can upload again.");
   }
 
@@ -40,43 +56,57 @@ export function UpdateClient() {
       setError("These files are larger than the hosted demo accepts (4.5 MB per upload). Compress them, upload fewer at once, or use the local version.");
       return;
     }
-    setError(""); setRes(null); setElapsed(0); setStartedAt(Date.now());
-    setBusy(`${files.length > 1 ? `${files.length} files` : files[0].name}: reading, then comparing with the whole project`);
+    setError(""); setRes(null); setElapsed(0); setStartedAt(Date.now()); setStages(PLAN);
+    setNames(files.map((f) => f.name).join(" + ")); setMood("reading"); setCaption(CAPTION.read);
     const fd = new FormData(); files.forEach((f) => fd.append("file", f));
     const c = new AbortController(); ctrl.current = c;
     try {
       const r = await fetch("/api/update/analyze", { method: "POST", body: fd, signal: c.signal });
-      const text = await r.text();
-      let j: { error?: string; needCode?: boolean; draftId?: string } & Record<string, unknown>;
-      try { j = JSON.parse(text); } catch { throw new Error(r.status === 504 ? "The server timed out. Try again, or use fewer files." : `Server error ${r.status}.`); }
-      if (r.status === 401 && j.needCode) { setNeedCode(() => () => upload(files)); return; }
-      if (!r.ok) throw new Error(j.error ?? `Server error ${r.status}.`);
-      if (c.signal.aborted || ctrl.current !== c) return;
-      setRes(j as unknown as { draftId: string; segments: Segment[]; changeset: ChangeSet });
+      if (!r.ok) {
+        const j = await r.json().catch(() => ({}));
+        if (r.status === 401 && j.needCode) { setMood("idle"); setNeedCode(() => () => upload(files)); return; }
+        throw new Error(j.error ?? (r.status === 504 ? "The server timed out. Try fewer files." : `Server error ${r.status}.`));
+      }
+      let completed = false;
+      await readStream(r, (m) => {
+        if (c.signal.aborted || ctrl.current !== c) return;
+        if (m.type === "stage") {
+          const item = m as unknown as StageItem;
+          setStages((list) => list.map((s) => s.stage === item.stage ? { ...s, ...item } : s));
+          setMood(item.stage === "read" ? "reading" : item.stage === "guard" ? "checking" : "thinking");
+          setCaption(CAPTION[item.stage] ?? "Analyzing the update...");
+        } else if (m.type === "result") { completed = true; setRes(m as unknown as Result); setMood("done"); }
+        else if (m.type === "error") throw new Error(String(m.error));
+      });
+      if (!completed && !c.signal.aborted) throw new Error("The connection ended before analysis completed. Try again.");
     } catch (e) {
-      if (!c.signal.aborted && ctrl.current === c && (e as Error).name !== "AbortError") setError((e as Error).message || String(e));
+      if (!c.signal.aborted && ctrl.current === c && (e as Error).name !== "AbortError") { setError((e as Error).message || String(e)); setMood("error"); }
     } finally {
-      if (ctrl.current === c) { ctrl.current = null; setStartedAt(null); setBusy(""); }
+      if (ctrl.current === c) { ctrl.current = null; setStartedAt(null); }
     }
   }
+
   async function publish() {
-    if (!res) return;
-    setBusy("Publishing…");
-    const r = await fetch("/api/update/publish", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ draftId: res.draftId, changeset: res.changeset }) });
-    const j = await r.json();
-    setBusy("");
-    if (r.status === 401 && j.needCode) { setNeedCode(() => publish); return; }
-    if (!r.ok) { setError(j.error); return; }
-    setRes(null); router.refresh();
+    if (!res || publishing) return;
+    setPublishing(true);
+    setError("");
+    try {
+      const r = await fetch("/api/update/publish", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ draftId: res.draftId, changeset: res.changeset }) });
+      const j = await r.json();
+      if (r.status === 401 && j.needCode) { setNeedCode(() => publish); return; }
+      if (!r.ok) throw new Error(j.error ?? `Server error ${r.status}.`);
+      setRes(null); setMood("idle");
+      router.push(`/?changed=${encodeURIComponent(j.id)}`);
+    } catch (e) { setError((e as Error).message); }
+    finally { setPublishing(false); }
   }
+
   const edit = (k: "problemStatus" | "priorDecisions" | "newProposals", text: string) => {
     if (!res) return;
     const lines = text.split("\n").map((t) => t.trim()).filter(Boolean);
     const old = res.changeset[k];
-    const next = lines.map((t, i) => ({ ...(old[i] ?? { citations: [] }), text: t }));
-    setRes({ ...res, changeset: { ...res.changeset, [k]: next } });
+    setRes({ ...res, changeset: { ...res.changeset, [k]: lines.map((t, i) => ({ ...(old[i] ?? { citations: [] }), text: t })) } });
   };
-
   const editRevised = (k: "revisedAnswers" | "revisedBrief", i: number, text: string | null) => {
     if (!res) return;
     const list = [...(res.changeset[k] ?? [])];
@@ -84,8 +114,9 @@ export function UpdateClient() {
     setRes({ ...res, changeset: { ...res.changeset, [k]: list } });
   };
   const flagged = (label: string) => res?.changeset.guardrails.notes.some((n) => n.startsWith(label)) ?? false;
+  const showWork = analyzing || (mood !== "idle" && !res);
 
-  const activeStep = busy.startsWith("Publishing") ? 3 : res ? 2 : busy ? 1 : 0;
+  const activeStep = publishing ? 3 : res ? 2 : busy ? 1 : 0;
 
   return (
     <div className="space-y-5">
@@ -102,13 +133,14 @@ export function UpdateClient() {
         <input type="file" multiple disabled={!!busy} className="sr-only" onChange={(e) => { upload(Array.from(e.target.files ?? [])); e.target.value = ""; }} />
       </label>
       {needCode && <CodeGate onUnlocked={() => { const retry = needCode; setNeedCode(null); retry(); }} />}
-      {analyzing && <div role="status" className="loading-status flex flex-wrap items-center gap-3"><span>{busy}</span><span className="tabular-nums">{elapsed} s</span><span>{elapsed < 60 ? "Analysis usually takes 30 to 90 seconds." : elapsed < 150 ? "Still working: long files take longer." : "Taking unusually long. You can wait or cancel."}</span><button onClick={cancel} className="button-secondary ml-auto">Cancel</button></div>}
-      {busy && !analyzing && <p role="status" className="loading-status">{busy}</p>}
+      {analyzing && <div role="status" className="loading-status flex flex-wrap items-center gap-3"><Memo mood={mood} size="sm" /><span>{caption}{names && <span className="ml-2 text-muted">{names}</span>}</span><span className="tabular-nums">{elapsed} s</span><span>{elapsed < 60 ? "Analysis usually takes 30 to 90 seconds." : elapsed < 150 ? "Still working: long files take longer." : "Taking unusually long. You can wait or cancel."}</span><button onClick={cancel} className="button-secondary ml-auto">Cancel</button></div>}
+      {publishing && <p role="status" className="loading-status">Publishing the new version...</p>}
+      {showWork && <StageList stages={stages} />}
       {error && <p role="alert" className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
       {res && (
         <section className="review-result space-y-5">
           <h2 className="text-xl font-semibold">Review before publishing: {res.changeset.filename}</h2>
-          <ChangeSetView cs={res.changeset} />
+          <ChangeSetView cs={res.changeset} animate />
           <details className="rounded-md border border-line p-3">
             <summary className="cursor-pointer font-semibold">Edit the three columns (one item per line)</summary>
             {(["problemStatus", "priorDecisions", "newProposals"] as const).map((k) => (
@@ -137,12 +169,12 @@ export function UpdateClient() {
             </details>
           )}
           <details className="rounded-md border border-line p-3">
-            <summary className="cursor-pointer font-semibold">What the system read in the file ({res.segments.length} segments)</summary>
+            <summary className="cursor-pointer font-semibold">What the system read in the file ({res.segments.length} passages)</summary>
             <ul className="quote mt-2 max-h-64 overflow-auto text-sm">{res.segments.map((s, i) => <li key={i}><span className="text-muted">{s.src} · {s.loc}</span> {s.text}</li>)}</ul>
           </details>
           <div className="flex gap-3">
             <button onClick={publish} disabled={!!busy} className="button-primary disabled:opacity-50">Publish as a new version</button>
-            <button onClick={() => setRes(null)} className="button-secondary">Discard</button>
+            <button disabled={busy} onClick={() => { setRes(null); setMood("idle"); }} className="button-secondary">Discard</button>
           </div>
         </section>
       )}

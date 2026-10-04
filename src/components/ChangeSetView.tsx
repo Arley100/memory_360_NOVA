@@ -9,9 +9,12 @@ const chips = (cs: Cite[] = []) => (
   </span>
 );
 
-function Col({ title, hint, tone, items }: { title: string; hint: string; tone: string; items: { text: string; citations: Cite[]; proposer?: string }[] }) {
+const R = (on: boolean | undefined, ms: number) => (on ? { className: "reveal", style: { animationDelay: `${ms}ms` } } : { className: "", style: undefined });
+
+function Col({ title, hint, tone, items, delay }: { title: string; hint: string; tone: string; items: { text: string; citations: Cite[]; proposer?: string }[]; delay?: number }) {
+  const r = R(delay !== undefined, delay ?? 0);
   return (
-    <div className={`review-column ${tone}`}>
+    <div className={`review-column ${tone} ${r.className}`} style={r.style}>
       <h3 className="text-sm font-semibold">{title}</h3>
       <p className="mb-4 mt-1 text-xs text-muted">{hint}</p>
       {items.length === 0 ? <p className="text-muted italic">Nothing in this file.</p> : (
@@ -21,8 +24,9 @@ function Col({ title, hint, tone, items }: { title: string; hint: string; tone: 
   );
 }
 
-export function ChangeSetView({ cs }: { cs: ChangeSet }) {
+export function ChangeSetView({ cs, animate }: { cs: ChangeSet; animate?: boolean }) {
   const g = cs.guardrails;
+  const d = (ms: number) => (animate ? ms : undefined);
   const approvalWarn = g.notes.some((n) => n.includes("may present the proposed date"));
   const blocked = g.notes.filter((n) => n.includes("NOT closed")).length;
   const moved = g.notes.filter((n) => n.startsWith("Moved to proposals")).length;
@@ -30,11 +34,11 @@ export function ChangeSetView({ cs }: { cs: ChangeSet }) {
     <div className="changeset space-y-4">
       {cs.summary && <p className="review-summary">{cs.summary}</p>}
       <div className="grid gap-3 lg:grid-cols-3">
-        <Col title="Problem status" hint="What changed in the state of a problem" tone="review-problem" items={cs.problemStatus} />
-        <Col title="Prior decision (still in force)" hint="Stays valid until the proper authority changes it" tone="review-decision" items={cs.priorDecisions} />
-        <Col title="New proposal (not approved)" hint="A suggestion, not a decision" tone="review-proposal" items={cs.newProposals} />
+        <Col title="Problem status" hint="What changed in the state of a problem" tone="review-problem" items={cs.problemStatus} delay={d(0)} />
+        <Col title="Prior decision (still in force)" hint="Stays valid until the proper authority changes it" tone="review-decision" items={cs.priorDecisions} delay={d(100)} />
+        <Col title="New proposal (not approved)" hint="A suggestion, not a decision" tone="review-proposal" items={cs.newProposals} delay={d(200)} />
       </div>
-      {cs.newDecisions.length > 0 && <Col title="New decision (approval quoted)" hint="Only kept when the new file quotes the proper authority" tone="review-validation" items={cs.newDecisions} />}
+      {cs.newDecisions.length > 0 && <Col title="New decision (approval quoted)" hint="Only kept when the new file quotes the proper authority" tone="review-validation" items={cs.newDecisions} delay={d(300)} />}
       <div className="grid gap-3 md:grid-cols-2">
         <div className="panel p-5">
           <h3 className="font-bold">Go-live conditions</h3>
@@ -57,7 +61,7 @@ export function ChangeSetView({ cs }: { cs: ChangeSet }) {
       {((cs.revisedAnswers?.length ?? 0) > 0 || (cs.revisedBrief?.length ?? 0) > 0) && (
         <div className="answer-delta p-5">
           <h3 className="font-bold">The new state</h3>
-          <p className="mb-4 mt-1 text-xs text-muted">What the brief and the answers become after this information. The baseline versions stay available.</p>
+          <p className="mb-4 mt-1 text-xs text-muted">Proposed revisions to the brief and knowledge state. Official question answers stay unchanged until manually recomputed.</p>
           {cs.revisedBrief?.map((b, i) => <p key={`b${i}`} className="mb-2"><strong>Brief · {b.theme}:</strong> {b.text} {chips(b.citations)}</p>)}
           {cs.revisedAnswers?.map((a, i) => <p key={`a${i}`} className="mb-2"><strong>{a.id}:</strong> {a.text} {chips(a.citations)}</p>)}
         </div>
