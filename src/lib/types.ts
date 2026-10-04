@@ -4,6 +4,7 @@ export const IMAGE_KINDS: Kind[] = ["png", "jpg", "webp", "gif"];
 export interface Source {
   id: string;
   path: string; // relative to project root, forward slashes
+  logicalPath?: string; // original source identity when a published file replaces a baseline file
   kind: Kind;
   title: string;
   authority: string;

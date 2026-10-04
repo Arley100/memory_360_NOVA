@@ -34,7 +34,7 @@ export interface QuestionComputation {
 }
 export interface QuestionEvidence { src: string; loc: string; text: string; sha256: string; path: string; version: string }
 export interface QuestionContextChange {
-  id: string; path: string; filename: string;
+  id: string; path: string; filename: string; logicalPath?: string;
   changeType: "added" | "modified" | "removed" | "changed";
   updateId: string; publishedAt?: string;
   sha256?: string; version?: string; previousSourceId?: string;

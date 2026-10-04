@@ -6,7 +6,7 @@ import { askProject, type AskResult } from "./ask";
 import { modelFor } from "./llm";
 import { allSegments, allSources, currentAnswers, getKB, resolver, updates, type Answer, type KB, type Revised, type Update } from "./store";
 import { questionComputationStore, type QuestionComputationStore } from "./questionComputationStore";
-import { logicalSourcePath, getQuestionContextDelta, getQuestionFreshness, snapshotSources, snapshotUpdates } from "./questionFreshness";
+import { getQuestionContextDelta, getQuestionFreshness, snapshotSources, snapshotUpdates } from "./questionFreshness";
 import { OFFICIAL_QUESTION_IDS, type QuestionComputation, type QuestionRecomputeResult, type QuestionView } from "./questionTypes";
 import type { Cite, ResolvedCite, Source, Segment } from "./types";
 
@@ -84,7 +84,7 @@ export async function recomputeQuestions(ids: string[], onResult: (result: Quest
         const evidence = supportingEvidence(previous, sources, segments);
         const changedIds = new Set([...delta.addedSources, ...delta.modifiedSources].map((s) => s.id));
         const changedSegments = segments.filter((s) => changedIds.has(s.src));
-        const currentEvidence = (evidence ?? []).filter((e) => sourceSnapshot[logicalSourcePath(e.path)]?.id === e.src && sourceSnapshot[logicalSourcePath(e.path)]?.sha256 === e.sha256 && segments.some((s) => s.src === e.src && s.loc === e.loc && s.text === e.text));
+        const currentEvidence = (evidence ?? []).filter((e) => Object.values(sourceSnapshot).some((s) => s.id === e.src && s.sha256 === e.sha256) && segments.some((s) => s.src === e.src && s.loc === e.loc && s.text === e.text));
         let reason = !existing ? "No previous computation exists." : !evidence ? "Previous supporting evidence is unavailable or corrupt." : delta.uncertainReason;
         if (!reason && [...changedIds].some((src) => !changedSegments.some((s) => s.src === src))) reason = "A changed file has no readable evidence excerpts.";
         if (!reason && delta.removedSources.some((s) => previous.citations.some((c) => c.src === s.id)) && !currentEvidence.length) reason = "A directly cited source was removed and no supporting evidence remains.";

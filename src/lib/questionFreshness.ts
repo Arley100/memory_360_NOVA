@@ -5,13 +5,14 @@ import type { QuestionComputation, QuestionContextDelta, QuestionContextChange, 
 
 // Update directories are storage versions, not part of a file's logical path. Preserve all other directories/attachment paths.
 export const logicalSourcePath = (p: string) => p.replace(/\\/g, "/").replace(/^data\/updates\/U\d+\//, "data/updates/");
+export const sourceLogicalPath = (s: Source) => logicalSourcePath(s.logicalPath ?? s.path);
 const filename = (p: string) => p.split("#att:").at(-1)!.split("/").at(-1)!;
 
 export function snapshotSources(sources: Source[], updates: Update[]): Record<string, QuestionSourceSnapshot> {
   const updateOf = new Map(updates.flatMap((u) => u.sources.map((s) => [s.id, u.cs] as const)));
   return Object.fromEntries(sources.map((s) => {
     const u = updateOf.get(s.id);
-    return [logicalSourcePath(s.path), { sha256: s.sha256, version: s.version, id: s.id, path: s.path, ...(u ? { updateId: u.id, publishedAt: u.publishedAt } : {}) }];
+    return [sourceLogicalPath(s), { sha256: s.sha256, version: s.version, id: s.id, path: s.path, ...(u ? { updateId: u.id, publishedAt: u.publishedAt } : {}) }];
   }));
 }
 
@@ -37,6 +38,7 @@ export function getQuestionFreshness(questionId: string, computation: QuestionCo
     for (const [key, old] of Object.entries(computation.sourceSnapshot)) {
       if (old.updateId) continue;
       const now = currentSources[key];
+      if (now?.updateId) continue; // Published replacements use the ChangeSet relevance mapping below.
       if (!now || old.sha256 !== now.sha256 || old.version !== now.version) changedSources.push({ id: now?.id ?? old.id, path: now?.path ?? old.path, filename: filename(old.path), changeType: now ? "modified" : "removed", updateId: "baseline", sha256: now?.sha256, version: now?.version, previousSourceId: old.id });
     }
     for (const [key, now] of Object.entries(currentSources)) {
@@ -50,15 +52,17 @@ export function getQuestionContextChanges(computation: QuestionComputation, upda
   const changes = new Map<string, QuestionContextChange>();
   for (const u of updates.filter((u) => changedIds.includes(u.cs.id))) {
     for (const s of u.sources) {
-      const key = logicalSourcePath(s.path);
+      const key = sourceLogicalPath(s);
       const previous = computation.sourceSnapshot[key];
-      const changeType = !previous ? "added" : previous.sha256 && s.sha256 && (previous.sha256 !== s.sha256 || previous.version !== s.version) ? "modified" : "changed";
-      changes.set(key, { id: s.id, path: s.path, filename: filename(s.path), changeType, updateId: u.cs.id, publishedAt: u.cs.publishedAt, sha256: s.sha256, version: s.version, previousSourceId: previous?.id });
+      if (previous?.sha256 && s.sha256 && previous.sha256 === s.sha256) { changes.delete(key); continue; }
+      const changeType = !previous ? "added" : previous.sha256 && s.sha256 ? "modified" : "changed";
+      changes.set(key, { id: s.id, path: s.path, logicalPath: key, filename: filename(s.path), changeType, updateId: u.cs.id, publishedAt: u.cs.publishedAt, sha256: s.sha256, version: s.version, previousSourceId: previous?.id });
     }
   }
   for (const [key, s] of Object.entries(computation.sourceSnapshot)) {
-    const replacedWithoutFile = s.updateId && changedIds.includes(s.updateId) && !updates.find((u) => u.cs.id === s.updateId)?.sources.some((source) => logicalSourcePath(source.path) === key);
-    if (s.updateId && (removedIds.includes(s.updateId) || replacedWithoutFile)) changes.set(`removed:${key}`, { id: s.id, path: s.path, filename: filename(s.path), changeType: "removed", updateId: s.updateId, publishedAt: s.publishedAt, sha256: s.sha256, version: s.version });
+    const replacedWithoutFile = s.updateId && changedIds.includes(s.updateId) && !updates.find((u) => u.cs.id === s.updateId)?.sources.some((source) => sourceLogicalPath(source) === key);
+    const stillPresent = updates.some((u) => u.sources.some((source) => sourceLogicalPath(source) === key));
+    if (s.updateId && (removedIds.includes(s.updateId) || replacedWithoutFile) && !stillPresent) changes.set(`removed:${key}`, { id: s.id, path: s.path, logicalPath: key, filename: filename(s.path), changeType: "removed", updateId: s.updateId, publishedAt: s.publishedAt, sha256: s.sha256, version: s.version });
   }
   return [...changes.values()];
 }
@@ -68,14 +72,14 @@ export function getQuestionContextDelta(questionId: string, computation: Questio
   const changed = freshness.changedSources;
   const current = snapshotSources(sources, updates);
   // Even an update formerly unrelated to this question may replace a file directly used by it.
-  for (const old of Object.values(computation.sourceSnapshot)) {
+  for (const [key, old] of Object.entries(computation.sourceSnapshot)) {
     if (!computation.citations.some((c) => c.src === old.id)) continue;
-    const now = current[logicalSourcePath(old.path)];
-    if (!now || now.sha256 !== old.sha256 || now.version !== old.version || now.id !== old.id) {
-      if (!changed.some((c) => logicalSourcePath(c.path) === logicalSourcePath(old.path))) changed.push({ id: now?.id ?? old.id, path: now?.path ?? old.path, filename: filename(old.path), changeType: now ? "modified" : "removed", updateId: now?.updateId ?? old.updateId ?? "baseline", publishedAt: now?.publishedAt, sha256: now?.sha256, version: now?.version, previousSourceId: old.id });
+    const now = current[key];
+    if (!now || now.sha256 !== old.sha256 || ((!now.sha256 || !old.sha256) && (now.id !== old.id || now.version !== old.version))) {
+      if (!changed.some((c) => logicalSourcePath(c.logicalPath ?? c.path) === key)) changed.push({ id: now?.id ?? old.id, path: now?.path ?? old.path, logicalPath: key, filename: filename(old.path), changeType: now ? old.sha256 && now.sha256 ? "modified" : "changed" : "removed", updateId: now?.updateId ?? old.updateId ?? "baseline", publishedAt: now?.publishedAt, sha256: now?.sha256, version: now?.version, previousSourceId: old.id });
     }
   }
   const relevantUpdateIds = [...new Set([...freshness.changedUpdates, ...freshness.removedUpdates, ...changed.map((c) => c.updateId).filter((id) => id !== "baseline")])];
-  const uncertainReason = changed.some((c) => c.updateId === "baseline" && c.changeType === "added") ? "New baseline files have no question relevance mapping." : relevantUpdateIds.some((id) => !changed.some((c) => c.updateId === id)) ? "A changed update has no identifiable source delta." : changed.some((c) => c.changeType !== "removed" && (!c.sha256 || !c.version)) ? "Changed source fingerprints are incomplete." : undefined;
+  const uncertainReason = changed.some((c) => c.updateId === "baseline" && c.changeType === "added") ? "New baseline files have no question relevance mapping." : relevantUpdateIds.some((id) => !changed.some((c) => c.updateId === id)) ? "A changed update has no identifiable source delta." : changed.some((c) => c.changeType !== "removed" && (c.changeType === "changed" || !c.sha256 || !c.version)) ? "Changed source fingerprints are incomplete." : undefined;
   return { addedSources: changed.filter((c) => c.changeType === "added"), modifiedSources: changed.filter((c) => c.changeType === "modified" || c.changeType === "changed"), removedSources: changed.filter((c) => c.changeType === "removed"), relevantUpdateIds, uncertainReason };
 }
