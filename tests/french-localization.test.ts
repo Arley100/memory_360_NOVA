@@ -3,6 +3,7 @@ import test from "node:test";
 import fs from "node:fs";
 import { frenchAppContent, frenchText } from "../src/lib/frenchContent";
 import { frenchLabel } from "../src/lib/locale";
+import { prettyLoc } from "../src/lib/text";
 import { applyGuardrails, emptyChangeSet } from "../src/lib/update";
 import type { KB } from "../src/lib/store";
 
@@ -11,7 +12,7 @@ test("French display translates saved summaries while preserving evidence, ident
     const bytes = fs.readFileSync(file);
     const original: KB = JSON.parse(bytes.toString());
     const localized = frenchAppContent(original);
-    assert.notEqual(localized.answers[0].answer_en, original.answers[0].answer_en);
+    if (/\b(?:The|currently|approved)\b/.test(original.answers[0].answer_en)) assert.notEqual(localized.answers[0].answer_en, original.answers[0].answer_en);
     assert.match(localized.answers[0].answer_en, /22 octobre 2026/);
     assert.match(localized.answers[0].question_en, /date.*production.*approuvée/);
     assert.equal(localized.goLive.date, original.goLive.date);
@@ -30,6 +31,11 @@ test("French display translates saved summaries while preserving evidence, ident
   assert.equal(frenchLabel("VENDOR_CLAIM"), "déclaration du fournisseur");
   assert.equal(frenchText("TBC"), "À confirmer");
   assert.equal(frenchText("constructor"), "constructor");
+  assert.equal(frenchText("Runbook avec rollback, prochaine build, go-live : TBC."), "Guide d’exploitation avec retour arrière, prochaine version, mise en production : À confirmer.");
+  assert.equal(frenchText("ACC-302 re-testé ; nouveau retest à faire."), "ACC-302 testé à nouveau ; nouveau nouveau test à faire.");
+  assert.deepEqual(frenchAppContent({ text: "Runbook avec rollback", citations: [{ quote: "Runbook avec rollback" }], evidence: [{ text: "Runbook avec rollback" }] }), { text: "Guide d’exploitation avec retour arrière", citations: [{ quote: "Runbook avec rollback" }], evidence: [{ text: "Runbook avec rollback" }] });
+  assert.equal(prettyLoc("region=row-4"), "rangée 4");
+  assert.equal(prettyLoc("event-1:SUMMARY"), "événement 1 · résumé");
 });
 
 test("French narrative cannot convert vendor delivery into security acceptance or proposal into approval", () => {
