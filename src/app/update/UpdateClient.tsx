@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/UI";
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { CodeGate } from "@/components/CodeGate";
@@ -14,23 +14,50 @@ export function UpdateClient() {
   const [res, setRes] = useState<{ draftId: string; segments: Segment[]; changeset: ChangeSet } | null>(null);
   const [error, setError] = useState("");
   const [needCode, setNeedCode] = useState<null | (() => void)>(null);
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const [elapsed, setElapsed] = useState(0);
+  const ctrl = useRef<AbortController | null>(null);
+  const analyzing = startedAt !== null;
+
+  // Running counter while the analysis runs, so a long wait never looks like a freeze.
+  useEffect(() => {
+    if (startedAt === null) return;
+    const t = setInterval(() => setElapsed(Math.round((Date.now() - startedAt) / 1000)), 500);
+    return () => clearInterval(t);
+  }, [startedAt]);
+
+  function cancel() {
+    ctrl.current?.abort();
+    ctrl.current = null;
+    setStartedAt(null); setBusy("");
+    setError("Analysis cancelled. Nothing was published; you can upload again.");
+  }
 
   async function upload(files: File[]) {
-    if (!files.length) return;
+    if (!files.length || ctrl.current || busy) return;
     const total = files.reduce((n, f) => n + f.size, 0);
     if (total > 4.3 * 1024 * 1024 && !/^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)) {
       setError("These files are larger than the hosted demo accepts (4.5 MB per upload). Compress them, upload fewer at once, or use the local version.");
       return;
     }
-    setError(""); setRes(null); setBusy(`Reading ${files.length > 1 ? `${files.length} files` : "the file"} and matching it to the project…`);
+    setError(""); setRes(null); setElapsed(0); setStartedAt(Date.now());
+    setBusy(`${files.length > 1 ? `${files.length} files` : files[0].name}: reading, then comparing with the whole project`);
     const fd = new FormData(); files.forEach((f) => fd.append("file", f));
+    const c = new AbortController(); ctrl.current = c;
     try {
-      const r = await fetch("/api/update/analyze", { method: "POST", body: fd });
-      const j = await r.json();
-      if (r.status === 401 && j.needCode) { setNeedCode(() => () => upload(files)); setBusy(""); return; }
-      if (!r.ok) throw new Error(j.error); setRes(j);
-    } catch (e) { setError(String(e)); }
-    setBusy("");
+      const r = await fetch("/api/update/analyze", { method: "POST", body: fd, signal: c.signal });
+      const text = await r.text();
+      let j: { error?: string; needCode?: boolean; draftId?: string } & Record<string, unknown>;
+      try { j = JSON.parse(text); } catch { throw new Error(r.status === 504 ? "The server timed out. Try again, or use fewer files." : `Server error ${r.status}.`); }
+      if (r.status === 401 && j.needCode) { setNeedCode(() => () => upload(files)); return; }
+      if (!r.ok) throw new Error(j.error ?? `Server error ${r.status}.`);
+      if (c.signal.aborted || ctrl.current !== c) return;
+      setRes(j as unknown as { draftId: string; segments: Segment[]; changeset: ChangeSet });
+    } catch (e) {
+      if (!c.signal.aborted && ctrl.current === c && (e as Error).name !== "AbortError") setError((e as Error).message || String(e));
+    } finally {
+      if (ctrl.current === c) { ctrl.current = null; setStartedAt(null); setBusy(""); }
+    }
   }
   async function publish() {
     if (!res) return;
@@ -68,14 +95,15 @@ export function UpdateClient() {
       <label
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); upload(Array.from(e.dataTransfer.files)); }}
-        className={`upload-zone ${drag ? "is-dragging" : "border-line bg-surface"}`}>
+        className={`upload-zone ${busy ? "pointer-events-none cursor-wait opacity-50" : ""} ${drag ? "is-dragging" : "border-line bg-surface"}`}>
         <span className="upload-icon"><Icon name="upload" size={24} /></span>
         <span className="text-base font-semibold">Drop the new information here (one file or several), or click to choose</span>
         <span className="mt-2 max-w-3xl text-xs text-muted">Any source: email (.eml), Word, PDF, Excel, PowerPoint, calendar invite (.ics), Teams/chat export (.json, .html), text, CSV, a screenshot, or a .zip of several files</span>
-        <input type="file" multiple className="sr-only" onChange={(e) => upload(Array.from(e.target.files ?? []))} />
+        <input type="file" multiple disabled={!!busy} className="sr-only" onChange={(e) => { upload(Array.from(e.target.files ?? [])); e.target.value = ""; }} />
       </label>
       {needCode && <CodeGate onUnlocked={() => { const retry = needCode; setNeedCode(null); retry(); }} />}
-      {busy && <p role="status" className="loading-status">{busy}</p>}
+      {analyzing && <div role="status" className="loading-status flex flex-wrap items-center gap-3"><span>{busy}</span><span className="tabular-nums">{elapsed} s</span><span>{elapsed < 60 ? "Analysis usually takes 30 to 90 seconds." : elapsed < 150 ? "Still working: long files take longer." : "Taking unusually long. You can wait or cancel."}</span><button onClick={cancel} className="button-secondary ml-auto">Cancel</button></div>}
+      {busy && !analyzing && <p role="status" className="loading-status">{busy}</p>}
       {error && <p role="alert" className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
       {res && (
         <section className="review-result space-y-5">

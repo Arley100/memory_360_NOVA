@@ -20,6 +20,8 @@ export interface UpdateStore {
   loadDraft(id: string): Promise<{ draft: Draft; files: StoredFile[] } | null>;
   deleteDraft(id: string): Promise<void>;
   reset(): Promise<number>;
+  saveKB(kb: unknown): Promise<void>;
+  loadKB(): Promise<unknown | null>;   // null: none stored here (the committed data/generated/kb.json is used)
 }
 
 const MAX_STORED_FILE = 4 * 1024 * 1024; // originals larger than this keep their extracted text only (hosted)
@@ -65,6 +67,14 @@ function fileStore(): UpdateStore {
       return { draft, files: draft.files.filter((n) => fs.existsSync(path.join(dir, n))).map((n) => ({ name: n, data: fs.readFileSync(path.join(dir, n)) })) };
     },
     async deleteDraft(id) { fs.rmSync(path.join(pending, id.replace(/[^\w-]/g, "")), { recursive: true, force: true }); },
+    async saveKB(kb) {
+      const dir = path.join(process.cwd(), "data", "generated");
+      fs.mkdirSync(dir, { recursive: true });
+      const tmp = path.join(dir, "kb.json.tmp");
+      fs.writeFileSync(tmp, JSON.stringify(kb, null, 1));
+      fs.renameSync(tmp, path.join(dir, "kb.json"));
+    },
+    async loadKB() { return null; }, // locally the file itself is read by the store
     async reset() {
       if (!fs.existsSync(root)) return 0;
       const ids = fs.readdirSync(root).filter((d) => /^U\d{3}(\.tmp)?$/.test(d) || d === "_pending");
@@ -129,6 +139,8 @@ function redisStore(url: string, token: string): UpdateStore {
       for (const n of draft?.files ?? []) await cmd("DEL", `${P}:d:${id}:f:${n}`);
       await cmd("DEL", `${P}:d:${id}`);
     },
+    async saveKB(kb) { await setJSON(`${P}:kb`, kb); },
+    async loadKB() { return getJSON(`${P}:kb`); },
     async reset() {
       const ids = (await getJSON<string[]>(`${P}:index`)) ?? [];
       await cmd("DEL", `${P}:index`); // the current state goes back to baseline immediately

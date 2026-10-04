@@ -29,9 +29,10 @@ async function main() {
   const effort = arg("effort") || effortFor("ask");
   const only = arg("only")?.split(",");
   const concurrency = Number(arg("concurrency") || 3);
+  const context = arg("context") === "full" ? "full" : "corpus"; // default = what the app uses: raw files only
   const all: Q[] = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/eval/questions.json"), "utf8"));
   const qs = only ? all.filter((q) => only.includes(q.id)) : all;
-  console.log(`\nEvaluating ${qs.length} questions · model ${model} · effort ${effort} · ${concurrency} in parallel\n`);
+  console.log(`\nEvaluating ${qs.length} questions · model ${model} · effort ${effort} · context ${context === "corpus" ? "RAW CORPUS ONLY (no curated knowledge base)" : "curated knowledge base + corpus"} · ${concurrency} in parallel\n`);
 
   const results: Record<string, unknown>[] = [];
   let cost = 0;
@@ -40,7 +41,7 @@ async function main() {
     for (let q = queue.shift(); q; q = queue.shift()) {
       const t0 = Date.now();
       try {
-        const r = await askProject(q.question, { model, effort });
+        const r = await askProject(q.question, { model, effort, context });
         const text = fold([r.answer, ...r.missing].join(" \n "));
         const missingFacts = q.mustInclude.filter((p) => !new RegExp(p, "i").test(text));
         const forbidden = q.mustNotInclude.filter((p) => new RegExp(p, "i").test(text));
@@ -77,8 +78,8 @@ async function main() {
 
   const dir = path.join(process.cwd(), "data/eval/results");
   fs.mkdirSync(dir, { recursive: true });
-  const file = path.join(dir, `${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}_${model}_${effort}.json`);
-  fs.writeFileSync(file, JSON.stringify({ model, effort, score: `${passed}/${results.length}`, byCategory: byCat, medianMs: median, citations: { verified: cites, dropped }, estimatedCostUSD: +cost.toFixed(3), results }, null, 1));
+  const file = path.join(dir, `${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}_${model}_${effort}_${context}.json`);
+  fs.writeFileSync(file, JSON.stringify({ model, effort, context, score: `${passed}/${results.length}`, byCategory: byCat, medianMs: median, citations: { verified: cites, dropped }, estimatedCostUSD: +cost.toFixed(3), results }, null, 1));
   console.log(`Report: ${path.relative(process.cwd(), file)}  (open it to read every answer and its citations)\n`);
   if (passed < results.length) process.exitCode = 1;
 }

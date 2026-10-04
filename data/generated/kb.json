@@ -1,0 +1,2075 @@
+{
+ "version": "generated",
+ "asOf": "2026-09-30T09:00:00-04:00",
+ "goLive": {
+  "date": "2026-10-22",
+  "approvedOn": "2026-09-10",
+  "status": "conditional",
+  "headline": "Le comité de direction du 10 septembre 2026 a approuvé le 22 octobre 2026 (proposé par Julien Moreau de Boréal le 8 septembre), mais ce n'est pas un go automatique : il dépend de trois validations (sécurité SEC-210, accessibilité ACC-303, runbook avec rollback).",
+  "citations": [
+   {
+    "src": "M04",
+    "loc": "L23",
+    "quote": "Donc **approuvé**. Le 22 devient la date officielle."
+   },
+   {
+    "src": "E05",
+    "loc": "body:P3",
+    "quote": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+   },
+   {
+    "src": "M06",
+    "loc": "L16",
+    "quote": "c'est conditionnel à ces trois éléments"
+   }
+  ],
+  "contractEnd": "2026-10-31",
+  "contractEndNote": "Le contrat court jusqu'à fin octobre, donc il reste environ une semaine de marge après le 22 octobre; aucune pénalité n'a été identifiée pour le passage au 22, mais tout nouveau glissement n'est pas documenté.",
+  "contractEndCitations": [
+   {
+    "src": "CONTRACT",
+    "loc": "page=1",
+    "quote": "Période 7 juillet au 31 octobre 2026"
+   },
+   {
+    "src": "M04",
+    "loc": "L15",
+    "quote": "Pas de pénalité identifiée."
+   }
+  ]
+ },
+ "answers": [
+  {
+   "id": "Q01",
+   "question_fr": "Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve?",
+   "question_en": "Q01. What is the currently approved production go-live date, and with what reservation?",
+   "answer_en": "The approved go-live target is 22 October 2026. It was proposed by Boréal (Julien Moreau) on 8 Sept and approved at the 10 Sept steering committee, when Élodie Caron stated the decision and Sophie, Marc, Olivier and Nicolas raised no objection. The 22 October date is conditional, not a guaranteed go: the 26 Sept committee, reported by Nicolas Perron on 27 Sept, tied it to three remaining validations: SEC-210 security acceptance, closure of ACC-303 (accessibility), and approval of the runbook including rollback (OPS-601). As of 30 Sept, SEC-210 is still 'EN VALIDATION', ACC-303 is OPEN and OPS-601 is OPEN with no final version received, so none of the three conditions is documented as met. No contractual penalty was identified for the shift, and the committee has given no go-live approval.",
+   "answer_fr": "La date approuvée est le 22 octobre 2026 (décision du comité du 10 septembre), mais elle est conditionnelle à trois validations : sécurité SEC-210, fermeture d'ACC-303 et approbation du runbook avec rollback; ce n'est pas un go garanti.",
+   "citations": [
+    {
+     "src": "E05",
+     "loc": "body:P3",
+     "quote": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+    },
+    {
+     "src": "E05",
+     "loc": "body:P4",
+     "quote": "il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance."
+    },
+    {
+     "src": "M04",
+     "loc": "L23",
+     "quote": "Donc **approuvé**. Le 22 devient la date officielle."
+    },
+    {
+     "src": "M04",
+     "loc": "L24",
+     "quote": "le 22 n'est pas un go automatique."
+    },
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback."
+    },
+    {
+     "src": "E09",
+     "loc": "body:P3",
+     "quote": "Cette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation."
+    },
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    },
+    {
+     "src": "OPS-601",
+     "loc": "L16",
+     "quote": "Toujours pas reçu la version finale."
+    }
+   ],
+   "traps": [
+    "The charter, PLAN-V2, PLAN-V3 and the June plan still show 15 October; they are stale and not updated after the committee decision (PLAN-V3 even keeps 15 Oct despite its later date).",
+    "Julien's 8 Sept email is only a vendor proposal, not the approval; the approval is the 10 Sept committee (M04).",
+    "The 21 Sept status report and Alex's draft 'au vert' claim security and accessibility are complete, which is false: SEC-210 is in validation and ACC-303 is open.",
+    "Boréal saying the SEC-210 fix is deployed or 'réglé' is delivery, not security acceptance.",
+    "Closed historical tickets (ACC-301/302, INT-101, DATA-401) or old screenshots do not mean conditions are met; the INT-101 closure removed the original cause of the delay, not the three go-live conditions.",
+    "R-01 in the 29 Sept risk register is stale (follow-up as of 9 Sept) and still lists the connector as open.",
+    "Personal notes ('15 oct encore date? probablement') are unauthoritative.",
+    "E09 is a reminder from Nicolas, not a new decision."
+   ]
+  },
+  {
+   "id": "Q02",
+   "question_fr": "Pourquoi la date a-t-elle changé, et quel est l'état actuel de la cause initiale?",
+   "question_en": "Q02. Why did the date change, and what is the current state of the initial cause?",
+   "answer_en": "The go-live date moved from 15 October to 22 October 2026 because the internal connector problem (ticket INT-101) cost more time than planned and left very little stabilization margin. Boréal (Julien Moreau) first PROPOSED the move on 8 Sept 2026; the steering committee APPROVED it on 10 Sept 2026 after Élodie Caron put the decision to the room and no one objected (Marc confirmed the connector was the critical path). The initial cause is now resolved: Boréal deployed a fix on 17 Sept (120 replayed searches, 120 valid responses), and Marc Gervais, the integration owner, validated it and closed INT-101 on 17 Sept 2026 (confirmed by email and the 18 Sept delivery follow-up). The 22 October date remains approved but conditional on three go-live conditions (SEC-210 security validation, ACC-303, runbook with rollback), which are separate from the connector cause. Note: the risk register (29 Sept) still lists R-01 connector delay as Open with a 9 Sept comment, which is stale relative to the INT-101 closure.",
+   "answer_fr": "La date est passée du 15 au 22 octobre 2026 à cause du retard du connecteur interne (proposé par Boréal le 8 sept, approuvé par le comité le 10 sept). Cette cause (INT-101) est résolue : correctif livré puis validé et fermé par Marc Gervais le 17 septembre 2026.",
+   "citations": [
+    {
+     "src": "E05",
+     "loc": "body:P2",
+     "quote": "Le problème du connecteur interne nous a fait perdre davantage de temps que prévu."
+    },
+    {
+     "src": "E05",
+     "loc": "body:P4",
+     "quote": "il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance."
+    },
+    {
+     "src": "M04",
+     "loc": "L9",
+     "quote": "Je confirme que le connecteur est le chemin critique en ce moment."
+    },
+    {
+     "src": "M04",
+     "loc": "L23",
+     "quote": "Donc **approuvé**. Le 22 devient la date officielle."
+    },
+    {
+     "src": "INT-101",
+     "loc": "L18",
+     "quote": "Validé côté intégration. Je ferme."
+    },
+    {
+     "src": "E12",
+     "loc": "body:P3",
+     "quote": "INT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu."
+    },
+    {
+     "src": "INT-101",
+     "loc": "L17",
+     "quote": "Correctif déployé. 120 recherches rejouées, 120 réponses valides."
+    },
+    {
+     "src": "M05",
+     "loc": "L6",
+     "quote": "INT-101 : le connecteur interne a été validé et fermé le 17 septembre."
+    },
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback."
+    },
+    {
+     "src": "RISKS-0929",
+     "loc": "Risques!H2",
+     "quote": "Suivi au 9 septembre 2026"
+    }
+   ],
+   "traps": [
+    "Treating Julien's 8 Sept email (E05) as the decision: it is only a vendor proposal; the approval is the 10 Sept committee (M04).",
+    "Using the charter, Plan V2/V3 or the June plan, which still show 15 October (stale; the plan V3 was not updated after the decision, as Nicolas noted in TEAMS-0915).",
+    "Trusting the risk register R-01 as Open: its comment dates from 9 Sept and predates the 17 Sept closure of INT-101.",
+    "Reading the 8 Sept INT-101 comment or the historical screenshot/log (401 errors) as current: the ticket status is Fermé.",
+    "Assuming the connector closure means 22 Oct is a guaranteed go: it is conditional on SEC-210, ACC-303 and the runbook.",
+    "Counting the INT-101 email, ticket and meeting note as fully independent confirmations: they relay the same 17 Sept validation by Marc.",
+    "Citing the 8 Sept Boréal comment or personal notes ('15 oct encore date? probablement') as authoritative."
+   ]
+  },
+  {
+   "id": "Q03",
+   "question_fr": "Qui a approuvé le changement et quand? Distinguez proposition et approbation.",
+   "question_en": "Q03. Who approved the change (go-live date moved from 15 to 22 October 2026) and when? Distinguish proposal from approval.",
+   "answer_en": "The change was first a PROPOSAL: on 8 September 2026 Julien Moreau (Boréal, the vendor) emailed Élodie Caron and Nicolas Perron recommending a move of production to 22 October, and explicitly said governance had to confirm. The DECISION was taken orally at the steering committee (comité de direction) on 10 September 2026: Élodie Caron formulated the decision, asked whether anyone objected, Sophie Lambert, Marc Gervais and Olivier Côté said no, Nicolas Perron said 'D'accord', and Élodie declared it approved. So the approver is the steering committee (chaired by Élodie, who was project manager at that date), by consensus with no objection, on 10 September 2026. The approval is not an unconditional go: Nicolas stated the 22 October date is not an automatic go, as security, accessibility and operations criteria remain. No separate signed approval document is in the dossier; the transcript is the authoritative evidence, and later notes (Nicolas's 27 September email, the 16 September transition note) confirm 22 October as the approved target.",
+   "answer_fr": "Boréal (Julien Moreau) a proposé le 22 octobre le 8 septembre 2026; le comité de direction l'a approuvé le 10 septembre 2026 (décision formulée par Élodie Caron, sans opposition), sous réserve des critères de go-live.",
+   "citations": [
+    {
+     "src": "E05",
+     "loc": "body:P3",
+     "quote": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+    },
+    {
+     "src": "E05",
+     "loc": "body:P4",
+     "quote": "il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance."
+    },
+    {
+     "src": "M04",
+     "loc": "L17",
+     "quote": "La date cible de mise en production NOVA est déplacée du 15 octobre au **22 octobre 2026**."
+    },
+    {
+     "src": "M04",
+     "loc": "L23",
+     "quote": "Donc **approuvé**. Le 22 devient la date officielle."
+    },
+    {
+     "src": "M04",
+     "loc": "L24",
+     "quote": "le 22 n'est pas un go automatique. Les critères de sécurité, accessibilité et exploitation restent."
+    },
+    {
+     "src": "TEAMS-0915",
+     "loc": "L5",
+     "quote": "le comité a approuvé le 22 octobre le 10 septembre"
+    }
+   ],
+   "traps": [
+    "Treating Julien Moreau's 8 September email as the approval: it is a vendor recommendation and says the governance must confirm.",
+    "Using the stale 15 October date from the charter, PLAN-V2, PLAN-V3 (still 15 Oct, 'Cible de planification') or the June plan: these were not updated after the committee decision.",
+    "Reading the 22 October approval as an unconditional go-live; it depends on SEC-210 validation, ACC-303 closure and the runbook with rollback.",
+    "Confusing the 10 September decision with the 26 September committee, which only restated the target and set conditions; Nicolas's 27 September email confirms but does not create the approval.",
+    "Believing Élodie is still the decision owner: she handed over to Nicolas on 16 September, after the decision.",
+    "Counting the Teams message of 15 September and the 27 September reminder as independent approvals; they only refer back to the 10 September decision.",
+    "The 'probablement 15 oct' personal notes are unofficial and have no authority.",
+    "The cause (connector problem) was later closed via INT-101 on 17 September, but that does not cancel the approved date."
+   ]
+  },
+  {
+   "id": "Q04",
+   "question_fr": "Qui est responsable du projet et depuis quand?",
+   "question_en": "Q04. Who is responsible for the project and since when?",
+   "answer_en": "Nicolas Perron has been the project lead (chargé de projet) of NOVA since 16 September 2026. This is a documented transition decision announced by Élodie Caron, the previous lead, by email to the team. It is corroborated by her transition note, which states that he takes over the NOVA project lead role from that date. A Teams message the same day confirms it, and Nicolas adds that he also takes over the Friday committee. Élodie was the lead from the 7 July 2026 kickoff (charter and kickoff minutes) and stayed available for a few days for the handover. Decisions and follow-ups should now go to Nicolas. The 'Mise en production' owner in the plan v3 still showing Nicolas with the 15 October date is a planning artifact, not an authority on the date.",
+   "answer_fr": "Nicolas Perron est chargé de projet de NOVA depuis le 16 septembre 2026, en remplacement d'Élodie Caron (cheffe de projet depuis le lancement du 7 juillet 2026).",
+   "citations": [
+    {
+     "src": "E06",
+     "loc": "body:P2",
+     "quote": "Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre."
+    },
+    {
+     "src": "TRANSITION",
+     "loc": "L4",
+     "quote": "À compter d'aujourd'hui, Nicolas Perron reprend le rôle de chargé de projet NOVA."
+    },
+    {
+     "src": "TEAMS-0916",
+     "loc": "L4",
+     "quote": "à partir d'aujourd'hui, Nicolas reprend officiellement NOVA."
+    },
+    {
+     "src": "TEAMS-0916",
+     "loc": "L5",
+     "quote": "Je reprends aussi le comité du vendredi."
+    },
+    {
+     "src": "CHARTER",
+     "loc": "L4",
+     "quote": "Chargée de projet : Élodie Caron"
+    },
+    {
+     "src": "E06",
+     "loc": "body:P3",
+     "quote": "merci de diriger les décisions et suivis futurs vers Nicolas."
+    }
+   ],
+   "traps": [
+    "The charter (7 July) and kickoff minutes name Élodie Caron as lead; they are historical and not updated after the handover.",
+    "Plan v2 and the June plan list Élodie Caron as owner of 'Mise en production'; they are stale. Plan v3 (12 Sept) lists Nicolas but still carries the old 15 October date, so a plan is not authoritative on the date or the owner.",
+    "Élodie remained reachable for a few days for the transfer; this does not mean she still holds the role.",
+    "Early emails from Élodie (E01) show her acting as lead, but they predate 16 September.",
+    "The handover text does not state a formal sign-off beyond the email, note and Teams message; these are three mentions of one event, not independent decisions.",
+    "The Teams message (TEAMS-0916) and email (E06) are announcements by the outgoing lead, not committee minutes; no separate governance approval of the transition is documented."
+   ]
+  },
+  {
+   "id": "Q05",
+   "question_fr": "Quel est le montant contractuel autorisé et comment se calcule-t-il?",
+   "question_en": "Q05. What is the authorized contract amount and how is it calculated?",
+   "answer_en": "The initial maximum contract amount is 180,000 CAD, set in the contract (CONTRACT) and the charter, and confirmed at the kickoff meeting (M01). CR-01 (advanced reports, 24,000 CAD) was approved by the project committee on 14 August 2026, so it is an approved change on top of the base amount. The currently authorized total is therefore 180,000 + 24,000 = 204,000 CAD. This sum is my own calculation: no document states the 204,000 total explicitly, and the contract text only says that out-of-scope work requires a written, approved change request before execution and billing. CR-04 (18,000 CAD, mobile optimization) is only a draft with no approval, and it was deferred to phase 2 (DEC-PHASE2), so it adds nothing to the authorized amount. For distinction: invoiced to date is 60,000 (INV-001, paid) + 72,000 (INV-002, paid, including 24,000 for CR-01) + 54,000 (INV-003, under validation, including the unapproved 18,000 CR-04 line) = 186,000. Paid is 132,000, and INV-003 has not been released.",
+   "answer_fr": "Le plafond initial est de 180 000 $ CAD (contrat), auquel s'ajoute CR-01 approuvé (24 000 $), soit 204 000 $ autorisés (calcul de l'analyste, non écrit tel quel). CR-04 (18 000 $) n'est ni approuvé ni inclus : il est reporté à la phase 2.",
+   "citations": [
+    {
+     "src": "CONTRACT",
+     "loc": "page=1",
+     "quote": "Montant maximal initial 180 000 $"
+    },
+    {
+     "src": "CONTRACT",
+     "loc": "page=1",
+     "quote": "Tout travail hors portée doit faire l’objet d’une demande de changement écrite et approuvée avant exécution et facturation."
+    },
+    {
+     "src": "M01",
+     "loc": "L10",
+     "quote": "Budget initial maximal : 180 000 $ CAD."
+    },
+    {
+     "src": "CR-01",
+     "loc": "page=1",
+     "quote": "Montant 24 000 $ Décision APPROUVÉE Date de décision 14 août 2026 Autorité Comité de projet"
+    },
+    {
+     "src": "CR-04",
+     "loc": "page=1",
+     "quote": "Aucun numéro d’approbation ni signature de comité n’est présent dans ce document."
+    },
+    {
+     "src": "DEC-PHASE2",
+     "loc": "L4",
+     "quote": "Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2."
+    },
+    {
+     "src": "INV-003",
+     "loc": "page=1",
+     "quote": "Optimisation interface mobile - CR-04 18 000 $ TOTAL 54 000 $"
+    },
+    {
+     "src": "INV-002",
+     "loc": "page=1",
+     "quote": "Rapports avancés - CR-01 24 000 $ TOTAL 72 000 $"
+    }
+   ],
+   "traps": [
+    "Stopping at the charter/kickoff 180,000 CAD and ignoring CR-01 (approved 14 Aug, 24,000 CAD); the charter is not updated after each committee decision.",
+    "Counting CR-04 (18,000 CAD) as authorized because INV-003 cites it; it is only a draft, deferred to phase 2, and Nicolas stated no spend without new approval.",
+    "Confusing authorized, invoiced and paid amounts: INV-003 (54,000) is still under validation, not paid.",
+    "Counting INV-778 (41,000, project ORION) toward NOVA; it is another project.",
+    "Treating the 204,000 total as an explicit documented figure; it is a derived calculation, and the corpus does not state it.",
+    "Treating the 21 Sept status report 'Budget VERT' as proof of budget compliance; it predates detailed verification and is not an authority on amounts.",
+    "Assuming duplicated attachments (CR-04 PDF, INV-003 PDF in emails and as separate files) are independent confirmations."
+   ]
+  },
+  {
+   "id": "Q06",
+   "question_fr": "Quel problème présente INV-003? Précisez le montant concerné et le traitement à prévoir.",
+   "question_en": "Q06. What problem does INV-003 present? Specify the amount concerned and the treatment to plan.",
+   "answer_en": "INV-003 (dated 2026-09-22, status 'En validation', total $54,000 CAD) contains an $18,000 line 'Optimisation interface mobile - CR-04' that has no approval behind it. CR-04 is only a DRAFT ('BROUILLON - APPROBATION REQUISE') with no approval number or committee signature, and the contract requires written approval of any out-of-scope work before execution and invoicing. On 24 Sept 2026 Nicolas Perron (project lead since 16 Sept) documented the decision that advanced mobile optimizations are deferred to phase 2 and that no CR-04 spending may be engaged or invoiced without new approval; on 10 Sept the committee had likewise made no spending decision on mobile. Amélie Fortin (Finance) asked on 23 Sept for the approval and has not released the invoice. Treatment to plan (recommendation, not a documented commitment): do not release or pay the $18,000 line, and have the vendor correct or credit it. The remaining $36,000 line ('Développement phase 1 - jalon 3') is in scope, but how it is to be paid is not documented. No dispute or credit-note outcome is documented in the dossier as of 30 Sept 2026.",
+   "answer_fr": "INV-003 (54 000 $) comporte une ligne de 18 000 $ « Optimisation interface mobile - CR-04 » alors que CR-04 est un brouillon non approuvé, reporté à la phase 2 (Nicolas, 24 sept.); elle ne doit pas être libérée sans nouvelle approbation (recommandation : la faire retirer ou créditer).",
+   "citations": [
+    {
+     "src": "INV-003",
+     "loc": "page=1",
+     "quote": "Optimisation interface mobile - CR-04 18 000 $ TOTAL 54 000 $"
+    },
+    {
+     "src": "CR-04",
+     "loc": "page=1",
+     "quote": "BROUILLON - APPROBATION REQUISE"
+    },
+    {
+     "src": "CR-04",
+     "loc": "page=1",
+     "quote": "Aucun numéro d’approbation ni signature de comité n’est présent dans ce document."
+    },
+    {
+     "src": "CONTRACT",
+     "loc": "page=1",
+     "quote": "Tout travail hors portée doit faire l’objet d’une demande de changement écrite et approuvée avant exécution et facturation."
+    },
+    {
+     "src": "E10",
+     "loc": "body:P3",
+     "quote": "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation."
+    },
+    {
+     "src": "DEC-PHASE2",
+     "loc": "L4",
+     "quote": "Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2."
+    },
+    {
+     "src": "E07",
+     "loc": "body:P3",
+     "quote": "Je trouve un brouillon de CR-04, mais rien qui indique qu'il a été approuvé."
+    },
+    {
+     "src": "M04",
+     "loc": "L35",
+     "quote": "Mobile : aucune décision de dépense."
+    }
+   ],
+   "traps": [
+    "Treating the 'CR-04' reference on the invoice as proof of approval: CR-04 is only a draft with no approval number or signature.",
+    "Confusing CR-04 with CR-01, which is genuinely approved ($24,000, 14 Aug) and was already invoiced in INV-002.",
+    "Assuming the whole $54,000 is problematic: only the $18,000 mobile line is; the $36,000 phase 1 line is in scope.",
+    "Reading the 10 Sept committee mention of ~$18,000 (a vendor estimate) as an approval: it explicitly decided no spending.",
+    "Treating INV-003 as paid: its status is 'En validation' (INV-001 and INV-002 are 'Payée').",
+    "Counting INV-003.pdf (email attachment) and the separate file as independent confirmations; they are the same document.",
+    "Mixing up INV-778, which belongs to another project (ORION).",
+    "Using the vendor's Teams claim that mobile was in the initial scope (22 Sept) over the contract and the decision of Nicolas Perron, who stated the base compatibility is included but not CR-04."
+   ]
+  },
+  {
+   "id": "Q07",
+   "question_fr": "Où les données de production doivent-elles être hébergées? Quelle preuve confirme la mise en œuvre?",
+   "question_en": "Q07. Where must production data be hosted? What evidence confirms the implementation?",
+   "answer_en": "Production data must be hosted in Canada, specifically Canada Central. This was a decision: Sophie Lambert (security) required it, and at the 23 July 2026 architecture workshop Marc, Sophie and Julien (Boréal) agreed, with Élodie recording it. It was formalised in ADR-007 (status Accepted, 23 July 2026), which says v1 (East US) is superseded on this point. Implementation is evidenced by Boréal's email of 26 August 2026 declaring the migration complete, with architecture schema v2 attached and a deployment/connectivity test showing no blockers. The 27 August committee minutes add that the migration was declared complete by Boréal and verified by the architecture team. The v2 schema, dated 25 August, shows Canada Central. Caveat: the Boréal email is a vendor claim; the independent verification comes from the committee minutes, and no separate technical validation report is in the dossier. ADR-007 required such a validation before production tests.",
+   "answer_fr": "Les données de production doivent être hébergées à Canada Central (décision du 23 juillet 2026, ADR-007). La mise en œuvre est appuyée par le courriel de Boréal du 26 août, le schéma v2 et la vérification par l'équipe architecture notée au comité du 27 août.",
+   "citations": [
+    {
+     "src": "ADR-007",
+     "loc": "L10",
+     "quote": "L'environnement de production de NOVA sera déployé dans **Canada Central**."
+    },
+    {
+     "src": "M02",
+     "loc": "L11",
+     "quote": "Les données de production NOVA doivent demeurer au Canada."
+    },
+    {
+     "src": "M02",
+     "loc": "L17",
+     "quote": "La v1 devient donc obsolète pour la localisation des données."
+    },
+    {
+     "src": "E03",
+     "loc": "body:P2",
+     "quote": "La migration des ressources prévues pour NOVA vers Canada Central est complétée."
+    },
+    {
+     "src": "M03",
+     "loc": "L5",
+     "quote": "déclarée terminée par Boréal et vérifiée par l'équipe architecture"
+    },
+    {
+     "src": "ARCH-V2",
+     "loc": "page=1",
+     "quote": "Version révisée après ADR-007."
+    },
+    {
+     "src": "ADR-007",
+     "loc": "L15",
+     "quote": "Une validation technique doit confirmer la migration avant les tests de production."
+    }
+   ],
+   "traps": [
+    "Architecture v1 (East US, 18 July) is obsolete on location; E02 also shows East US but predates the decision.",
+    "E03 is a vendor claim; the independent verification is in the 27 August committee minutes (M03).",
+    "The v2 PDF is attached to E03 and also exists as a separate file; do not count it as independent confirmation.",
+    "The charter and early plans are not updated after decisions, so they do not reflect the hosting decision.",
+    "No standalone technical validation report is documented, so do not invent one."
+   ]
+  },
+  {
+   "id": "Q08",
+   "question_fr": "La sécurité est-elle acceptée? Distinguez livraison et validation.",
+   "question_en": "Q08. Is security accepted? Distinguish delivery from validation.",
+   "answer_en": "No. As of 2026-09-30 09:00, security is not accepted. Boréal delivered the SEC-210 fix to the validation environment on 19 Sept 2026 (a delivery, backed by the vendor's own automated tests). Sophie Lambert (security, ticket requester) has not validated it: on 19 Sept she asked that the ticket not be closed before security validation, and on 26 Sept she wrote that a re-test is planned and the status stays EN VALIDATION. At the 26 Sept committee she stated that security acceptance of SEC-210 had not yet been given. Security validation of SEC-210 is one of the three go-live conditions for the approved 22 October target, so the 22 Oct date remains conditional. The risk register (R-02, security validation incomplete) is still Open, with the re-test of SEC-210 before go-live as mitigation. No re-test date or result is documented (re-test date: TBC with Sophie).",
+   "answer_fr": "Non : le correctif SEC-210 a été livré par Boréal le 19 septembre (livraison), mais la validation sécurité de Sophie Lambert n'est pas donnée; le ticket reste EN VALIDATION avec un re-test planifié, sans date documentée.",
+   "citations": [
+    {
+     "src": "SEC-210",
+     "loc": "L23",
+     "quote": "Fix déployé sur l'environnement de validation. Pour nous c'est réglé."
+    },
+    {
+     "src": "SEC-210",
+     "loc": "L24",
+     "quote": "Ne pas fermer avant validation sécurité."
+    },
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    },
+    {
+     "src": "M06",
+     "loc": "L7",
+     "quote": "Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+    },
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback"
+    },
+    {
+     "src": "TEAMS-0919",
+     "loc": "L5",
+     "quote": "« déployé » != « accepté » :)"
+    },
+    {
+     "src": "RISKS-0929",
+     "loc": "Risques!G3",
+     "quote": "Re-test de SEC-210 avant go-live"
+    }
+   ],
+   "traps": [
+    "Taking Boréal's 'fixed / réglé' (E08, SEC-210 L23, Teams 19 Sept) as acceptance: it is a delivery with the vendor's automated tests, not a validation by security.",
+    "Relying on the 21 Sept status report (STATUS-0921) and Alex's draft message (E11) saying security is green/completed: the report predates detailed ticket checks, and 'Correctif SEC-210 livré' is only a delivery.",
+    "Reading the SEC-210 screenshot (EXPORT_CSV without object/result) as proof the defect is still present: it is historical; the ticket status (EN VALIDATION) and the comments prevail.",
+    "Misreading the defect as a total absence of export logging: the EXPORT_CSV line exists but lacks case ID and result.",
+    "Treating the E08 email and the Teams message as independent confirmations: they come from the same vendor claim.",
+    "Assuming the 22 Oct date is a guaranteed go: it is conditional on SEC-210 validation, ACC-303 closure and runbook approval (E09, M06).",
+    "Inventing a re-test date or a pass result: none is documented."
+   ]
+  },
+  {
+   "id": "Q09",
+   "question_fr": "L'accessibilité est-elle complétée? Identifiez ce qui reste à corriger.",
+   "question_en": "Q09. Is accessibility complete? Identify what remains to be fixed.",
+   "answer_en": "No, accessibility is not complete as of 2026-09-30. ACC-301 (labels, closed 15 Aug) and ACC-302 (contrast, closed 20 Aug) were each re-tested and validated by Mélissa Gagnon, but ACC-303 (keyboard focus in the edit modal) is still OPEN with High priority. In that modal, Tab never reaches the Enregistrer button; Boréal reproduced it on 18 Sept and attributed it to an incomplete list of focusable elements. At the 26 Sept committee, Mélissa called ACC-303 an accessibility blocker before production, and Julien (Boréal) only said they aim to fix it in the next build. That is an announced fix, not a delivery or a validation. Nicolas Perron then recorded closing ACC-303 as one of the three go-live conditions for the 22 Oct target. Mélissa owns the validation; the fix owner is Boréal; no fix date is documented (TBC).",
+   "answer_fr": "Non : ACC-301 et ACC-302 sont fermés et validés, mais ACC-303 (focus clavier dans la modale, bouton Enregistrer inatteignable) reste ouvert et bloquant, c'est l'une des trois conditions de go-live du 22 octobre. Le correctif n'est qu'annoncé pour la prochaine build, sans date documentée.",
+   "citations": [
+    {
+     "src": "ACC-303",
+     "loc": "L6",
+     "quote": "Statut : OUVERT"
+    },
+    {
+     "src": "ACC-303",
+     "loc": "L14",
+     "quote": "le bouton Enregistrer n'est jamais atteint avec Tab"
+    },
+    {
+     "src": "ACC-303",
+     "loc": "L16",
+     "quote": "Toujours ouvert. Correctif annoncé pour la prochaine build."
+    },
+    {
+     "src": "M06",
+     "loc": "L9",
+     "quote": "Pour moi c'est un bloquant d'accessibilité avant production."
+    },
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback"
+    },
+    {
+     "src": "M06",
+     "loc": "L15",
+     "quote": "On vise le correctif ACC-303 dans la prochaine build."
+    },
+    {
+     "src": "ACC-301",
+     "loc": "L16",
+     "quote": "Validé avec NVDA et VoiceOver. Fermé."
+    },
+    {
+     "src": "ACC-302",
+     "loc": "L16",
+     "quote": "Re-test OK à 5,3:1. Fermé."
+    },
+    {
+     "src": "M05",
+     "loc": "L10",
+     "quote": "ACC-301 et ACC-302 sont fermés. Un scénario de navigation clavier sur modal doit encore être vérifié."
+    }
+   ],
+   "traps": [
+    "The 21 Sept status report shows Accessibilité VERT ('Correctifs appliqués') and Alex's draft says accessibility is completed; the report predates the ACC-303 re-check and is stale and non-authoritative.",
+    "Julien's 20 Aug email says everything should be compliant, but that is a vendor claim. Mélissa's validation is what counts, and it covered only labels and contrast, not the modal keyboard scenario.",
+    "The 27 Aug committee minutes already mentioned a pending keyboard pass on the modals, so ACC-303 is a continuation of that open point, not a new surprise.",
+    "The ACC-301 and ACC-302 screenshots are historical defects that are now closed; they do not show current open issues.",
+    "The risk register R-04 rates accessibility as Medium impact, which understates a blocker that Mélissa and the committee treat as a go-live condition.",
+    "The 'next build' fix for ACC-303 is announced only; it is neither delivered nor validated, and no date is documented.",
+    "The ACC-303 screenshot is the same evidence as the ticket attachment, not an independent confirmation."
+   ]
+  },
+  {
+   "id": "Q10",
+   "question_fr": "Quelles sont les trois conditions de go-live? Précisez les travaux manquants du runbook à partir de sa capture.",
+   "question_en": "Q10. What are the three go-live conditions? Specify the missing runbook work based on its screenshot.",
+   "answer_en": "The three go-live conditions were stated by Nicolas Perron at the 26 Sept 2026 steering committee and confirmed by Sophie, Mélissa and Olivier: (1) security validation of SEC-210, (2) closure of ACC-303, and (3) approval of the runbook including rollback. Nicolas said the 22 October target is conditional on these three items; he planned to publish the minutes. As of 30 Sept 2026, none is documented as met. SEC-210 is EN VALIDATION: Boréal delivered a fix on 19 Sept, but Sophie has not accepted it and her re-test is only planned. ACC-303 is OUVERT, with a fix announced for the next build. OPS-601 is OUVERT and Olivier reported on 29 Sept that he had still not received the final runbook. The OPS-601 screenshot (25 Sept version) shows steps 1-3 as OK, step 4 'Procédure de retour arrière' (rollback) as TODO, and step 5 'Validation fonctionnelle post-déploiement' as À compléter. The missing runbook work is therefore the rollback procedure and the post-deployment functional validation. No owner or deadline for finishing the runbook is documented (TBC); Julien said he would chase the Boréal ops team, which is only an intention, not a dated commitment.",
+   "answer_fr": "Les trois conditions de go-live (comité du 26 sept.) sont : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook avec rollback. Dans la capture OPS-601, il manque l'étape 4 (retour arrière, TODO) et l'étape 5 (validation fonctionnelle post-déploiement, à compléter).",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback"
+    },
+    {
+     "src": "M06",
+     "loc": "L16",
+     "quote": "c'est conditionnel à ces trois éléments"
+    },
+    {
+     "src": "OPS-601.png",
+     "loc": "region=row-4",
+     "quote": "4. Procédure de retour arrière : TODO"
+    },
+    {
+     "src": "OPS-601.png",
+     "loc": "region=row-5",
+     "quote": "5. Validation fonctionnelle post-déploiement : À compléter"
+    },
+    {
+     "src": "OPS-601",
+     "loc": "L16",
+     "quote": "29 sept - Olivier : Toujours pas reçu la version finale."
+    },
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    },
+    {
+     "src": "ACC-303",
+     "loc": "L16",
+     "quote": "Toujours ouvert. Correctif annoncé pour la prochaine build."
+    },
+    {
+     "src": "M06",
+     "loc": "L15",
+     "quote": "Pour le runbook je relance notre équipe ops."
+    }
+   ],
+   "traps": [
+    "The 21 Sept status report (STATUS-0921) shows security and accessibility as VERT and Alex's draft says 'NOVA est au vert'; it predates the 26 Sept committee and the open SEC-210/ACC-303 and is stale.",
+    "Julien's claim that SEC-210 is fixed ('Pour nous c'est réglé') is a vendor delivery, not security acceptance; Sophie states 'déployé' is not 'accepté'.",
+    "ACC-301 and ACC-302 are closed, and M05 says only a keyboard modal scenario remained; that scenario became ACC-303, which is still open, so accessibility is not complete.",
+    "Historical screenshots (e.g., SEC-210.png showing the original defect) do not prove current status; the ticket status prevails.",
+    "The 22 October date is approved (10 Sept committee) but is not an automatic go; E09 and M04 L24 repeat this.",
+    "The risk register of 29 Sept (RISKS-0929) lists R-01 connector as open with a 9 Sept comment, whereas INT-101 was closed on 17 Sept; it is stale on that point and the connector is not a go-live condition.",
+    "The OPS-601 screenshot is the 25 Sept version; no later runbook version is in the dossier, so the exact current state of the runbook is not documented beyond Olivier's 29 Sept comment.",
+    "The plans (PLAN-V2/V3) still show 15 October for production; they are stale, as TEAMS-0915 acknowledges."
+   ]
+  }
+ ],
+ "conditions": [
+  {
+   "id": 1,
+   "title": "Validation sécurité de SEC-210",
+   "owner": "Sophie Lambert valide; Boréal a livré le correctif",
+   "status": "open",
+   "state": "Correctif déployé en validation le 19 sept, mais non accepté; re-test planifié, ticket EN VALIDATION.",
+   "citations": [
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    },
+    {
+     "src": "M06",
+     "loc": "L7",
+     "quote": "Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "title": "Fermeture de ACC-303 (focus clavier dans la modale)",
+   "owner": "Mélissa Gagnon valide; Boréal doit corriger",
+   "status": "open",
+   "state": "Ticket OUVERT : le bouton Enregistrer n'est pas atteint au clavier; correctif annoncé pour la prochaine build.",
+   "citations": [
+    {
+     "src": "ACC-303",
+     "loc": "L16",
+     "quote": "Toujours ouvert. Correctif annoncé pour la prochaine build."
+    },
+    {
+     "src": "M06",
+     "loc": "L9",
+     "quote": "Pour moi c'est un bloquant d'accessibilité avant production."
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "title": "Approbation du runbook incluant rollback",
+   "owner": "Olivier Côté valide; Boréal (équipe ops) doit livrer",
+   "status": "open",
+   "state": "Version finale non reçue au 29 sept; rollback (étape 4) à faire et validation post-déploiement (étape 5) à compléter.",
+   "citations": [
+    {
+     "src": "OPS-601",
+     "loc": "L16",
+     "quote": "Toujours pas reçu la version finale."
+    },
+    {
+     "src": "OPS-601.png",
+     "loc": "region=row-4",
+     "quote": "4. Procédure de retour arrière : TODO"
+    },
+    {
+     "src": "OPS-601.png",
+     "loc": "region=row-5",
+     "quote": "5. Validation fonctionnelle post-déploiement : À compléter"
+    }
+   ]
+  }
+ ],
+ "actions": [
+  {
+   "id": "A1",
+   "title": "Faire le re-test de SEC-210 et donner (ou refuser) l'acceptation sécurité",
+   "condition": 1,
+   "owner": "Sophie Lambert",
+   "ownerStatus": "confirmed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    }
+   ]
+  },
+  {
+   "id": "A2",
+   "title": "Livrer le correctif ACC-303 dans la prochaine build (focus clavier jusqu'à Enregistrer)",
+   "condition": 2,
+   "owner": "Julien Moreau (Boréal)",
+   "ownerStatus": "confirmed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L15",
+     "quote": "On vise le correctif ACC-303 dans la prochaine build."
+    }
+   ]
+  },
+  {
+   "id": "A3",
+   "title": "Re-tester ACC-303 et fermer le ticket si conforme",
+   "condition": 2,
+   "owner": "Mélissa Gagnon",
+   "ownerStatus": "proposed",
+   "type": "RECOMMENDATION",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "ACC-303",
+     "loc": "L16",
+     "quote": "Toujours ouvert. Correctif annoncé pour la prochaine build."
+    }
+   ]
+  },
+  {
+   "id": "A4",
+   "title": "Compléter le runbook : procédure de rollback (étape 4) et validation post-déploiement (étape 5)",
+   "condition": 3,
+   "owner": "Boréal (équipe ops), relancée par Julien Moreau",
+   "ownerStatus": "confirmed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L15",
+     "quote": "Pour le runbook je relance notre équipe ops."
+    },
+    {
+     "src": "OPS-601.png",
+     "loc": "region=row-4",
+     "quote": "4. Procédure de retour arrière : TODO"
+    },
+    {
+     "src": "OPS-601.png",
+     "loc": "region=row-5",
+     "quote": "5. Validation fonctionnelle post-déploiement : À compléter"
+    }
+   ]
+  },
+  {
+   "id": "A5",
+   "title": "Approuver le runbook final, rollback inclus (go exploitation)",
+   "condition": 3,
+   "owner": "Olivier Côté",
+   "ownerStatus": "confirmed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L10",
+     "quote": "Je ne donnerai pas mon go exploitation tant que je n'ai pas une procédure exécutable."
+    }
+   ]
+  },
+  {
+   "id": "A6",
+   "title": "Bloquer INV-003 pour la ligne CR-04 de 18 000 $ et répondre à Finances; décider du traitement (facture corrigée ou note de crédit)",
+   "owner": "Nicolas Perron",
+   "ownerStatus": "proposed",
+   "type": "RECOMMENDATION",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "E07",
+     "loc": "body:P3",
+     "quote": "Peux-tu me transmettre l'approbation correspondante?"
+    },
+    {
+     "src": "E10",
+     "loc": "body:P3",
+     "quote": "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation."
+    }
+   ]
+  },
+  {
+   "id": "A7",
+   "title": "Corriger les plans (v3 affiche encore le 15 octobre) pour refléter le 22 octobre, avec l'avis de Nicolas",
+   "owner": "Nicolas Perron",
+   "ownerStatus": "confirmed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "TRANSITION",
+     "loc": "L7",
+     "quote": "faire mettre à jour la date dans tous les plans (le comité a approuvé le 22 octobre);"
+    },
+    {
+     "src": "PLAN-V3",
+     "loc": "Plan projet!F7",
+     "quote": "2026-10-15"
+    }
+   ]
+  },
+  {
+   "id": "A8",
+   "title": "Mettre à jour le registre des risques : R-01 est basé sur des faits antérieurs à la fermeture d'INT-101",
+   "owner": "Marc Gervais",
+   "ownerStatus": "proposed",
+   "type": "RECOMMENDATION",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "RISKS-0929",
+     "loc": "Risques!H2",
+     "quote": "Suivi au 9 septembre 2026"
+    },
+    {
+     "src": "E12",
+     "loc": "body:P3",
+     "quote": "INT-101 est fermé."
+    }
+   ]
+  },
+  {
+   "id": "A9",
+   "title": "Ne pas diffuser le message « NOVA est au vert »; communiquer le 22 octobre comme cible conditionnelle",
+   "owner": "Alex Deschamps",
+   "ownerStatus": "proposed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "E09",
+     "loc": "body:P4",
+     "quote": "Merci de ne pas communiquer le 22 comme un go garanti"
+    },
+    {
+     "src": "E11",
+     "loc": "body:P3",
+     "quote": "« NOVA est au vert. La sécurité et l'accessibilité sont complétées et le projet vise le 22 octobre. »"
+    }
+   ]
+  },
+  {
+   "id": "A10",
+   "title": "Ne pas facturer de travaux CR-04 sans nouvelle approbation; Boréal doit vérifier avec son équipe la portée mobile",
+   "owner": "Julien Moreau (Boréal)",
+   "ownerStatus": "confirmed",
+   "type": "COMMITMENT",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L23",
+     "quote": "Regarder, oui. Facturer du CR-04, non. Il n'est pas approuvé."
+    },
+    {
+     "src": "M06",
+     "loc": "L24",
+     "quote": "Compris."
+    }
+   ]
+  },
+  {
+   "id": "A11",
+   "title": "Obtenir de Boréal des dates fermes pour ACC-303 et le runbook, afin de confirmer le 22 octobre",
+   "owner": "Nicolas Perron",
+   "ownerStatus": "proposed",
+   "type": "RECOMMENDATION",
+   "due": "TBC",
+   "citations": [
+    {
+     "src": "OPS-601",
+     "loc": "L16",
+     "quote": "Toujours pas reçu la version finale."
+    },
+    {
+     "src": "E09",
+     "loc": "body:P3",
+     "quote": "Cette date est toutefois conditionnelle aux validations restantes"
+    }
+   ]
+  }
+ ],
+ "contradictions": [
+  {
+   "id": "C1",
+   "topic": "Date de mise en production : 15 octobre (plan) vs 22 octobre (décision)",
+   "a": "Le plan v3 et le plan v2 affichent toujours la mise en production au 15 octobre, avec Nicolas Perron comme responsable.",
+   "aCit": [
+    {
+     "src": "PLAN-V3",
+     "loc": "Plan projet!F7",
+     "quote": "2026-10-15"
+    },
+    {
+     "src": "PLAN-V3",
+     "loc": "Plan projet!G7",
+     "quote": "Cible de planification"
+    }
+   ],
+   "b": "Le comité de direction du 10 septembre a approuvé le 22 octobre comme date officielle.",
+   "bCit": [
+    {
+     "src": "M04",
+     "loc": "L23",
+     "quote": "Donc **approuvé**. Le 22 devient la date officielle."
+    }
+   ],
+   "resolution": "La décision du comité (10 septembre) prime sur le plan, qui n'a pas été mis à jour. Nicolas Perron l'a confirmé dans Teams le 15 septembre. Le 22 octobre est la date approuvée, sous conditions.",
+   "rule": "authority+date",
+   "planOrRegister": true
+  },
+  {
+   "id": "C2",
+   "topic": "Risque connecteur ouvert (registre) vs INT-101 fermé",
+   "a": "Le registre du 29 septembre garde R-01 (retard du connecteur) ouvert, avec un suivi daté du 9 septembre.",
+   "aCit": [
+    {
+     "src": "RISKS-0929",
+     "loc": "Risques!F2",
+     "quote": "Ouvert"
+    },
+    {
+     "src": "RISKS-0929",
+     "loc": "Risques!H2",
+     "quote": "Suivi au 9 septembre 2026"
+    }
+   ],
+   "b": "Marc Gervais a validé et fermé INT-101 le 17 septembre après 120/120 recherches valides.",
+   "bCit": [
+    {
+     "src": "E12",
+     "loc": "body:P3",
+     "quote": "INT-101 est fermé."
+    },
+    {
+     "src": "INT-101",
+     "loc": "L18",
+     "quote": "Validé côté intégration. Je ferme."
+    }
+   ],
+   "resolution": "La ligne R-01 repose sur des faits du 9 septembre, antérieurs à la validation du 17 septembre. La cause du risque d'échéancier est résolue, et la ligne du registre est périmée. Une mise à jour du registre est à demander au propriétaire du risque.",
+   "rule": "date",
+   "planOrRegister": true
+  },
+  {
+   "id": "C3",
+   "topic": "Rapport de statut « tout au vert » vs tickets ouverts",
+   "a": "Le rapport du 21 septembre donne la sécurité et l'accessibilité en VERT, et Alex prépare un message disant qu'elles sont complétées.",
+   "aCit": [
+    {
+     "src": "STATUS-0921",
+     "loc": "page=1",
+     "quote": "Sécurité VERT Correctif SEC-210 livré Accessibilité VERT Correctifs appliqués"
+    },
+    {
+     "src": "E11",
+     "loc": "body:P3",
+     "quote": "La sécurité et l'accessibilité sont complétées et le projet vise le 22 octobre."
+    }
+   ],
+   "b": "SEC-210 est EN VALIDATION et ACC-303 est OUVERT. Le comité du 26 septembre en fait des conditions de go-live.",
+   "bCit": [
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    },
+    {
+     "src": "ACC-303",
+     "loc": "L6",
+     "quote": "Statut : OUVERT"
+    }
+   ],
+   "resolution": "Le rapport a été préparé avant la vérification détaillée des tickets (il le dit lui-même). Les tickets et le comité du 26 septembre, plus récents, ont autorité. Le message « au vert » ne doit pas être diffusé.",
+   "rule": "authority+date",
+   "planOrRegister": false
+  },
+  {
+   "id": "C4",
+   "topic": "SEC-210 : « réglé » (Boréal) vs non accepté (sécurité)",
+   "a": "Boréal affirme que le correctif est déployé et que le problème est corrigé.",
+   "aCit": [
+    {
+     "src": "E08",
+     "loc": "body:P2",
+     "quote": "Nos tests automatisés passent et, pour nous, le problème est corrigé."
+    }
+   ],
+   "b": "Sophie précise qu'il n'y a pas encore d'acceptation sécurité et que le ticket reste en validation.",
+   "bCit": [
+    {
+     "src": "M06",
+     "loc": "L7",
+     "quote": "Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+    },
+    {
+     "src": "SEC-210",
+     "loc": "L24",
+     "quote": "Ne pas fermer avant validation sécurité."
+    }
+   ],
+   "resolution": "Le correctif est livré, mais il n'est pas validé. Seule Sophie Lambert (sécurité) peut valider, et son re-test est planifié sans date documentée.",
+   "rule": "authority",
+   "planOrRegister": false
+  },
+  {
+   "id": "C5",
+   "topic": "Accessibilité : « tout conforme » (Boréal, 20 août) vs ACC-303 ouvert",
+   "a": "Le 20 août, Boréal déclare que tout devrait être conforme. Le rapport de statut indique aussi des correctifs appliqués.",
+   "aCit": [
+    {
+     "src": "E04",
+     "loc": "body:P2",
+     "quote": "Tout devrait maintenant être conforme de notre côté."
+    }
+   ],
+   "b": "ACC-303, ouvert le 17 septembre, montre que le bouton Enregistrer n'est pas atteignable au clavier. Mélissa le considère comme bloquant.",
+   "bCit": [
+    {
+     "src": "M06",
+     "loc": "L9",
+     "quote": "Pour moi c'est un bloquant d'accessibilité avant production."
+    },
+    {
+     "src": "ACC-303",
+     "loc": "L16",
+     "quote": "Toujours ouvert. Correctif annoncé pour la prochaine build."
+    }
+   ],
+   "resolution": "Le courriel du 20 août porte sur les labels et le contraste (ACC-301 et ACC-302, fermés les 15 et 20 août). ACC-303 est postérieur, et la validation vient de Mélissa. Il reste ouvert.",
+   "rule": "date",
+   "planOrRegister": false
+  },
+  {
+   "id": "C6",
+   "topic": "INV-003 : ligne CR-04 de 18 000 $ vs absence d'approbation",
+   "a": "La facture INV-003 facture 18 000 $ pour « Optimisation interface mobile - CR-04 ».",
+   "aCit": [
+    {
+     "src": "INV-003",
+     "loc": "page=1",
+     "quote": "Optimisation interface mobile - CR-04 18 000 $"
+    }
+   ],
+   "b": "CR-04 est un brouillon sans approbation. Le travail est reporté à la phase 2, et aucune dépense ne doit être engagée ou facturée sans nouvelle approbation.",
+   "bCit": [
+    {
+     "src": "CR-04",
+     "loc": "page=1",
+     "quote": "Aucun numéro d’approbation ni signature de comité n’est présent dans ce document."
+    },
+    {
+     "src": "E10",
+     "loc": "body:P3",
+     "quote": "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation."
+    }
+   ],
+   "resolution": "Le contrat exige une demande de changement approuvée avant facturation. La ligne de 18 000 $ n'est pas autorisée, et INV-003 (En validation) ne doit pas être libérée pour ce montant. La partie jalon 3 de 36 000 $ est traitée séparément.",
+   "rule": "authority",
+   "planOrRegister": false
+  },
+  {
+   "id": "C7",
+   "topic": "Responsable du projet : Élodie (charte, plan v2) vs Nicolas",
+   "a": "La charte indique Élodie Caron comme chargée de projet, et la ligne P-06 du plan v2 la désigne responsable.",
+   "aCit": [
+    {
+     "src": "CHARTER",
+     "loc": "L4",
+     "quote": "Chargée de projet : Élodie Caron"
+    },
+    {
+     "src": "PLAN-V2",
+     "loc": "Plan projet!D7",
+     "quote": "Élodie Caron"
+    }
+   ],
+   "b": "Élodie a annoncé que Nicolas Perron prend la charge du projet le 16 septembre.",
+   "bCit": [
+    {
+     "src": "E06",
+     "loc": "body:P2",
+     "quote": "Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre."
+    }
+   ],
+   "resolution": "La charte est un point de départ non mis à jour automatiquement. L'annonce du 16 septembre est plus récente. Nicolas Perron est responsable depuis le 16 septembre 2026.",
+   "rule": "date",
+   "planOrRegister": false
+  },
+  {
+   "id": "C8",
+   "topic": "Région d'hébergement : East US (v1) vs Canada Central",
+   "a": "Le schéma v1 et le courriel du 22 juillet évoquent East US.",
+   "aCit": [
+    {
+     "src": "M02",
+     "loc": "L9",
+     "quote": "la v1 est basée sur notre landing zone standard, donc East US pour l'instant"
+    }
+   ],
+   "b": "L'ADR-007 décide Canada Central et remplace la v1. Boréal a confirmé la migration le 26 août avec le schéma v2.",
+   "bCit": [
+    {
+     "src": "ADR-007",
+     "loc": "L10",
+     "quote": "L'architecture v1 doit être considérée comme remplacée sur ce point."
+    },
+    {
+     "src": "E03",
+     "loc": "body:P2",
+     "quote": "La migration des ressources prévues pour NOVA vers Canada Central est complétée."
+    }
+   ],
+   "resolution": "La v1 est obsolète depuis la décision du 23 juillet. Canada Central s'applique, et le comité du 27 août indique que la migration a été vérifiée par l'équipe architecture.",
+   "rule": "authority+date",
+   "planOrRegister": false
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2026-07-07",
+   "tag": "DECISION",
+   "title": "Kickoff: target date of 15 Oct 2026 set, budget capped at 180,000 CAD",
+   "citations": [
+    {
+     "src": "M01",
+     "loc": "L11",
+     "quote": "Cible de mise en production : 15 octobre 2026."
+    },
+    {
+     "src": "M01",
+     "loc": "L10",
+     "quote": "Budget initial maximal : 180 000 $ CAD."
+    }
+   ]
+  },
+  {
+   "date": "2026-07-07",
+   "tag": "ORG",
+   "title": "Élodie Caron named project manager",
+   "citations": [
+    {
+     "src": "M01",
+     "loc": "L9",
+     "quote": "Élodie Caron agit comme chargée de projet."
+    }
+   ]
+  },
+  {
+   "date": "2026-07-22",
+   "tag": "ISSUE",
+   "title": "Sophie questions East US hosting on architecture v1",
+   "citations": [
+    {
+     "src": "E02",
+     "loc": "body:P3",
+     "quote": "je veux que les données de production demeurent au Canada"
+    }
+   ]
+  },
+  {
+   "date": "2026-07-23",
+   "tag": "DECISION",
+   "title": "Workshop settles on Canada Central; ADR-007 accepted",
+   "citations": [
+    {
+     "src": "M02",
+     "loc": "L17",
+     "quote": "Je vais noter la décision et on fera un ADR."
+    },
+    {
+     "src": "ADR-007",
+     "loc": "L13",
+     "quote": "Boréal doit migrer les ressources prévues."
+    }
+   ]
+  },
+  {
+   "date": "2026-07-31",
+   "tag": "FINANCE",
+   "title": "INV-001 (60,000 CAD) invoiced and paid",
+   "citations": [
+    {
+     "src": "INV-001",
+     "loc": "page=1",
+     "quote": "TOTAL 60 000 $"
+    }
+   ]
+  },
+  {
+   "date": "2026-08-14",
+   "tag": "DECISION",
+   "title": "CR-01 (advanced reports, 24,000 CAD) approved by the project committee",
+   "citations": [
+    {
+     "src": "CR-01",
+     "loc": "page=1",
+     "quote": "Décision APPROUVÉE Date de décision 14 août 2026"
+    }
+   ]
+  },
+  {
+   "date": "2026-08-15",
+   "tag": "VALIDATION",
+   "title": "ACC-301 (labels) validated by Mélissa and closed",
+   "citations": [
+    {
+     "src": "ACC-301",
+     "loc": "L16",
+     "quote": "Validé avec NVDA et VoiceOver. Fermé."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-20",
+   "tag": "VALIDATION",
+   "title": "ACC-302 (contrast) re-tested OK and closed",
+   "citations": [
+    {
+     "src": "ACC-302",
+     "loc": "L16",
+     "quote": "Re-test OK à 5,3:1. Fermé."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-26",
+   "tag": "DELIVERY",
+   "title": "Boréal announces the Canada Central migration is complete",
+   "citations": [
+    {
+     "src": "E03",
+     "loc": "body:P2",
+     "quote": "La migration des ressources prévues pour NOVA vers Canada Central est complétée."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-27",
+   "tag": "VALIDATION",
+   "title": "Committee records the migration as verified by the architecture team",
+   "citations": [
+    {
+     "src": "M03",
+     "loc": "L5",
+     "quote": "déclarée terminée par Boréal et vérifiée par l'équipe architecture"
+    }
+   ]
+  },
+  {
+   "date": "2026-08-31",
+   "tag": "FINANCE",
+   "title": "INV-002 (72,000 CAD, incl. CR-01) invoiced and paid",
+   "citations": [
+    {
+     "src": "INV-002",
+     "loc": "page=1",
+     "quote": "TOTAL 72 000 $"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-02",
+   "tag": "ISSUE",
+   "title": "DATA-401: migration duplicates reported",
+   "citations": [
+    {
+     "src": "DATA-401",
+     "loc": "L2",
+     "quote": "Doublons migration - lot MIG-09-02"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-04",
+   "tag": "PROPOSAL",
+   "title": "Boréal submits the CR-04 draft (mobile, 18,000 CAD)",
+   "citations": [
+    {
+     "src": "CR-04",
+     "loc": "page=1",
+     "quote": "Demande initiale 4 septembre 2026"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-05",
+   "tag": "ISSUE",
+   "title": "INT-101: connector returns 401 errors; searches come back empty",
+   "citations": [
+    {
+     "src": "INT-101",
+     "loc": "L15",
+     "quote": "On voit des 401 sur l'appel vers le service interne."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-07",
+   "tag": "VALIDATION",
+   "title": "PERF-501 closed (620 ms average)",
+   "citations": [
+    {
+     "src": "PERF-501",
+     "loc": "L16",
+     "quote": "moyenne observée 620 ms sur 50 essais"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-08",
+   "tag": "PROPOSAL",
+   "title": "Boréal proposes moving go-live to 22 Oct (a proposal only)",
+   "citations": [
+    {
+     "src": "E05",
+     "loc": "body:P4",
+     "quote": "il s'agit d'une proposition de notre part"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-09",
+   "tag": "VALIDATION",
+   "title": "DATA-401 validated by replaying 15,000 events with no duplicates",
+   "citations": [
+    {
+     "src": "DATA-401",
+     "loc": "L19",
+     "quote": "lot de 15 000 événements rejoué, aucun doublon détecté. Ticket fermé."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-10",
+   "tag": "DECISION",
+   "title": "Steering committee approves 22 Oct as the official date",
+   "citations": [
+    {
+     "src": "M04",
+     "loc": "L35",
+     "quote": "Nouvelle date officielle : 22 octobre."
+    },
+    {
+     "src": "M04",
+     "loc": "L24",
+     "quote": "le 22 n'est pas un go automatique"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-10",
+   "tag": "DECISION",
+   "title": "No spending decision on mobile optimizations",
+   "citations": [
+    {
+     "src": "M04",
+     "loc": "L33",
+     "quote": "On va traiter ça séparément, aucune approbation aujourd'hui."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-12",
+   "tag": "ISSUE",
+   "title": "SEC-210 opened: incomplete admin export audit (blocking before production). Plan v3 of the same date still shows 15 Oct.",
+   "citations": [
+    {
+     "src": "SEC-210",
+     "loc": "L2",
+     "quote": "Audit admin incomplet sur export"
+    },
+    {
+     "src": "PLAN-V3",
+     "loc": "Plan projet!G7",
+     "quote": "Cible de planification"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-16",
+   "tag": "ORG",
+   "title": "Nicolas Perron officially takes over the project",
+   "citations": [
+    {
+     "src": "E06",
+     "loc": "body:P2",
+     "quote": "Nicolas Perron prend officiellement la charge du projet NOVA"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-17",
+   "tag": "VALIDATION",
+   "title": "INT-101 closed after Marc's validation (120/120 searches)",
+   "citations": [
+    {
+     "src": "E12",
+     "loc": "body:P3",
+     "quote": "INT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-17",
+   "tag": "ISSUE",
+   "title": "ACC-303 opened: Save button unreachable by keyboard in the modal",
+   "citations": [
+    {
+     "src": "ACC-303",
+     "loc": "L14",
+     "quote": "le bouton Enregistrer n'est jamais atteint avec Tab."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-19",
+   "tag": "DELIVERY",
+   "title": "SEC-210 fix deployed to validation; security acceptance still pending",
+   "citations": [
+    {
+     "src": "E08",
+     "loc": "body:P2",
+     "quote": "Le correctif pour SEC-210 est déployé en validation depuis ce matin."
+    },
+    {
+     "src": "SEC-210",
+     "loc": "L24",
+     "quote": "Ne pas fermer avant validation sécurité."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-21",
+   "tag": "REPORT",
+   "title": "Status report shows green but predates the detailed ticket checks",
+   "citations": [
+    {
+     "src": "STATUS-0921",
+     "loc": "page=1",
+     "quote": "Le rapport a été préparé avant la dernière vérification détaillée de certains tickets."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-22",
+   "tag": "FINANCE",
+   "title": "INV-003 includes an 18,000 CAD CR-04 line (invoice total 54,000 CAD)",
+   "citations": [
+    {
+     "src": "INV-003",
+     "loc": "page=1",
+     "quote": "Optimisation interface mobile - CR-04 18 000 $"
+    }
+   ]
+  },
+  {
+   "date": "2026-09-23",
+   "tag": "ISSUE",
+   "title": "Finance finds no approval for CR-04 and holds INV-003",
+   "citations": [
+    {
+     "src": "E07",
+     "loc": "body:P3",
+     "quote": "Je trouve un brouillon de CR-04, mais rien qui indique qu'il a été approuvé."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-24",
+   "tag": "DECISION",
+   "title": "Advanced mobile deferred to phase 2; no CR-04 spending without new approval",
+   "citations": [
+    {
+     "src": "DEC-PHASE2",
+     "loc": "L6",
+     "quote": "Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-25",
+   "tag": "ISSUE",
+   "title": "OPS-601: runbook incomplete (rollback missing)",
+   "citations": [
+    {
+     "src": "OPS-601",
+     "loc": "L14",
+     "quote": "Il manque au minimum la procédure de rollback."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-26",
+   "tag": "DECISION",
+   "title": "Committee confirms three conditions on the 22 Oct target",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-26",
+   "tag": "STATUS",
+   "title": "SEC-210 re-test scheduled; ticket stays in validation",
+   "citations": [
+    {
+     "src": "SEC-210",
+     "loc": "L25",
+     "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-27",
+   "tag": "STATUS",
+   "title": "Nicolas reminds the team: 22 Oct is conditional, not a guaranteed go",
+   "citations": [
+    {
+     "src": "E09",
+     "loc": "body:P4",
+     "quote": "Merci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-29",
+   "tag": "STATUS",
+   "title": "Final runbook still not received",
+   "citations": [
+    {
+     "src": "OPS-601",
+     "loc": "L16",
+     "quote": "Toujours pas reçu la version finale."
+    }
+   ]
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "subject": "Go-live date moved from 15 Oct to 22 Oct 2026 (conditional)",
+   "proposed": "Julien Moreau (Boréal), 2026-09-08",
+   "decided": "Steering committee (Élodie announced the decision, no objection), 2026-09-10",
+   "delivered": "—",
+   "validated": "Conditions (SEC-210, ACC-303, runbook) still open at 2026-09-30",
+   "status": "Approved but conditional; plans may still show 15 Oct",
+   "citations": [
+    {
+     "src": "E05",
+     "loc": "P4",
+     "quote": "il s'agit d'une proposition de notre part"
+    },
+    {
+     "src": "M04",
+     "loc": "L35",
+     "quote": "Nouvelle date officielle : 22 octobre."
+    },
+    {
+     "src": "M06",
+     "loc": "L16",
+     "quote": "Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois éléments."
+    }
+   ]
+  },
+  {
+   "id": "D2",
+   "subject": "Production data hosted in Canada Central (ADR-007)",
+   "proposed": "Sophie Lambert, 2026-07-22/23",
+   "decided": "Marc, Sophie, Julien and Élodie, 2026-07-23",
+   "delivered": "Boréal, migration announced 2026-08-26",
+   "validated": "Verified by the architecture team per the 2026-08-27 committee",
+   "status": "Implemented and verified",
+   "citations": [
+    {
+     "src": "M02",
+     "loc": "L11",
+     "quote": "Les données de production NOVA doivent demeurer au Canada."
+    },
+    {
+     "src": "E03",
+     "loc": "P2",
+     "quote": "La migration des ressources prévues pour NOVA vers Canada Central est complétée."
+    },
+    {
+     "src": "M03",
+     "loc": "L5",
+     "quote": "déclarée terminée par Boréal et vérifiée par l'équipe architecture"
+    }
+   ]
+  },
+  {
+   "id": "D3",
+   "subject": "Advanced mobile (CR-04, 18,000 CAD) deferred to phase 2",
+   "proposed": "Boréal, CR-04 draft dated 2026-09-04",
+   "decided": "Nicolas Perron, 2026-09-24 (no spending approved on 2026-09-10 either)",
+   "delivered": "—",
+   "validated": "—",
+   "status": "Not approved; INV-003 mobile line has no approval",
+   "citations": [
+    {
+     "src": "CR-04",
+     "loc": "page=1",
+     "quote": "BROUILLON - APPROBATION REQUISE"
+    },
+    {
+     "src": "E10",
+     "loc": "P2",
+     "quote": "ne font pas partie de la phase 1 approuvée"
+    },
+    {
+     "src": "DEC-PHASE2",
+     "loc": "L6",
+     "quote": "Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation."
+    }
+   ]
+  },
+  {
+   "id": "D4",
+   "subject": "Project lead handover Élodie → Nicolas",
+   "proposed": "—",
+   "decided": "Élodie Caron, effective 2026-09-16",
+   "delivered": "Transition note dated 2026-09-16",
+   "validated": "Nicolas confirms in Teams, 2026-09-16",
+   "status": "Nicolas Perron is the current lead",
+   "citations": [
+    {
+     "src": "E06",
+     "loc": "P2",
+     "quote": "Nicolas Perron prend officiellement la charge du projet NOVA"
+    },
+    {
+     "src": "TEAMS-0916",
+     "loc": "L5",
+     "quote": "Merci Élodie. Je reprends aussi le comité du vendredi."
+    }
+   ]
+  },
+  {
+   "id": "D5",
+   "subject": "Three go-live conditions: SEC-210 validation, ACC-303 closed, runbook with rollback approved",
+   "proposed": "Nicolas Perron (formulation), 2026-09-26",
+   "decided": "Confirmed by Sophie, Mélissa and Olivier, 2026-09-26",
+   "delivered": "—",
+   "validated": "None of the three is closed at 2026-09-30",
+   "status": "Open conditions",
+   "citations": [
+    {
+     "src": "M06",
+     "loc": "L11",
+     "quote": "trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback."
+    },
+    {
+     "src": "OPS-601",
+     "loc": "L16",
+     "quote": "Toujours pas reçu la version finale."
+    }
+   ]
+  },
+  {
+   "id": "D6",
+   "subject": "SEC-210: audit logging of admin exports",
+   "proposed": "Sophie Lambert (ticket), 2026-09-12",
+   "decided": "—",
+   "delivered": "Boréal, fix deployed to validation, 2026-09-19",
+   "validated": "Not validated; re-test scheduled, status EN VALIDATION",
+   "status": "Delivered, not accepted",
+   "citations": [
+    {
+     "src": "SEC-210",
+     "loc": "L24",
+     "quote": "Nous devons refaire notre scénario et confirmer nous-mêmes."
+    },
+    {
+     "src": "M06",
+     "loc": "L7",
+     "quote": "Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+    }
+   ]
+  },
+  {
+   "id": "D7",
+   "subject": "INT-101 connector issue (cause of the date risk)",
+   "proposed": "—",
+   "decided": "—",
+   "delivered": "Boréal, fix deployed 2026-09-17",
+   "validated": "Marc Gervais, 2026-09-17 (120/120)",
+   "status": "Closed; R-01 in the 2026-09-29 register is stale",
+   "citations": [
+    {
+     "src": "INT-101",
+     "loc": "L18",
+     "quote": "Validé côté intégration. Je ferme."
+    },
+    {
+     "src": "RISKS-0929",
+     "loc": "Risques!H2",
+     "quote": "Suivi au 9 septembre 2026"
+    }
+   ]
+  },
+  {
+   "id": "D8",
+   "subject": "CR-01 advanced reports (24,000 CAD) approved and billed",
+   "proposed": "—",
+   "decided": "Project committee, 2026-08-14",
+   "delivered": "Invoiced in INV-002, 2026-08-31",
+   "validated": "INV-002 status Payée",
+   "status": "Approved, invoiced and paid",
+   "citations": [
+    {
+     "src": "CR-01",
+     "loc": "page=1",
+     "quote": "Décision APPROUVÉE Date de décision 14 août 2026"
+    },
+    {
+     "src": "INV-002",
+     "loc": "page=1",
+     "quote": "Rapports avancés - CR-01 24 000 $"
+    }
+   ]
+  }
+ ],
+ "budget": {
+  "authorized": 204000,
+  "components": [
+   {
+    "label": "Contrat initial (montant maximal)",
+    "amount": 180000,
+    "citations": [
+     {
+      "src": "CONTRACT",
+      "loc": "page=1",
+      "quote": "Montant maximal initial 180 000 $"
+     }
+    ]
+   },
+   {
+    "label": "CR-01 approuvé (rapports avancés)",
+    "amount": 24000,
+    "citations": [
+     {
+      "src": "CR-01",
+      "loc": "page=1",
+      "quote": "Décision APPROUVÉE Date de décision 14 août 2026"
+     }
+    ]
+   }
+  ],
+  "invoices": [
+   {
+    "id": "INV-001",
+    "date": "2026-07-31",
+    "amount": 60000,
+    "status": "Payée"
+   },
+   {
+    "id": "INV-002",
+    "date": "2026-08-31",
+    "amount": 72000,
+    "status": "Payée"
+   },
+   {
+    "id": "INV-003",
+    "date": "2026-09-22",
+    "amount": 54000,
+    "status": "En validation"
+   }
+  ],
+  "paid": 132000,
+  "invoicedReceived": 186000,
+  "invoicedValid": 168000,
+  "unapproved": 18000,
+  "unapprovedLabel": "Ligne « Optimisation interface mobile - CR-04 » de INV-003, CR-04 n'étant qu'un brouillon non approuvé et reporté à la phase 2",
+  "unapprovedCitations": [
+   {
+    "src": "INV-003",
+    "loc": "page=1",
+    "quote": "Optimisation interface mobile - CR-04 18 000 $"
+   },
+   {
+    "src": "CR-04",
+    "loc": "page=1",
+    "quote": "BROUILLON - APPROBATION REQUISE"
+   },
+   {
+    "src": "E10",
+    "loc": "body:P3",
+    "quote": "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation."
+   }
+  ],
+  "remaining": 36000
+ },
+ "brief": {
+  "asOf": "Sept 30, 2026, 09:00 (Montréal)",
+  "sections": [
+   {
+    "theme": "Owner",
+    "text": "Nicolas Perron est chargé de projet NOVA depuis le 16 septembre 2026, en remplacement d'Élodie Caron. Élodie est restée disponible quelques jours pour le transfert.",
+    "citations": [
+     {
+      "src": "E06",
+      "loc": "body:P2",
+      "quote": "Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre."
+     },
+     {
+      "src": "TRANSITION",
+      "loc": "L4",
+      "quote": "À compter d'aujourd'hui, Nicolas Perron reprend le rôle de chargé de projet NOVA."
+     }
+    ]
+   },
+   {
+    "theme": "Approved date and conditions",
+    "text": "Le comité du 10 septembre a approuvé le 22 octobre 2026 comme date officielle. Boréal l'avait proposé le 8 septembre, et la proposition n'était alors pas une décision. Ce n'est pas un go garanti : la date est conditionnelle à trois éléments (validation sécurité de SEC-210, fermeture d'ACC-303, approbation du runbook avec rollback), tous ouverts au 30 septembre. Le contrat court jusqu'au 31 octobre et aucune pénalité n'a été identifiée.",
+    "citations": [
+     {
+      "src": "M04",
+      "loc": "L23",
+      "quote": "Donc **approuvé**. Le 22 devient la date officielle."
+     },
+     {
+      "src": "E05",
+      "loc": "body:P3",
+      "quote": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+     },
+     {
+      "src": "M06",
+      "loc": "L11",
+      "quote": "Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback."
+     },
+     {
+      "src": "M06",
+      "loc": "L16",
+      "quote": "c'est conditionnel à ces trois éléments"
+     },
+     {
+      "src": "M04",
+      "loc": "L15",
+      "quote": "Pas de pénalité identifiée."
+     }
+    ]
+   },
+   {
+    "theme": "Scope",
+    "text": "La phase 1 comprend SSO, création et suivi de demandes, pièces jointes, workflow, tableau de suivi et rapports standards. Les optimisations mobiles avancées (CR-04) sont reportées à la phase 2 et ne sont pas approuvées. Les données de production sont hébergées à Canada Central (ADR-007).",
+    "citations": [
+     {
+      "src": "M01",
+      "loc": "L12",
+      "quote": "La phase 1 comprend SSO, création/suivi de demandes, pièces jointes, workflow, tableau de suivi et rapports standards."
+     },
+     {
+      "src": "DEC-PHASE2",
+      "loc": "L4",
+      "quote": "Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2."
+     },
+     {
+      "src": "ADR-007",
+      "loc": "L10",
+      "quote": "L'environnement de production de NOVA sera déployé dans **Canada Central**."
+     }
+    ]
+   },
+   {
+    "theme": "Budget",
+    "text": "Le montant autorisé est de 204 000 $ CAD : 180 000 $ de contrat initial plus 24 000 $ pour CR-01, approuvé le 14 août 2026. Les factures INV-001 et INV-002 sont payées, pour 132 000 $ au total. Il reste 36 000 $ d'autorisé non facturé, en tenant compte des seules lignes valides.",
+    "citations": [
+     {
+      "src": "CONTRACT",
+      "loc": "page=1",
+      "quote": "Montant maximal initial 180 000 $"
+     },
+     {
+      "src": "CR-01",
+      "loc": "page=1",
+      "quote": "Décision APPROUVÉE Date de décision 14 août 2026"
+     },
+     {
+      "src": "INV-001",
+      "loc": "page=1",
+      "quote": "Statut Payée"
+     },
+     {
+      "src": "INV-002",
+      "loc": "page=1",
+      "quote": "Statut Payée"
+     }
+    ]
+   },
+   {
+    "theme": "Invoices",
+    "text": "INV-003 (54 000 $, En validation) contient une ligne de 18 000 $ « Optimisation interface mobile - CR-04 ». CR-04 est un brouillon sans approbation, et Nicolas a interdit toute facturation sans nouvelle approbation. Amélie Finances attend une réponse avant de libérer la facture. Recommandation (non documentée comme engagement) : ne pas libérer les 18 000 $, répondre à Finances et demander à Boréal une facture corrigée ou une note de crédit. La part valide de 36 000 $ ne dépasse pas l'autorisé.",
+    "citations": [
+     {
+      "src": "INV-003",
+      "loc": "page=1",
+      "quote": "Optimisation interface mobile - CR-04 18 000 $"
+     },
+     {
+      "src": "CR-04",
+      "loc": "page=1",
+      "quote": "BROUILLON - APPROBATION REQUISE"
+     },
+     {
+      "src": "E07",
+      "loc": "body:P3",
+      "quote": "Peux-tu me transmettre l'approbation correspondante?"
+     },
+     {
+      "src": "E10",
+      "loc": "body:P3",
+      "quote": "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation."
+     }
+    ]
+   },
+   {
+    "theme": "Priorities",
+    "text": "1) Sécurité : Sophie Lambert doit faire le re-test de SEC-210, le correctif étant livré mais non accepté. 2) Accessibilité : Boréal doit corriger ACC-303, qui est ouvert, puis Mélissa le revalide. 3) Exploitation : le runbook n'est pas final (rollback à faire, validation post-déploiement à compléter) et Olivier Côté donne le go. Toutes les échéances sont à confirmer. Recommandation : corriger les plans, qui affichent encore le 15 octobre, et mettre à jour le risque R-01, daté du 9 septembre alors qu'INT-101 est fermé.",
+    "citations": [
+     {
+      "src": "SEC-210",
+      "loc": "L25",
+      "quote": "Re-test planifié. Statut maintenu EN VALIDATION."
+     },
+     {
+      "src": "ACC-303",
+      "loc": "L16",
+      "quote": "Toujours ouvert. Correctif annoncé pour la prochaine build."
+     },
+     {
+      "src": "OPS-601.png",
+      "loc": "region=row-4",
+      "quote": "4. Procédure de retour arrière : TODO"
+     },
+     {
+      "src": "OPS-601.png",
+      "loc": "region=row-5",
+      "quote": "5. Validation fonctionnelle post-déploiement : À compléter"
+     },
+     {
+      "src": "PLAN-V3",
+      "loc": "Plan projet!F7",
+      "quote": "2026-10-15"
+     },
+     {
+      "src": "E12",
+      "loc": "body:P3",
+      "quote": "INT-101 est fermé."
+     }
+    ]
+   }
+  ]
+ },
+ "people": [
+  {
+   "name": "Nicolas Perron",
+   "role": "Chargé de projet NOVA",
+   "since": "2026-09-16",
+   "owns": "Décisions et suivis du projet, communication de la cible 22 octobre conditionnelle, traitement de INV-003/CR-04"
+  },
+  {
+   "name": "Élodie Caron",
+   "role": "Ancienne chargée de projet (transition)",
+   "since": "2026-07-07 (jusqu'au 2026-09-16)",
+   "owns": "Aucun; disponible quelques jours pour le transfert"
+  },
+  {
+   "name": "Sophie Lambert",
+   "role": "Sécurité",
+   "since": "not documented",
+   "owns": "Validation de SEC-210"
+  },
+  {
+   "name": "Mélissa Gagnon",
+   "role": "Accessibilité",
+   "since": "not documented",
+   "owns": "Validation de ACC-303"
+  },
+  {
+   "name": "Olivier Côté",
+   "role": "Exploitation",
+   "since": "not documented",
+   "owns": "Approbation du runbook et rollback (OPS-601)"
+  },
+  {
+   "name": "Marc Gervais",
+   "role": "Architecture / intégration",
+   "since": "not documented",
+   "owns": "Connecteur interne (INT-101 fermé)"
+  },
+  {
+   "name": "Julien Moreau",
+   "role": "Fournisseur Boréal Numérique",
+   "since": "not documented",
+   "owns": "Livraison des correctifs (ACC-303, runbook)"
+  },
+  {
+   "name": "Amélie Fortin",
+   "role": "Finances",
+   "since": "not documented",
+   "owns": "Validation de INV-003"
+  }
+ ],
+ "meta": {
+  "source": "ai",
+  "generatedAt": "2026-10-04T00:38:08.939Z",
+  "model": "claude-sonnet-5-5",
+  "durationMs": 93735,
+  "citations": {
+   "verified": 201,
+   "dropped": 0
+  },
+  "answerKey": {
+   "score": "10/10",
+   "details": [
+    {
+     "id": "Q01",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q02",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q03",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q04",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q05",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q06",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q07",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q08",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q09",
+     "pass": true,
+     "missing": []
+    },
+    {
+     "id": "Q10",
+     "pass": true,
+     "missing": []
+    }
+   ]
+  }
+ }
+}

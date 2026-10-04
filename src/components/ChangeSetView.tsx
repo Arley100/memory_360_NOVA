@@ -48,7 +48,7 @@ export function ChangeSetView({ cs }: { cs: ChangeSet }) {
           <ul className="guardrail-list">
             <li className={approvalWarn ? "text-blocker" : ""}><Icon name={approvalWarn ? "warning" : "check"} size={16} /><span>{approvalWarn ? "A revised text may present a proposal as approved: review it below" : `No approval invented${moved ? ` (${moved} unquoted decision moved to proposals)` : ""}`}</span></li>
             <li><Icon name="check" size={16} /><span>No condition closed without its validating owner{blocked ? ` (${blocked} attempt blocked)` : ""}</span></li>
-            <li className={g.beyondContractEnd ? "text-delivery" : ""}><Icon name={g.beyondContractEnd ? "warning" : "check"} size={16} /><span>{g.beyondContractEnd ? "Date beyond contract end (Oct 31, 2026)" : "Within contract period"}</span></li>
+            <li className={g.beyondContractEnd ? "text-delivery" : ""}><Icon name={g.beyondContractEnd ? "warning" : "check"} size={16} /><span>{g.beyondContractEnd ? "A date falls after the contract end" : "Within contract period"}</span></li>
             <li><Icon name="check" size={16} /><span>Baseline preserved (Sept 30, 2026, 09:00)</span></li>
           </ul>
           {g.notes.length > 0 && <ul className="mt-2 list-disc pl-5 text-sm text-delivery">{g.notes.map((n) => <li key={n}>{n}</li>)}</ul>}

@@ -1,8 +1,8 @@
 import { PageHeader } from "@/components/UI";
-import { kb } from "@/lib/store";
+import { getKB } from "@/lib/store";
 
-export default function Decisions() {
-  const k = kb();
+export default async function Decisions() {
+  const k = await getKB();
   const cols = ["Proposed", "Decided", "Delivered", "Validated"] as const;
   return (
     <div className="space-y-6">

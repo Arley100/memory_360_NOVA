@@ -16,20 +16,29 @@ export interface AskResult {
 }
 
 export const ASK_SYSTEM = `You are Mémoire 360, the operational memory of project NOVA (fictional).\n${RULES}\n
-Answer ONLY from the knowledge base and corpus segments provided above. Each segment starts with [[SOURCE_ID#locator]].
+Answer ONLY from the material provided above (corpus segments, and the knowledge base when present). Each segment starts with [[SOURCE_ID#locator]].
 ${CITATION_FORMAT}
 Reply in the language of the question; keep quotes in French. Be precise and nuanced: name dates, amounts, owners,
 and whether something is a proposal, a decision, a delivery or a validation.
 If the corpus does not contain the answer, say so plainly and put what is missing in "missing".
 Return JSON only: {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}], "missing": [string], "recommendations": [string]}`;
 
-export async function askContext(): Promise<string> {
+export type ContextMode = "full" | "corpus";
+// Default: raw corpus only (the model's own analysis). ASK_CONTEXT=full adds the active knowledge base.
+export const contextMode = (m?: string): ContextMode => ((m ?? process.env.ASK_CONTEXT) === "full" ? "full" : "corpus");
+
+// "full": curated knowledge base + corpus. "corpus": raw files only, so every answer is the model's own analysis.
+export async function askContext(mode: ContextMode = contextMode()): Promise<string> {
   const ups = await updates();
+  if (mode === "corpus") {
+    const changes = ups.length ? `\n\nPUBLISHED UPDATES (newer information):\n${JSON.stringify(ups.map((u) => u.cs))}` : "";
+    return `CORPUS SEGMENTS (all project files, reference date 2026-09-30 09:00):\n${await corpusContext(ups)}${changes}`;
+  }
   return `KNOWLEDGE BASE (curated, verified):\n${await kbContext(ups)}\n\nCORPUS SEGMENTS:\n${await corpusContext(ups)}`;
 }
 
-export async function askProject(question: string, opts: { model?: string; effort?: string } = {}): Promise<AskResult> {
-  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: await askContext(), user: `QUESTION: ${question}`, ...opts })) as {
+export async function askProject(question: string, opts: { model?: string; effort?: string; context?: string } = {}): Promise<AskResult> {
+  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: await askContext(contextMode(opts.context)), user: `QUESTION: ${question}`, model: opts.model, effort: opts.effort })) as {
     answer?: string; citations?: Cite[]; missing?: string[]; recommendations?: string[];
   };
   const usage = lastUsage;
