@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { Icon } from "@/components/UI";
+import { NovaChatProvider } from "@/components/chat/NovaChatProvider";
+import { NovaChatWidget } from "@/components/chat/NovaChatWidget";
+import { GlobalAskBar } from "@/components/chat/GlobalAskBar";
+import { chatMeta } from "@/lib/chat";
 import { Nav } from "@/components/Nav";
 import { updates } from "@/lib/store";
 import { llmProvider, modelFor } from "@/lib/llm";
@@ -21,6 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="min-h-screen">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 bg-white p-2 z-50">Skip to content</a>
+        <NovaChatProvider initialMeta={await chatMeta(ups)}>
         <div className="app-shell">
           <aside className="no-print sidebar">
             <Link href="/" className="brand">
@@ -32,13 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </aside>
           <div className="workspace">
             <header className="no-print workspace-header">
-              <form action="/questions" className="header-search" role="search">
-                <Icon name="search" />
-                <label htmlFor="q" className="sr-only">Ask a question about NOVA</label>
-                <input id="q" name="q" placeholder="Ask a question about NOVA (EN or FR)…"
-                  className="min-w-0 flex-1 bg-transparent text-sm" />
-                <button className="search-submit">Ask</button>
-              </form>
+              <GlobalAskBar />
               <div className="ai-status"
                 title={ai ? `Ask: ${modelFor("ask")} · Update: ${modelFor("update")}. Run npm run check to test the connection.` : "No API key: evidence, search and manual updates still work."}>
                 <span className={`h-2.5 w-2.5 rounded-full ${ai ? "bg-validation" : "bg-muted"}`} aria-hidden />
@@ -53,6 +51,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <main id="main" tabIndex={-1} className="workspace-content">{children}</main>
           </div>
         </div>
+        <NovaChatWidget />
+        </NovaChatProvider>
       </body>
     </html>
   );

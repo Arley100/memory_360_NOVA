@@ -23,7 +23,7 @@ function Highlight({ text, quote }: { text: string; quote: string }) {
 const IMG = ["png", "jpg", "webp", "gif"];
 
 // Evidence chip: every claim links to the exact place in the source. Hover or focus shows the passage itself.
-export function Chip({ c }: { c: ResolvedCite }) {
+export function Chip({ c, variant, index }: { c: ResolvedCite; variant?: "number"; index?: number }) {
   const href = `/sources/${encodeURIComponent(c.src)}?loc=${encodeURIComponent(c.loc)}&q=${encodeURIComponent(c.quote)}`;
   const id = useId();
   const ref = useRef<HTMLAnchorElement>(null);
@@ -49,24 +49,25 @@ export function Chip({ c }: { c: ResolvedCite }) {
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { e.preventDefault(); e.stopImmediatePropagation(); setOpen(false); } };
     const onScroll = () => setOpen(false);
-    window.addEventListener("keydown", onKey); window.addEventListener("scroll", onScroll, true);
-    return () => { window.removeEventListener("keydown", onKey); window.removeEventListener("scroll", onScroll, true); };
+    window.addEventListener("keydown", onKey, true); window.addEventListener("scroll", onScroll, true);
+    return () => { window.removeEventListener("keydown", onKey, true); window.removeEventListener("scroll", onScroll, true); };
   }, [open]);
 
   return (
     <>
       <Link ref={ref} href={href} aria-describedby={open ? id : undefined}
+        aria-label={variant === "number" ? `Source ${index}: ${c.label}` : undefined}
         onMouseEnter={() => show(220)} onMouseLeave={hide} onFocus={() => show(0)} onBlur={hide}
         className={`evidence-chip ${c.verified ? "text-primary border-primary/30" : "text-blocker border-blocker/30"}`}>
-        <Icon name="file" size={12} />
-        {c.label}
+        {variant === "number" ? `[${index}]` : <><Icon name="file" size={12} />{c.label}</>}
       </Link>
       {open && pos && typeof document !== "undefined" && createPortal(
         <div id={id} role="tooltip"
           className="peek pointer-events-none fixed z-50 w-[min(440px,calc(100vw-16px))] rounded-lg border border-line bg-surface p-3 text-left shadow-xl"
-          style={{ top: pos.top, left: pos.left, transform: pos.above ? "translateY(-100%)" : undefined }}>
+          onMouseEnter={() => { if (timer.current) clearTimeout(timer.current); }} onMouseLeave={hide}
+          style={{ top: pos.top, left: pos.left, zIndex: 80, pointerEvents: "auto", maxHeight: pos.above ? pos.top - 12 : window.innerHeight - pos.top - 12, overflowY: "auto", transform: pos.above ? "translateY(-100%)" : undefined }}>
           {!data ? <p className="text-sm text-muted">{loaded ? "Source preview unavailable. Open the source to inspect it." : "Opening the source"}…</p> : (
             <>
               <p className="text-sm font-semibold leading-tight">{data.title}</p>

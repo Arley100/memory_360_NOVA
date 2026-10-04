@@ -73,6 +73,7 @@ export interface LlmRequest {
   maxTokens?: number;
   model?: string;   // override the per-task model (evaluation)
   effort?: string;  // override the per-task effort (evaluation)
+  signal?: AbortSignal;
 }
 
 export async function llmJSON(req: LlmRequest): Promise<unknown> {
@@ -81,6 +82,9 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
   const model = req.model || modelFor(req.task);
   const started = Date.now();
   const ctrl = new AbortController();
+  const abort = () => ctrl.abort();
+  req.signal?.addEventListener("abort", abort, { once: true });
+  if (req.signal?.aborted) ctrl.abort();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS[req.task]);
   try {
     if (provider === "anthropic") {
@@ -147,10 +151,12 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
     console.log(`[llm] ${req.task} ${model} ${lastUsage.ms}ms in=${lastUsage.input} out=${lastUsage.output}`);
     return extractJSON(data.choices?.[0]?.message?.content ?? "");
   } catch (e) {
+    if (req.signal?.aborted) throw new DOMException("Generation stopped.", "AbortError");
     if ((e as Error).name === "AbortError") throw new Error(`The model took longer than ${TIMEOUT_MS[req.task] / 1000}s (${req.task}). Try again or switch to manual mode.`);
     throw e;
   } finally {
     clearTimeout(timer);
+    req.signal?.removeEventListener("abort", abort);
   }
 }
 
