@@ -4,6 +4,7 @@ export const IMAGE_KINDS: Kind[] = ["png", "jpg", "webp", "gif"];
 export interface Source {
   id: string;
   path: string; // relative to project root, forward slashes
+  logicalPath?: string; // original source identity when a published file replaces a baseline file
   kind: Kind;
   title: string;
   authority: string;
@@ -48,5 +49,5 @@ export interface ChangeSet {
   newActions: NewAction[];
   revisedAnswers?: { id: string; text: string; citations: Cite[] }[];
   revisedBrief?: { theme: string; text: string; citations: Cite[] }[];
-  guardrails: { approvalInvented: boolean; otherConditionsClosed: boolean; beyondContractEnd: boolean; notes: string[] };
+  guardrails: { approvalInvented: boolean; otherConditionsClosed: boolean; beyondContractEnd: boolean; notes: string[]; reviewWarnings?: string[] };
 }

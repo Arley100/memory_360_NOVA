@@ -200,6 +200,14 @@
   .data-table tbody tr { border-top: 1px solid var(--color-line); }
   .data-table tbody tr:hover { background: #f9fafc; }
   .data-table td:first-child { min-width: 65px; }
+  .risk-summary { display: list-item; }
+  .risk-summary > span { margin-right: 16px; }
+  .risk-summary > .semantic-tag { margin-top: 4px; }
+  .risk-entry[open] > summary { background: #f9fafc; }
+  @media (max-width: 640px) {
+    .risk-summary > span { display: block; margin-top: 6px; }
+    .risk-summary > .semantic-tag { display: inline-flex; }
+  }
   .quote { font-family: Georgia, "Times New Roman", serif; line-height: 1.65; color: #344054; font-style: normal; }
   .watch-note { border: 1px solid var(--color-line); border-left: 3px solid var(--color-delivery); background: #fcfbf8; border-radius: 8px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 12px; font-size: 12px; }
   .watch-note svg { color: var(--color-delivery); margin-top: 3px; }

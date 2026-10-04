@@ -1,26 +1,110 @@
+import Link from "next/link";
+import { Chips } from "@/components/Chip";
 import { PageHeader } from "@/components/UI";
-export default function Guide() {
+import { resolver } from "@/lib/store";
+
+export default async function Guide() {
+  const resolve = await resolver([], []);
+  const uncertainties = [
+    {
+      title: "SEC-210",
+      text: "Fix delivered to validation; security acceptance and completed re-test results are undocumented. The ticket remains EN VALIDATION; no re-test date is given.",
+      citations: [
+        { src: "SEC-210", loc: "L23", quote: "Fix déployé sur l'environnement de validation." },
+        { src: "SEC-210", loc: "L25", quote: "Re-test planifié. Statut maintenu EN VALIDATION." },
+        { src: "M06", loc: "L7", quote: "Nous n'avons pas encore donné l'acceptation sécurité de SEC-210." },
+      ],
+    },
+    {
+      title: "ACC-303",
+      text: "Still open. A fix is announced for the next build; delivery, validated closure and a precise completion date are undocumented.",
+      citations: [{ src: "ACC-303", loc: "L16", quote: "Toujours ouvert. Correctif annoncé pour la prochaine build." }],
+    },
+    {
+      title: "OPS-601",
+      text: "Final runbook not received as of Sept 29. Rollback is TODO and post-deployment validation is incomplete; final approval and readiness date are undocumented.",
+      citations: [
+        { src: "OPS-601", loc: "L16", quote: "Toujours pas reçu la version finale." },
+        { src: "OPS-601.png", loc: "region=row-4", quote: "4. Procédure de retour arrière : TODO" },
+        { src: "OPS-601.png", loc: "region=row-5", quote: "5. Validation fonctionnelle post-déploiement : À compléter" },
+      ],
+    },
+    {
+      title: "INV-003 / CR-04",
+      text: "Invoice under validation includes CAD 18,000 for unapproved CR-04 work. An invoice reference is not approval; resolution of this line is undocumented.",
+      citations: [
+        { src: "INV-003", loc: "page=1", quote: "Optimisation interface mobile - CR-04 18 000 $" },
+        { src: "CR-04", loc: "page=1", quote: "Aucun numéro d’approbation ni signature de comité n’est présent dans ce document." },
+        { src: "E10", loc: "body:P3", quote: "Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation." },
+      ],
+    },
+    {
+      title: "Production go-live",
+      text: "Canada Central architecture and verified migration are documented. The approved Oct 22 target remains conditional on security, accessibility and runbook approval; actual production go-live is undocumented at baseline.",
+      citations: [
+        { src: "ADR-007", loc: "L10", quote: "L'environnement de production de NOVA sera déployé dans **Canada Central**." },
+        { src: "M03", loc: "L5", quote: "La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture." },
+        { src: "M06", loc: "L11", quote: "trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback." },
+      ],
+    },
+  ];
+
   return (
     <article className="guide-article">
-      <PageHeader title="Usage guide" />
+      <PageHeader title="Usage guide" subtitle="Start with Overview, ask NOVA, then inspect the evidence." />
       <section><h2 className="text-xl font-bold">Opening</h2>
-        <p>Run locally with <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>, then open http://localhost:3000. No account or subscription is needed. Chat and automatic update analysis need an API key in <code>.env.local</code>; every other page works without it.</p></section>
-      <section><h2 className="text-xl font-bold">Navigation</h2>
-        <p>The sidebar follows the project: overview, one-page brief, questions, timeline, decisions, contradictions, actions, sources, team, adding new information, and this guide. Ask from the header or the Questions page to add a sourced answer underneath the existing questions. The header shows which version you are looking at.</p></section>
-      <section><h2 className="text-xl font-bold">Finding evidence</h2>
-        <p>Every statement carries an evidence chip such as <strong>M04 · L23</strong>. Clicking it opens the file at that exact line, page, cell or screenshot row, highlighted. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. The Sources page searches every line of every file, accents optional.</p></section>
-      <section><h2 className="text-xl font-bold">Asking questions</h2>
-        <p>Use the question bar (English or French). Answers come only from the NOVA files; each citation is checked against the source text and removed if it cannot be found.</p></section>
-      <section><h2 className="text-xl font-bold">Adding new information</h2>
-        <p>Open &quot;Add new information&quot;, drop the file, review the three columns (problem status, prior decision still in force, new proposal), the affected items, the actions and the guardrails, then publish. Each publication is a new version (U001, U002…); the baseline stays untouched.</p></section>
-      <section><h2 className="text-xl font-bold">Tools and manual steps</h2>
-        <p>Next.js, TypeScript, Tailwind, mailparser, unpdf, SheetJS, mammoth, and an LLM (Anthropic or any OpenAI-compatible model) for chat, screenshot reading and update analysis. The ten answers, timeline, decisions, contradictions, actions and brief were curated by the team and every quote is machine-verified against the corpus (<code>npm run ingest</code>). The eight baseline screenshots were transcribed and checked by a human. Every update is reviewed by a person before publishing.</p></section>
-      <section className="guide-limits"><h2 className="text-xl font-bold">Limits and uncertain information</h2>
         <ul className="list-disc pl-5">
-          <li>Model answers can still misinterpret; citations are checked, interpretation is not.</li>
-          <li>Screenshots show past states; ticket status prevails.</li>
-          <li>Each answer lists what the files do not document; the system says so instead of guessing.</li>
-          <li>The knowledge base is generated by AI from the raw files and scored against a hand-curated answer key; the score is shown on the Questions page.</li>
+          <li>Open <a className="text-primary underline" href="https://memory-360-nova.vercel.app">the deployed application</a> and start at <Link className="text-primary underline" href="/">Overview</Link>. Enter the jury demo code when prompted for protected operations.</li>
+          <li>Locally: Node.js 20.9+, <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>; open <code>http://localhost:3000</code>.</li>
+        </ul>
+        <p>Jurors need no paid subscription or personal Claude/OpenAI account. Hosted AI access uses the deployment/team&apos;s server configuration and supplied demo code. For local AI features, configure <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code> + <code>LLM_MODEL</code>) in <code>.env.local</code>.</p>
+        <p>Without a configured AI provider, browsing, evidence and search still work. Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update interpretation require a configured provider.</p></section>
+      <section><h2 className="text-xl font-bold">Navigation</h2>
+        <ul className="list-disc pl-5">
+          <li><strong>Overview / Handover brief:</strong> readiness, budget, conditions and next actions / printable project summary.</li>
+          <li><strong>Build from sources:</strong> AI rebuild of the memory from indexed files, with citation checks and answer-key scoring.</li>
+          <li><strong>Timeline / Decisions:</strong> dated events / proposal → decision → delivery → validation lifecycle.</li>
+          <li><strong>Contradictions / Risks:</strong> conflicting claims and their resolution / register entries, current interpretations, stale evidence and baseline comparisons.</li>
+          <li><strong>Actions / Team:</strong> commitments or recommendations, confirmed or proposed owners, dates or TBC / roles and responsibilities.</li>
+          <li><strong>Questions / Sources / Add new information:</strong> official answers and freshness / searchable evidence / reviewed updates.</li>
+        </ul></section>
+      <section><h2 className="text-xl font-bold">Search / chat</h2>
+        <p>Header <strong>Ask</strong> opens the persistent global <strong>NOVA Assistant</strong> (EN/FR), with follow-ups and Current/Baseline modes. History stays across navigation, saved in this browser when available. Header answers stay in chat, separate from official Q01–Q10. <strong>Sources</strong> searches text without AI.</p>
+      </section>
+      <section><h2 className="text-xl font-bold">Questions and freshness</h2>
+        <ul className="list-disc pl-5">
+          <li><strong>Q01–Q10</strong> are the ten official dossier questions: cached answers, computation times, changed files and Up to date / Needs recompute / Requires review status.</li>
+          <li>Use individual refresh or Select stale → Recompute selected. More → Recompute from all sources gives full verification. After publishing, trigger recomputation of affected answers separately; this requires a configured AI provider, and failures preserve previous answers.</li>
+          <li>Expand original answers/traps. The page’s separate “Ask another question” form adds session answers below, outside official recomputation and header chat.</li>
+        </ul></section>
+      <section><h2 className="text-xl font-bold">Evidence and source navigation</h2>
+        <p>Hover or focus a citation for passage, context, authority and quote verification; click for its highlighted source location. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. Inspect metadata, attachments and original files; return via Sources. Search ignores accents; “Show noise and duplicates” reveals hidden files.</p>
+      </section>
+      <section><h2 className="text-xl font-bold">Adding new information</h2>
+        <p><strong>Upload → analyze → review → publish → affected memory.</strong> With a configured AI provider, drop files/ZIP; review problem status, prior decisions, new proposals, affected items, actions, revised answers/brief and guardrails. Correct flagged content. Publish creates U001, U002… with sources/history; inspect current conditions/brief and recompute affected official questions.</p>
+        <p>Without a provider, source files can still be uploaded, supported text extracted and reviewed, and published as a new version. The manual fallback edits only problem status, prior decisions and proposal text. It has no controls for citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was not performed, not that no items are affected. Publishing runs code guardrails; it does not complete impact analysis or recompute answers. A configured demo code is still required for upload and publication.</p>
+        <p>New images need a vision-capable provider for transcription. Scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically read. Existing baseline screenshot transcriptions remain available.</p>
+      </section>
+      <section><h2 className="text-xl font-bold">Baseline vs current</h2>
+        <p><strong>Sep 30, 2026, 09:00 Montréal</strong> is the preserved baseline. Current includes published updates. Check header version, history and Assistant mode; earlier replies keep their original context. Ask again after updates.</p>
+      </section>
+      <section><h2 className="text-xl font-bold">Tools and automation</h2>
+        <ul className="list-disc pl-5">
+          <li>AI accelerates analysis: Anthropic or an OpenAI-compatible provider. Build, chat, recomputation, automatic update analysis and new screenshot transcription require configured AI. Local setup: <code>.env.local</code>, following <code>.env.example</code>.</li>
+          <li>AI off: browse/search evidence and existing memory; parse text uploads, fill three review columns manually and publish. No automatic impact analysis; new image text requires vision support.</li>
+          <li>Next.js/React/TypeScript and document parsers; Vercel/Upstash hosting/storage. Claude, ChatGPT and Codex assisted development. AI-built memory is scored against a human-curated key.</li>
+        </ul></section>
+      <section><h2 className="text-xl font-bold">Manual review and limitations</h2>
+        <ul className="list-disc pl-5">
+          <li>NOVA facts require supplied corpus evidence. Citations are verified against indexed sources; AI can be wrong, unsupported claims are flagged, and quote matching does not prove conclusions.</li>
+          <li>Human-review changes before publishing: extracted text, authority, approvals, owners and TBC dates. Baseline screenshots were human-transcribed; verify new image extraction.</li>
+          <li>Newer timestamps do not necessarily mean higher authority. Screenshots show past states; compare validation and dates of facts. Duplicates are not independent evidence.</li>
+          <li>Undocumented outcomes remain unknown. Hosted uploads: about 4.5 MB; split larger batches. Configured AI can still fail.</li>
+        </ul></section>
+      <section className="guide-limits"><h2 className="text-xl font-bold">Current documented uncertainties</h2>
+        <p>Verified baseline gaps below; published updates may supersede them. Check current evidence and question freshness.</p>
+        <ul className="list-disc pl-5 space-y-2">
+          {uncertainties.map((item) => <li key={item.title}><strong>{item.title}:</strong> {item.text}{" "}<Chips cites={item.citations.map(resolve)} /></li>)}
         </ul></section>
     </article>
   );

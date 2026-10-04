@@ -2,7 +2,7 @@
 // Run: npm run ingest   (deterministic; no LLM needed: screenshots use data/vision/transcriptions.json)
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
+import { sha256 as sha } from "../src/lib/hash";
 import { parseFile, kindOf, type Transcription } from "../src/lib/ingest";
 import { indexSegments, resolveCite } from "../src/lib/cite";
 import type { Cite, Segment, Source } from "../src/lib/types";
@@ -15,7 +15,6 @@ const vision: Record<string, Transcription> = JSON.parse(fs.readFileSync(path.jo
 
 const walk = (d: string): string[] =>
   fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
-const sha = (b: Buffer) => crypto.createHash("sha256").update(b).digest("hex");
 const posix = (p: string) => p.split(path.sep).join("/");
 
 async function main() {

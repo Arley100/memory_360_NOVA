@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { guard } from "@/lib/access";
 import { updateStore, type StoredFile } from "@/lib/updateStore";
 import { parseFile } from "@/lib/ingest";
+import { sha256 } from "@/lib/hash";
 import { llmJSON, llmProvider, modelFor, visionTranscribe } from "@/lib/llm";
 import { askContext } from "@/lib/ask";
 import { CITATION_FORMAT, RULES } from "@/lib/prompts";
@@ -61,9 +62,11 @@ export async function POST(req: Request) {
         const stored: StoredFile[] = [];
         const vision = llmProvider() ? visionTranscribe : undefined;
         const segments: Segment[] = [];
+        const sourceHashes: Record<string, string> = {};
         const names: string[] = [];
         let contentDate: string | undefined;
         const ingestOne = async (buf: Buffer, name: string, src: string, depth: number) => {
+          sourceHashes[src] = sha256(buf);
           const p = await parseFile(buf, name, { vision });
           if (src === "NEW") contentDate = p.contentDate;
           segments.push(...p.segments.map((x) => ({ src, ...x })));
@@ -75,12 +78,12 @@ export async function POST(req: Request) {
           await ingestOne(f.buf, f.name, i === 0 ? "NEW" : `NEW>${f.name}`, 0);
         }
         const filename = names.join(" + ");
-        await updateStore().saveDraft(draftId, { filename, files: names, contentDate, segments }, stored);
+        await updateStore().saveDraft(draftId, { filename, files: names, contentDate, segments, sourceHashes }, stored);
         stage("read", "done", `${names.length} file(s) · ${segments.length} passages read`);
 
         if (!llmProvider()) {
           const cs = emptyChangeSet(filename);
-          cs.guardrails.notes.push("No LLM key configured: fill the three columns by hand (manual mode). The file was parsed and is citable as NEW.");
+          cs.guardrails.notes.push("No AI provider configured: review the extracted passages and edit only problem status, prior decisions and proposal text. You can publish the source files and these notes, but this editor cannot add affected items, condition changes, new actions, revised answers/brief, formal decisions or citation/authority metadata. Empty impact fields mean analysis was not performed, not that nothing is affected. New images are not transcribed without a vision provider.");
           send({ type: "result", draftId, segments, changeset: cs });
           return;
         }

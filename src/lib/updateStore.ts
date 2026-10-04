@@ -8,7 +8,7 @@ import path from "path";
 import type { ChangeSet, Segment, Source } from "./types";
 
 export interface Update { cs: ChangeSet; sources: Source[]; segments: Segment[] }
-export interface Draft { filename: string; files: string[]; contentDate?: string; segments: Segment[] }
+export interface Draft { filename: string; files: string[]; contentDate?: string; segments: Segment[]; sourceHashes?: Record<string, string> }
 export interface StoredFile { name: string; data: Buffer }
 
 export interface UpdateStore {
@@ -27,8 +27,7 @@ export interface UpdateStore {
 const MAX_STORED_FILE = 4 * 1024 * 1024; // originals larger than this keep their extracted text only (hosted)
 
 // ---------- Local files ----------
-function fileStore(): UpdateStore {
-  const root = path.join(process.cwd(), "data", "updates");
+export function createFileUpdateStore(root: string): UpdateStore {
   const pending = path.join(root, "_pending");
   const complete = (d: string) => ["changeset.json", "sources.json", "segments.json"].every((f) => fs.existsSync(path.join(root, d, f)));
   const read = <T,>(d: string, f: string): T => JSON.parse(fs.readFileSync(path.join(root, d, f), "utf8")) as T;
@@ -85,7 +84,7 @@ function fileStore(): UpdateStore {
 }
 
 // ---------- Upstash Redis (REST) ----------
-function redisStore(url: string, token: string): UpdateStore {
+export function createRedisUpdateStore(url: string, token: string): UpdateStore {
   const P = process.env.STORE_PREFIX || "m360";
   const cmd = async (...args: (string | number)[]): Promise<unknown> => {
     const res = await fetch(url, { method: "POST", headers: { authorization: `Bearer ${token}`, "content-type": "application/json" }, body: JSON.stringify(args), cache: "no-store" });
@@ -160,6 +159,6 @@ export function updateStore(): UpdateStore {
   if (cached) return cached;
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
-  cached = url && token ? redisStore(url, token) : fileStore();
+  cached = url && token ? createRedisUpdateStore(url, token) : createFileUpdateStore(path.join(process.cwd(), "data", "updates"));
   return cached;
 }

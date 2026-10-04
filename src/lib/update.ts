@@ -5,7 +5,7 @@ import { indexSegments, resolveCite } from "./cite";
 import { plain } from "./text";
 
 export interface ProjectFacts {
-  conditions: { id: number; title: string; owner: string }[];
+  conditions: { id: number; title: string; owner: string; status?: "open" | "met" }[];
   goLive: { date: string; headline?: string; citations?: Cite[] };
   contractEnd?: string; // YYYY-MM-DD
 }
@@ -18,7 +18,8 @@ const MONTHS: Record<string, number> = { janvier: 1, january: 1, fevrier: 2, feb
   juillet: 7, july: 7, aout: 8, august: 8, septembre: 9, september: 9, octobre: 10, october: 10, novembre: 11, november: 11, decembre: 12, december: 12 };
 // All dates mentioned in a text, as YYYY-MM-DD (year defaults to the given one).
 export function datesIn(text: string, year: number): string[] {
-  const t = fold(text), out: string[] = [];
+  const t = fold(text).replace(/\b(jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\.?\b/g,
+    (m) => ({ jan: "january", feb: "february", mar: "march", apr: "april", jun: "june", jul: "july", aug: "august", sep: "september", sept: "september", oct: "october", nov: "november", dec: "december" }[m.replace(".", "")] ?? m)), out: string[] = [];
   const pad = (n: number) => String(n).padStart(2, "0");
   for (const m of t.matchAll(/(?<!\d)(\d{1,2})(?:er|st|nd|rd|th)?\s+(janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre|january|february|march|april|may|june|july|august|september|october|november|december)/g)) out.push(`${year}-${pad(MONTHS[m[2]])}-${pad(+m[1])}`);
   for (const m of t.matchAll(/(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2})(?!\d)/g)) out.push(`${year}-${pad(MONTHS[m[1]])}-${pad(+m[2])}`);
@@ -27,6 +28,11 @@ export function datesIn(text: string, year: number): string[] {
 }
 const CLOSING = /ferm|valid|accept|approuv|clos|re-?test ok|\bok\b|go exploitation/i;
 const APPROVAL = /approuv|d[ée]cid|approv|ent[ée]rin|adopt/i;
+const quotedApproval = (quote: string) => APPROVAL.test(quote) && !/not (?:yet )?approved|unapproved|non approuv|pas approuv|sans approbation/i.test(quote);
+
+export function dedupeWarnings(notes: string[]): string[] {
+  return Array.from(new Map(notes.map((n) => [fold(n).replace(/\s+/g, " ").trim(), n])).values());
+}
 
 export function emptyChangeSet(filename: string): ChangeSet {
   return {
@@ -39,6 +45,8 @@ export function emptyChangeSet(filename: string): ChangeSet {
 export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segment[], facts: ProjectFacts): ChangeSet {
   const idx = indexSegments([...baseline, ...fresh]);
   const notes: string[] = [];
+  const reviewWarnings: string[] = [];
+  const review = (note: string) => { notes.push(note); reviewWarnings.push(note); };
   let dropped = 0;
   const clean = (cites: Cite[] = []) => {
     const ok = cites.map((c) => resolveCite(c, idx)).filter((c) => c.verified).map(({ src, quote, loc }) => ({ src, quote, loc }));
@@ -49,6 +57,14 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   const fromNew = (c: Cite) => c.src.startsWith("NEW");
   const segText = (c: Cite) => (idx.get(c.src) ?? []).map((s) => s.text).join(" ");
   const newHeaders = fresh.filter((s) => s.loc === "header:From").map((s) => s.text).join(" ");
+  const ownerCloses = (id: number, cites: Cite[]) => {
+    const cond = facts.conditions.find((x) => x.id === id);
+    const names = cond ? ownerNames(cond.owner) : [];
+    const byOwner = (t: string) => names.some((n) => fold(t).includes(n));
+    return cites.some((c) => fromNew(c) && CLOSING.test(c.quote)
+      && !/not (?:yet )?(?:validated|accepted|closed)|not close|do not close|pas valid|pas ferm|ne pas ferm/i.test(c.quote)
+      && (byOwner(c.quote) || byOwner(segText(c)) || byOwner(newHeaders)));
+  };
 
   const out: ChangeSet = { ...emptyChangeSet(cs.filename), ...cs };
   out.problemStatus = items(cs.problemStatus);
@@ -59,8 +75,8 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   // 1. A "decision" needs a quoted approval in the new file; otherwise it is only a proposal.
   out.newDecisions = [];
   for (const d of items(cs.newDecisions)) {
-    if (d.citations.some((c) => fromNew(c) && APPROVAL.test(c.quote))) out.newDecisions.push(d);
-    else { out.newProposals.push({ ...d, proposer: d.authority ?? "unknown" }); notes.push(`Moved to proposals (no quoted approval by the proper authority): "${d.text}"`); }
+    if (d.citations.some((c) => fromNew(c) && quotedApproval(c.quote))) out.newDecisions.push(d);
+    else { out.newProposals.push({ ...d, proposer: d.authority ?? "unknown" }); review(`Moved to proposals (no quoted approval by the proper authority): "${d.text}"`); }
   }
 
   // 2. A go-live condition closes only if its validating owner is quoted closing it in the new file.
@@ -68,12 +84,9 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   for (const ch of cs.conditionChanges ?? []) {
     const cites = clean(ch.citations);
     if (ch.status !== "met") { out.conditionChanges.push({ ...ch, citations: cites }); continue; }
-    const cond = facts.conditions.find((x) => x.id === ch.id);
-    const names = cond ? ownerNames(cond.owner) : [];
-    const byOwner = (t: string) => names.some((n) => fold(t).includes(n));
-    const ok = cites.some((c) => fromNew(c) && CLOSING.test(c.quote) && (byOwner(c.quote) || byOwner(segText(c)) || byOwner(newHeaders)));
+    const ok = ownerCloses(ch.id, cites);
     if (ok) out.conditionChanges.push({ ...ch, citations: cites });
-    else notes.push(`Condition ${ch.id} NOT closed: the new file does not quote its validating owner closing it.`);
+    else review(`Condition ${ch.id} NOT closed: the new file does not quote its validating owner closing it.`);
   }
 
   // 3. A new date proposal never replaces the approved go-live decision by itself.
@@ -94,24 +107,52 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   out.revisedBrief = (cs.revisedBrief ?? []).filter((b) => b.text?.trim()).map((b) => ({ ...b, text: plain(b.text), citations: clean(b.citations) }));
   out.summary = plain(cs.summary);
   for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, ...a })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, ...b }))]) {
-    if (!x.citations.length) notes.push(`${x.label}: revised text has no verified citation. Review it before publishing.`);
+    if (!x.citations.length) review(`${x.label}: revised text has no verified citation. Review it before publishing.`);
   }
-  if (out.newDecisions.length === 0) {
+  {
     // Compare calendar days (any order, French or English): "5 November", "November 5", "5 novembre", "2026-11-05".
-    const proposed = new Set(out.newProposals.flatMap((p) => datesIn(p.text, year)).filter((d) => d !== approvedDay));
-    const DATE_AT = /(?<!\d)\d{1,2}(?:er|st|nd|rd|th)?\s+(?:janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre|january|february|march|april|may|june|july|august|september|october|november|december)|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}(?!\d)|\b20\d\d-\d{2}-\d{2}\b/gi;
-    for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, text: a.text })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, text: b.text }))]) {
+    const proposed = new Set([...out.newProposals.flatMap((p) => datesIn(p.text, year)), ...fresh.flatMap((s) => datesIn(s.text, year))].filter((d) => d !== approvedDay));
+    const approvedDates = new Set(out.newDecisions.filter((d) => /go-live|go live|mise en production/i.test(d.text)).flatMap((d) =>
+      d.citations.filter((c) => fromNew(c) && quotedApproval(c.quote)).flatMap((c) => datesIn(c.quote, year))));
+    const DATE_AT = /(?<!\d)\d{1,2}(?:er|st|nd|rd|th)?\s+(?:janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre|january|february|march|april|may|june|july|august|september|october|november|december)|(?:january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\.?\s+\d{1,2}(?!\d)|\b20\d\d-\d{2}-\d{2}\b/gi;
+    for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, text: a.text })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, text: b.text })),
+      ...out.priorDecisions.map((p) => ({ label: "Prior decision", text: p.text })),
+      ...out.newProposals.map((p) => ({ label: "New proposal", text: p.text })),
+      ...out.newDecisions.map((p) => ({ label: "New decision", text: p.text })),
+      ...out.problemStatus.map((p) => ({ label: "Problem status", text: p.text })), { label: "Summary", text: out.summary }]) {
       const flagged = new Set<string>();
       for (const m of x.text.matchAll(DATE_AT)) {
         const iso = datesIn(m[0], year)[0];
-        if (!iso || !proposed.has(iso) || flagged.has(iso)) continue;
+        if (!iso || (!proposed.has(iso) && !/go-live|go live/i.test(x.text) && x.label !== "Q01") || iso === approvedDay || approvedDates.has(iso) || flagged.has(iso)) continue;
         const i = m.index ?? 0;
         const around = x.text.slice(Math.max(0, i - 80), i + m[0].length + 80);
         if (/approuv|approved|officiel|official|confirm[ée]|d[ée]cid/i.test(around)
             && !/non approuv|pas approuv|not approved|not yet approved|unapproved|proposal|proposition|propos|suggest/i.test(around)) {
           flagged.add(iso);
-          notes.push(`${x.label}: may present the proposed date (${m[0]}) as approved, but no approval was quoted. Review before publishing.`);
+          review(`${x.label}: may present the proposed date (${m[0]}) as approved, but no approval was quoted. Review before publishing.`);
         }
+      }
+    }
+  }
+
+  // The same validating-owner rule applies to narrative edits, not just status badges.
+  const narrative = [...out.problemStatus.map((x) => ({ ...x, label: "Problem status" })),
+    ...out.priorDecisions.map((x) => ({ ...x, label: "Prior decision" })),
+    ...out.newProposals.map((x) => ({ ...x, label: "New proposal" })),
+    ...out.newDecisions.map((x) => ({ ...x, label: "New decision" })),
+    ...out.revisedAnswers.map((x) => ({ ...x, label: x.id })),
+    ...out.revisedBrief.map((x) => ({ ...x, label: `brief "${x.theme}"` })),
+    { label: "Summary", text: out.summary, citations: [...out.problemStatus, ...out.newDecisions, ...(out.revisedAnswers ?? [])].flatMap((x) => x.citations) }];
+  for (const x of narrative) {
+    for (const cond of facts.conditions) {
+      const tickets = cond.title.match(/\b[A-Z]+-\d+\b/g) ?? [];
+      const assertsClosure = x.text.split(/[.!?;\n]/).some((sentence) =>
+        (tickets.some((ticket) => sentence.includes(ticket))
+          || (cond.id === 1 && x.label === "Q08") || (cond.id === 3 && /runbook/i.test(sentence))) &&
+        /\b(validated|accepted|closed|approved|met)\b/i.test(sentence)
+        && !/\b(not|no|pending|unvalidated|unaccepted|unapproved|until|requires?|must|needs?|remains open|en validation)\b/i.test(sentence));
+      if (assertsClosure && cond.status !== "met" && !ownerCloses(cond.id, x.citations)) {
+        review(`${x.label}: Condition ${cond.id} NOT closed: delivery or a vendor claim does not establish validation by ${cond.owner}.`);
       }
     }
   }
@@ -122,13 +163,14 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   const lateDates = end ? datesIn(text, year).filter((d) => d > end) : [];
   const late = lateDates.length > 0;
   if (late) notes.push(`A date after the contract end (${end}) appears (${Array.from(new Set(lateDates)).join(", ")}): outside the contract period, a contractual amendment would be needed.`);
-  if (dropped) notes.push(`${dropped} citation(s) removed because the quote was not found in the cited file.`);
+  if (dropped) review(`${dropped} citation(s) removed because the quote was not found in the cited file.`);
 
   out.affected = {
     answers: cs.affected?.answers ?? [],
     conditions: Array.from(new Set([...(cs.affected?.conditions ?? []), ...out.conditionChanges.map((c) => c.id)])),
     actions: cs.affected?.actions ?? [],
   };
-  out.guardrails = { approvalInvented: false, otherConditionsClosed: false, beyondContractEnd: late, notes: [...(cs.guardrails?.notes ?? []), ...notes] };
+  out.guardrails = { approvalInvented: false, otherConditionsClosed: false, beyondContractEnd: late,
+    notes: dedupeWarnings([...(cs.guardrails?.notes ?? []), ...notes]), reviewWarnings: dedupeWarnings(reviewWarnings) };
   return out;
 }

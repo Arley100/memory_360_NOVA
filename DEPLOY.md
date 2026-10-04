@@ -11,6 +11,22 @@ team test and rehearse from a browser.
   publish and reset. Browsing, evidence and search stay open. A browser stays unlocked for 7 days.
 - **Uploads are limited to about 4.5 MB per request** (hosting limit). Compress or split larger files.
 
+Jurors need no paid subscription or personal Claude/OpenAI account. AI access is provided by the
+deployment/team's server configuration; jurors use the supplied demo code.
+
+Without a configured AI provider, browsing, evidence and search still work. Source files can be uploaded,
+supported text extracted and reviewed, and published as a new version (with the demo code if configured).
+The manual fallback edits only problem status, prior decisions and proposal text. It has no controls for
+citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions,
+condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was
+not performed, not that no items are affected. Publishing runs code guardrails and preserves the baseline;
+it does not complete impact analysis or recompute answers.
+
+Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update
+interpretation require a configured provider. New images need a vision-capable provider for transcription;
+scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically
+read. Existing baseline screenshot transcriptions remain available.
+
 ## Steps (about 10 minutes)
 
 1. **Push the repo to GitHub** (private is fine).

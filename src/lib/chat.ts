@@ -4,6 +4,7 @@ import { RULES, CITATION_FORMAT } from "./prompts";
 import { allSources, resolver, updates, type Update } from "./store";
 import { plain } from "./text";
 import type { Cite } from "./types";
+import { updateFingerprint } from "./updateFingerprint";
 import { BLOCK_TYPES, chatContext, citationKey, type ChatAnswer, type ChatBlock, type ChatHistory, type ChatMeta, type ChatMode } from "./chatTypes";
 
 export const CHAT_SYSTEM = `You are NOVA Assistant, the conversational interface to Mémoire 360's operational project memory.
@@ -24,9 +25,11 @@ Return JSON only: {"language":"en"|"fr","blocks":[{"type":"answer"|"heading"|"bu
 Return at most 24 blocks and 3 specific useful follow-ups. Never cite conversation or update summaries; only actual source segments.`;
 
 export async function chatMeta(snapshot?: Update[]): Promise<ChatMeta> {
-  const ids = (snapshot ?? await updates()).map((u) => u.cs.id).sort();
-  return { baseline: "2026-09-30T09:00:00-04:00", updateIds: ids, latestUpdateId: ids.at(-1), contextKey: chatContext("current", ids).contextKey, providerAvailable: Boolean(llmProvider()) };
+  const identities = chatUpdateIdentities(snapshot ?? await updates());
+  const context = chatContext("current", identities);
+  return { baseline: "2026-09-30T09:00:00-04:00", updates: identities, updateIds: context.updateIds, latestUpdateId: context.updateIds.at(-1), contextKey: context.contextKey, providerAvailable: Boolean(llmProvider()) };
 }
+const chatUpdateIdentities = (snapshot: Update[]) => snapshot.map((u) => ({ id: u.cs.id, fingerprint: updateFingerprint(u) }));
 function object(v: unknown): Record<string, unknown> { return v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {}; }
 const strings = (v: unknown, cap: number) => Array.isArray(v) ? v.filter((s): s is string => typeof s === "string").slice(0, cap).map((s) => plain(s).slice(0, 1000)).filter(Boolean) : [];
 function citations(v: unknown): Cite[] {
@@ -50,7 +53,8 @@ export function parseChatRequest(value: unknown): { question: string; mode: Chat
 }
 
 export async function chatProject(question: string, mode: ChatMode, history: ChatHistory[], opts: { snapshot?: Update[]; signal?: AbortSignal; onStage?: (stage: string) => void } = {}): Promise<ChatAnswer> {
-  const snapshot = mode === "baseline" ? [] : (opts.snapshot ?? await updates()).slice().sort((a, b) => a.cs.id.localeCompare(b.cs.id));
+  const snapshot = mode === "baseline" ? [] : (opts.snapshot ?? await updates()).slice();
+  const answerContext = chatContext(mode, chatUpdateIdentities(snapshot));
   const context = await askContext("corpus", snapshot);
   const sources = await allSources(snapshot);
   const authority = JSON.stringify(sources.map(({ id, title, authority, role, contentDate, duplicateOf, version }) => ({ id, title, authority, role, contentDate, duplicateOf, version })));
@@ -100,6 +104,6 @@ export async function chatProject(question: string, mode: ChatMode, history: Cha
   const all = [...new Map(blocks.flatMap((b) => b.citations).map((c) => [citationKey(c), c])).values()];
   const missing = strings(out.missing, 12);
   return { id: crypto.randomUUID(), question, answeredAt: new Date().toISOString(), language: out.language === "fr" ? "fr" : "en",
-    context: chatContext(mode, snapshot.map((u) => u.cs.id)), blocks, citations: all, missing, followUps: strings(out.followUps, 3), dropped,
+    context: answerContext, blocks, citations: all, missing, followUps: strings(out.followUps, 3), dropped,
     evidenceStatus: !facts.length || !all.length ? "none" : facts.some((b) => b.evidence === "unsupported") || missing.length || dropped ? "partial" : "full", provider: llmProvider() ?? "", model: modelFor("ask") };
 }
