@@ -2,7 +2,7 @@
 // so the evaluation measures exactly what the jury sees.
 import { lastUsage, llmJSON, type LlmUsage } from "./llm";
 import { CITATION_FORMAT, corpusContext, kbContext, RULES } from "./prompts";
-import { resolver, updates } from "./store";
+import { resolver, updates, type Update } from "./store";
 import type { Cite, ResolvedCite } from "./types";
 
 export interface AskResult {
@@ -28,8 +28,8 @@ export type ContextMode = "full" | "corpus";
 export const contextMode = (m?: string): ContextMode => ((m ?? process.env.ASK_CONTEXT) === "full" ? "full" : "corpus");
 
 // "full": curated knowledge base + corpus. "corpus": raw files only, so every answer is the model's own analysis.
-export async function askContext(mode: ContextMode = contextMode()): Promise<string> {
-  const ups = await updates();
+export async function askContext(mode: ContextMode = contextMode(), snapshot?: Update[]): Promise<string> {
+  const ups = snapshot ?? await updates();
   if (mode === "corpus") {
     const changes = ups.length ? `\n\nPUBLISHED UPDATES (newer information):\n${JSON.stringify(ups.map((u) => u.cs))}` : "";
     return `CORPUS SEGMENTS (all project files, reference date 2026-09-30 09:00):\n${await corpusContext(ups)}${changes}`;
@@ -37,12 +37,13 @@ export async function askContext(mode: ContextMode = contextMode()): Promise<str
   return `KNOWLEDGE BASE (curated, verified):\n${await kbContext(ups)}\n\nCORPUS SEGMENTS:\n${await corpusContext(ups)}`;
 }
 
-export async function askProject(question: string, opts: { model?: string; effort?: string; context?: string } = {}): Promise<AskResult> {
-  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: await askContext(contextMode(opts.context)), user: `QUESTION: ${question}`, model: opts.model, effort: opts.effort })) as {
+export async function askProject(question: string, opts: { model?: string; effort?: string; context?: string; updates?: Update[] } = {}): Promise<AskResult> {
+  const snapshot = opts.updates ?? await updates();
+  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: await askContext(contextMode(opts.context), snapshot), user: `QUESTION: ${question}`, model: opts.model, effort: opts.effort })) as {
     answer?: string; citations?: Cite[]; missing?: string[]; recommendations?: string[];
   };
   const usage = lastUsage;
-  const r = await resolver();
+  const r = await resolver([], snapshot);
   const cites = (out.citations ?? []).map(r);
   const verified = cites.filter((c) => c.verified);
   return {

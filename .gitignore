@@ -46,3 +46,4 @@ data/updates/_pending/
 # local rehearsal updates are never committed (hosted updates live in Redis)
 data/updates/U*
 data/updates/*.tmp
+data/question-computations/

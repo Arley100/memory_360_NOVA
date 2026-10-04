@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["mailparser", "unpdf", "mammoth", "xlsx", "jszip"],
   // Hosted deployments (e.g. Vercel) must ship the corpus and the knowledge base with the server code.
   outputFileTracingIncludes: { "/*": ["./data/**/*", "./corpus/**/*"], "/**": ["./data/**/*", "./corpus/**/*"] },
-  outputFileTracingExcludes: { "/*": ["./data/updates/**/*", "./data/eval/results/**/*"], "/**": ["./data/updates/**/*", "./data/eval/results/**/*"] },
+  outputFileTracingExcludes: { "/*": ["./data/updates/**/*", "./data/question-computations/**/*", "./data/eval/results/**/*"], "/**": ["./data/updates/**/*", "./data/question-computations/**/*", "./data/eval/results/**/*"] },
 };
 
 export default nextConfig;
