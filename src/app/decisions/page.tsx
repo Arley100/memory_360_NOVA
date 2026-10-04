@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/UI";
 import { kb } from "@/lib/store";
 
 export default function Decisions() {
@@ -5,11 +6,10 @@ export default function Decisions() {
   const cols = ["Proposed", "Decided", "Delivered", "Validated"] as const;
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Decisions</h1>
-      <p className="text-muted">Each decision&apos;s lifecycle. A proposal is not a decision; a delivery is not a validation.</p>
-      <div className="overflow-x-auto rounded-lg border border-line bg-surface">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-canvas"><tr><th className="p-3">Subject</th>{cols.map((c) => <th key={c} className="p-3">{c}</th>)}<th className="p-3">Status</th></tr></thead>
+      <PageHeader title="Decisions" subtitle={<>Each decision&apos;s lifecycle. A proposal is not a decision; a delivery is not a validation.</>} />
+      <div className="panel overflow-x-auto">
+        <table className="data-table">
+          <thead className="bg-canvas"><tr><th className="p-3">Subject</th>{cols.map((c) => <th key={c} className="p-3"><span className={`stage-marker stage-${c.toLowerCase()}`} />{c}</th>)}<th className="p-3">Status</th></tr></thead>
           <tbody className="divide-y divide-line">
             {k.decisions.map((d) => (
               <tr key={d.id}>

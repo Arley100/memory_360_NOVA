@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/UI";
 import { Chips, Tag } from "@/components/Chip";
 import { kb, resolver, updates } from "@/lib/store";
 
@@ -9,10 +10,9 @@ export default async function Actions() {
   const rows = [...k.actions, ...extra];
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Actions</h1>
-      <p className="text-muted">Owner is confirmed (named in the corpus) or proposed (our suggestion). Due dates are never invented: unknown dates are marked TBC.</p>
-      <div className="overflow-x-auto rounded-lg border border-line bg-surface">
-        <table className="w-full text-left text-sm">
+      <PageHeader title="Actions" subtitle={<>Owner is confirmed (named in the corpus) or proposed (our suggestion). Due dates are never invented: unknown dates are marked TBC.</>} />
+      <div className="panel overflow-x-auto">
+        <table className="data-table">
           <thead className="bg-canvas"><tr>{["ID", "Action", "Condition", "Owner", "Type", "Due", "Evidence"].map((h) => <th key={h} className="p-3">{h}</th>)}</tr></thead>
           <tbody className="divide-y divide-line">
             {rows.map((a) => (

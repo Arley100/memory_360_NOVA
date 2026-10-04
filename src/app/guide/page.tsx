@@ -1,7 +1,8 @@
+import { PageHeader } from "@/components/UI";
 export default function Guide() {
   return (
-    <article className="max-w-3xl space-y-5 leading-relaxed">
-      <h1 className="text-3xl font-bold">Usage guide</h1>
+    <article className="guide-article">
+      <PageHeader title="Usage guide" />
       <section><h2 className="text-xl font-bold">Opening</h2>
         <p>Run locally with <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>, then open http://localhost:3000. No account or subscription is needed. Chat and automatic update analysis need an API key in <code>.env.local</code>; every other page works without it.</p></section>
       <section><h2 className="text-xl font-bold">Navigation</h2>
@@ -14,7 +15,7 @@ export default function Guide() {
         <p>Open &quot;Add new information&quot;, drop the file, review the three columns (problem status, prior decision still in force, new proposal), the affected items, the actions and the guardrails, then publish. Each publication is a new version (U001, U002…); the baseline stays untouched.</p></section>
       <section><h2 className="text-xl font-bold">Tools and manual steps</h2>
         <p>Next.js, TypeScript, Tailwind, mailparser, unpdf, SheetJS, mammoth, and an LLM (Anthropic or any OpenAI-compatible model) for chat, screenshot reading and update analysis. The ten answers, timeline, decisions, contradictions, actions and brief were curated by the team and every quote is machine-verified against the corpus (<code>npm run ingest</code>). The eight baseline screenshots were transcribed and checked by a human. Every update is reviewed by a person before publishing.</p></section>
-      <section><h2 className="text-xl font-bold">Limits and uncertain information</h2>
+      <section className="guide-limits"><h2 className="text-xl font-bold">Limits and uncertain information</h2>
         <ul className="list-disc pl-5">
           <li>Model answers can still misinterpret; citations are checked, interpretation is not.</li>
           <li>Screenshots show past states; ticket status prevails.</li>

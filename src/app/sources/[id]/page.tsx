@@ -1,3 +1,4 @@
+import { Icon } from "@/components/UI";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ScrollToMark } from "@/components/ScrollToMark";
@@ -43,7 +44,7 @@ export default async function SourceView({ params, searchParams }: { params: Pro
     if (hit) firstHit = false;
     return (
       <div key={x.loc} id={x.loc} data-hit={flag}
-        className={`grid grid-cols-[6rem_1fr] gap-3 px-3 py-1 ${hit ? "bg-marker/40" : ""}`}>
+        className={`source-passage ${hit ? "is-cited" : ""}`}>
         <span className="select-none text-right text-sm text-muted">{label}</span>
         <span className="quote whitespace-pre-wrap">{hit ? highlight(x.text, q) : x.text}</span>
       </div>
@@ -66,7 +67,7 @@ export default async function SourceView({ params, searchParams }: { params: Pro
       return (
         <div key={sh} className="overflow-x-auto">
           <p className="px-3 py-2 font-semibold">Sheet “{sh}”</p>
-          <table className="text-sm">
+          <table className="source-grid">
             <thead><tr><th className="p-1" />{cols.map((c) => <th key={c} className="p-1 text-muted">{c}</th>)}</tr></thead>
             <tbody>
               {rows.map((r) => (
@@ -88,40 +89,38 @@ export default async function SourceView({ params, searchParams }: { params: Pro
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <ScrollToMark />
-      <Link href="/sources" className="text-primary underline">← All sources</Link>
-      <div className="flex flex-wrap items-center gap-2">
-        <h1 className="text-2xl font-bold">{s.id}</h1>
-        <span className="text-muted">{s.title}</span>
-      </div>
-      <p className="text-sm text-muted">
-        <code>{s.path}</code> · {s.kind} · authority: {s.authority.toLowerCase()} · role: {s.role.toLowerCase()}
-        {s.contentDate ? ` · content date ${s.contentDate.slice(0, 10)}` : ""}
-        {loc ? ` · locator ${prettyLoc(loc)}` : ""}
-      </p>
-      {s.note && <p className="rounded-md border border-line bg-surface p-2 text-sm">Note: {s.note}</p>}
-      {target && <p className="rounded-md border border-delivery/40 bg-delivery/5 p-2 text-sm">Identical to <Link className="underline" href={`/sources/${encodeURIComponent(target.id)}`}>{target.id}</Link>: not an independent confirmation.</p>}
-      {IMAGE_KINDS.includes(s.kind) && (
-        <>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`/api/raw?path=${encodeURIComponent(rawPath)}`} alt={`Screenshot ${s.id}`} className="max-h-[480px] rounded border border-line" />
-          {s.version === "baseline" && <p className="text-sm text-delivery">A screenshot shows a past state; the ticket status prevails.</p>}
-        </>
-      )}
-      {!s.parent && <a className="inline-block text-sm text-primary underline" href={`/api/raw?path=${encodeURIComponent(rawPath)}`} target="_blank">Open original file</a>}
-      <div className="rounded-lg border border-line bg-surface py-2">
-        {grid ?? segs.map((x) => row(x, prettyLoc(x.loc)))}
-        {segs.length === 0 && <p className="p-3 text-muted">No extracted text for this item.</p>}
-      </div>
-      {children.length > 0 && (
-        <div>
-          <p className="font-semibold">Attachments</p>
-          <ul className="list-disc pl-5">{children.map((c) => (
-            <li key={c.id}>{c.title}{c.duplicateOf && <> · same file as <Link className="text-primary underline" href={`/sources/${encodeURIComponent(c.duplicateOf)}`}>{c.duplicateOf}</Link></>}</li>
-          ))}</ul>
+      <Link href="/sources" className="source-breadcrumb">Sources / {s.id}</Link>
+      <div className="page-header"><div><p className="section-label mb-2">Evidence workbench</p><h1>{s.id}</h1><p className="mt-2 text-muted">{s.title}</p></div>{!s.parent && <a className="button-secondary flex items-center gap-2" href={`/api/raw?path=${encodeURIComponent(rawPath)}`} target="_blank" rel="noreferrer"><Icon name="link" size={15} />Open original file</a>}</div>
+      <div className="source-workbench">
+        <div className="min-w-0 space-y-5">
+          {IMAGE_KINDS.includes(s.kind) && <section className="panel source-image">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/api/raw?path=${encodeURIComponent(rawPath)}`} alt={`Screenshot ${s.id}`} />
+            {s.version === "baseline" && <div className="watch-note"><Icon name="warning" size={16} /><p>A screenshot shows a past state; the ticket status prevails.</p></div>}
+          </section>}
+          <div className="panel source-document">
+            <div className="section-header"><h2>{s.kind === "xlsx" ? "Spreadsheet contents" : "Source passages"}</h2><span className="text-xs text-muted">{segs.length} segments</span></div>
+            <div className="py-3">{grid ?? segs.map((x) => row(x, prettyLoc(x.loc)))}{segs.length === 0 && <p className="p-4 text-muted">No extracted text for this item.</p>}</div>
+          </div>
         </div>
-      )}
+        <aside className="panel context-rail source-metadata" aria-label="Source metadata">
+          <div className="section-header"><h2>Source details</h2><Icon name="file" size={16} /></div>
+          <dl>
+            <div><dt>Source type</dt><dd>{s.kind}</dd></div>
+            <div><dt>Authority</dt><dd>{s.authority.toLowerCase().replace(/_/g, " ")}</dd></div>
+            <div><dt>Role</dt><dd>{s.role.toLowerCase()}</dd></div>
+            <div><dt>Version</dt><dd>{s.version}</dd></div>
+            {s.contentDate && <div><dt>Content date</dt><dd>{s.contentDate.slice(0, 10)}</dd></div>}
+            {loc && <div><dt>Exact locator</dt><dd className="text-primary">{prettyLoc(loc)}</dd></div>}
+            <div><dt>File path</dt><dd><code>{s.path}</code></dd></div>
+          </dl>
+          {s.note && <p className="metadata-note">Note: {s.note}</p>}
+          {target && <div className="watch-note mx-4 mb-4"><Icon name="warning" size={15} /><p>Identical to <Link className="underline" href={`/sources/${encodeURIComponent(target.id)}`}>{target.id}</Link>: not an independent confirmation.</p></div>}
+          {children.length > 0 && <div className="metadata-note"><h3 className="mb-2">Attachments</h3><ul className="space-y-3">{children.map((c) => <li key={c.id}><Link className="text-primary hover:underline" href={`/sources/${encodeURIComponent(c.id)}`}>{c.title}</Link>{c.duplicateOf && <> ? same file as <Link className="text-primary underline" href={`/sources/${encodeURIComponent(c.duplicateOf)}`}>{c.duplicateOf}</Link></>}</li>)}</ul></div>}
+        </aside>
+      </div>
     </div>
   );
 }
