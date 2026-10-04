@@ -20,7 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
       </head>
       <body className="min-h-screen">
-        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 bg-white p-2 z-50">Skip to content</a>
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 bg-white p-2 z-50">Skip to content</a>
         <div className="app-shell">
           <aside className="no-print sidebar">
             <Link href="/" className="brand">
@@ -44,9 +44,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <span className={`h-2.5 w-2.5 rounded-full ${ai ? "bg-validation" : "bg-muted"}`} aria-hidden />
                 {ai ? <span>AI configured</span> : <span>AI off · evidence-only mode</span>}
               </div>
-              <div className="version-status">
-                <div className="font-semibold">{last ? `Current state · after ${last}` : "Baseline state"}</div>
-                <div className="text-muted">Baseline: Sept 30, 2026, 09:00 (Montréal){ups.length ? ` · ${ups.length} update(s)` : ""}</div>
+              <div className="version-status" title={`Baseline: Sept 30, 2026, 09:00 (Montréal)${last ? ` · Current state after ${last} · ${ups.length} published update(s)` : ""}`}>
+                <span className="font-semibold">{last ? `Current · ${last}` : "Baseline"}</span>
+                <span className="text-muted">{last ? "Baseline · " : ""}Sep 30, 2026 · 09:00 ET</span>
+                {ups.length > 0 && <span className="text-muted">· {ups.length} update(s)</span>}
               </div>
             </header>
             <main id="main" tabIndex={-1} className="workspace-content">{children}</main>
