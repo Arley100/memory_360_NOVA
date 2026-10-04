@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Chips, Tag } from "@/components/Chip";
 import { currentConditions, getKB, resolver, updates } from "@/lib/store";
-import { money } from "@/lib/text";
+import { fmtDay, money } from "@/lib/text";
 
-const fmtDate = (d?: string) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(`${d}T12:00:00`).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" }) : d ?? "TBC");
+const fmtDate = fmtDay;
 
 export default async function Overview({ searchParams }: { searchParams: Promise<{ changed?: string }> }) {
   const { changed } = await searchParams;

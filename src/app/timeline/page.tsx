@@ -1,11 +1,12 @@
 import { Chips, Tag } from "@/components/Chip";
+import { fmtDay } from "@/lib/text";
 import { getKB, resolver, updates } from "@/lib/store";
 
 export default async function Timeline() {
   const k = await getKB();
   const ups = await updates();
   const r = await resolver([], ups);
-  const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
+  const fmt = fmtDay;
   const big = new Set(["DECISION"]);
   return (
     <div className="space-y-6">

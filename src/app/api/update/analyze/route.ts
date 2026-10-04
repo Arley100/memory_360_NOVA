@@ -29,7 +29,7 @@ Classify the new information exactly as the jury expects:
 - revisedBrief: for each brief theme whose content changes (themes: ${themes}),
   the full updated text (1-3 sentences, English). Do not include unchanged themes.
 Never present a proposal as approved, and never close a condition, in revisedAnswers or revisedBrief either.
-Plain text only in every text field: no Markdown, no asterisks, no bullet symbols.
+Write every text field in English (keep citation quotes verbatim in French). Plain text only in every text field: no Markdown, no asterisks, no bullet symbols.
 Citations: {"src", "loc", "quote"}. New file ids start with NEW (e.g. [[NEW#body:P2]] → "src": "NEW", "loc": "body:P2").
 ${CITATION_FORMAT}
 Return JSON only: {"summary": string (1-2 sentences, English), "problemStatus": [{"text","citations"}], "priorDecisions": [{"text","citations"}],

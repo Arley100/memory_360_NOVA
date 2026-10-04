@@ -1,5 +1,6 @@
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { updates } from "@/lib/store";
+import { fmtDateTime } from "@/lib/text";
 import { UpdateClient } from "./UpdateClient";
 import { ResetButton } from "./ResetButton";
 
@@ -21,7 +22,7 @@ export default async function Update() {
         {ups.length === 0 && <p className="text-muted">No update yet.</p>}
         {ups.slice().reverse().map((u) => (
           <article key={u.cs.id} className="rounded-lg border border-line bg-canvas p-4">
-            <h3 className="mb-2 text-xl font-bold">{u.cs.id} · {u.cs.filename} <span className="text-sm font-normal text-muted">published {u.cs.publishedAt?.slice(0, 16).replace("T", " ")}</span></h3>
+            <h3 className="mb-2 text-xl font-bold">{u.cs.id} · {u.cs.filename} <span className="text-sm font-normal text-muted">published {fmtDateTime(u.cs.publishedAt)}</span></h3>
             <ChangeSetView cs={u.cs} />
           </article>
         ))}

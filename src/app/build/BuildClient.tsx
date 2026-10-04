@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CodeGate } from "@/components/CodeGate";
 import { Memo, StageList, type Mood } from "@/components/Memo";
+import { fmtDateTime } from "@/lib/text";
 
 type Stage = { stage: string; label: string; status: "pending" | "start" | "done" | "error"; detail?: string; done?: number; total?: number };
 type Meta = { generatedAt?: string; model?: string; durationMs?: number; citations?: { verified: number; dropped: number }; answerKey?: { score: string } };
@@ -80,7 +81,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
     }
   }
 
-  const when = (iso?: string) => (iso ? new Date(iso).toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" }) : "");
+  const when = fmtDateTime;
   return (
     <div className="grid gap-8 lg:grid-cols-[18rem_1fr]">
       <div className="space-y-4 text-center">
