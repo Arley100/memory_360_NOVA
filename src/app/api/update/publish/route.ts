@@ -1,8 +1,8 @@
 import { guard } from "@/lib/access";
 import { indexSegments, resolveCite } from "@/lib/cite";
-import { kindOf } from "@/lib/ingest";
-import { allSegments, updates } from "@/lib/store";
+import { allSegments, allSources, updates } from "@/lib/store";
 import { updateStore } from "@/lib/updateStore";
+import { publishedSources } from "@/lib/updateSources";
 import type { ChangeSet, Cite, Source } from "@/lib/types";
 
 // Publishing creates update U00n in the update store. The baseline is never touched.
@@ -17,19 +17,10 @@ export async function POST(req: Request) {
   const ups = await updates();
   const id = `U${String(ups.length + 1).padStart(3, "0")}`;
   const srcId = `${id}-S1`;
-  const files = draft.files;
   const rename = (s: string) => s.replace(/^NEW/, srcId);
-  const relPath = `data/updates/${id}/${files[0]}`;
-  const subIds = Array.from(new Set(draft.segments.map((s) => s.src)));
-  const sources: Source[] = subIds.map((sid) => {
-    const name = sid === "NEW" ? files[0] : sid.split(">").pop()!;
-    const ownFile = files.includes(name);
-    return {
-      id: rename(sid), path: ownFile ? `data/updates/${id}/${name}` : `${relPath}#att:${name}`, kind: kindOf(name),
-      title: sid === "NEW" ? `New information: ${files[0]}` : ownFile ? `New information: ${name}` : `Attachment ${name}`, authority: "NEW", role: "CORE",
-      contentDate: draft.contentDate, sha256: "", version: id, parent: sid === "NEW" || ownFile ? undefined : srcId,
-    };
-  });
+  let sources: Source[];
+  try { sources = publishedSources(id, draft, stored, await allSources(ups)); }
+  catch (error) { return Response.json({ error: (error as Error).message }, { status: 409 }); }
   const segments = draft.segments.map((s) => ({ ...s, src: rename(s.src) }));
   const cs: ChangeSet = JSON.parse(JSON.stringify(changeset).replace(/"src":"NEW/g, `"src":"${srcId}`));
   // Fill exact locators for every citation (new file + baseline).

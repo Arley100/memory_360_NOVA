@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { guard } from "@/lib/access";
 import { updateStore, type StoredFile } from "@/lib/updateStore";
 import { parseFile } from "@/lib/ingest";
+import { sha256 } from "@/lib/hash";
 import { llmJSON, llmProvider, modelFor, visionTranscribe } from "@/lib/llm";
 import { askContext } from "@/lib/ask";
 import { CITATION_FORMAT, RULES } from "@/lib/prompts";
@@ -61,9 +62,11 @@ export async function POST(req: Request) {
         const stored: StoredFile[] = [];
         const vision = llmProvider() ? visionTranscribe : undefined;
         const segments: Segment[] = [];
+        const sourceHashes: Record<string, string> = {};
         const names: string[] = [];
         let contentDate: string | undefined;
         const ingestOne = async (buf: Buffer, name: string, src: string, depth: number) => {
+          sourceHashes[src] = sha256(buf);
           const p = await parseFile(buf, name, { vision });
           if (src === "NEW") contentDate = p.contentDate;
           segments.push(...p.segments.map((x) => ({ src, ...x })));
@@ -75,7 +78,7 @@ export async function POST(req: Request) {
           await ingestOne(f.buf, f.name, i === 0 ? "NEW" : `NEW>${f.name}`, 0);
         }
         const filename = names.join(" + ");
-        await updateStore().saveDraft(draftId, { filename, files: names, contentDate, segments }, stored);
+        await updateStore().saveDraft(draftId, { filename, files: names, contentDate, segments, sourceHashes }, stored);
         stage("read", "done", `${names.length} file(s) · ${segments.length} passages read`);
 
         if (!llmProvider()) {
