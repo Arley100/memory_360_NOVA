@@ -37,3 +37,13 @@ export function prettyLoc(loc: string): string {
 
 export const money = (n: number) =>
   n.toLocaleString("fr-CA").replace(/\u202f|\u00a0/g, " ") + " $";
+
+// Plain text for display: removes Markdown emphasis/headers/bullets a model may add.
+export function plain(s: string | undefined | null): string {
+  if (!s) return "";
+  return s
+    .replace(/\*\*(.+?)\*\*/g, "$1").replace(/__(.+?)__/g, "$1")
+    .replace(/(^|\s)\*(\S[^*]*?)\*(?=[\s.,;:!?)]|$)/g, "$1$2")
+    .replace(/^#{1,6}\s+/gm, "").replace(/^\s*[-*•]\s+/gm, "")
+    .replace(/\*\*/g, "").trim();
+}

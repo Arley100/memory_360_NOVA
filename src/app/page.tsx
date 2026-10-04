@@ -5,12 +5,18 @@ import { money } from "@/lib/text";
 
 const fmtDate = (d?: string) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(`${d}T12:00:00`).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" }) : d ?? "TBC");
 
-export default async function Overview() {
+export default async function Overview({ searchParams }: { searchParams: Promise<{ changed?: string }> }) {
+  const { changed } = await searchParams;
   const ups = await updates();
   const k = await getKB();
   const r = await resolver([], ups);
   const conds = await currentConditions(ups);
   const met = conds.filter((c) => c.status === "met").length;
+  // Just published? Compare with the state before that update, to show exactly what changed.
+  const justPublished = changed ? ups.find((u) => u.cs.id === changed) : undefined;
+  const before = justPublished ? await currentConditions(ups.slice(0, ups.indexOf(justPublished))) : null;
+  const metBefore = before ? before.filter((c) => c.status === "met").length : null;
+  const statusBefore = (id: number) => before?.find((c) => c.id === id)?.status;
   const b = k.budget;
   const pct = (n: number) => `${Math.max(0, (n / Math.max(b.authorized, 1)) * 100)}%`;
   const proposals = ups.flatMap((u) => u.cs.newProposals.map((p) => ({ ...p, id: u.cs.id })));
@@ -19,12 +25,25 @@ export default async function Overview() {
 
   return (
     <div className="space-y-10">
+      {justPublished && (
+        <div role="status" className="reveal flex flex-wrap items-center gap-3 rounded-lg border-2 border-marker bg-marker/20 p-4">
+          <span className="memo-pop inline-flex h-8 w-8 items-center justify-center rounded-full bg-validation text-white">✓</span>
+          <p className="flex-1">
+            <strong>{justPublished.cs.id} published.</strong>{" "}
+            {justPublished.cs.conditionChanges.length} condition change(s) · {justPublished.cs.revisedAnswers?.length ?? 0} answer(s) revised ·{" "}
+            {justPublished.cs.revisedBrief?.length ?? 0} brief section(s) revised · {justPublished.cs.newProposals.length} new proposal(s). The baseline is unchanged.
+          </p>
+          <Link href="/questions" className="rounded-md border border-line bg-surface px-3 py-1 text-sm">Revised answers</Link>
+          <Link href="/brief" className="rounded-md border border-line bg-surface px-3 py-1 text-sm">Current brief</Link>
+        </div>
+      )}
       <section aria-labelledby="status">
         <p className="text-muted">Where NOVA stands {ups.length ? `(current state, after ${ups.at(-1)!.cs.id})` : "at the baseline (Sept 30, 2026, 09:00)"}</p>
         <h1 id="status" className="mt-1 text-4xl font-bold leading-tight tracking-tight">
           Go-live {fmtDate(k.goLive.date)} is{" "}
           <span className="underline decoration-delivery decoration-4 underline-offset-4">{status}</span>.
           {conds.length > 0 && <><br />{met} of {conds.length} go-live conditions met.</>}
+          {metBefore !== null && metBefore !== met && <span className="reveal ml-3 align-middle text-base font-semibold text-muted" style={{ animationDelay: "600ms" }}>(was {metBefore} before {changed})</span>}
         </h1>
         {k.goLive.headline && (
           <p className="mt-3 max-w-3xl text-lg">{k.goLive.headline} <Chips cites={(k.goLive.citations ?? []).map(r)} /></p>
@@ -42,11 +61,12 @@ export default async function Overview() {
           <h2 id="conds" className="text-2xl font-bold">The go-live conditions</h2>
           <ol className="divide-y divide-line rounded-lg border border-line bg-surface">
             {conds.map((c) => (
-              <li key={c.id} className="grid gap-2 p-4 md:grid-cols-[2.5rem_1fr_auto] md:items-start">
+              <li key={c.id} className={`grid gap-2 p-4 md:grid-cols-[2.5rem_1fr_auto] md:items-start ${changed && c.changedIn === changed ? "flash-marker" : ""}`}>
                 <span className="text-2xl font-bold text-muted">{c.id}</span>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-lg font-semibold">{c.title}</h3>
+                    {changed && c.changedIn === changed && statusBefore(c.id) && statusBefore(c.id) !== c.status && <><Tag t={statusBefore(c.id) === "met" ? "MET" : "OPEN"} /><span className="text-muted" aria-label="became">→</span></>}
                     <Tag t={c.status === "met" ? "MET" : "OPEN"} />
                     {c.changedIn && <span className="rounded bg-marker px-1.5 text-xs font-semibold">changed in {c.changedIn}</span>}
                   </div>

@@ -9,13 +9,14 @@ import { readmeQuestions } from "./readme";
 import { scoreAgainstKey } from "./answerKey";
 import { allSegments, allSources, resolver, type KB } from "./store";
 import type { Cite } from "./types";
+import { plain } from "./text";
 
 export type Progress = { stage: string; status: "start" | "done" | "error"; label: string; detail?: string; done?: number; total?: number };
 
 const ANALYST = `You are the analysis engine of Mémoire 360. You read every file of a project dossier and build its operational
 memory for someone taking the project over. Reference date: the dossier's baseline (2026-09-30 09:00, Montréal, UTC-04:00).\n${RULES}
 ${CITATION_FORMAT}
-Every item you produce must carry citations. Never invent a decision, a date, an amount, an owner or an approval; write "TBC" or
+Every item you produce must carry citations. Plain text only in every text field (no Markdown, no asterisks, no bullet symbols). Never invent a decision, a date, an amount, an owner or an approval; write "TBC" or
 "not documented" when the files don't say. Distinguish proposal / decision / delivery / validation everywhere.
 Return JSON only.`;
 
@@ -115,15 +116,15 @@ Label your own recommendations as recommendations.`, context, 8000),
   const kb: KB = {
     version: "generated",
     asOf: "2026-09-30T09:00:00-04:00",
-    goLive: { ...state.goLive, citations: clean(state.goLive.citations), contractEndCitations: clean(state.goLive.contractEndCitations) },
-    answers: answers.map((a) => ({ id: a.id, question_fr: a.question_fr, question_en: a.question_en, answer_en: a.answer_en, answer_fr: a.answer_fr, citations: clean(a.citations), traps: a.traps ?? [] })),
-    conditions: state.conditions.map((c) => ({ ...c, citations: clean(c.citations) })),
-    actions: issues.actions.map((a) => ({ ...a, condition: a.condition ?? undefined, citations: clean(a.citations) })),
-    contradictions: issues.contradictions.map((c) => ({ ...c, aCit: clean(c.aCit), bCit: clean(c.bCit) })),
-    timeline: history.timeline.map((e) => ({ ...e, citations: clean(e.citations) })).sort((a, b) => a.date.localeCompare(b.date)),
+    goLive: { ...state.goLive, headline: plain(state.goLive.headline), contractEndNote: plain(state.goLive.contractEndNote), citations: clean(state.goLive.citations), contractEndCitations: clean(state.goLive.contractEndCitations) },
+    answers: answers.map((a) => ({ id: a.id, question_fr: a.question_fr, question_en: plain(a.question_en), answer_en: plain(a.answer_en), answer_fr: plain(a.answer_fr), citations: clean(a.citations), traps: (a.traps ?? []).map(plain) })),
+    conditions: state.conditions.map((c) => ({ ...c, title: plain(c.title), state: plain(c.state), citations: clean(c.citations) })),
+    actions: issues.actions.map((a) => ({ ...a, title: plain(a.title), condition: a.condition ?? undefined, citations: clean(a.citations) })),
+    contradictions: issues.contradictions.map((c) => ({ ...c, a: plain(c.a), b: plain(c.b), resolution: plain(c.resolution), aCit: clean(c.aCit), bCit: clean(c.bCit) })),
+    timeline: history.timeline.map((e) => ({ ...e, title: plain(e.title), citations: clean(e.citations) })).sort((a, b) => a.date.localeCompare(b.date)),
     decisions: history.decisions,
     budget: { ...state.budget, components: (state.budget.components ?? []).map((x) => ({ ...x, citations: clean(x.citations) })), unapprovedCitations: clean(state.budget.unapprovedCitations) },
-    brief: { asOf: "Sept 30, 2026, 09:00 (Montréal)", sections: brief.sections.map((s) => ({ ...s, citations: clean(s.citations) })) },
+    brief: { asOf: "Sept 30, 2026, 09:00 (Montréal)", sections: brief.sections.map((s) => ({ ...s, text: plain(s.text), citations: clean(s.citations) })) },
     people: state.people,
   };
   onProgress({ stage: "verify", status: "done", label: "Checking every citation against the files", detail: `${verified} verified · ${dropped} removed` });

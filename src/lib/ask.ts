@@ -4,6 +4,7 @@ import { lastUsage, llmJSON, type LlmUsage } from "./llm";
 import { CITATION_FORMAT, corpusContext, kbContext, RULES } from "./prompts";
 import { resolver, updates } from "./store";
 import type { Cite, ResolvedCite } from "./types";
+import { plain } from "./text";
 
 export interface AskResult {
   answer: string;
@@ -18,7 +19,7 @@ export interface AskResult {
 export const ASK_SYSTEM = `You are Mémoire 360, the operational memory of project NOVA (fictional).\n${RULES}\n
 Answer ONLY from the material provided above (corpus segments, and the knowledge base when present). Each segment starts with [[SOURCE_ID#locator]].
 ${CITATION_FORMAT}
-Reply in the language of the question; keep quotes in French. Be precise and nuanced: name dates, amounts, owners,
+Reply in the language of the question; keep quotes in French. Plain text only: no Markdown, no asterisks, no bullet symbols. Be precise and nuanced: name dates, amounts, owners,
 and whether something is a proposal, a decision, a delivery or a validation.
 If the corpus does not contain the answer, say so plainly and put what is missing in "missing".
 Return JSON only: {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}], "missing": [string], "recommendations": [string]}`;
@@ -37,20 +38,25 @@ export async function askContext(mode: ContextMode = contextMode()): Promise<str
   return `KNOWLEDGE BASE (curated, verified):\n${await kbContext(ups)}\n\nCORPUS SEGMENTS:\n${await corpusContext(ups)}`;
 }
 
-export async function askProject(question: string, opts: { model?: string; effort?: string; context?: string } = {}): Promise<AskResult> {
-  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context: await askContext(contextMode(opts.context)), user: `QUESTION: ${question}`, model: opts.model, effort: opts.effort })) as {
+export type AskStage = { stage: "read" | "think" | "verify"; detail?: string };
+
+export async function askProject(question: string, opts: { model?: string; effort?: string; context?: string; onStage?: (s: AskStage) => void } = {}): Promise<AskResult> {
+  const context = await askContext(contextMode(opts.context));
+  opts.onStage?.({ stage: "think" });
+  const out = (await llmJSON({ task: "ask", system: ASK_SYSTEM, context, user: `QUESTION: ${question}`, model: opts.model, effort: opts.effort })) as {
     answer?: string; citations?: Cite[]; missing?: string[]; recommendations?: string[];
   };
   const usage = lastUsage;
+  opts.onStage?.({ stage: "verify", detail: `${(out.citations ?? []).length} quotes` });
   const r = await resolver();
   const cites = (out.citations ?? []).map(r);
   const verified = cites.filter((c) => c.verified);
   return {
-    answer: out.answer ?? "",
+    answer: plain(out.answer),
     citations: verified,
     dropped: cites.length - verified.length,
-    missing: out.missing ?? [],
-    recommendations: out.recommendations ?? [],
+    missing: (out.missing ?? []).map(plain),
+    recommendations: (out.recommendations ?? []).map(plain),
     status: verified.length === 0 ? "none" : verified.length === cites.length ? "full" : "partial",
     usage,
   };

@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CodeGate } from "@/components/CodeGate";
+import { Memo, StageList, type Mood } from "@/components/Memo";
 
 type Stage = { stage: string; label: string; status: "pending" | "start" | "done" | "error"; detail?: string; done?: number; total?: number };
 type Meta = { generatedAt?: string; model?: string; durationMs?: number; citations?: { verified: number; dropped: number }; answerKey?: { score: string } };
@@ -20,25 +21,10 @@ const PLAN: Stage[] = [
   { stage: "key", label: "Comparing with the curated answer key", status: "pending" },
 ];
 
-type Mood = "idle" | "reading" | "thinking" | "checking" | "done" | "error";
 const MOOD_TEXT: Record<Mood, string> = {
   idle: "Ready to read the raw files.", reading: "Reading every file…", thinking: "Connecting the facts…",
   checking: "Checking every quote against the files…", done: "The memory is built.", error: "Something went wrong.",
 };
-
-function Memo({ mood }: { mood: Mood }) {
-  const color = { idle: "#8aa0b8", reading: "#0e4c92", thinking: "#3b6fd4", checking: "#e0a800", done: "#1e7a4c", error: "#b42318" }[mood];
-  const busy = mood === "reading" || mood === "thinking" || mood === "checking";
-  return (
-    <div className="relative mx-auto h-40 w-40" aria-hidden>
-      <div className={`absolute inset-0 rounded-full blur-2xl transition-colors duration-700 ${busy ? "memo-breathe" : ""}`} style={{ background: color, opacity: 0.35 }} />
-      <div className={`absolute inset-4 rounded-full transition-colors duration-700 ${busy ? "memo-breathe" : ""}`}
-        style={{ background: `radial-gradient(circle at 35% 30%, #ffffffcc, ${color} 55%, #0b1a33 100%)`, boxShadow: `0 0 40px ${color}66` }} />
-      {busy && <div className="memo-orbit absolute inset-0 rounded-full border-2 border-dashed" style={{ borderColor: `${color}88` }} />}
-      {mood === "done" && <div className="absolute inset-0 flex items-center justify-center text-5xl text-white">✓</div>}
-    </div>
-  );
-}
 
 export function BuildClient({ current, hasKey }: { current: { source: string; meta?: Meta } ; hasKey: boolean }) {
   const router = useRouter();
@@ -50,7 +36,6 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
   const [needCode, setNeedCode] = useState(false);
   const [t0, setT0] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
-  const log = useRef<HTMLOListElement>(null);
 
   useEffect(() => {
     if (t0 === null) return;
@@ -121,25 +106,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
           )}
         </div>
 
-        <ol ref={log} className="divide-y divide-line rounded-lg border border-line bg-surface" aria-label="Analysis steps">
-          {stages.map((s) => (
-            <li key={s.stage} className={`flex items-start gap-3 p-3 transition-colors ${s.status === "start" ? "bg-primary/5" : ""}`}>
-              <span className={`mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                s.status === "done" ? "bg-validation text-white" : s.status === "error" ? "bg-blocker text-white" : s.status === "start" ? "memo-breathe bg-primary text-white" : "border border-line text-muted"}`}>
-                {s.status === "done" ? "✓" : s.status === "error" ? "!" : s.status === "start" ? "…" : ""}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className={s.status === "pending" ? "text-muted" : "font-semibold"}>{s.label}</p>
-                {s.total !== undefined && s.status === "start" && (
-                  <div className="mt-1 h-2 overflow-hidden rounded bg-canvas" role="progressbar" aria-valuenow={s.done} aria-valuemax={s.total}>
-                    <div className="h-full bg-primary transition-all duration-500" style={{ width: `${((s.done ?? 0) / Math.max(1, s.total)) * 100}%` }} />
-                  </div>
-                )}
-                {s.detail && <p className="text-sm text-muted">{s.detail}</p>}
-              </div>
-            </li>
-          ))}
-        </ol>
+        <StageList stages={stages} />
 
         {error && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
         {result && (
