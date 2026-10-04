@@ -20,8 +20,8 @@ const MONTHS: Record<string, number> = { janvier: 1, january: 1, fevrier: 2, feb
 export function datesIn(text: string, year: number): string[] {
   const t = fold(text), out: string[] = [];
   const pad = (n: number) => String(n).padStart(2, "0");
-  for (const m of t.matchAll(/(\d{1,2})(?:er)?\s+(janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre|january|february|march|april|may|june|july|august|september|october|november|december)/g)) out.push(`${year}-${pad(MONTHS[m[2]])}-${pad(+m[1])}`);
-  for (const m of t.matchAll(/(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2})\b/g)) out.push(`${year}-${pad(MONTHS[m[1]])}-${pad(+m[2])}`);
+  for (const m of t.matchAll(/(?<!\d)(\d{1,2})(?:er|st|nd|rd|th)?\s+(janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre|january|february|march|april|may|june|july|august|september|october|november|december)/g)) out.push(`${year}-${pad(MONTHS[m[2]])}-${pad(+m[1])}`);
+  for (const m of t.matchAll(/(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2})(?!\d)/g)) out.push(`${year}-${pad(MONTHS[m[1]])}-${pad(+m[2])}`);
   for (const m of t.matchAll(/\b(20\d\d)-(\d{2})-(\d{2})\b/g)) out.push(`${m[1]}-${m[2]}-${m[3]}`);
   return out;
 }
@@ -97,14 +97,20 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
     if (!x.citations.length) notes.push(`${x.label}: revised text has no verified citation. Review it before publishing.`);
   }
   if (out.newDecisions.length === 0) {
-    const DATE = /(\d{1,2})(?:er)?\s+(janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre)|(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}/gi;
-    const proposed = new Set(out.newProposals.flatMap((p) => p.text.match(DATE) ?? []).map((d) => d.toLowerCase()).filter((d) => !datesIn(d, year).includes(approvedDay)));
+    // Compare calendar days (any order, French or English): "5 November", "November 5", "5 novembre", "2026-11-05".
+    const proposed = new Set(out.newProposals.flatMap((p) => datesIn(p.text, year)).filter((d) => d !== approvedDay));
+    const DATE_AT = /(?<!\d)\d{1,2}(?:er|st|nd|rd|th)?\s+(?:janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre|january|february|march|april|may|june|july|august|september|october|november|december)|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}(?!\d)|\b20\d\d-\d{2}-\d{2}\b/gi;
     for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, text: a.text })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, text: b.text }))]) {
-      for (const d of proposed) {
-        const i = x.text.toLowerCase().indexOf(d);
-        if (i >= 0 && /approuv|approved|officiel|official|confirm[ée]|d[ée]cid/i.test(x.text.slice(Math.max(0, i - 80), i + 80))
-            && !/non approuv|pas approuv|not approved|not yet approved|unapproved|proposal|proposition|propos/i.test(x.text.slice(Math.max(0, i - 80), i + 80))) {
-          notes.push(`${x.label}: may present the proposed date (${d}) as approved, but no approval was quoted. Review before publishing.`);
+      const flagged = new Set<string>();
+      for (const m of x.text.matchAll(DATE_AT)) {
+        const iso = datesIn(m[0], year)[0];
+        if (!iso || !proposed.has(iso) || flagged.has(iso)) continue;
+        const i = m.index ?? 0;
+        const around = x.text.slice(Math.max(0, i - 80), i + m[0].length + 80);
+        if (/approuv|approved|officiel|official|confirm[ée]|d[ée]cid/i.test(around)
+            && !/non approuv|pas approuv|not approved|not yet approved|unapproved|proposal|proposition|propos|suggest/i.test(around)) {
+          flagged.add(iso);
+          notes.push(`${x.label}: may present the proposed date (${m[0]}) as approved, but no approval was quoted. Review before publishing.`);
         }
       }
     }
