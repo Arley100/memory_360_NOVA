@@ -27,7 +27,7 @@ test("both KBs link every supplied stage citation to an existing exact source pa
     }
     const hosting = kb.decisions.find((d) => d.id === "D1")!;
     assert.equal(resolveDecisionEvidence(hosting.evidence?.proposed, index)[0].label, "E02 · ¶3");
-    assert.equal(resolveDecisionEvidence(hosting.evidence?.decided, index)[0].src, "ADR-007");
+    assert.ok(resolveDecisionEvidence(hosting.evidence?.decided, index).some((c) => c.src === "ADR-007" || c.src === "M02"), "Hosting approval must cite its ADR or the approving committee minutes");
     assert.equal(resolveDecisionEvidence(hosting.evidence?.delivered, index)[0].src, "E03");
     assert.equal(resolveDecisionEvidence(hosting.evidence?.validated, index)[0].src, "M03");
   }

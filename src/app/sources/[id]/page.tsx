@@ -68,7 +68,7 @@ export default async function SourceView({ params, searchParams }: { params: Pro
       const rows = Array.from(new Set(cs.map((c) => c.row))).sort((a, b) => a - b);
       return (
         <div key={sh} className="overflow-x-auto">
-          <p className="px-3 py-2 font-semibold">Feuille «{sh}”</p>
+          <p className="px-3 py-2 font-semibold">Feuille «{sh}»</p>
           <table className="source-grid">
             <thead><tr><th className="p-1" />{cols.map((c) => <th key={c} className="p-1 text-muted">{c}</th>)}</tr></thead>
             <tbody>
@@ -120,7 +120,7 @@ export default async function SourceView({ params, searchParams }: { params: Pro
           </dl>
           {s.note && <p className="metadata-note">Note : {frenchText(s.note)}</p>}
           {target && <div className="watch-note mx-4 mb-4"><Icon name="warning" size={15} /><p>Identique à <Link className="underline" href={`/sources/${encodeURIComponent(target.id)}`}>{target.id}</Link> : aucune confirmation indépendante.</p></div>}
-          {children.length > 0 && <div className="metadata-note"><h3 className="mb-2">Pièces jointes</h3><ul className="space-y-3">{children.map((c) => <li key={c.id}><Link className="text-primary hover:underline" href={`/sources/${encodeURIComponent(c.id)}`}>{frenchText(c.title)}</Link>{c.duplicateOf && <> ? même fichier que <Link className="text-primary underline" href={`/sources/${encodeURIComponent(c.duplicateOf)}`}>{c.duplicateOf}</Link></>}</li>)}</ul></div>}
+          {children.length > 0 && <div className="metadata-note"><h3 className="mb-2">Pièces jointes</h3><ul className="space-y-3">{children.map((c) => <li key={c.id}><Link className="text-primary hover:underline" href={`/sources/${encodeURIComponent(c.id)}`}>{frenchText(c.title)}</Link>{c.duplicateOf && <> · même fichier que <Link className="text-primary underline" href={`/sources/${encodeURIComponent(c.duplicateOf)}`}>{c.duplicateOf}</Link></>}</li>)}</ul></div>}
         </aside>
       </div>
     </div>

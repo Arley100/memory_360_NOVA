@@ -9,6 +9,7 @@ const labels: Record<string, string> = {
   VALIDATION: "validation", DECISION: "décision", REPORT: "rapport", INFORMAL: "informel",
   DUPLICATE: "doublon", UNRELATED: "sans rapport", UNOFFICIAL: "non officiel",
   PROPOSED: "proposition", DECIDED: "décision", DELIVERED: "livraison", VALIDATED: "validation",
+  ACTION: "action", STATUS: "état", CONTINUITY: "continuité",
   baseline: "référence", changed: "modifiée", unchanged: "inchangée", none: "aucun",
 };
 

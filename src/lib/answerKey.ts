@@ -15,7 +15,7 @@ export function scoreAgainstKey(answers: { id: string; answer_en: string; answer
     const text = fold(`${a?.answer_en ?? ""} ${a?.answer_fr ?? ""}`);
     const missing = a ? q.mustInclude.filter((r) => !new RegExp(r, "i").test(text)) : ["aucune réponse"];
     const forbidden = q.mustNotInclude.filter((r) => new RegExp(r, "i").test(text));
-    return { id: q.id, pass: Boolean(a) && missing.length === 0 && forbidden.length === 0, missing: [...missing, ...forbidden.map((f) => `forbidden: ${f}`)] };
+    return { id: q.id, pass: Boolean(a) && missing.length === 0 && forbidden.length === 0, missing: [...missing, ...forbidden.map((f) => `affirmation interdite : ${f}`)] };
   });
   return { score: `${details.filter((d) => d.pass).length}/${details.length}`, details };
 }

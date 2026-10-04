@@ -6,7 +6,7 @@ La démonstration en direct fonctionne toujours sur l’ordinateur de la personn
 
 - **Les mises à jour sont stockées hors du dépôt**, dans Upstash Redis : le système de fichiers hébergé est en lecture seule. La référence initiale (corpus et base de connaissances) accompagne le code et n’est jamais modifiée.
 - **Un code de démonstration protège les fonctions qui consomment des crédits API ou modifient l’état** : interrogation, analyse des mises à jour, publication et réinitialisation. Consultation, preuves et recherche restent accessibles. Un navigateur reste déverrouillé pendant 7 jours.
-- **Les téléversements sont limités à environ 4,5 Mo par requête** par l’hébergeur. Compressez ou divisez les fichiers plus volumineux.
+- **Les téléversements hébergés sont limités à 4,3 Mio au total**. La conservation de l’original est limitée à 4 Mio (4 194 304 octets) par fichier ; divisez les fichiers plus volumineux.
 
 Le jury n’a besoin ni d’abonnement payant ni de compte personnel Claude ou OpenAI. L’accès à l’IA est fourni par la configuration du serveur de l’équipe ; le jury utilise le code de démonstration remis.
 

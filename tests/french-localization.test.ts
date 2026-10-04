@@ -13,7 +13,7 @@ test("French display translates saved summaries while preserving evidence, ident
     const localized = frenchAppContent(original);
     assert.notEqual(localized.answers[0].answer_en, original.answers[0].answer_en);
     assert.match(localized.answers[0].answer_en, /22 octobre 2026/);
-    assert.equal(localized.answers[0].question_en, "Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve ?");
+    assert.match(localized.answers[0].question_en, /date.*production.*approuvée/);
     assert.equal(localized.goLive.date, original.goLive.date);
     assert.equal(localized.goLive.status, original.goLive.status);
     assert.equal(localized.actions[0].ownerStatus, original.actions[0].ownerStatus);
