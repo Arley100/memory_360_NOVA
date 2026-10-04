@@ -32,6 +32,8 @@ export function UpdateClient() {
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [publishing, setPublishing] = useState(false);
+  const [review, setReview] = useState<{ warnings: string[]; guardedChangeSet: ChangeSet } | null>(null);
+  const [columnText, setColumnText] = useState<Partial<Record<"problemStatus" | "priorDecisions" | "newProposals", string>>>({});
   const ctrl = useRef<AbortController | null>(null);
   const analyzing = startedAt !== null;
   const busy = analyzing || publishing;
@@ -56,7 +58,7 @@ export function UpdateClient() {
       setError("These files are larger than the hosted demo accepts (4.5 MB per upload). Compress them, upload fewer at once, or use the local version.");
       return;
     }
-    setError(""); setRes(null); setElapsed(0); setStartedAt(Date.now()); setStages(PLAN);
+    setError(""); setRes(null); setReview(null); setColumnText({}); setElapsed(0); setStartedAt(Date.now()); setStages(PLAN);
     setNames(files.map((f) => f.name).join(" + ")); setMood("reading"); setCaption(CAPTION.read);
     const fd = new FormData(); files.forEach((f) => fd.append("file", f));
     const c = new AbortController(); ctrl.current = c;
@@ -94,8 +96,13 @@ export function UpdateClient() {
       const r = await fetch("/api/update/publish", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ draftId: res.draftId, changeset: res.changeset }) });
       const j = await r.json();
       if (r.status === 401 && j.needCode) { setNeedCode(() => publish); return; }
+      if (r.status === 409 && j.reviewRequired) {
+        setReview({ warnings: j.warnings, guardedChangeSet: j.guardedChangeSet });
+        setError("Publish stopped for guardrail review. Your edits and uploaded files are retained. Correct the flagged content and retry.");
+        return;
+      }
       if (!r.ok) throw new Error(j.error ?? `Server error ${r.status}.`);
-      setRes(null); setMood("idle");
+      setRes(null); setReview(null); setMood("idle");
       router.push(`/?changed=${encodeURIComponent(j.id)}`);
     } catch (e) { setError((e as Error).message); }
     finally { setPublishing(false); }
@@ -103,6 +110,7 @@ export function UpdateClient() {
 
   const edit = (k: "problemStatus" | "priorDecisions" | "newProposals", text: string) => {
     if (!res) return;
+    setColumnText((old) => ({ ...old, [k]: text }));
     const lines = text.split("\n").map((t) => t.trim()).filter(Boolean);
     const old = res.changeset[k];
     setRes({ ...res, changeset: { ...res.changeset, [k]: lines.map((t, i) => ({ ...(old[i] ?? { citations: [] }), text: t })) } });
@@ -113,7 +121,7 @@ export function UpdateClient() {
     if (text === null) list.splice(i, 1); else list[i] = { ...list[i], text };
     setRes({ ...res, changeset: { ...res.changeset, [k]: list } });
   };
-  const flagged = (label: string) => res?.changeset.guardrails.notes.some((n) => n.startsWith(label)) ?? false;
+  const flagged = (label: string) => [...(res?.changeset.guardrails.notes ?? []), ...(review?.warnings ?? [])].some((n) => n.startsWith(label));
   const showWork = analyzing || (mood !== "idle" && !res);
 
   const activeStep = publishing ? 3 : res ? 2 : busy ? 1 : 0;
@@ -141,17 +149,25 @@ export function UpdateClient() {
         <section className="review-result space-y-5">
           <h2 className="text-xl font-semibold">Review before publishing: {res.changeset.filename}</h2>
           <ChangeSetView cs={res.changeset} animate />
+          {review && <div role="alert" className="rounded-md border border-blocker/40 bg-blocker/5 p-3 space-y-3">
+            <p className="font-semibold">Publish-time guardrail review</p>
+            <ul className="list-disc pl-5 text-sm">{review.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul>
+            <details><summary className="cursor-pointer font-semibold">View the guarded version</summary><ChangeSetView cs={review.guardedChangeSet} /></details>
+            <button disabled={busy} className="button-secondary" onClick={() => {
+              setRes({ ...res, changeset: review.guardedChangeSet }); setColumnText({}); setReview(null); setError("");
+            }}>Use guarded version for further editing</button>
+          </div>}
           <details className="rounded-md border border-line p-3">
             <summary className="cursor-pointer font-semibold">Edit the three columns (one item per line)</summary>
             {(["problemStatus", "priorDecisions", "newProposals"] as const).map((k) => (
               <label key={k} className="mt-2 block text-sm font-semibold">{k}
-                <textarea className="mt-1 w-full rounded border border-line p-2 font-normal" rows={3}
-                  defaultValue={res.changeset[k].map((x) => x.text).join("\n")} onBlur={(e) => edit(k, e.target.value)} />
+                <textarea disabled={publishing} className="mt-1 w-full rounded border border-line p-2 font-normal" rows={3}
+                  value={columnText[k] ?? res.changeset[k].map((x) => x.text).join("\n")} onChange={(e) => edit(k, e.target.value)} />
               </label>
             ))}
           </details>
           {((res.changeset.revisedAnswers?.length ?? 0) + (res.changeset.revisedBrief?.length ?? 0)) > 0 && (
-            <details className="rounded-md border border-line p-3" open={res.changeset.guardrails.notes.some((n) => /^(Q\d\d|brief)/.test(n))}>
+            <details className="rounded-md border border-line p-3" open={[...res.changeset.guardrails.notes, ...(review?.warnings ?? [])].some((n) => /^(Q\d\d|brief)/.test(n))}>
               <summary className="cursor-pointer font-semibold">Review the new state (edit or remove any revised text)</summary>
               {(["revisedBrief", "revisedAnswers"] as const).map((k) => (res.changeset[k] ?? []).map((x, i) => {
                 const label = "id" in x ? (x as { id: string }).id : `brief "${(x as { theme: string }).theme}"`;
@@ -159,10 +175,10 @@ export function UpdateClient() {
                   <div key={`${k}${i}`} className={`mt-3 rounded border p-2 ${flagged(label) ? "border-blocker bg-blocker/5" : "border-line"}`}>
                     <div className="flex items-center justify-between gap-2 text-sm font-semibold">
                       <span>{label}{flagged(label) && <span className="ml-2 text-blocker">flagged by guardrails</span>}</span>
-                      <button onClick={() => editRevised(k, i, null)} className="rounded border border-line px-2 py-0.5 font-normal hover:border-blocker">Remove</button>
+                      <button disabled={publishing} onClick={() => editRevised(k, i, null)} className="rounded border border-line px-2 py-0.5 font-normal hover:border-blocker">Remove</button>
                     </div>
-                    <textarea className="mt-1 w-full rounded border border-line p-2 text-sm" rows={3} defaultValue={x.text}
-                      onBlur={(e) => editRevised(k, i, e.target.value)} />
+                    <textarea disabled={publishing} className="mt-1 w-full rounded border border-line p-2 text-sm" rows={3} value={x.text}
+                      onChange={(e) => editRevised(k, i, e.target.value)} />
                   </div>
                 );
               }))}
@@ -174,7 +190,7 @@ export function UpdateClient() {
           </details>
           <div className="flex gap-3">
             <button onClick={publish} disabled={!!busy} className="button-primary disabled:opacity-50">Publish as a new version</button>
-            <button disabled={busy} onClick={() => { setRes(null); setMood("idle"); }} className="button-secondary">Discard</button>
+            <button disabled={busy} onClick={() => { setRes(null); setReview(null); setMood("idle"); }} className="button-secondary">Discard</button>
           </div>
         </section>
       )}

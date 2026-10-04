@@ -1,7 +1,10 @@
 import { guard } from "@/lib/access";
 import { indexSegments, resolveCite } from "@/lib/cite";
 import { kindOf } from "@/lib/ingest";
-import { allSegments, updates } from "@/lib/store";
+import { allSegments, getKB, updates } from "@/lib/store";
+import { applyGuardrails, datesIn, dedupeWarnings } from "@/lib/update";
+import { normalizeChangeSet } from "@/lib/updateInput";
+import { plain } from "@/lib/text";
 import { updateStore } from "@/lib/updateStore";
 import type { ChangeSet, Cite, Source } from "@/lib/types";
 
@@ -9,12 +12,51 @@ import type { ChangeSet, Cite, Source } from "@/lib/types";
 export async function POST(req: Request) {
   const denied = guard(req, "write");
   if (denied) return denied;
-  const { draftId, changeset } = (await req.json()) as { draftId: string; changeset: ChangeSet };
+  let draftId: string, changeset: unknown;
+  try {
+    const body = await req.json();
+    if (!body || typeof body.draftId !== "string" || !/^[\w-]+$/.test(body.draftId)) throw new Error("Invalid draft id.");
+    draftId = body.draftId; changeset = body.changeset;
+  } catch {
+    return Response.json({ error: "Invalid publish request." }, { status: 400 });
+  }
   const store = updateStore();
   const loaded = await store.loadDraft(String(draftId).replace(/[^\w-]/g, ""));
   if (!loaded) return Response.json({ error: "Draft not found or expired (drafts are kept 1 hour). Upload the file again." }, { status: 404 });
   const { draft, files: stored } = loaded;
+  let edited: ChangeSet;
+  try { edited = normalizeChangeSet(changeset, draft.filename); }
+  catch { return Response.json({ error: "Invalid ChangeSet. Check the editable fields and citations." }, { status: 400 }); }
   const ups = await updates();
+  const k = await getKB();
+  const current = await allSegments(ups);
+  const conditions = k.conditions.map((c) => ({ ...c }));
+  const goLive = { ...k.goLive };
+  // Derive authoritative state from this request's published-update snapshot.
+  for (const u of ups) {
+    for (const ch of u.cs.conditionChanges) {
+      const condition = conditions.find((c) => c.id === ch.id);
+      if (condition) condition.status = ch.status;
+    }
+    for (const decision of u.cs.newDecisions) {
+      if (!/go-live|go live|mise en production/i.test(decision.text)) continue;
+      const dates = datesIn(decision.text, +goLive.date.slice(0, 4));
+      if (dates.length === 1) Object.assign(goLive, { date: dates[0], headline: decision.text, citations: decision.citations });
+    }
+  }
+  // Keep NEW ids until after the shared guardrail pass (its authority checks use them).
+  const guarded = applyGuardrails(edited, current, draft.segments, { conditions, goLive, contractEnd: k.goLive.contractEnd });
+  // Formatting and exact citation locators are harmless. All other content changes need review.
+  const material = (cs: ChangeSet) => JSON.stringify({
+    summary: cs.summary, problemStatus: cs.problemStatus, priorDecisions: cs.priorDecisions,
+    newProposals: cs.newProposals, newDecisions: cs.newDecisions, conditionChanges: cs.conditionChanges,
+    newActions: cs.newActions, revisedAnswers: cs.revisedAnswers, revisedBrief: cs.revisedBrief, affected: cs.affected,
+  }, (key, value) => key === "loc" ? undefined : typeof value === "string" ? plain(value) : value);
+  const warnings = dedupeWarnings([...(guarded.guardrails.reviewWarnings ?? []),
+    ...(material(edited) !== material(guarded) ? ["Guardrails changed the edited ChangeSet. Review the guarded version before publishing."] : [])]);
+  if (warnings.length) {
+    return Response.json({ ok: false, reviewRequired: true, warnings, guardedChangeSet: guarded }, { status: 409 });
+  }
   const id = `U${String(ups.length + 1).padStart(3, "0")}`;
   const srcId = `${id}-S1`;
   const files = draft.files;
@@ -31,9 +73,9 @@ export async function POST(req: Request) {
     };
   });
   const segments = draft.segments.map((s) => ({ ...s, src: rename(s.src) }));
-  const cs: ChangeSet = JSON.parse(JSON.stringify(changeset).replace(/"src":"NEW/g, `"src":"${srcId}`));
+  const cs: ChangeSet = JSON.parse(JSON.stringify(guarded).replace(/"src":"NEW/g, `"src":"${srcId}`));
   // Fill exact locators for every citation (new file + baseline).
-  const idx = indexSegments([...(await allSegments(ups)), ...segments]);
+  const idx = indexSegments([...current, ...segments]);
   const fix = (cites: Cite[] = []) => cites.map((c) => ({ ...c, loc: resolveCite(c, idx).loc || c.loc }));
   for (const k of ["problemStatus", "priorDecisions", "newProposals", "newDecisions"] as const) cs[k] = cs[k].map((x) => ({ ...x, citations: fix(x.citations) }));
   cs.conditionChanges = cs.conditionChanges.map((x) => ({ ...x, citations: fix(x.citations) }));

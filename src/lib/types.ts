@@ -48,5 +48,5 @@ export interface ChangeSet {
   newActions: NewAction[];
   revisedAnswers?: { id: string; text: string; citations: Cite[] }[];
   revisedBrief?: { theme: string; text: string; citations: Cite[] }[];
-  guardrails: { approvalInvented: boolean; otherConditionsClosed: boolean; beyondContractEnd: boolean; notes: string[] };
+  guardrails: { approvalInvented: boolean; otherConditionsClosed: boolean; beyondContractEnd: boolean; notes: string[]; reviewWarnings?: string[] };
 }
