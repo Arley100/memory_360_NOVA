@@ -1,9 +1,9 @@
 import type { StageItem } from "@/components/Memo";
 
-const STATE_TEXT = { pending: "Pending", start: "In progress", done: "Complete", error: "Failed" };
+const STATE_TEXT = { pending: "En attente", start: "En cours", done: "Terminé", error: "Échec" };
 
 export function BuildSteps({ stages }: { stages: StageItem[] }) {
-  return <ol className="panel build-steps" aria-label="Build steps">
+  return <ol className="panel build-steps" aria-label="Étapes de reconstruction">
     {stages.map((stage) => <li key={stage.stage} className={`build-step build-step--${stage.status}`}>
       <span key={stage.status} className={`build-step__marker${stage.status === "start" || stage.status === "done" ? " flash-marker" : ""}`} aria-hidden="true">
         {stage.status === "done" && <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m5 10 3.5 3.5L15 6" /></svg>}

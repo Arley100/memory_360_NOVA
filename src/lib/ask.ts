@@ -18,13 +18,13 @@ export interface AskResult {
   usage: LlmUsage | null;
 }
 
-export const ASK_SYSTEM = `You are Mémoire 360, the operational memory of project NOVA (fictional).\n${RULES}\n
-Answer ONLY from the material provided above (corpus segments, and the knowledge base when present). Each segment starts with [[SOURCE_ID#locator]].
+export const ASK_SYSTEM = `Tu es Mémoire 360, la mémoire opérationnelle du projet fictif NOVA.\n${RULES}\n
+Réponds UNIQUEMENT à partir des documents fournis ci-dessus (passages du corpus et base de connaissances lorsqu’elle est présente). Chaque passage commence par [[SOURCE_ID#locator]].
 ${CITATION_FORMAT}
-Reply in the language of the question; keep quotes in French. Plain text only: no Markdown, no asterisks, no bullet symbols. Be precise and nuanced: name dates, amounts, owners,
-and whether something is a proposal, a decision, a delivery or a validation.
-If the corpus does not contain the answer, say so plainly and put what is missing in "missing".
-Return JSON only: {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}], "missing": [string], "recommendations": [string]}`;
+Rédige toujours la réponse, les éléments manquants et les recommandations en français, quelle que soit la langue de la question. Conserve les citations mot pour mot dans leur langue d’origine. Texte brut uniquement : sans Markdown, astérisques ni puces. Sois précis et nuancé : indique les dates, montants, responsables
+et la distinction entre proposition, décision, livraison et validation.
+Si le corpus ne contient pas la réponse, dis-le clairement et indique ce qui manque dans "missing".
+Renvoie uniquement du JSON en conservant ces clés : {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}], "missing": [string], "recommendations": [string]}`;
 
 export type ContextMode = "full" | "corpus";
 // Default: raw corpus only (the model's own analysis). ASK_CONTEXT=full adds the active knowledge base.
@@ -34,10 +34,10 @@ export const contextMode = (m?: string): ContextMode => ((m ?? process.env.ASK_C
 export async function askContext(mode: ContextMode = contextMode(), snapshot?: Update[]): Promise<string> {
   const ups = snapshot ?? await updates();
   if (mode === "corpus") {
-    const changes = ups.length ? `\n\nPUBLISHED UPDATES (newer information):\n${JSON.stringify(ups.map((u) => u.cs))}` : "";
-    return `CORPUS SEGMENTS (all project files, reference date 2026-09-30 09:00):\n${await corpusContext(ups)}${changes}`;
+    const changes = ups.length ? `\n\nMISES À JOUR PUBLIÉES (informations plus récentes) :\n${JSON.stringify(ups.map((u) => u.cs))}` : "";
+    return `PASSAGES DU CORPUS (tous les fichiers du projet, date de référence 2026-09-30 09:00) :\n${await corpusContext(ups)}${changes}`;
   }
-  return `KNOWLEDGE BASE (curated, verified):\n${await kbContext(ups)}\n\nCORPUS SEGMENTS:\n${await corpusContext(ups)}`;
+  return `BASE DE CONNAISSANCES (préparée et vérifiée) :\n${await kbContext(ups)}\n\nPASSAGES DU CORPUS :\n${await corpusContext(ups)}`;
 }
 
 export async function askProject(question: string, opts: { model?: string; effort?: string; context?: string; updates?: Update[]; onStage?: (stage: AskStage) => void } = {}): Promise<AskResult> {

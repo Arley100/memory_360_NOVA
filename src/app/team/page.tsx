@@ -5,7 +5,7 @@ export default async function Team() {
   const k = await getKB();
   return (
     <div className="space-y-6">
-      <PageHeader title="Team" subtitle={<>All people and organizations are fictional.</>} />
+      <PageHeader title="Équipe" subtitle={<>Toutes les personnes et organisations sont fictives.</>} />
       <ul className="panel team-roster">
         {k.people.map((p) => (
           <li key={p.name} className="roster-row">

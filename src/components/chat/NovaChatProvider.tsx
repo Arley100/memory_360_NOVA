@@ -11,7 +11,7 @@ interface ChatAPI {
   stop: () => void; newConversation: () => void; unlock: () => void; composer: React.RefObject<HTMLTextAreaElement | null>; launcher: React.RefObject<HTMLButtonElement | null>;
 }
 const Context = createContext<ChatAPI | null>(null);
-export function useNovaChat() { const value = useContext(Context); if (!value) throw new Error("NOVA chat provider missing"); return value; }
+export function useNovaChat() { const value = useContext(Context); if (!value) throw new Error("Contexte de conversation NOVA manquant"); return value; }
 
 export function NovaChatProvider({ children, initialMeta }: { children: ReactNode; initialMeta: ChatMeta }) {
   const [state, setState] = useState<ChatState>(initialChatState);
@@ -102,7 +102,7 @@ export function NovaChatProvider({ children, initialMeta }: { children: ReactNod
       if (!r.ok) {
         const error = await r.json().catch(() => ({}));
         if (error.needCode) { setNeedCode(true); return false; }
-        throw new Error(error.error || "Unable to answer right now. Please retry.");
+        throw new Error(error.error || "Réponse indisponible pour le moment. Réessayez.");
       }
       await readStream(r, (m) => {
         if (ctrl.signal.aborted) return;
@@ -110,17 +110,17 @@ export function NovaChatProvider({ children, initialMeta }: { children: ReactNod
         if (m.type === "error") throw new Error(String(m.error));
         if (m.type === "result") {
           const answer = m.answer as ChatAnswer;
-          if (!answer?.blocks || !answer.context) throw new Error("The answer format could not be read. Please retry.");
+          if (!answer?.blocks || !answer.context) throw new Error("Format de réponse illisible. Réessayez.");
           completed = true;
           append({ id: answer.id, role: "assistant", createdAt: answer.answeredAt, answer });
           setState((s) => ({ ...s, unread: !s.open }));
         }
       });
-      if (!completed) throw new Error("The connection ended before the answer arrived. Please retry.");
+      if (!completed) throw new Error("Connexion interrompue avant réception de la réponse. Réessayez.");
       pending.current = null;
       return true;
     } catch (e) {
-      append({ id: crypto.randomUUID(), role: "system", createdAt: new Date().toISOString(), text: ctrl.signal.aborted ? "Generation stopped." : (e as Error).message, error: !ctrl.signal.aborted, retryQuestion: question, retryMode: mode });
+      append({ id: crypto.randomUUID(), role: "system", createdAt: new Date().toISOString(), text: ctrl.signal.aborted ? "Génération arrêtée." : (e as Error).message, error: !ctrl.signal.aborted, retryQuestion: question, retryMode: mode });
       return false;
     } finally {
       controller.current = null; setBusy(false); void refreshMeta();

@@ -14,20 +14,20 @@ type Meta = { generatedAt?: string; model?: string; durationMs?: number; citatio
 
 // The pipeline's stages, in order. Labels match what the server reports.
 const PLAN: Stage[] = [
-  { stage: "read", label: "Read the dossier", status: "pending" },
-  { stage: "questions", label: "Found the questions to answer", status: "pending" },
-  { stage: "answers", label: "Answering the README questions", status: "pending" },
-  { stage: "state", label: "Working out the current state, conditions, budget and people", status: "pending" },
-  { stage: "history", label: "Rebuilding the timeline and the decisions", status: "pending" },
-  { stage: "issues", label: "Resolving contradictions and planning actions", status: "pending" },
-  { stage: "brief", label: "Writing the one-page handover brief", status: "pending" },
-  { stage: "verify", label: "Checking every citation against the files", status: "pending" },
-  { stage: "key", label: "Comparing with the curated answer key", status: "pending" },
+  { stage: "read", label: "Lecture du dossier", status: "pending" },
+  { stage: "questions", label: "Questions à traiter trouvées", status: "pending" },
+  { stage: "answers", label: "Réponses aux questions du README", status: "pending" },
+  { stage: "state", label: "Établissement de l’état actuel, des conditions, du budget et des intervenants", status: "pending" },
+  { stage: "history", label: "Reconstitution de la chronologie et des décisions", status: "pending" },
+  { stage: "issues", label: "Résolution des contradictions et planification des actions", status: "pending" },
+  { stage: "brief", label: "Rédaction de la fiche de passation", status: "pending" },
+  { stage: "verify", label: "Vérification de chaque citation dans les fichiers", status: "pending" },
+  { stage: "key", label: "Vérification des faits requis validés par l’équipe", status: "pending" },
 ];
 
 const MOOD_TEXT: Record<Mood, string> = {
-  idle: "Ready to read the raw files.", reading: "Reading every file…", thinking: "Connecting the facts…",
-  checking: "Checking every quote against the files…", done: "The memory is built.", error: "Something went wrong.",
+  idle: "Prêt à lire les fichiers sources.", reading: "Lecture de chaque fichier…", thinking: "Mise en relation des faits…",
+  checking: "Vérification de chaque citation dans les fichiers…", done: "La mémoire est reconstruite.", error: "Une erreur est survenue.",
 };
 
 export function BuildClient({ current, hasKey }: { current: { source: string; meta?: Meta } ; hasKey: boolean }) {
@@ -64,7 +64,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
     try {
       const res = await fetch("/api/analyze", { method: "POST" });
       if (res.status === 401) { setNeedCode(true); setMood("idle"); return; }
-      if (!res.ok || !res.body) throw new Error((await res.json().catch(() => ({}))).error ?? `Server error ${res.status}`);
+      if (!res.ok || !res.body) throw new Error((await res.json().catch(() => ({}))).error ?? `Erreur du serveur ${res.status}`);
       const reader = res.body.getReader();
       const dec = new TextDecoder();
       let buf = "";
@@ -85,7 +85,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
         for (const line of lines) receive(line);
       }
       receive(buf + dec.decode());
-      if (!completed) throw new Error("The connection ended before the build completed. Try again.");
+      if (!completed) throw new Error("La connexion a été interrompue avant la fin de la reconstruction. Réessayez.");
     } catch (e) {
       const message = (e as Error).message;
       setError(message); setMood("error");
@@ -106,35 +106,35 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
         <p className="section-label">Mémoire 360</p>
         <MemoryOrb state={orbState} />
         <p className="build-console__status" role="status" aria-live="polite">{MOOD_TEXT[mood]}</p>
-        {running && <div className="build-console__timing"><p className="tabular-nums">{elapsed} s · usually 1 to 2 minutes</p><p>{completedSteps} of {PLAN.length} steps complete</p></div>}
+        {running && <div className="build-console__timing"><p className="tabular-nums">{elapsed} s · généralement 1 à 2 minutes</p><p>{completedSteps} sur {PLAN.length} étapes terminées</p></div>}
         <button onClick={build} disabled={running || !hasKey} className="button-primary build-action disabled:opacity-50">
-          {running ? "Building…" : "Build from sources"}
+          {running ? "Reconstruction…" : "Reconstruire depuis les sources"}
         </button>
-        {!hasKey && <p className="build-console__note">Needs an API key (see the usage guide).</p>}
+        {!hasKey && <p className="build-console__note">Nécessite un fournisseur d’IA configuré (voir README.md).</p>}
         {needCode && <CodeGate onUnlocked={() => { setNeedCode(false); build(); }} />}
       </div>
 
-      <section className="panel build-current" aria-label="Currently shown in the app">
-        <p className="section-label">Current memory</p>
+      <section className="panel build-current" aria-label="Contenu affiché dans l’application">
+        <p className="section-label">Mémoire actuelle</p>
         {current.source === "ai" && current.meta ? <>
-          <div className="build-current__heading"><h2>AI-generated knowledge base</h2>{current.meta.generatedAt && <p>Built <time dateTime={current.meta.generatedAt}>{when(current.meta.generatedAt)}</time></p>}</div>
+          <div className="build-current__heading"><h2>Base de connaissances générée par IA</h2>{current.meta.generatedAt && <p>Générée le <time dateTime={current.meta.generatedAt}>{when(current.meta.generatedAt)}</time></p>}</div>
           <ul className="build-current__facts">
             {current.meta.model && <li>{current.meta.model}</li>}
-            {current.meta.citations && <li>{current.meta.citations.verified} citations verified</li>}
-            <li><strong>{current.meta.answerKey?.score ?? "n/a"}</strong> key facts</li>
+            {current.meta.citations && <li>{current.meta.citations.verified} citations vérifiées</li>}
+            <li><strong>{current.meta.answerKey?.score ?? "n/a"}</strong> faits requis</li>
           </ul>
-        </> : <><h2>Hand-curated answer key</h2><p className="build-console__note">No AI analysis yet. Build from sources to replace it with the system&apos;s own analysis.</p></>}
+        </> : <><h2>Faits requis vérifiés par l’équipe</h2><p className="build-console__note">Aucune analyse par IA. Reconstruisez depuis les sources pour obtenir l’analyse du système.</p></>}
       </section>
 
       <div className="build-process">
-        <div className="build-process__heading"><h2>Build process</h2><span>{completedSteps} / {PLAN.length} complete</span></div>
+        <div className="build-process__heading"><h2>Processus de reconstruction</h2><span>{completedSteps} / {PLAN.length} terminé</span></div>
         <BuildSteps stages={stages} />
-        {error && <div role="alert" className="build-result build-result--error reveal"><Icon name="warning" size={18} /><div><h2>Build failed</h2><p>{error}</p></div></div>}
+        {error && <div role="alert" className="build-result build-result--error reveal"><Icon name="warning" size={18} /><div><h2>Échec de la reconstruction</h2><p>{error}</p></div></div>}
         {result && <div className="build-result build-result--success reveal">
           <Icon name="check" size={18} />
-          <div className="min-w-0"><h2>Memory rebuilt in {Math.round((result.durationMs ?? 0) / 1000)} s</h2>
-            <div className="peek"><p>{result.citations?.verified} citations verified word for word, {result.citations?.dropped} removed.</p><p><strong>{result.answerKey?.score}</strong> answers contain every key fact.</p></div>
-            <div className="build-result__actions"><Link href="/questions" className="button-primary build-action">See the answers</Link><Link href="/" className="button-secondary">Open the overview</Link></div>
+          <div className="min-w-0"><h2>Mémoire reconstruite en {Math.round((result.durationMs ?? 0) / 1000)} s</h2>
+            <div className="peek"><p>{result.citations?.verified} citations vérifiées mot pour mot, {result.citations?.dropped} retirées.</p><p><strong>{result.answerKey?.score}</strong> réponses contiennent tous les faits requis.</p></div>
+            <div className="build-result__actions"><Link href="/questions" className="button-primary build-action">Voir les réponses</Link><Link href="/" className="button-secondary">Ouvrir la vue d’ensemble</Link></div>
           </div>
         </div>}
       </div>

@@ -36,13 +36,13 @@ const LIMITS: Record<string, { max: number; windowMs: number }> = {
 
 // Returns an error Response, or null when the request may proceed.
 export function guard(req: Request, kind: keyof typeof LIMITS): Response | null {
-  if (!hasAccess(req)) return Response.json({ error: "Enter the demo code to use this feature.", needCode: true }, { status: 401 });
+  if (!hasAccess(req)) return Response.json({ error: "Saisissez le code de démonstration pour utiliser cette fonction.", needCode: true }, { status: 401 });
   const ip = (req.headers.get("x-forwarded-for") ?? "local").split(",")[0].trim();
   const key = `${kind}:${ip}`;
   const now = Date.now();
   const { max, windowMs } = LIMITS[kind];
   const recent = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
-  if (recent.length >= max) return Response.json({ error: `Too many requests: please wait a few minutes (limit ${max} per ${windowMs / 60000} min).` }, { status: 429 });
+  if (recent.length >= max) return Response.json({ error: `Trop de requêtes : patientez quelques minutes (limite de ${max} requêtes par ${windowMs / 60000} min).` }, { status: 429 });
   recent.push(now);
   hits.set(key, recent);
   return null;

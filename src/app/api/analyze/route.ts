@@ -11,7 +11,7 @@ export const maxDuration = 300;
 export async function POST(req: Request) {
   const denied = guard(req, "analyze");
   if (denied) return denied;
-  if (!llmProvider()) return Response.json({ error: "No LLM key configured." }, { status: 503 });
+  if (!llmProvider()) return Response.json({ error: "Aucun fournisseur d’IA configuré." }, { status: 503 });
   const enc = new TextEncoder();
   let disconnected = false;
   const stream = new ReadableStream({

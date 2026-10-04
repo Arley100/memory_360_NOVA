@@ -38,11 +38,11 @@ export function deriveRisks(kb: KB, conditions: RiskCondition[], sources: Source
         if (!/^R-\d+$/i.test(value("id"))) continue;
         const registerCites = [...cells.values()].map((s) => resolve({ src: s.src, loc: s.loc, quote: s.text }));
         const risk: Risk = {
-          id: value("id"), title: value("title"), probability: value("probability") || "Undocumented", impact: value("impact") || "Undocumented", owner: value("owner") || "Undocumented",
-          registerStatus: value("status") || "Undocumented", registerDate: source.contentDate,
+          id: value("id"), title: value("title"), probability: value("probability") || "Non documenté", impact: value("impact") || "Non documenté", owner: value("owner") || "Non documenté",
+          registerStatus: value("status") || "Non documenté", registerDate: source.contentDate,
           mitigation: value("mitigation"), followUp: value("followUp"), registerCites,
           ratingCites: [cell("title"), cell("probability"), cell("impact")].filter((c): c is Segment => Boolean(c)).map((s) => resolve({ src: s.src, loc: s.loc, quote: s.text })), evidence: [],
-          status: "Uncertain", interpretation: "No verified operational resolution is linked to this register entry. Review is required before treating it as a current priority.", stale: false,
+          status: "Uncertain", interpretation: "Aucune résolution opérationnelle vérifiée n’est liée à cette entrée. Une vérification est nécessaire avant de la considérer prioritaire.", stale: false,
         };
         // Match the exact row, not a generic 'Ouvert' quote from another entry.
         const contradiction = kb.contradictions.find((c) => c.planOrRegister && c.aCit.some((cit) => {
@@ -74,7 +74,7 @@ export function deriveRisks(kb: KB, conditions: RiskCondition[], sources: Source
           }
         } else if (closed(risk.registerStatus)) {
           risk.status = "Closed";
-          risk.interpretation = "The register documents this risk as closed; no linked current condition contradicts that status.";
+          risk.interpretation = "Le registre indique ce risque fermé ; aucune condition actuelle liée ne contredit ce statut.";
           risk.evidence = registerCites.filter((c) => c.loc === cell("status")?.loc);
         }
         risks.push(risk);

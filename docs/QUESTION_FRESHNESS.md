@@ -1,27 +1,27 @@
-# Question freshness and manual recomputation
+﻿# Actualité des réponses et recalcul manuel
 
-Q01–Q10 now have independent persisted answer caches. Opening Questions imports any missing cache from the existing resolved answer, without calling the LLM. The initial timestamp is explicitly labelled as an initial cache timestamp; it is not an inferred historical LLM execution time. Once initialized, update publication never replaces the cached answer or its timestamp.
+Q01–Q10 disposent désormais de caches de réponses indépendants et persistants. L’ouverture de Questions importe tout cache manquant à partir de la réponse résolue existante, sans appel au modèle. L’horodatage initial est explicitement présenté comme celui de l’initialisation du cache ; il ne prétend pas indiquer une ancienne exécution du modèle. Après cette initialisation, la publication d’une mise à jour ne remplace jamais la réponse en cache ni son horodatage.
 
-Freshness compares included update IDs with the published state. New updates invalidate only questions listed in `affected.answers`. Removal of an included update invalidates the computation that used it. Update fingerprints also detect reused IDs after reset. File change labels use recorded paths and SHA-256 values; missing hashes produce the neutral “Context changed” label. Storage version directories are normalized when comparing the logical path of successive published files.
+L’actualité compare les identifiants des mises à jour incluses à l’état publié. Une nouvelle mise à jour ne périme que les questions listées dans `affected.answers`. La suppression d’une mise à jour incluse périme le calcul qui l’utilisait. Les empreintes des mises à jour détectent aussi la réutilisation d’identifiants après réinitialisation. Les étiquettes de modification des fichiers utilisent les chemins et les empreintes SHA-256 enregistrés ; une empreinte absente produit l’étiquette neutre « Contexte modifié ». Les répertoires de versions du stockage sont normalisés lors de la comparaison du chemin logique de fichiers publiés successivement.
 
-Each refresh button and the batch toolbar use `POST /api/questions/recompute`. The server calls the existing `askProject()` pipeline with a pinned published-update snapshot and a concurrency limit of two. JSON clients receive partial-success results; the Questions UI requests NDJSON to display real completion progress from that same request. New updates or reset during a computation can leave its result stale, because they were not part of its input.
+Chaque bouton de recalcul et la barre d’outils groupés utilisent `POST /api/questions/recompute`. Le serveur appelle la chaîne `askProject()` existante avec un instantané figé des mises à jour publiées et une concurrence limitée à deux tâches. Les clients JSON reçoivent les résultats, y compris les réussites partielles ; l’interface Questions demande du NDJSON pour afficher la progression réelle de cette même requête. Une publication ou une réinitialisation survenant pendant un calcul peut rendre son résultat périmé, car elle ne faisait pas partie de son contexte d’entrée.
 
-Successful computations retain only verified citations. Failed computations preserve the previous answer and evidence. Quotes from sources removed by reset remain visible as archived evidence, without links to missing source pages. The baseline and the existing update/revised-answer architecture are untouched.
+Les calculs réussis ne conservent que les citations vérifiées. Les échecs préservent la réponse et les preuves antérieures. Les citations de sources supprimées par une réinitialisation restent visibles comme preuves archivées, sans liens vers les pages disparues. La référence initiale et l’architecture existante des mises à jour et réponses révisées sont préservées.
 
-Local records and full computation history live in `data/question-computations/Qxx.json`, excluded from Git and deployment file tracing. Hosted records use the existing Upstash/KV environment variables and `${STORE_PREFIX || "m360"}:questions:Qxx` keys. Redis appends history atomically. Update reset does not remove these records.
+Les enregistrements locaux et l’historique complet des calculs résident dans `data/question-computations/Qxx.json`, exclus de Git et du suivi des fichiers de déploiement. Les enregistrements hébergés utilisent les variables d’environnement Upstash/KV existantes et les clés `${STORE_PREFIX || "m360"}:questions:Qxx`. Redis ajoute l’historique de manière atomique. La réinitialisation des mises à jour ne supprime pas ces enregistrements.
 
-## Verification
+## Vérification
 
-Run the durable tests with:
+Exécutez les tests persistants avec :
 
 ```powershell
 node --import tsx --test tests/question-freshness.test.ts
 ```
 
-The tests cover relevant/unrelated publication, backward clocks, added/modified/unknown-hash files, reset and reused IDs, fallback initialization, immutable caches after publication, restart persistence, history preservation, late writes, two-worker batches, partial failures, verified-only evidence, and publication during recomputation. Redis adapter tests use mocked REST responses; they do not write to a live hosted store.
+Les tests couvrent les publications pertinentes ou sans lien, les retours de l’horloge en arrière, les fichiers ajoutés, modifiés ou sans empreinte, la réinitialisation et les identifiants réutilisés, l’initialisation de secours, l’immuabilité des caches après publication, la persistance au redémarrage, la conservation de l’historique, les écritures tardives, les lots à deux tâches, les échecs partiels, les preuves exclusivement vérifiées et la publication pendant le recalcul. Les tests de l’adaptateur Redis simulent les réponses REST ; ils n’écrivent pas dans un stockage hébergé réel.
 
-React interaction checks additionally verified ten checkbox/refresh/timestamp controls, zero model requests on initialization, Select stale, one browser request for a three-question batch, streamed progress, successful selection clearing, failed-answer preservation, single-question retry, the 503 message, incoming reset state, refresh animation, and archived evidence. These checks used a mocked model response and did not spend provider credits.
+Les contrôles d’interaction React ont aussi vérifié les dix cases de sélection, commandes de recalcul et horodatages, l’absence de requête au modèle à l’initialisation, la sélection des réponses périmées, une seule requête du navigateur pour un lot de trois questions, la progression en continu, l’effacement des sélections réussies, la préservation des réponses en échec, la nouvelle tentative sur une question, le message 503, la réception d’un état réinitialisé, l’animation de recalcul et les preuves archivées. Ils utilisaient une réponse de modèle simulée et n’ont consommé aucun crédit fournisseur.
 
-The actual local Questions route returned 200, rendered all ten controls, and kept persisted cache records unchanged on reload. Invalid recompute requests returned 400. Production compilation and TypeScript checks passed. Lint has only the two existing unused-variable warnings in `src/lib/prompts.ts`.
+La route Questions locale réelle a répondu 200, affiché les dix commandes et préservé les caches persistants au rechargement. Les requêtes de recalcul invalides ont répondu 400. La compilation de production et les contrôles TypeScript ont réussi. Le contrôle de style ne présente que les deux avertissements préexistants de variables inutilisées dans `src/lib/prompts.ts`.
 
-Browser screenshot verification and live hosted Redis/provider execution were not performed.
+La vérification par captures du navigateur et l’exécution réelle avec Redis hébergé ou un fournisseur n’ont pas été effectuées.

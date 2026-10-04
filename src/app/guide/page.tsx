@@ -8,7 +8,7 @@ export default async function Guide() {
   const uncertainties = [
     {
       title: "SEC-210",
-      text: "Fix delivered to validation; security acceptance and completed re-test results are undocumented. The ticket remains EN VALIDATION; no re-test date is given.",
+      text: "Correctif livré en validation ; acceptation de sécurité et résultats du nouveau test non documentés. Le ticket reste EN VALIDATION ; aucune date de nouveau test n’est précisée.",
       citations: [
         { src: "SEC-210", loc: "L23", quote: "Fix déployé sur l'environnement de validation." },
         { src: "SEC-210", loc: "L25", quote: "Re-test planifié. Statut maintenu EN VALIDATION." },
@@ -17,12 +17,12 @@ export default async function Guide() {
     },
     {
       title: "ACC-303",
-      text: "Still open. A fix is announced for the next build; delivery, validated closure and a precise completion date are undocumented.",
+      text: "Toujours ouvert. Correctif annoncé pour la prochaine version ; livraison, fermeture validée et date précise non documentées.",
       citations: [{ src: "ACC-303", loc: "L16", quote: "Toujours ouvert. Correctif annoncé pour la prochaine build." }],
     },
     {
       title: "OPS-601",
-      text: "Final runbook not received as of Sept 29. Rollback is TODO and post-deployment validation is incomplete; final approval and readiness date are undocumented.",
+      text: "Guide d’exploitation final non reçu au 29 septembre. Retour arrière à faire et validation après déploiement incomplète ; approbation finale et date de disponibilité non documentées.",
       citations: [
         { src: "OPS-601", loc: "L16", quote: "Toujours pas reçu la version finale." },
         { src: "OPS-601.png", loc: "region=row-4", quote: "4. Procédure de retour arrière : TODO" },
@@ -31,7 +31,7 @@ export default async function Guide() {
     },
     {
       title: "INV-003 / CR-04",
-      text: "Invoice under validation includes CAD 18,000 for unapproved CR-04 work. An invoice reference is not approval; resolution of this line is undocumented.",
+      text: "La facture en validation comprend 18 000 $ CA pour CR-04, non approuvée. Une mention sur facture ne vaut pas approbation ; le règlement de cette ligne est non documenté.",
       citations: [
         { src: "INV-003", loc: "page=1", quote: "Optimisation interface mobile - CR-04 18 000 $" },
         { src: "CR-04", loc: "page=1", quote: "Aucun numéro d’approbation ni signature de comité n’est présent dans ce document." },
@@ -39,8 +39,8 @@ export default async function Guide() {
       ],
     },
     {
-      title: "Production go-live",
-      text: "Canada Central architecture and verified migration are documented. The approved Oct 22 target remains conditional on security, accessibility and runbook approval; actual production go-live is undocumented at baseline.",
+      title: "Mise en production",
+      text: "Architecture Canada Central et migration vérifiée documentées. La cible approuvée du 22 octobre reste conditionnelle à la sécurité, à l’accessibilité et à l’approbation du guide d’exploitation ; mise en production effective non documentée à la référence.",
       citations: [
         { src: "ADR-007", loc: "L10", quote: "L'environnement de production de NOVA sera déployé dans **Canada Central**." },
         { src: "M03", loc: "L5", quote: "La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture." },
@@ -51,73 +51,73 @@ export default async function Guide() {
 
   return (
     <article className="guide-article">
-      <PageHeader title="Usage guide" subtitle="Start with Overview, ask NOVA, then inspect the evidence." />
-      <section><h2 className="text-xl font-bold">Opening</h2>
-        <p>Open <a className="text-primary underline" href="https://memory-360-nova.vercel.app">the deployed application</a> at <Link className="text-primary underline" href="/">Overview</Link>. Enter the jury demo code when prompted for protected operations. No paid subscription or personal Claude/OpenAI account is needed.</p>
-        <p>Local setup and deployment instructions are in README.md and DEPLOY.md.</p></section>
+      <PageHeader title="Guide d’utilisation" subtitle="Commencez par la vue d’ensemble, interrogez NOVA, puis vérifiez les preuves." />
+      <section><h2 className="text-xl font-bold">Ouverture</h2>
+        <p>Ouvrir <a className="text-primary underline" href="https://memory-360-nova.vercel.app">l’application déployée</a> à <Link className="text-primary underline" href="/">Vue d’ensemble</Link>. Saisissez le code de démonstration du jury pour les opérations protégées. Aucun abonnement payant ni compte personnel Claude/OpenAI n’est nécessaire.</p>
+        <p>Les instructions d’installation locale et de déploiement figurent dans README.md et DEPLOY.md.</p></section>
       <section><h2 className="text-xl font-bold">Navigation</h2>
         <ul className="list-disc pl-5">
-          <li><strong>Overview / Handover brief:</strong> readiness, budget, conditions and next actions / printable project summary (Ctrl+P).</li>
-          <li><strong>Build from sources:</strong> rebuilds memory from indexed files, verifies citations and cross-checks required facts.</li>
-          <li><strong>Timeline / Decisions:</strong> dated project evolution / proposal → decision → delivery → validation.</li>
-          <li><strong>Contradictions / Risks:</strong> conflicting records and resolution / risk entries, current interpretation and stale evidence.</li>
-          <li><strong>Actions / Team:</strong> commitments and recommendations, confirmed or proposed owners, deadlines or TBC / roles and responsibilities.</li>
-          <li><strong>Questions:</strong> official Q01–Q10 answers, freshness and recomputation.</li>
-          <li><strong>Sources:</strong> searchable evidence, exact locators and original files.</li>
-          <li><strong>Add new information:</strong> analyze, review and publish evidence while preserving the baseline.</li>
-          <li><strong>NOVA Assistant:</strong> persistent evidence-grounded chat in English or French.</li>
+          <li><strong>Vue d’ensemble / Fiche de passation :</strong> préparation, budget, conditions et prochaines actions / résumé imprimable (Ctrl+P).</li>
+          <li><strong>Reconstruire depuis les sources :</strong> reconstitue la mémoire, vérifie les citations et les faits requis.</li>
+          <li><strong>Chronologie / Décisions :</strong> évolution datée / proposition → décision → livraison → validation.</li>
+          <li><strong>Contradictions / Risques :</strong> conflits et résolution / registre, interprétation actuelle et preuves périmées.</li>
+          <li><strong>Actions / Équipe :</strong> engagements et recommandations, responsables confirmés ou proposés, échéances à confirmer / rôles.</li>
+          <li><strong>Questions :</strong> réponses officielles Q01–Q10, actualité et recalcul.</li>
+          <li><strong>Sources :</strong> recherche de preuves, repères précis et fichiers originaux.</li>
+          <li><strong>Ajouter des informations :</strong> analyser, vérifier et publier en préservant la référence.</li>
+          <li><strong>Assistant NOVA :</strong> conversation persistante fondée sur les preuves, en français ou en anglais.</li>
         </ul></section>
-      <section><h2 className="text-xl font-bold">Asking questions and checking evidence</h2>
+      <section><h2 className="text-xl font-bold">Poser des questions et vérifier les preuves</h2>
         <ul className="list-disc pl-5">
-          <li>Header <strong>Ask</strong> opens <strong>NOVA Assistant</strong>: English/French, follow-ups and Current/Baseline modes. History survives navigation and refresh when local storage is available.</li>
-          <li>Chat stays separate from the ten official Q01–Q10 answers in <strong>Questions</strong>:  <strong>Up to date</strong>, <strong>Needs recompute</strong> or <strong>Requires review</strong>; stale answers show changed files.</li>
-          <li>Use individual refresh, <strong>Select stale → Recompute selected</strong>, or <strong>More → Recompute from all sources</strong>. Recomputation requires configured AI.</li>
-          <li>Hover/focus citations for evidence previews; click for the exact source location: line, email paragraph, PDF page, spreadsheet cell or screenshot row.</li>
-          <li><strong>Sources</strong> supports direct text search without AI.</li>
+          <li>Le bouton <strong>Demander</strong> de l’en-tête ouvre l’<strong>Assistant NOVA</strong> : français/anglais, questions de suivi et modes Actuel/Référence. L’historique persiste après navigation et actualisation si le stockage local est disponible.</li>
+          <li>La conversation est distincte des dix réponses officielles Q01–Q10 de <strong>Questions</strong> : <strong>À jour</strong>, <strong>À recalculer</strong> ou <strong>À vérifier</strong> ; les réponses périmées indiquent les fichiers modifiés.</li>
+          <li>Actualisez une réponse, utilisez <strong>Sélectionner les réponses périmées → Recalculer la sélection</strong>, ou <strong>Plus → Recalculer depuis toutes les sources</strong>. Le recalcul nécessite une IA configurée.</li>
+          <li>Survolez ou ciblez au clavier une citation pour un aperçu ; cliquez pour atteindre la ligne, le paragraphe de courriel, la page PDF, la cellule ou la rangée de capture.</li>
+          <li><strong>Sources</strong> permet une recherche textuelle sans IA.</li>
         </ul></section>
-      <section><h2 className="text-xl font-bold">Adding new information</h2>
-        <p><strong>Upload → analyze → review → publish → inspect affected memory.</strong></p>
-        <p>With configured AI, NOVA extracts content, identifies problem status, proposals, formal decisions and affected questions/conditions/actions, proposes actions/brief updates, verifies citations and applies guardrails.</p>
-        <p>Human review is required. Publication creates U001, U002… and preserves the baseline. Inspect affected memory; recompute stale official answers as needed.</p>
-        <p>Without AI, ingest and review supported text; publish source/version information and available manual fields. Automatic impact analysis, citation generation and answer recomputation are unavailable.</p>
-        <p>New image transcription needs a vision-capable provider. Unreadable/scanned files without extractable text remain for manual review, subject to the storage limit below.</p>
+      <section><h2 className="text-xl font-bold">Ajouter des informations</h2>
+        <p><strong>Téléverser → analyser → vérifier → publier → inspecter la mémoire touchée.</strong></p>
+        <p>Avec l’IA configurée, NOVA extrait le contenu, distingue problèmes, propositions et décisions, identifie les questions/conditions/actions touchées, propose des révisions, vérifie les citations et applique les garde-fous.</p>
+        <p>La vérification humaine est obligatoire. La publication crée U001, U002… en préservant la référence. Inspectez la mémoire touchée et recalculez les réponses officielles périmées.</p>
+        <p>Sans IA, importez et vérifiez le texte pris en charge ; publiez les sources, versions et champs manuels disponibles. L’analyse automatique des impacts, la génération de citations et le recalcul sont indisponibles.</p>
+        <p>La transcription d’images nécessite un fournisseur avec vision. Les fichiers illisibles/numérisés sans texte extractible restent à vérifier manuellement, sous réserve de la limite de stockage ci-dessous.</p>
       </section>
-      <section><h2 className="text-xl font-bold">Baseline vs current</h2>
-        <p><strong>September 30, 2026 at 09:00 Montréal time</strong> is the preserved baseline. <strong>Current = baseline + published updates.</strong> New information never rewrites the baseline.</p>
-        <p>Use the header version, update history and Assistant Current/Baseline selector. Earlier replies retain their context; recheck after updates.</p>
+      <section><h2 className="text-xl font-bold">Référence et état actuel</h2>
+        <p><strong>30 septembre 2026 à 9 h, heure de Montréal</strong> constitue la référence préservée. <strong>Actuel = référence + mises à jour publiées.</strong> Les nouvelles informations ne réécrivent jamais la référence.</p>
+        <p>Consultez la version d’en-tête, l’historique et le sélecteur Actuel/Référence. Les anciennes réponses conservent leur contexte ; revérifiez-les après une mise à jour.</p>
       </section>
-      <section><h2 className="text-xl font-bold">Tools</h2>
+      <section><h2 className="text-xl font-bold">Outils</h2>
         <ul className="list-disc pl-5">
-          <li><strong>NOVA Assistant:</strong> evidence-grounded questions in English/French.</li>
-          <li><strong>Build from sources:</strong> reconstructs memory from indexed evidence.</li>
-          <li><strong>Questions:</strong> tracks ten official answers and freshness.</li>
-          <li><strong>Sources:</strong> searches and opens original evidence at precise locators.</li>
-          <li><strong>Add new information:</strong> analyzes and publishes reviewed updates.</li>
-          <li><strong>Evidence previews:</strong> source context, authority and verified quotes.</li>
+          <li><strong>Assistant NOVA :</strong> questions fondées sur les preuves, en français/anglais.</li>
+          <li><strong>Reconstruire depuis les sources :</strong> reconstitue la mémoire depuis les preuves indexées.</li>
+          <li><strong>Questions :</strong> suit les dix réponses officielles et leur actualité.</li>
+          <li><strong>Sources :</strong> recherche et ouvre les originaux aux repères précis.</li>
+          <li><strong>Ajouter des informations :</strong> analyse et publie les mises à jour vérifiées.</li>
+          <li><strong>Aperçus de preuves :</strong> contexte, autorité et citations vérifiées.</li>
         </ul>
-        <p>AI uses Anthropic or an OpenAI-compatible provider configured server-side. Browsing memory and evidence requires no jury AI account.</p></section>
-      <section><h2 className="text-xl font-bold">Manual review</h2>
-        <p>Before publishing, verify:</p>
+        <p>L’IA utilise Anthropic ou un fournisseur compatible OpenAI configuré côté serveur. La consultation ne nécessite aucun compte IA du jury.</p></section>
+      <section><h2 className="text-xl font-bold">Vérification manuelle</h2>
+        <p>Avant publication, vérifiez :</p>
         <ul className="list-disc pl-5">
-          <li>extracted text and attachments;</li>
-          <li>source authority;</li>
-          <li>proposal vs formal decision, delivery or validation;</li>
-          <li>owners and due dates;</li>
-          <li>affected questions, conditions and actions;</li>
-          <li>guardrail warnings.</li>
+          <li>le texte extrait et les pièces jointes ;</li>
+          <li>l’autorité de la source ;</li>
+          <li>la distinction entre proposition, décision, livraison et validation ;</li>
+          <li>les responsables et échéances ;</li>
+          <li>les questions, conditions et actions touchées ;</li>
+          <li>les avertissements des garde-fous.</li>
         </ul>
-        <p>Unknown information stays <strong>TBC</strong> or <strong>undocumented</strong>, rather than inferred.</p></section>
-      <section><h2 className="text-xl font-bold">Limitations</h2>
+        <p>Les inconnues restent <strong>à confirmer</strong> ou <strong>non documentées</strong>, sans déduction.</p></section>
+      <section><h2 className="text-xl font-bold">Limites</h2>
         <ul className="list-disc pl-5">
-          <li>NOVA facts must come from the supplied corpus. AI can be wrong; unsupported claims are flagged and citations checked against indexed sources.</li>
-          <li>A valid quote alone does not prove an authoritative conclusion; newer timestamps do not automatically mean higher authority.</li>
-          <li>Historical screenshots can be stale; duplicate attachments are not independent confirmation.</li>
-          <li>Missing approvals, owners or deadlines remain undocumented/TBC.</li>
-          <li>AI-assisted features may be unavailable if the configured provider fails.</li>
-          <li>Hosted picker: 4.3 MiB total; retained originals: 4 MiB (4,194,304 bytes) per file. Larger originals are not retained; split oversized files before uploading.</li>
+          <li>Les faits NOVA proviennent du corpus fourni. L’IA peut se tromper ; les affirmations non étayées sont signalées et les citations vérifiées.</li>
+          <li>Une citation valide ne prouve pas l’autorité d’une conclusion ; une date récente ne confère pas automatiquement davantage d’autorité.</li>
+          <li>Les captures historiques peuvent être périmées ; les pièces jointes en double ne sont pas des confirmations indépendantes.</li>
+          <li>Approbations, responsables et échéances manquants restent non documentés/à confirmer.</li>
+          <li>Les fonctions IA peuvent être indisponibles si le fournisseur échoue.</li>
+          <li>Téléversement hébergé : 4,3 Mio au total ; originaux conservés : 4 Mio (4 194 304 octets) par fichier. Les originaux plus volumineux ne sont pas conservés ; scindez-les avant téléversement.</li>
         </ul></section>
-      <section className="guide-limits"><h2 className="text-xl font-bold">Current documented uncertainties</h2>
-        <p>Verified baseline gaps below; published updates may supersede them. Check current evidence and question freshness.</p>
+      <section className="guide-limits"><h2 className="text-xl font-bold">Incertitudes actuellement documentées</h2>
+        <p>Lacunes vérifiées à la référence ; des mises à jour publiées peuvent les remplacer. Consultez les preuves actuelles et l’actualité des réponses.</p>
         <ul className="list-disc pl-5 space-y-2">
           {uncertainties.map((item) => <li key={item.title}><strong>{item.title}:</strong> {item.text}{" "}<Chips cites={item.citations.map(resolve)} /></li>)}
         </ul></section>

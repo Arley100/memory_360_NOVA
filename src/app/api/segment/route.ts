@@ -8,15 +8,15 @@ export async function GET(req: Request) {
   const quote = u.searchParams.get("quote") ?? "";
   const ups = await updates();
   const source = (await allSources(ups)).find((s) => s.id === src);
-  if (!source) return Response.json({ error: "Unknown source" }, { status: 404 });
+  if (!source) return Response.json({ error: "Source inconnue" }, { status: 404 });
   const segs = (await allSegments(ups)).filter((s) => s.src === src);
   const range = /^L(\d+)-L(\d+)$/.exec(loc);
   let i = segs.findIndex((s) => s.loc === loc);
   if (i < 0 && range) i = segs.findIndex((s) => s.loc === `L${range[1]}`);
-  if (i < 0 && loc) return Response.json({ error: "Unknown passage" }, { status: 404 });
+  if (i < 0 && loc) return Response.json({ error: "Passage inconnu" }, { status: 404 });
   if (i < 0) i = 0;
   const end = range ? segs.findIndex((s) => s.loc === `L${range[2]}`) : i;
-  if (range && end < i) return Response.json({ error: "Unknown passage range" }, { status: 404 });
+  if (range && end < i) return Response.json({ error: "Plage de passages inconnue" }, { status: 404 });
   const pick = (j: number) => (segs[j] ? { loc: segs[j].loc, text: segs[j].text } : null);
   return Response.json({
     verified: quote ? (await resolver([], ups))({ src, loc, quote }).verified : false,

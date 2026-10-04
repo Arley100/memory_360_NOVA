@@ -89,7 +89,7 @@ export function createRedisUpdateStore(url: string, token: string): UpdateStore 
   const cmd = async (...args: (string | number)[]): Promise<unknown> => {
     const res = await fetch(url, { method: "POST", headers: { authorization: `Bearer ${token}`, "content-type": "application/json" }, body: JSON.stringify(args), cache: "no-store" });
     const j = (await res.json()) as { result?: unknown; error?: string };
-    if (!res.ok || j.error) throw new Error(`Storage error: ${j.error ?? res.status}`);
+    if (!res.ok || j.error) throw new Error(`Erreur de stockage : ${j.error ?? res.status}`);
     return j.result;
   };
   const getJSON = async <T,>(key: string): Promise<T | null> => { const v = (await cmd("GET", key)) as string | null; return v ? (JSON.parse(v) as T) : null; };

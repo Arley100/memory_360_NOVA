@@ -10,9 +10,9 @@ export async function POST(req: Request) {
   const denied = guard(req, "ask");
   if (denied) return denied;
   const { question } = (await req.json()) as { question: string };
-  if (typeof question !== "string" || !question.trim()) return Response.json({ error: "Empty question" }, { status: 400 });
+  if (typeof question !== "string" || !question.trim()) return Response.json({ error: "Question vide" }, { status: 400 });
   if (!llmProvider()) {
-    return Response.json({ error: "No LLM key configured. Add ANTHROPIC_API_KEY (or OPENAI_API_KEY + LLM_MODEL) to .env.local. All other pages and evidence work without it." }, { status: 503 });
+    return Response.json({ error: "Aucun fournisseur d’IA configuré. Ajoutez ANTHROPIC_API_KEY (ou OPENAI_API_KEY et LLM_MODEL) dans .env.local. Les autres pages et les preuves restent accessibles." }, { status: 503 });
   }
   const snapshot = await updates();
   if (!req.headers.get("accept")?.includes("application/x-ndjson")) {
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       const send = (o: unknown) => { if (!closed) { try { controller.enqueue(enc.encode(JSON.stringify(o) + "\n")); } catch { closed = true; } } };
       try {
         const [srcs, segs] = await Promise.all([allSources(snapshot), allSegments(snapshot)]);
-        send({ type: "stage", stage: "read", detail: `${segs.length} passages from ${srcs.filter((s) => !s.parent).length} files` });
+        send({ type: "stage", stage: "read", detail: `${segs.length} passages provenant de ${srcs.filter((s) => !s.parent).length} fichiers` });
         const { usage, ...result } = await askProject(question, { updates: snapshot, onStage: (s) => send({ type: "stage", ...s }) });
         void usage;
         send({ type: "result", ...result });

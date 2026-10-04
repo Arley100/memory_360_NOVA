@@ -30,11 +30,11 @@ export function publishedSources(id: string, draft: Draft, files: StoredFile[], 
     const p = ownFile ? `data/updates/${id}/${name}` : `${relPath}#att:${name}`;
     // Stored bytes take precedence. Draft metadata also covers attachments and oversized hosted originals.
     const hash = (ownFile ? hashes.get(name) : undefined) ?? draft.sourceHashes?.[sid];
-    if (!hash || !/^[a-f0-9]{64}$/.test(hash)) throw new Error(`Original fingerprint unavailable for ${name}. Upload the file again.`);
+    if (!hash || !/^[a-f0-9]{64}$/.test(hash)) throw new Error(`Empreinte originale indisponible pour ${name}. Téléversez à nouveau le fichier.`);
     const logicalPath = ownFile ? identity(p, name, true) : logicalSourcePath(p).replace(primaryPath, primaryIdentity);
     return {
       id: sid.replace(/^NEW/, srcId), path: p, logicalPath, kind: kindOf(name),
-      title: ownFile ? `New information: ${name}` : `Attachment ${name}`, authority: "NEW", role: "CORE",
+      title: ownFile ? `Nouvelles informations : ${name}` : `Pièce jointe ${name}`, authority: "NEW", role: "CORE",
       contentDate: draft.contentDate, sha256: hash, version: id, parent: ownFile ? undefined : srcId,
     };
   });

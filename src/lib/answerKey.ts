@@ -13,7 +13,7 @@ export function scoreAgainstKey(answers: { id: string; answer_en: string; answer
   const details = key.map((q) => {
     const a = answers.find((x) => x.id === q.id);
     const text = fold(`${a?.answer_en ?? ""} ${a?.answer_fr ?? ""}`);
-    const missing = a ? q.mustInclude.filter((r) => !new RegExp(r, "i").test(text)) : ["no answer"];
+    const missing = a ? q.mustInclude.filter((r) => !new RegExp(r, "i").test(text)) : ["aucune réponse"];
     const forbidden = q.mustNotInclude.filter((r) => new RegExp(r, "i").test(text));
     return { id: q.id, pass: Boolean(a) && missing.length === 0 && forbidden.length === 0, missing: [...missing, ...forbidden.map((f) => `forbidden: ${f}`)] };
   });

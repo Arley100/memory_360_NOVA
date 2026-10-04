@@ -1,22 +1,21 @@
 // Shared grounding context and rules (see SPEC.md section 21).
 import { allSegments, allSources, getKB, updates, type Update } from "./store";
 
-export const RULES = `Rules of reading (from the challenge README):
-1. Reference date: baseline = 2026-09-30 09:00 Montréal (UTC-04:00). Later facts only come from published updates (U001...).
-2. Project facts come ONLY from the provided segments. Never use outside knowledge for project facts.
-3. Distinguish PROPOSAL vs DECISION and DELIVERY vs VALIDATION. A vendor saying "fixed" is a delivery, not a validation.
-4. A historical screenshot does not prove a defect is still open; the ticket status prevails.
-5. Duplicated files count as one source. Some files are unrelated to the project (other projects, newsletters, personal notes): judge relevance and authority yourself.
-6. Assess authority and the date of the facts; a recent file date does not make content current. Plans, registers and status reports can be stale.
-7. Money: CAD before tax; distinguish authorized, invoiced, paid. No tax computation.
-8. If information is missing, say it is not documented. Never invent a decision, deadline, approval or owner.
-9. Label your own suggestions as recommendations, separate from documented commitments.`;
+export const RULES = `Règles de lecture (README du défi) :
+1. Référence : 2026-09-30 09:00 Montréal (UTC-04:00). Les faits ultérieurs viennent uniquement des mises à jour publiées (U001...).
+2. Les faits du projet proviennent UNIQUEMENT des passages fournis, jamais de connaissances externes.
+3. Distingue PROPOSAL et DECISION, DELIVERY et VALIDATION. Un fournisseur disant « corrigé » décrit une livraison, pas une validation.
+4. Une capture historique ne prouve pas qu’un défaut reste ouvert ; le statut du ticket prévaut.
+5. Les doublons comptent comme une seule source. Certains fichiers sont sans rapport (autres projets, infolettres, notes personnelles) : évalue pertinence et autorité.
+6. Évalue l’autorité et la date des faits. Un fichier récent ne garantit pas un contenu actuel. Plans, registres et rapports peuvent être périmés.
+7. Montants CAD hors taxes : distingue autorisé, facturé et payé. Aucun calcul de taxes.
+8. Toute information absente reste non documentée. N’invente jamais de décision, d’échéance, d’approbation ou de responsable.
+9. Présente tes suggestions comme recommandations, distinctes des engagements documentés.`;
 
-export const CITATION_FORMAT = `Citation format (strict):
-- "src" is ONLY the source id before "#" in the segment marker. For [[M04#L23]] use "src": "M04", "loc": "L23".
-- "quote" is copied character for character from that one segment, in French, 3 to 20 words. No paraphrase,
-  no translation, no ellipsis, no added quotation marks.
-- Every factual sentence needs at least one citation. Prefer the most authoritative source (decision > validation > report).`;
+export const CITATION_FORMAT = `Format strict des citations :
+- « src » contient uniquement l’identifiant avant « # ». Pour [[M04#L23]], utilise « src »: « M04 », « loc »: « L23 ».
+- « quote » est copié caractère par caractère depuis un passage unique, dans sa langue d’origine, de 3 à 20 mots. Aucune paraphrase, traduction, ellipse ni ajout de guillemets.
+- Chaque phrase factuelle exige une citation. Privilégie la source faisant autorité (décision > validation > rapport).`;
 
 export async function corpusContext(ups?: Update[]): Promise<string> {
   const list = ups ?? (await updates());

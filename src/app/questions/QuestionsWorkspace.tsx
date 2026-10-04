@@ -47,13 +47,13 @@ export function QuestionsWorkspace({ initial, questions, children }: {
       let result: Answer | undefined;
       if (response.ok && response.headers.get("content-type")?.includes("application/x-ndjson")) {
         await readStream(response, (m) => {
-          if (m.type === "stage") update(history.current.map((e) => e.id === id ? { ...e, stage: m.stage === "read" ? "Reading the NOVA files..." : m.stage === "think" ? "Connecting the documented facts..." : "Checking every citation..." } : e));
+          if (m.type === "stage") update(history.current.map((e) => e.id === id ? { ...e, stage: m.stage === "read" ? "Lecture des fichiers NOVA…" : m.stage === "think" ? "Mise en relation des faits documentés…" : "Vérification des citations…" } : e));
           else if (m.type === "result") result = m as Answer;
           else if (m.type === "error") throw new Error(String(m.error));
         });
-        if (!result) throw new Error("The connection ended before the answer completed. Try again.");
+        if (!result) throw new Error("Connexion interrompue avant la fin de la réponse. Réessayez.");
       } else result = await response.json() as Answer;
-      if (!response.ok && !result.error) result.error = `Unable to answer (${response.status}). Try again.`;
+      if (!response.ok && !result.error) result.error = `Réponse impossible (${response.status}). Réessayez.`;
       update(history.current.map((e) => e.id === id ? { ...e, result } : e));
     } catch (error) {
       update(history.current.map((e) => e.id === id ? { ...e, result: { error: (error as Error).message } } : e));
@@ -83,33 +83,33 @@ export function QuestionsWorkspace({ initial, questions, children }: {
   }, [entries]);
 
   return <div className="questions-workspace">
-    <nav aria-label="Question index" className="question-index">
-      <p className="section-label mb-3">Answer index</p>
+    <nav aria-label="Index des questions" className="question-index">
+      <p className="section-label mb-3">Index des réponses</p>
       {[...questions, ...entries].map((e) => <a key={e.id} href={`#${e.id}`}><span>{e.id}</span><span>{e.question}</span></a>)}
-      <a href="#new-question"><Icon name="questions" /><span>Ask another question</span></a>
+      <a href="#new-question"><Icon name="questions" /><span>Poser une autre question</span></a>
     </nav>
     <div className="answer-document">
       {children}
       {entries.map((entry) => <section key={entry.id} id={entry.id} className="question-section" aria-live="polite">
         <h2 className="text-lg font-semibold"><span className="text-muted">{entry.id}.</span> {entry.question}</h2>
-        {!entry.result && <p className="loading-status mt-3" role="status">{entry.stage ?? "Reading the NOVA files and checking evidence..."}</p>}
+        {!entry.result && <p className="loading-status mt-3" role="status">{entry.stage ?? "Lecture des fichiers NOVA et vérification des preuves…"}</p>}
         {entry.result?.needCode && <CodeGate onUnlocked={() => void ask(entry.question, entry.id)} />}
-        {entry.result?.error && !entry.result.needCode && <div className="mt-3"><p role="alert" className="text-sm text-blocker">{entry.result.error}</p><button disabled={busy} onClick={() => void ask(entry.question, entry.id)} className="button-secondary mt-3 disabled:opacity-50">Try again</button></div>}
+        {entry.result?.error && !entry.result.needCode && <div className="mt-3"><p role="alert" className="text-sm text-blocker">{entry.result.error}</p><button disabled={busy} onClick={() => void ask(entry.question, entry.id)} className="button-secondary mt-3 disabled:opacity-50">Réessayer</button></div>}
         {entry.result?.answer && <>
           <p className="mt-3 whitespace-pre-wrap text-[14px] leading-relaxed">{entry.result.answer}</p>
           <div className="mt-3"><Chips cites={entry.result.citations ?? []} /></div>
-          <p className="evidence-check">Evidence check: {entry.result.status === "full" ? "every citation was found verbatim in the cited file." : entry.result.status === "partial" ? `${entry.result.dropped} citation(s) could not be found and were removed.` : "no citation could be verified; treat this answer with caution."}</p>
-          {!!entry.result.missing?.length && <div className="answer-supplement"><p className="font-semibold">Not documented in the corpus</p><ul className="list-disc pl-5">{entry.result.missing.map((m) => <li key={m}>{m}</li>)}</ul></div>}
-          {!!entry.result.recommendations?.length && <div className="answer-supplement"><p className="font-semibold">Recommendations (not documented commitments)</p><ul className="list-disc pl-5">{entry.result.recommendations.map((m) => <li key={m}>{m}</li>)}</ul></div>}
+          <p className="evidence-check">Vérification des preuves : {entry.result.status === "full" ? "chaque citation a été retrouvée mot pour mot dans le fichier cité." : entry.result.status === "partial" ? `${entry.result.dropped} citation(s) introuvable(s) ont été retirées.` : "aucune citation vérifiable ; interprétez cette réponse avec prudence."}</p>
+          {!!entry.result.missing?.length && <div className="answer-supplement"><p className="font-semibold">Non documenté dans le corpus</p><ul className="list-disc pl-5">{entry.result.missing.map((m) => <li key={m}>{m}</li>)}</ul></div>}
+          {!!entry.result.recommendations?.length && <div className="answer-supplement"><p className="font-semibold">Recommandations (sans engagement documenté)</p><ul className="list-disc pl-5">{entry.result.recommendations.map((m) => <li key={m}>{m}</li>)}</ul></div>}
         </>}
       </section>)}
       <section id="new-question" className="question-section">
-        <h2 className="text-lg font-semibold">Ask another question</h2>
+        <h2 className="text-lg font-semibold">Poser une autre question</h2>
         <form onSubmit={(e) => { e.preventDefault(); void ask(q); }} className="ask-search mt-3">
           <Icon name="search" size={20} />
-          <label htmlFor="additional-question" className="sr-only">Question about NOVA</label>
-          <input id="additional-question" value={q} onChange={(e) => setQ(e.target.value)} className="min-w-0 flex-1 bg-transparent px-1 py-2 text-sm" placeholder="Ask in English or French…" />
-          <button disabled={busy || !q.trim()} className="button-primary disabled:opacity-50">{busy ? "Reading the files…" : "Ask"}</button>
+          <label htmlFor="additional-question" className="sr-only">Question sur NOVA</label>
+          <input id="additional-question" value={q} onChange={(e) => setQ(e.target.value)} className="min-w-0 flex-1 bg-transparent px-1 py-2 text-sm" placeholder="Posez votre question en français ou en anglais…" />
+          <button disabled={busy || !q.trim()} className="button-primary disabled:opacity-50">{busy ? "Lecture des fichiers…" : "Demander"}</button>
         </form>
       </section>
     </div>

@@ -12,7 +12,7 @@ export interface QuestionComputationStore {
   history(id: string): Promise<QuestionComputation[]>;
 }
 function validate(id: string) {
-  if (!OFFICIAL_QUESTION_IDS.includes(id)) throw new Error("Invalid official question ID.");
+  if (!OFFICIAL_QUESTION_IDS.includes(id)) throw new Error("Identifiant de question officielle invalide.");
 }
 
 export function createFileQuestionStore(root: string): QuestionComputationStore {
@@ -58,7 +58,7 @@ export function createRedisQuestionStore(url: string, token: string, prefix: str
   const cmd = async (...args: (string | number)[]): Promise<unknown> => {
     const response = await fetch(url, { method: "POST", headers: { authorization: `Bearer ${token}`, "content-type": "application/json" }, body: JSON.stringify(args), cache: "no-store" });
     const value = await response.json() as { result?: unknown; error?: string };
-    if (!response.ok || value.error) throw new Error(`Question storage error: ${value.error ?? response.status}`);
+    if (!response.ok || value.error) throw new Error(`Erreur de stockage des questions : ${value.error ?? response.status}`);
     return value.result;
   };
   const key = (id: string) => { validate(id); return `${prefix}:questions:${id}`; };

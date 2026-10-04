@@ -20,9 +20,9 @@ export async function GET(req: Request) {
   const m = /^data\/updates\/(U\d{3})\/([^/]+)$/.exec(rel);
   if (m) {
     const buf = await updateStore().readFile(m[1], m[2]);
-    return buf ? new Response(new Uint8Array(buf), { headers: { "content-type": type } }) : new Response("Not found", { status: 404 });
+    return buf ? new Response(new Uint8Array(buf), { headers: { "content-type": type } }) : new Response("Introuvable", { status: 404 });
   }
   const abs = path.resolve(ROOT, rel);
-  if (!abs.startsWith(path.join(ROOT, "corpus") + path.sep) || !fs.existsSync(abs)) return new Response("Not found", { status: 404 });
+  if (!abs.startsWith(path.join(ROOT, "corpus") + path.sep) || !fs.existsSync(abs)) return new Response("Introuvable", { status: 404 });
   return new Response(fs.readFileSync(abs), { headers: { "content-type": type } });
 }

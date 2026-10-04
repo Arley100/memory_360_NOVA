@@ -22,12 +22,12 @@ test("stream reader surfaces malformed responses and server errors and releases 
   const failed = new Response('{"type":"error","error":"Analysis failed"}\n');
   await assert.rejects(readStream(failed, (m) => { throw new Error(String(m.error)); }), /Analysis failed/);
   assert.equal(failed.body?.locked, false);
-  await assert.rejects(readStream(new Response(null), () => {}), /no response stream/);
+  await assert.rejects(readStream(new Response(null), () => {}), /aucun flux de réponse/);
 });
 
 test("display helpers preserve calendar dates and French text while removing duplicate question numbers", () => {
-  assert.equal(fmtDay("2026-10-22"), "Oct 22, 2026");
-  assert.match(fmtDateTime("2026-10-04T00:57:00Z"), /Oct 3, 2026.*8:57.*ET/);
+  assert.equal(fmtDay("2026-10-22"), "22 oct. 2026");
+  assert.match(fmtDateTime("2026-10-04T00:57:00Z"), /3 oct\. 2026.*20 h 57.*HE/);
   assert.equal(stripQ("Q01. What changed?"), "What changed?");
   assert.equal(plain("# Résumé\n- **Décision** confirmée"), "Résumé\nDécision confirmée");
 });

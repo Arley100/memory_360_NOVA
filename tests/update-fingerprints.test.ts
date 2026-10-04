@@ -121,7 +121,7 @@ test("same bytes at the same logical path are unchanged across publication versi
   const delta = getQuestionContextDelta("Q08", previous, [first, second], [...first.sources, ...second.sources]);
   assert.deepEqual(delta.addedSources, []); assert.deepEqual(delta.modifiedSources, []);
   // Relevant ChangeSet still needs acknowledgement, even when content is identical.
-  assert.match(delta.uncertainReason!, /no identifiable source delta/);
+  assert.match(delta.uncertainReason!, /aucun changement de source identifiable/);
   assert.equal(getQuestionContextDelta("Q08", previous, [], []).removedSources[0].filename, "SEC-210.txt");
 });
 
@@ -130,9 +130,9 @@ test("legacy missing fingerprints fall back safely; ambiguous baseline names do 
   const current = update("U002", publishedSources("U002", draft, [{ name: draft.filename, data: bytes }], []));
   const legacy = update("U001", [{ ...current.sources[0], id: "U001-S1", path: "data/updates/U001/SEC-210.txt", sha256: "", version: "U001" }]);
   const delta = getQuestionContextDelta("Q08", computation(legacy.sources, [legacy]), [legacy, current], [...legacy.sources, ...current.sources]);
-  assert.equal(delta.modifiedSources[0].changeType, "changed"); assert.match(delta.uncertainReason!, /fingerprints are incomplete/);
+  assert.equal(delta.modifiedSources[0].changeType, "changed"); assert.match(delta.uncertainReason!, /Empreintes.*incomplètes/);
   const missing = update("U003", [{ ...current.sources[0], sha256: "", version: "U003" }]);
-  assert.match(getQuestionContextDelta("Q08", computation([]), [missing], missing.sources).uncertainReason!, /fingerprints are incomplete/);
+  assert.match(getQuestionContextDelta("Q08", computation([]), [missing], missing.sources).uncertainReason!, /Empreintes.*incomplètes/);
   const baseline = baselineSources().find((s) => s.id === "SEC-210")!;
   const ambiguous = [baseline, { ...baseline, id: "OTHER", path: "corpus/other/SEC-210.txt" }];
   assert.equal(publishedSources("U001", draft, [{ name: draft.filename, data: bytes }], ambiguous)[0].logicalPath, "data/updates/SEC-210.txt");

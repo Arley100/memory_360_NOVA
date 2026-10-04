@@ -1,153 +1,153 @@
-<div align="center">
+﻿<div align="center">
 
 # Mémoire 360
 
-### The operational memory of project NOVA, built by AI from the raw files, with proof
+### La mémoire opérationnelle du projet NOVA, construite par l’IA à partir des fichiers bruts, preuves à l’appui
 
-CodeML 2026 · Loto-Québec Challenge 2 · *Projet 360 / NOVA* · [Live demo](https://memory-360-nova.vercel.app)
+CodeML 2026 · Défi 2 de Loto-Québec · *Projet 360 / NOVA* · [Démonstration en ligne](https://memory-360-nova.vercel.app)
 
 </div>
 
 ---
 
-Taking over a project means reading everything. The NOVA dossier holds 64 files: emails with attachments, meeting transcripts, tickets with screenshots, plans, contracts, invoices, architecture decisions and Teams chats. They contradict each other: a plan still shows the old go-live date, a risk register lists a risk closed two weeks earlier, a status report says "green" while security and accessibility are still open, and a vendor calls a fix "done" before anyone validated it.
+Reprendre un projet exige de tout lire. Le dossier NOVA contient 64 fichiers : courriels avec pièces jointes, transcriptions de réunions, billets avec captures d’écran, plans, contrats, factures, décisions d’architecture et conversations Teams. Ils se contredisent : un plan affiche encore l’ancienne date de mise en production, un registre présente un risque fermé deux semaines auparavant, un rapport indique « vert » alors que la sécurité et l’accessibilité restent ouvertes, et un fournisseur annonce un correctif « terminé » avant toute validation.
 
-**Mémoire 360 reads all 64 files and builds the project's memory itself**: the answers, the current state, the timeline, the decisions, the contradictions, the actions and a one-page brief. Every sentence carries its evidence, and every quote is checked word for word against its source.
+**Mémoire 360 lit les 64 fichiers et construit elle-même la mémoire du projet** : réponses, état actuel, chronologie, décisions, contradictions, actions et fiche de passation d’une page. Chaque affirmation présente ses preuves, et chaque citation est vérifiée mot à mot dans sa source.
 
-![Overview](docs/screenshots/01-overview.png)
+![Vue d’ensemble](docs/screenshots/01-overview.png)
 
-## Results
+## Résultats
 
-| What we measured | Result |
+| Mesure | Résultat |
 |---|---|
-| Knowledge base built by AI from the raw files | **75 to 125 s** · **200+ citations, all verified word for word, 0 removed** |
-| Its answers to the 10 official questions vs a hand-curated answer key | **10/10** contain every key fact |
-| Evaluation on 29 questions (10 official, 8 examples from the brief, 8 trap questions, 3 the files cannot answer), from the raw files only, distractor files included | **29/29** · **273/273 citations verified** · median answer **7.6 s** |
-| Model comparison on the same 29 questions | Claude Sonnet 5.5: 29/29 in 7.4 s · Claude Opus 5.5: 29/29 in 14.3 s, 3.5× the cost. Sonnet answers questions; Opus analyzes updates |
+| Base de connaissances construite par l’IA à partir des fichiers bruts | **75 à 125 s** · **Plus de 200 citations, toutes vérifiées mot à mot, aucune supprimée** |
+| Réponses aux 10 questions officielles comparées à une grille de référence préparée manuellement | **10/10** contiennent tous les faits essentiels |
+| Évaluation sur 29 questions (10 officielles, 8 exemples des consignes, 8 questions pièges, 3 sans réponse dans les fichiers), uniquement à partir des fichiers bruts, documents parasites compris | **29/29** · **273/273 citations vérifiées** · réponse médiane en **7,6 s** |
+| Comparaison des modèles sur les mêmes 29 questions | Claude Sonnet 5.5 : 29/29 en 7,4 s · Claude Opus 5.5 : 29/29 en 14,3 s, pour un coût 3,5 fois supérieur. Sonnet répond aux questions ; Opus analyse les mises à jour |
 
-## Features
+## Fonctionnalités
 
-**Build from sources.** One click and Mémo, the system's presence, works through nine visible steps: it reads the dossier, finds the questions to answer in the dossier's own README, answers them, works out the go-live conditions, budget and people, rebuilds the timeline and the decisions, resolves contradictions, plans actions, writes the brief, checks every citation and compares the answers with the answer key. Nothing about NOVA is hardcoded.
+**Construire à partir des sources.** En un clic, Mémo, la présence du système, parcourt neuf étapes visibles : lecture du dossier, repérage des questions dans son README, rédaction des réponses, identification des conditions de mise en production, du budget et des personnes, reconstruction de la chronologie et des décisions, résolution des contradictions, planification des actions, rédaction de la fiche, vérification des citations et comparaison des réponses à la grille de référence. Aucun fait sur NOVA n’est codé en dur.
 
-![Build from sources](docs/screenshots/03-build-from-sources.png)
+![Construire à partir des sources](docs/screenshots/03-build-from-sources.png)
 
-**Evidence everywhere.** Every claim has a citation chip. Hovering (or tabbing onto) a chip shows the exact passage with the quote highlighted and confirms it was found word for word; clicking opens the file at the exact line, email paragraph, PDF page, spreadsheet cell or screenshot row.
+**Des preuves partout.** Chaque affirmation possède une pastille de citation. Au survol ou à la tabulation, elle affiche le passage exact, surligne la citation et confirme sa présence mot à mot ; un clic ouvre le fichier à la ligne, au paragraphe du courriel, à la page PDF, à la cellule ou à la ligne de capture concernée.
 
-![Evidence preview](docs/screenshots/02-evidence-preview.png)
+![Aperçu d’une preuve](docs/screenshots/02-evidence-preview.png)
 
-**Questions.** The questions come from the dossier's README. Each answer is cited, has a French summary and the traps it avoids, and is checked against the answer key. Each answer shows when it was computed, and answers made stale by an update can be recomputed.
+**Questions.** Les questions proviennent du README du dossier. Chaque réponse est sourcée, présente un résumé en français et les pièges évités, puis est comparée à la grille de référence. Sa date de calcul est affichée ; une réponse devenue périmée après une mise à jour peut être recalculée.
 
 ![Questions](docs/screenshots/04-questions.png)
 
-**Ask, in English or French.** Answers come only from the files. Unverifiable quotes are removed; missing information is reported as "not documented" instead of guessed.
+**Interroger en français ou en anglais.** Les réponses proviennent uniquement des fichiers. Les citations invérifiables sont supprimées ; toute information absente est indiquée « non documentée ».
 
-**Add new information.** Drop any file: email with attachments, Word, PDF, Excel, PowerPoint, calendar invite, Teams export, screenshot, or a zip of several. With a configured AI provider, the analysis runs in visible stages, then separates **problem status**, **prior decision still in force** and **new proposal (not approved)**, lists the affected answers, conditions and actions, and revises the brief. A person reviews, then publishes a new version. The baseline (Sept 30, 2026, 09:00) is never modified.
+**Ajouter une information.** Déposez un fichier : courriel avec pièces jointes, Word, PDF, Excel, PowerPoint, invitation de calendrier, export Teams, capture d’écran ou archive ZIP. Avec un fournisseur d’IA configuré, l’analyse progresse par étapes visibles, puis distingue **l’état du problème**, **la décision antérieure toujours en vigueur** et **la nouvelle proposition (non approuvée)**. Elle liste les réponses, conditions et actions touchées, puis révise la fiche. Une personne vérifie le résultat avant de publier une nouvelle version. La référence initiale du 30 septembre 2026 à 9 h n’est jamais modifiée.
 
-![Update in progress](docs/screenshots/05-update-analyzing.png)
+![Analyse d’une mise à jour](docs/screenshots/05-update-analyzing.png)
 
-![Update review](docs/screenshots/06-update-review.png)
+![Révision d’une mise à jour](docs/screenshots/06-update-review.png)
 
-**Guardrails in code, not just in the prompt.** A "decision" without a quoted approval by the proper authority becomes a proposal. A go-live condition closes only if its validating owner is quoted closing it. A revised answer that presents a proposed date as approved is flagged. Any date after the contract end is flagged.
+**Des garde-fous dans le code, en plus des consignes au modèle.** Une « décision » sans citation de l’approbation par l’autorité compétente devient une proposition. Une condition de mise en production ne se ferme que si son responsable de validation est cité la fermant. Une réponse révisée présentant une date proposée comme approuvée est signalée. Toute date dépassant la fin du contrat est signalée.
 
-**The consultable memory.** Contradictions resolved by the authority of the source or the date of the facts; decisions as a lifecycle (proposal, decision, delivery, validation); a tagged timeline; actions with owners (confirmed or proposed) and due dates or "to be confirmed"; every source with its type, authority and passages.
+**Une mémoire consultable.** Les contradictions sont résolues selon l’autorité de la source ou la date des faits ; les décisions suivent leur cycle de vie (proposition, décision, livraison, validation) ; la chronologie est étiquetée ; les actions indiquent un responsable confirmé ou proposé et une échéance, ou « à confirmer » ; chaque source présente son type, son autorité et ses passages.
 
 ![Contradictions](docs/screenshots/07-contradictions.png)
 
-![Decisions](docs/screenshots/08-decisions.png)
+![Décisions](docs/screenshots/08-decisions.png)
 
-![Source viewer](docs/screenshots/10-source-viewer.png)
+![Consultation des sources](docs/screenshots/10-source-viewer.png)
 
-## Deliverables
+## Livrables
 
-| Challenge deliverable | Where |
+| Livrable du défi | Emplacement |
 |---|---|
-| 1. One-page handover brief | **Handover brief** page (prints on one page) |
-| 2. Consultable memory | Overview, Timeline, Decisions, Contradictions, Actions, Sources, Team |
-| 3. Ten sourced answers | **Questions** page |
-| 4. Update after new information, history preserved | **Add new information** page; versions U001, U002…; baseline untouched |
-| 5. Usage guide | **Usage guide** page and this README |
+| 1. Fiche de passation d’une page | Page **Fiche de passation**, imprimable sur une page |
+| 2. Mémoire consultable | Vue d’ensemble, Chronologie, Décisions, Contradictions, Actions, Sources, Équipe |
+| 3. Dix réponses sourcées | Page **Questions** |
+| 4. Mise à jour après une nouvelle information, avec historique conservé | Page **Ajouter une information** ; versions U001, U002… ; référence initiale préservée |
+| 5. Guide d’utilisation | Page **Guide d’utilisation** et ce README |
 
-## Quick start
+## Démarrage rapide
 
-Requires Node.js 20.9 or newer.
+Node.js 20.9 ou une version ultérieure est requis.
 
 ```bash
 npm install
-npm run ingest     # index the 64 files and verify the answer key's citations (138/138)
+npm run ingest     # indexer les 64 fichiers et vérifier les citations de la grille de référence (138/138)
 npm run dev        # http://localhost:3000
 ```
 
-Without a configured AI provider, browsing, evidence and search still work. Source files can be uploaded, supported text extracted and reviewed, and published as a new version. The manual fallback edits only problem status, prior decisions and proposal text; it has no controls for citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was not performed, not that no items are affected. Publishing runs code guardrails and preserves the baseline; it does not complete impact analysis or recompute answers.
+Sans fournisseur d’IA configuré, la consultation, les preuves et la recherche fonctionnent. Les fichiers peuvent être téléversés, leur texte pris en charge extrait et vérifié, puis publié dans une nouvelle version. Le mode manuel permet seulement de modifier l’état du problème, les décisions antérieures et le texte des propositions ; il ne propose aucun contrôle pour les citations, les métadonnées du proposant ou de l’autorité, les nouvelles décisions formelles, les questions, conditions ou actions touchées, les changements d’état des conditions, les nouvelles actions ou les réponses et la fiche révisées. Des champs d’incidence vides signifient que l’analyse n’a pas été effectuée. La publication applique les garde-fous du code et préserve la référence initiale ; elle ne termine pas l’analyse des incidences et ne recalcule pas les réponses.
 
-Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update interpretation require a configured provider. New images need a vision-capable provider for transcription; scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically read. Existing baseline screenshot transcriptions remain available.
+La conversation, la construction de la base de connaissances, l’analyse automatique des incidences, le recalcul des réponses et l’interprétation des mises à jour par l’IA exigent un fournisseur configuré. La transcription de nouvelles images nécessite un modèle capable de les lire. Les PDF numérisés sans couche de texte et les formats illisibles sont conservés pour révision manuelle. Les transcriptions existantes des captures du dossier initial restent disponibles.
 
-To enable the AI features locally, copy `.env.example` to `.env.local` and set `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY` + `LLM_MODEL` for an OpenAI-compatible provider). Then:
+Pour activer l’IA localement, copiez `.env.example` vers `.env.local` et renseignez `ANTHROPIC_API_KEY` (ou `OPENAI_API_KEY` et `LLM_MODEL` pour un fournisseur compatible avec OpenAI), puis lancez :
 
 ```bash
-npm run analyze    # build the knowledge base from the raw files (about 1 to 2 minutes)
-npm run eval       # 29-question evaluation with trap questions (about 2 minutes)
-npm run check      # preflight before a demo: key, models, warm cache
+npm run analyze    # construire la base de connaissances à partir des fichiers bruts (environ 1 à 2 minutes)
+npm run eval       # évaluation sur 29 questions, dont des questions pièges (environ 2 minutes)
+npm run check      # vérifications avant démonstration : clé, modèles, cache préparé
 ```
 
-The hosted demo is at [memory-360-nova.vercel.app](https://memory-360-nova.vercel.app). Jurors need no paid subscription or personal Claude/OpenAI account: AI access is provided by the deployment/team's server configuration. AI features there require a demo code (provided to the judges); publishing and reset also require the code. Hosting notes: [DEPLOY.md](DEPLOY.md).
+La démonstration est accessible sur [memory-360-nova.vercel.app](https://memory-360-nova.vercel.app). Le jury n’a besoin ni d’abonnement payant ni de compte personnel Claude ou OpenAI : l’accès à l’IA est fourni par la configuration du serveur de l’équipe. Les fonctions d’IA, la publication et la réinitialisation nécessitent le code de démonstration remis au jury. Consignes d’hébergement : [DEPLOY.md](DEPLOY.md).
 
-## How it works
+## Fonctionnement
 
 ```mermaid
 flowchart LR
-    A[64 raw files<br/>eml · txt · md · csv · pdf · xlsx · png] --> B[Parsers]
-    B --> C[Citable passages<br/>with locators]
-    C --> D[Analysis pipeline<br/>Claude Sonnet 5.5]
-    D --> E{Citation verifier}
-    E --> F[Generated knowledge base]
-    G[Hand-curated answer key] -.scores.-> F
-    F --> H[Web app<br/>chips · previews · search]
-    C --> I[Ask<br/>verified quotes]
-    J[New file, any format] --> K[Update analysis<br/>Claude Opus 5.5 + code guardrails]
-    K --> L[Versions U001, U002…<br/>baseline untouched]
+    A[64 fichiers bruts<br/>eml · txt · md · csv · pdf · xlsx · png] --> B[Analyseurs]
+    B --> C[Passages citables<br/>avec localisateurs]
+    C --> D[Chaîne d’analyse<br/>Claude Sonnet 5.5]
+    D --> E{Vérification des citations}
+    E --> F[Base de connaissances générée]
+    G[Grille de référence manuelle] -.évalue.-> F
+    F --> H[Application web<br/>pastilles · aperçus · recherche]
+    C --> I[Interrogation<br/>citations vérifiées]
+    J[Nouveau fichier, tout format] --> K[Analyse des mises à jour<br/>Claude Opus 5.5 et garde-fous du code]
+    K --> L[Versions U001, U002…<br/>référence initiale préservée]
     L --> H
 ```
 
-- **Locators.** Every citation points to a line (`M04 · L23`), an email paragraph (`E05 · ¶3`), a PDF page (`INV-003 · p.1`), a spreadsheet cell (`PLAN-V3 · F7`) or a screenshot row (`OPS-601.png · row 4`), with the verbatim French quote.
-- **Verification.** A quote counts only if it appears word for word in the cited file. Formatting differences are tolerated; different words are not.
-- **Authority over recency.** Sources are classified (decision, validation, official, vendor claim, report, draft…), and duplicates are detected by hash, so a copied attachment never counts as independent confirmation.
-- **Storage.** The baseline ships with the code. Published updates and rebuilt knowledge bases are stored in Upstash Redis when hosted, or on disk locally.
-- **Cost.** The corpus (about 30,000 tokens) is cached by the API, so an answer costs about 2 cents.
+- **Localisateurs.** Chaque citation renvoie à une ligne (`M04 · L23`), un paragraphe de courriel (`E05 · ¶3`), une page PDF (`INV-003 · p.1`), une cellule (`PLAN-V3 · F7`) ou une ligne de capture (`OPS-601.png · row 4`), accompagnée de la citation française exacte.
+- **Vérification.** Une citation compte uniquement si elle figure mot à mot dans le fichier cité. Les écarts de mise en forme sont tolérés ; les mots différents ne le sont pas.
+- **Autorité avant récence.** Les sources sont classées (décision, validation, document officiel, affirmation du fournisseur, rapport, brouillon…) et les doublons détectés par empreinte, afin qu’une pièce jointe copiée ne compte jamais comme confirmation indépendante.
+- **Stockage.** La référence initiale accompagne le code. Les mises à jour publiées et les bases reconstruites sont enregistrées dans Upstash Redis en hébergement, ou sur disque localement.
+- **Coût.** Le corpus, d’environ 30 000 jetons, est mis en cache par l’API ; une réponse coûte ainsi environ 2 cents.
 
-## Project structure
+## Structure du projet
 
 ```
-corpus/                    The 64 challenge files, unchanged (fictional data)
-data/baseline/kb.json      Hand-curated answer key (used for scoring only)
-data/generated/kb.json     Knowledge base generated by the AI from the raw files
-data/eval/                 Evaluation questions and saved results
-src/lib/                   Parsers, citation verifier, analysis pipeline, guardrails, storage, LLM adapter
-src/app/                   Pages and API routes
-src/components/            Mémo, evidence chips and previews, change-set review
+corpus/                    Les 64 fichiers du défi, inchangés (données fictives)
+data/baseline/kb.json      Grille de référence préparée manuellement, réservée à l’évaluation
+data/generated/kb.json     Base de connaissances générée par l’IA à partir des fichiers bruts
+data/eval/                 Questions d’évaluation et résultats enregistrés
+src/lib/                   Analyseurs, vérification des citations, analyse, garde-fous, stockage, adaptateur LLM
+src/app/                   Pages et routes API
+src/components/            Mémo, pastilles et aperçus de preuves, révision des modifications
 scripts/                   ingest, analyze, eval, check
-rehearsal/                 Practice files for the live update (simulations, not NOVA facts)
-tests/                     Automated tests
+rehearsal/                 Fichiers de répétition de mise à jour en direct (simulations)
+tests/                     Tests automatisés
 ```
 
-## Limits and uncertainty
+## Limites et incertitudes
 
-- Citations are verified mechanically; conclusions are checked by the evaluation, the answer key and human review, not guaranteed.
-- Screenshots show past states; ticket status prevails.
-- The dossier does not document, as of Sept 30, 2026: the SEC-210 retest date, the ACC-303 fix date, or the final runbook date. The system reports these as "to be confirmed".
-- An update analysis takes 30 to 90 seconds.
+- Les citations sont vérifiées mécaniquement ; les conclusions sont contrôlées par l’évaluation, la grille de référence et la révision humaine, sans garantie absolue.
+- Les captures montrent des états passés ; l’état des billets prévaut.
+- Au 30 septembre 2026, le dossier ne documente ni la date du nouvel essai SEC-210, ni celle du correctif ACC-303, ni celle du guide d’exploitation final. Le système les indique « à confirmer ».
+- L’analyse d’une mise à jour prend de 30 à 90 secondes.
 
-## Tools and AI disclosure
+## Outils et déclaration d’utilisation de l’IA
 
-- **In the product:** Claude Sonnet 5.5 and Claude Opus 5.5 through the Anthropic API.
-- **During development:** Claude (Anthropic), ChatGPT and Codex (OpenAI) assisted with code, corpus analysis, the interface and documentation drafts. The team reviewed all content; answers are machine-checked against the corpus and scored against the answer key.
-- **Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, mailparser, unpdf, SheetJS, mammoth, JSZip, Upstash Redis, Vercel.
+- **Dans le produit :** Claude Sonnet 5.5 et Claude Opus 5.5 via l’API Anthropic.
+- **Pendant le développement :** Claude (Anthropic), ChatGPT et Codex (OpenAI) ont contribué au code, à l’analyse du corpus, à l’interface et aux brouillons de documentation. L’équipe a révisé l’ensemble du contenu ; les réponses sont vérifiées automatiquement dans le corpus et évaluées à l’aide de la grille de référence.
+- **Technologies :** Next.js 16, React 19, TypeScript, Tailwind CSS 4, mailparser, unpdf, SheetJS, mammoth, JSZip, Upstash Redis, Vercel.
 
-## Team
+## Équipe
 
 **team** (HxBuddy) · Arley Ndaribike · Daniela Villamizar Useche · Behnaz Dehghan · Kenny Jones Rigaud
 
-All people, companies and data in the corpus are fictional and were provided by the organizers for CodeML 2026; the corpus is not covered by the code license.
+Toutes les personnes, entreprises et données du corpus sont fictives et ont été fournies par les organisateurs de CodeML 2026 ; le corpus n’est pas couvert par la licence du code.
 
 <div align="center">
-Built at <b>CodeML 2026</b> · PolyAI · Polytechnique Montréal
+Créé à <b>CodeML 2026</b> · PolyAI · Polytechnique Montréal
 </div>

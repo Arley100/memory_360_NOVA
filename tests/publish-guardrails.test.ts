@@ -64,7 +64,7 @@ test("publish guardrails protect edits, retain drafts, and preserve baseline/cur
     assert.equal(first.status, 409);
     const result = await first.json();
     assert.equal(result.reviewRequired, true);
-    assert.ok(result.warnings.some((n: string) => n.includes("proposed date")));
+    assert.ok(result.warnings.some((n: string) => n.includes("date proposée")));
     assert.deepEqual((await (await send("proposal", edited)).json()).warnings, result.warnings);
     assert.equal(edited.revisedAnswers![0].text, "Oct 29 is the approved date.");
     assert.ok(await store.loadDraft("proposal"));
@@ -81,7 +81,7 @@ test("publish guardrails protect edits, retain drafts, and preserve baseline/cur
     assert.equal(response.status, 409);
     const result = await response.json();
     assert.equal(result.guardedChangeSet.conditionChanges.length, 0);
-    assert.ok(result.warnings.some((n: string) => n.startsWith("Q08:")));
+    assert.ok(result.warnings.some((n: string) => n.startsWith("Q08 :")));
     edited.conditionChanges = [];
     assert.equal((await send("delivery", edited)).status, 409);
     assert.ok(await store.loadDraft("delivery"));
@@ -93,7 +93,7 @@ test("publish guardrails protect edits, retain drafts, and preserve baseline/cur
     edited.newDecisions = [{ text: "October 29 approved.", citations: [{ src: "NEW", quote: "The committee approved October 29." }] }];
     const response = await send("invalid-cites", edited);
     assert.equal(response.status, 409);
-    assert.ok((await response.json()).warnings.some((n: string) => n.includes("citation(s) removed")));
+    assert.ok((await response.json()).warnings.some((n: string) => n.includes("citation(s) retirée(s)")));
     assert.equal((await send("invalid-cites", { revisedAnswers: "bad" })).status, 400);
   });
 

@@ -1,6 +1,6 @@
 // Decode streaming UTF-8 independently of network chunk boundaries.
 export async function readStream(res: Response, onMessage: (m: Record<string, unknown>) => void) {
-  if (!res.body) throw new Error("The server returned no response stream.");
+  if (!res.body) throw new Error("Le serveur n’a renvoyé aucun flux de réponse.");
   const reader = res.body.getReader();
   const decoder = new TextDecoder();
   let buffer = "";
