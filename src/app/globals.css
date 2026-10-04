@@ -1,11 +1,45 @@
 @import "tailwindcss";
 
 /* NOVA's persistent conversational interface. Source previews use the shared Chip. */
-.nova-orb { position: fixed; z-index: 65; width: 58px; height: 58px; border: 0; border-radius: 50%; touch-action: none; cursor: grab; background: transparent; padding: 0; }
+.nova-orb { position: fixed; z-index: 65; width: 58px; height: 58px; border: 0; border-radius: 50%; touch-action: none; cursor: grab; background: transparent; padding: 0; --eye-x: 0px; --eye-y: 0px; }
 .nova-orb.is-dragging { cursor: grabbing; }
-.nova-orb-sphere { display: block; width: 100%; height: 100%; border-radius: 48% 52% 50% 46%; background: radial-gradient(circle at 29% 23%, #e6f9ef 0%, #b8e8d9 13%, #31ba96 43%, #126451 86%); box-shadow: inset 0 0 0 1px #ffffff65, inset -5px -7px 12px #073d4530, 0 6px 20px #12645130; }
-.nova-orb.is-open .nova-orb-sphere { box-shadow: inset 0 0 0 2px #d0f0e5, 0 5px 18px #12645140; }
-.nova-orb.is-working .nova-orb-sphere { background: radial-gradient(circle at 29% 23%, #dcf2ef, #65bbd1 24%, #258caf 52%, #126451); }
+.nova-orb-visual { display: block; width: 100%; height: 100%; filter: drop-shadow(0 5px 8px #123a3438); transition: transform 180ms ease, filter 180ms ease; }
+.nova-orb:hover .nova-orb-visual { transform: scale(1.03); filter: drop-shadow(0 6px 10px #123a3448); }
+.nova-orb-sphere { position: relative; display: block; width: 100%; height: 100%; border-radius: 49% 51% 48% 52%; background: radial-gradient(circle at 35% 28%, #45bf9f 0%, #31ba96 18%, #28a486 48%, #218b74 100%); box-shadow: inset -2px -3px 7px #081f2530; mask-image: radial-gradient(circle 22px at 50% 38%, #000 99%, transparent 100%), radial-gradient(circle 22px at 61% 44%, #000 99%, transparent 100%), radial-gradient(circle 22px at 60% 57%, #000 99%, transparent 100%), radial-gradient(circle 22px at 49% 62%, #000 99%, transparent 100%), radial-gradient(circle 22px at 39% 56%, #000 99%, transparent 100%), radial-gradient(circle 22px at 39% 43%, #000 99%, transparent 100%); }
+.nova-orb-sphere::before { content: ""; position: absolute; width: 12px; height: 5px; left: 14px; top: 10px; border-radius: 50%; background: #31ba9626; transform: rotate(-24deg); }
+.nova-mascot-float { display: block; width: 100%; height: 100%; animation: nova-mascot-float 5s ease-in-out infinite; }
+.nova-orb-sphere.memo-breathe { animation: nova-mascot-breathe 5s ease-in-out infinite; }
+@keyframes nova-mascot-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@keyframes nova-mascot-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.012); } }
+.nova-mascot-eye { position: absolute; top: 20px; width: 11px; height: 17px; transform: translate(var(--eye-x), var(--eye-y)); transition: transform 170ms cubic-bezier(.2,.8,.2,1); }
+.nova-orb:hover .nova-mascot-eye { transition-duration: 125ms; }
+.nova-mascot-eye--left { left: 14px; }
+.nova-mascot-eye--right { right: 14px; }
+.nova-mascot-eye-shape { display: block; width: 100%; height: 100%; border-radius: 50%; background: #f7f6f0; }
+.nova-orb:not(:hover):not(.is-working):not(.is-dragging):not(.has-error):not(.is-ready)[data-reaction="none"] .nova-mascot-eye-shape { animation: nova-mascot-blink 12s linear infinite; }
+@keyframes nova-mascot-blink { 0%, 97%, 98.2%, 100% { transform: scaleY(1); } 97.6% { transform: scaleY(.08); } }
+.nova-orb[data-reaction="hover-greeting"] .nova-mascot-eye, .nova-orb[data-reaction="clicked"] .nova-mascot-eye { transform: none; }
+.nova-orb:not(.is-ready)[data-reaction="hover-greeting"] .nova-mascot-eye--left .nova-mascot-eye-shape { border-radius: 0; clip-path: polygon(50% 0%, 64% 36%, 100% 50%, 64% 64%, 50% 100%, 36% 64%, 0% 50%, 36% 36%); }
+.nova-orb[data-reaction="hover-greeting"] .nova-mascot-eye--right .nova-mascot-eye-shape,
+.nova-orb[data-reaction="clicked"] .nova-mascot-eye-shape,
+.nova-orb.is-ready .nova-mascot-eye-shape { position: relative; top: 5px; height: 9px; background: transparent; border-top: 3px solid #f7f6f0; border-radius: 60% 60% 0 0; }
+.nova-orb.is-open .nova-orb-visual { filter: drop-shadow(0 0 1px #31ba96) drop-shadow(0 5px 8px #123a3440); }
+.nova-orb.is-working .nova-orb-sphere { background: radial-gradient(circle at 35% 28%, #55bfb3 0%, #36aca1 20%, #29988f 50%, #218b7b 100%); }
+.nova-orb.is-working .nova-mascot-eye--left { transform: translate(1px, -2px); }
+.nova-orb.is-working .nova-mascot-eye--right { transform: translate(2px, -2px); }
+.nova-orb.has-error:not(.is-working) .nova-mascot-eye { transform: translateY(1px) scaleY(.72); }
+.nova-orb.is-ready:not(.is-working):not(.has-error) .nova-mascot-eye { transform: none; }
+.nova-orb.is-dragging .nova-orb-visual { transform: scale(1.02); animation: none; }
+.nova-orb.is-dragging .nova-orb-sphere, .nova-orb.is-dragging .nova-mascot-float { animation: none; }
+.nova-orb.is-dragging .nova-mascot-eye { transform: none !important; }
+.nova-orb.is-dragging .nova-mascot-eye-shape { position: static !important; height: 100% !important; border: 0 !important; clip-path: none !important; background: #f7f6f0 !important; border-radius: 50% !important; animation: none !important; }
+.nova-mascot-hint { position: fixed; z-index: 66; height: 34px; padding: 7px 10px; border: 1px solid var(--color-line); border-radius: 9px; background: white; color: var(--color-ink); font-size: 11px; font-weight: 500; white-space: nowrap; box-shadow: 0 3px 10px #122d3f12; opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
+.nova-mascot-hint.is-visible { opacity: 1; pointer-events: auto; }
+.nova-mascot-hint::after { content: ""; position: absolute; top: 12px; width: 7px; height: 7px; background: white; transform: rotate(45deg); }
+.nova-mascot-hint--left::after { right: -4px; border-top: 1px solid var(--color-line); border-right: 1px solid var(--color-line); }
+.nova-mascot-hint--right::after { left: -4px; border-bottom: 1px solid var(--color-line); border-left: 1px solid var(--color-line); }
+.nova-mascot-hint--stacked::after { display: none; }
+@media (prefers-reduced-motion: reduce) { .nova-orb:hover .nova-orb-visual, .nova-orb.is-dragging .nova-orb-visual { transform: none; } .nova-orb .nova-mascot-eye { transition: none; } }
 .nova-orb-orbit { position: absolute; inset: -5px; border-radius: 50%; border: 1px dashed #278baf; pointer-events: none; }
 .nova-orb-badge { position: absolute; right: 1px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #d2a038; border: 2px solid white; }
 .nova-orb-badge.is-error { background: var(--color-blocker); }

@@ -6,6 +6,7 @@ import { clampOrb, panelRect, type Position } from "@/lib/chatState";
 import { useNovaChat } from "./NovaChatProvider";
 import { NovaChatMessage } from "./NovaChatMessage";
 import { NewConversationDialog } from "./NewConversationDialog";
+import { useMascotPersonality } from "./useMascotPersonality";
 
 const suggestions = ["What currently blocks go-live?", "Is SEC-210 formally accepted?", "Why was October 22 approved?", "What changed since the baseline?", "Which actions need attention first?", "Which project records contradict each other?"];
 export function NovaChatWidget() {
@@ -19,6 +20,11 @@ export function NovaChatWidget() {
   const drag = useRef<{ pointerId: number; x: number; y: number; origin: Position; moved: boolean } | null>(null);
   const draggedClick = useRef(false), nearBottom = useRef(true);
   const scroll = useRef<HTMLDivElement>(null);
+  const previousMascotState = useRef<{ reply: string; error: boolean } | null>(null);
+  const latestMessage = state.messages.at(-1);
+  const mascotReply = latestMessage?.role === "assistant" ? latestMessage.id : "";
+  const mascotError = Boolean(latestMessage?.error);
+  const mascot = useMascotPersonality({ ready, open: state.open, working: busy, dragging, error: mascotError, launcher });
   const position = state.launcherPosition;
   const anchorX = position?.x, anchorY = position?.y;
   useEffect(() => {
@@ -44,9 +50,32 @@ export function NovaChatWidget() {
     if (el && nearBottom.current) { el.scrollTop = el.scrollHeight; }
     else if (el) setNewResponse(true);
   }, [state.messages.length, stage, state.open]);
+  useEffect(() => {
+    if (!ready) return;
+    const button = launcher.current;
+    const visual = button?.querySelector<HTMLElement>(".nova-orb-visual");
+    const previous = previousMascotState.current;
+    previousMascotState.current = { reply: mascotReply, error: mascotError };
+    if (!button || !visual || !previous) return;
+    const answerReady = Boolean(mascotReply && mascotReply !== previous.reply && !state.open && !dragging);
+    const errorAppeared = mascotError && !previous.error && !dragging;
+    if (answerReady) button.classList.add("is-ready");
+    if (answerReady || errorAppeared) visual.classList.add("memo-pop");
+    const expressionTimer = setTimeout(() => button.classList.remove("is-ready"), 350);
+    const popTimer = setTimeout(() => visual.classList.remove("memo-pop"), 450);
+    return () => {
+      clearTimeout(expressionTimer); clearTimeout(popTimer);
+      button.classList.remove("is-ready"); visual.classList.remove("memo-pop");
+    };
+  }, [ready, mascotReply, mascotError, state.open, dragging, launcher]);
   if (!ready || !position || !viewport.width) return null;
   const rect = panelRect(position, viewport.width, viewport.height, state.expanded, viewport.sidebar);
   const error = state.messages.at(-1)?.error;
+  const hintSide = position.x + 29 > viewport.width / 2 ? "left" : "right";
+  const hintWidth = Math.min(160, viewport.width - 16);
+  const hintFits = hintSide === "left" ? position.x >= hintWidth + 18 : position.x + 68 + hintWidth <= viewport.width - 8;
+  const hintLeft = Math.max(8, Math.min(hintSide === "left" ? position.x - hintWidth - 10 : position.x + 68, viewport.width - hintWidth - 8));
+  const hintTop = Math.max(8, Math.min(hintFits ? position.y + 12 : position.y >= 52 ? position.y - 44 : position.y + 68, viewport.height - 42));
   const workingLabels: Record<string, string> = { read: "Reading project files…", think: "Connecting the facts…", verify: "Verifying evidence…", repair: "Rechecking supporting passages…" };
   function finish(e: React.PointerEvent<HTMLButtonElement>, cancelled = false) {
     if (!drag.current || e.pointerId !== drag.current.pointerId) return;
@@ -60,15 +89,19 @@ export function NovaChatWidget() {
     requestAnimationFrame(() => newConversationButton.current?.focus());
   }
   return <div className="nova-chat no-print">
-    <button ref={launcher} type="button" className={`nova-orb ${state.open ? "is-open" : ""} ${busy ? "is-working" : ""} ${dragging ? "is-dragging" : ""}`} style={{ left: position.x, top: position.y }}
-      title={`Ask NOVA · ${shortcut}${state.unread ? " · Unread response" : error ? " · Answer failed" : ""}`} aria-label={`${state.open ? "Close" : "Open"} NOVA Assistant${busy ? ", answering" : state.unread ? ", unread response" : error ? ", answer failed" : ""}`} aria-expanded={state.open} aria-controls="nova-chat-panel"
+    <button ref={launcher} type="button" className={`nova-orb ${state.open ? "is-open" : ""} ${busy ? "is-working" : ""} ${dragging ? "is-dragging" : ""} ${mascotError ? "has-error" : ""}`} data-reaction={mascot.reaction} style={{ left: position.x, top: position.y }}
+      title={`Ask NOVA · drag to reposition · ${shortcut}${state.unread ? " · Unread response" : error ? " · Answer failed" : ""}`} aria-label={`${state.open ? "Close" : "Open"} NOVA Assistant. Drag to reposition. ${shortcut}${busy ? ", answering" : state.unread ? ", unread response" : error ? ", answer failed" : ""}`} aria-expanded={state.open} aria-controls="nova-chat-panel"
       onPointerDown={(e) => { if (e.button !== 0) return; drag.current = { pointerId: e.pointerId, x: e.clientX, y: e.clientY, origin: position, moved: false }; draggedClick.current = false; e.currentTarget.setPointerCapture(e.pointerId); }}
-      onPointerMove={(e) => { const d = drag.current; if (!d || e.pointerId !== d.pointerId) return; const dx = e.clientX - d.x, dy = e.clientY - d.y; if (Math.hypot(dx, dy) > 6) d.moved = true; if (d.moved) { setDragging(true); patch({ launcherPosition: clampOrb({ x: d.origin.x + dx, y: d.origin.y + dy }, viewport.width, viewport.height) }); } }}
+      onPointerEnter={mascot.enter} onPointerLeave={mascot.leave}
+      onPointerMove={(e) => { mascot.trackEyes(e); const d = drag.current; if (!d || e.pointerId !== d.pointerId) return; const dx = e.clientX - d.x, dy = e.clientY - d.y; if (Math.hypot(dx, dy) > 6) { if (!d.moved) mascot.dragStarted(); d.moved = true; } if (d.moved) { setDragging(true); patch({ launcherPosition: clampOrb({ x: d.origin.x + dx, y: d.origin.y + dy }, viewport.width, viewport.height) }); } }}
       onPointerUp={(e) => finish(e)} onPointerCancel={(e) => finish(e, true)} onLostPointerCapture={() => { if (drag.current) { draggedClick.current = true; drag.current = null; setDragging(false); } }}
-      onClick={(e) => { if (e.detail !== 0 && draggedClick.current) { draggedClick.current = false; return; } if (state.open) { setConfirmNew(false); minimize(); } else openChat(); }}>
-      <span className={`nova-orb-sphere${dragging ? "" : " memo-breathe"}`} aria-hidden="true" />{busy && <span className="nova-orb-orbit memo-orbit" aria-hidden="true" />}
+      onClick={(e) => { if (e.detail !== 0 && draggedClick.current) { draggedClick.current = false; return; } mascot.clicked(!state.open); if (state.open) { setConfirmNew(false); minimize(); } else openChat(); }}>
+      <span className="nova-orb-visual" aria-hidden="true"><span className="nova-mascot-float"><span className={`nova-orb-sphere${dragging ? "" : " memo-breathe"}`}>
+        <span className="nova-mascot-eye nova-mascot-eye--left"><span className="nova-mascot-eye-shape" /></span><span className="nova-mascot-eye nova-mascot-eye--right"><span className="nova-mascot-eye-shape" /></span>
+      </span></span></span>{busy && <span className="nova-orb-orbit memo-orbit" aria-hidden="true" />}
       {(state.unread || error) && <span className={`nova-orb-badge ${error ? "is-error" : ""}`} aria-hidden="true" />}
     </button>
+    <button type="button" inert={!mascot.hintVisible} aria-hidden={!mascot.hintVisible} tabIndex={mascot.hintVisible ? 0 : -1} onPointerEnter={mascot.hintEnter} onPointerLeave={mascot.hintLeave} className={`nova-mascot-hint${mascot.hintVisible ? " is-visible" : ""} nova-mascot-hint--${hintSide}${hintFits ? "" : " nova-mascot-hint--stacked"}`} style={{ left: hintLeft, top: hintTop, width: hintWidth }} aria-label="Open NOVA Assistant" onClick={() => { mascot.clicked(true); openChat(); }}>Ask me about NOVA</button>
     {state.open && <section id="nova-chat-panel" role="dialog" aria-modal="false" aria-labelledby="nova-chat-title" className="nova-chat-panel" style={rect} onKeyDown={(e) => { if (e.key === "Escape" && !e.defaultPrevented) { e.preventDefault(); minimize(); } }}>
       <div className="nova-chat-content" inert={confirmNew}>
       <header className="nova-chat-header"><div><h2 id="nova-chat-title">NOVA Assistant</h2><p>Operational project memory</p></div><div className="nova-header-controls">
