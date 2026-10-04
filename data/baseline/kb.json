@@ -1124,7 +1124,37 @@
    "decided": "Workshop + ADR-007, Jul 23",
    "delivered": "Boréal, Aug 26 (E03)",
    "validated": "Architecture team, Aug 27 (M03)",
-   "status": "Done"
+   "status": "Done",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "E02",
+      "loc": "body:P3",
+      "quote": "Pour ma part, je veux que les données de production demeurent au Canada. À trancher demain en atelier."
+     }
+    ],
+    "decided": [
+     {
+      "src": "ADR-007",
+      "loc": "L10",
+      "quote": "L'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point."
+     }
+    ],
+    "delivered": [
+     {
+      "src": "E03",
+      "loc": "body:P2",
+      "quote": "La migration des ressources prévues pour NOVA vers Canada Central est complétée. Vous trouverez le schéma v2 en pièce jointe."
+     }
+    ],
+    "validated": [
+     {
+      "src": "M03",
+      "loc": "L5",
+      "quote": "- La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture."
+     }
+    ]
+   }
   },
   {
    "id": "D2",
@@ -1133,7 +1163,28 @@
    "decided": "Steering committee, Sept 10 (M04)",
    "delivered": "—",
    "validated": "—",
-   "status": "Approved, conditional"
+   "status": "Approved, conditional",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "E05",
+      "loc": "body:P3",
+      "quote": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+     }
+    ],
+    "decided": [
+     {
+      "src": "M04",
+      "loc": "L23",
+      "quote": "15:25 Élodie : Donc **approuvé**. Le 22 devient la date officielle. On doit mettre les plans et communications à jour."
+     },
+     {
+      "src": "M04",
+      "loc": "L24",
+      "quote": "15:27 Nicolas : Juste pour être sûr, le 22 n'est pas un go automatique. Les critères de sécurité, accessibilité et exploitation restent."
+     }
+    ]
+   }
   },
   {
    "id": "D3",
@@ -1142,7 +1193,38 @@
    "decided": "Steering committee, Sept 26 (M06)",
    "delivered": "—",
    "validated": "—",
-   "status": "0 of 3 met"
+   "status": "0 of 3 met",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "M06",
+      "loc": "L7",
+      "quote": "10:02 Sophie : Attention à la formulation. Vous avez livré un fix. Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+     },
+     {
+      "src": "M06",
+      "loc": "L9",
+      "quote": "10:05 Mélissa : Il reste ACC-303. La modale ne permet toujours pas d'atteindre Enregistrer au clavier. Pour moi c'est un bloquant d'accessibilité avant production."
+     },
+     {
+      "src": "M06",
+      "loc": "L10",
+      "quote": "10:07 Olivier : Le runbook est encore incomplet. Il manque le rollback. Je ne donnerai pas mon go exploitation tant que je n'ai pas une procédure exécutable."
+     }
+    ],
+    "decided": [
+     {
+      "src": "M06",
+      "loc": "L11",
+      "quote": "10:09 Nicolas : Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback. Exact?"
+     },
+     {
+      "src": "M06",
+      "loc": "L16",
+      "quote": "10:15 Nicolas : Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois éléments."
+     }
+    ]
+   }
   },
   {
    "id": "D4",
@@ -1151,7 +1233,16 @@
    "decided": "Élodie, Sept 16 (E06)",
    "delivered": "—",
    "validated": "—",
-   "status": "Done"
+   "status": "Done",
+   "evidence": {
+    "decided": [
+     {
+      "src": "E06",
+      "loc": "body:P2",
+      "quote": "Comme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre."
+     }
+    ]
+   }
   },
   {
    "id": "D5",
@@ -1160,7 +1251,16 @@
    "decided": "Project committee, Aug 14 (CR-01)",
    "delivered": "Invoiced INV-002",
    "validated": "Paid",
-   "status": "Done"
+   "status": "Done",
+   "evidence": {
+    "decided": [
+     {
+      "src": "CR-01",
+      "loc": "page=1",
+      "quote": "Document fictif - Changement approuvé Page 1\nDEMANDE DE CHANGEMENT CR-01\nObjet\nAjout de rapports avancés et export de synthèse.\nImpact financier\nMontant 24 000 $\nDécision APPROUVÉE\nDate de décision 14 août 2026\nAutorité Comité de projet\nImpact calendrier\nAucun changement de la date cible annoncé au moment de l’approbation."
+     }
+    ]
+   }
   },
   {
    "id": "D6",
@@ -1169,7 +1269,45 @@
    "decided": "Not approved (M04); deferred to phase 2, Sept 24",
    "delivered": "Boréal 'looking at adjustments' (M06)",
    "validated": "—",
-   "status": "Rejected for phase 1"
+   "status": "Rejected for phase 1",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "CR-04",
+      "loc": "page=1",
+      "quote": "BROUILLON - Document fictif Page 1\nDEMANDE DE CHANGEMENT CR-04 - BROUILLON\nObjet\nOptimisation avancée de l’expérience mobile pour écrans de moins de 768 px.\nEstimation\nMontant estimé 18 000 $\nStatut BROUILLON - APPROBATION REQUISE\nDemande initiale 4 septembre 2026\nDemandeur Boréal Numérique\nNote\nAucun numéro d’approbation ni signature de comité n’est présent dans ce document."
+     }
+    ],
+    "decided": [
+     {
+      "src": "M04",
+      "loc": "L33",
+      "quote": "15:37 Élodie : Pas selon la portée actuelle. On va traiter ça séparément, aucune approbation aujourd'hui."
+     },
+     {
+      "src": "DEC-PHASE2",
+      "loc": "L4",
+      "quote": "**Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2."
+     },
+     {
+      "src": "DEC-PHASE2",
+      "loc": "L6",
+      "quote": "La phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation."
+     }
+    ],
+    "delivered": [
+     {
+      "src": "M06",
+      "loc": "L22",
+      "quote": "10:24 Julien : Pour le mobile, on a déjà commencé à regarder quelques ajustements parce que ça aide aussi certains écrans."
+     },
+     {
+      "src": "M06",
+      "loc": "L23",
+      "quote": "10:25 Nicolas : Regarder, oui. Facturer du CR-04, non. Il n'est pas approuvé."
+     }
+    ]
+   }
   },
   {
    "id": "D7",
@@ -1178,7 +1316,42 @@
    "decided": "Agreed to validate (M02)",
    "delivered": "Fix, Sept 19 (E08)",
    "validated": "Pending (EN VALIDATION)",
-   "status": "Open"
+   "status": "Open",
+   "evidence": {
+    "delivered": [
+     {
+      "src": "E08",
+      "loc": "body:P2",
+      "quote": "Le correctif pour SEC-210 est déployé en validation depuis ce matin. Nos tests automatisés passent et, pour nous, le problème est corrigé."
+     }
+    ],
+    "validated": [
+     {
+      "src": "SEC-210",
+      "loc": "L25",
+      "quote": "26 sept 15:40 - Sophie : Re-test planifié. Statut maintenu EN VALIDATION."
+     },
+     {
+      "src": "M06",
+      "loc": "L7",
+      "quote": "10:02 Sophie : Attention à la formulation. Vous avez livré un fix. Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+     }
+    ],
+    "proposed": [
+     {
+      "src": "M02",
+      "loc": "L28",
+      "quote": "09:36 Sophie : J'aimerais aussi qu'on journalise toutes les actions administrateur, surtout consultation et export."
+     }
+    ],
+    "decided": [
+     {
+      "src": "M02",
+      "loc": "L30",
+      "quote": "09:43 Élodie : Donc résumé : Canada Central, SSO uniquement, audit admin à valider. Le reste continue."
+     }
+    ]
+   }
   }
  ],
  "budget": {

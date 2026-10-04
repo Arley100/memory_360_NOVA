@@ -85,7 +85,7 @@ test("initial page imports existing resolved answers once, with no LLM call; pub
   assert.equal(second.find((q) => q.id === "Q01")!.freshness.status, "fresh"); assert.equal(calls, 0);
 });
 
-test("batch concurrency is two, partial failure preserves old answer, citations are verified, baseline unchanged", async (t) => {
+test("full recomputation concurrency is two, partial failure preserves old answer, citations are verified, baseline unchanged", async (t) => {
   const { store } = await tempStore(t); const k = curatedKB();
   const baselinePath = path.join(process.cwd(), "data/baseline/kb.json");
   const hash = async () => createHash("sha256").update(await fs.readFile(baselinePath)).digest("hex");
@@ -93,7 +93,7 @@ test("batch concurrency is two, partial failure preserves old answer, citations 
   const deps = { store, loadKB: async () => k, listUpdates: async () => [], loadAnswers: async () => k.answers.map((item) => ({ item })), loadSources: async () => baselineSources(), resolve: async () => resolved, model: () => "test-model", ask: async (q: string) => { calls++; active++; max = Math.max(max, active); await new Promise((r) => setTimeout(r, 10)); active--; if (q === k.answers.find((a) => a.id === "Q03")!.question_en) throw new Error("Injected LLM failure"); return answer("Recomputed answer"); } };
   await getQuestionViews(deps); const previous = await store.get("Q03");
   const events: string[] = [];
-  const results = await recomputeQuestions(k.answers.map((a) => a.id), (r) => events.push(r.id), deps);
+  const results = await recomputeQuestions(k.answers.map((a) => a.id), (r) => events.push(r.id), deps, "full");
   assert.equal(calls, 10); assert.equal(max, 2); assert.equal(events.length, 10);
   assert.equal(results.filter((r) => r.ok).length, 9); assert.deepEqual(await store.get("Q03"), previous);
   const q08 = await store.get("Q08"); assert.equal(q08!.citations.length, 1); assert.equal(q08!.citations[0].src, "SEC-210");

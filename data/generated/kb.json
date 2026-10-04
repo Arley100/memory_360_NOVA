@@ -1565,7 +1565,37 @@
    "decided": "Élodie, Marc, Sophie, Julien at the workshop, 2026-07-23 (ADR-007 accepted)",
    "delivered": "Boréal, 2026-08-26 (migration complete, v2)",
    "validated": "Architecture team, 2026-08-27 committee record",
-   "status": "Implemented; verification noted in committee minutes"
+   "status": "Implemented; verification noted in committee minutes",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "E02",
+      "loc": "body:P3",
+      "quote": "Pour ma part, je veux que les données de production demeurent au Canada. À trancher demain en atelier."
+     }
+    ],
+    "decided": [
+     {
+      "src": "ADR-007",
+      "loc": "L10",
+      "quote": "L'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point."
+     }
+    ],
+    "delivered": [
+     {
+      "src": "E03",
+      "loc": "body:P2",
+      "quote": "La migration des ressources prévues pour NOVA vers Canada Central est complétée. Vous trouverez le schéma v2 en pièce jointe."
+     }
+    ],
+    "validated": [
+     {
+      "src": "M03",
+      "loc": "L5",
+      "quote": "- La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture."
+     }
+    ]
+   }
   },
   {
    "id": "D2",
@@ -1574,7 +1604,28 @@
    "decided": "Steering committee (Élodie announced, no objection), 2026-09-10",
    "delivered": "—",
    "validated": "—",
-   "status": "Approved target, conditional on three go-live conditions"
+   "status": "Approved target, conditional on three go-live conditions",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "E05",
+      "loc": "body:P3",
+      "quote": "Notre recommandation est de déplacer la mise en production au **22 octobre**."
+     }
+    ],
+    "decided": [
+     {
+      "src": "M04",
+      "loc": "L23",
+      "quote": "15:25 Élodie : Donc **approuvé**. Le 22 devient la date officielle. On doit mettre les plans et communications à jour."
+     },
+     {
+      "src": "M04",
+      "loc": "L24",
+      "quote": "15:27 Nicolas : Juste pour être sûr, le 22 n'est pas un go automatique. Les critères de sécurité, accessibilité et exploitation restent."
+     }
+    ]
+   }
   },
   {
    "id": "D3",
@@ -1583,7 +1634,38 @@
    "decided": "Committee 2026-09-26, confirmed by Sophie, Mélissa, Olivier",
    "delivered": "—",
    "validated": "—",
-   "status": "All three open at baseline"
+   "status": "All three open at baseline",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "M06",
+      "loc": "L11",
+      "quote": "10:09 Nicolas : Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback. Exact?"
+     }
+    ],
+    "decided": [
+     {
+      "src": "M06",
+      "loc": "L12",
+      "quote": "10:10 Sophie : Oui."
+     },
+     {
+      "src": "M06",
+      "loc": "L13",
+      "quote": "10:10 Mélissa : Oui."
+     },
+     {
+      "src": "M06",
+      "loc": "L14",
+      "quote": "10:10 Olivier : Oui."
+     },
+     {
+      "src": "M06",
+      "loc": "L16",
+      "quote": "10:15 Nicolas : Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois éléments."
+     }
+    ]
+   }
   },
   {
    "id": "D4",
@@ -1592,7 +1674,16 @@
    "decided": "Élodie Caron announced, effective 2026-09-16",
    "delivered": "—",
    "validated": "—",
-   "status": "Nicolas Perron is in charge"
+   "status": "Nicolas Perron is in charge",
+   "evidence": {
+    "decided": [
+     {
+      "src": "E06",
+      "loc": "body:P2",
+      "quote": "Comme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre."
+     }
+    ]
+   }
   },
   {
    "id": "D5",
@@ -1601,7 +1692,33 @@
    "decided": "Nicolas Perron, 2026-09-24 (DEC-PHASE2)",
    "delivered": "—",
    "validated": "—",
-   "status": "Not approved; no spend allowed; INV-003 line of 18,000 to be handled"
+   "status": "Not approved; no spend allowed; INV-003 line of 18,000 to be handled",
+   "evidence": {
+    "proposed": [
+     {
+      "src": "CR-04",
+      "loc": "page=1",
+      "quote": "BROUILLON - Document fictif Page 1\nDEMANDE DE CHANGEMENT CR-04 - BROUILLON\nObjet\nOptimisation avancée de l’expérience mobile pour écrans de moins de 768 px.\nEstimation\nMontant estimé 18 000 $\nStatut BROUILLON - APPROBATION REQUISE\nDemande initiale 4 septembre 2026\nDemandeur Boréal Numérique\nNote\nAucun numéro d’approbation ni signature de comité n’est présent dans ce document."
+     }
+    ],
+    "decided": [
+     {
+      "src": "M04",
+      "loc": "L33",
+      "quote": "15:37 Élodie : Pas selon la portée actuelle. On va traiter ça séparément, aucune approbation aujourd'hui."
+     },
+     {
+      "src": "DEC-PHASE2",
+      "loc": "L4",
+      "quote": "**Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2."
+     },
+     {
+      "src": "DEC-PHASE2",
+      "loc": "L6",
+      "quote": "La phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation."
+     }
+    ]
+   }
   },
   {
    "id": "D6",
@@ -1610,7 +1727,23 @@
    "decided": "—",
    "delivered": "Boréal, 2026-09-17",
    "validated": "Marc Gervais, 2026-09-17",
-   "status": "Closed; original schedule risk resolved"
+   "status": "Closed; original schedule risk resolved",
+   "evidence": {
+    "delivered": [
+     {
+      "src": "INT-101",
+      "loc": "L17",
+      "quote": "17 sept 14:23 - Boréal : Correctif déployé. 120 recherches rejouées, 120 réponses valides."
+     }
+    ],
+    "validated": [
+     {
+      "src": "INT-101",
+      "loc": "L18",
+      "quote": "17 sept 16:10 - Marc : Validé côté intégration. Je ferme."
+     }
+    ]
+   }
   },
   {
    "id": "D7",
@@ -1619,7 +1752,28 @@
    "decided": "—",
    "delivered": "Boréal, 2026-09-19",
    "validated": "— (security re-test planned, not yet accepted)",
-   "status": "In validation"
+   "status": "In validation",
+   "evidence": {
+    "delivered": [
+     {
+      "src": "E08",
+      "loc": "body:P2",
+      "quote": "Le correctif pour SEC-210 est déployé en validation depuis ce matin. Nos tests automatisés passent et, pour nous, le problème est corrigé."
+     }
+    ],
+    "validated": [
+     {
+      "src": "SEC-210",
+      "loc": "L25",
+      "quote": "26 sept 15:40 - Sophie : Re-test planifié. Statut maintenu EN VALIDATION."
+     },
+     {
+      "src": "M06",
+      "loc": "L7",
+      "quote": "10:02 Sophie : Attention à la formulation. Vous avez livré un fix. Nous n'avons pas encore donné l'acceptation sécurité de SEC-210."
+     }
+    ]
+   }
   },
   {
    "id": "D8",
@@ -1628,7 +1782,16 @@
    "decided": "Project committee, 2026-08-14",
    "delivered": "—",
    "validated": "—",
-   "status": "Approved, 24,000 invoiced in INV-002"
+   "status": "Approved, 24,000 invoiced in INV-002",
+   "evidence": {
+    "decided": [
+     {
+      "src": "CR-01",
+      "loc": "page=1",
+      "quote": "Document fictif - Changement approuvé Page 1\nDEMANDE DE CHANGEMENT CR-01\nObjet\nAjout de rapports avancés et export de synthèse.\nImpact financier\nMontant 24 000 $\nDécision APPROUVÉE\nDate de décision 14 août 2026\nAutorité Comité de projet\nImpact calendrier\nAucun changement de la date cible annoncé au moment de l’approbation."
+     }
+    ]
+   }
   }
  ],
  "budget": {

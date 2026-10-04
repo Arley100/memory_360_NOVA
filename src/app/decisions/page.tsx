@@ -1,15 +1,20 @@
 import { PageHeader } from "@/components/UI";
 import { Chips, Tag } from "@/components/Chip";
-import { getKB, resolver, updates } from "@/lib/store";
+import { allSegments, allSources, getKB, resolver, updates, type DecisionStage } from "@/lib/store";
 import { decisionLineages } from "@/lib/updateMemory";
 import { fmtDay } from "@/lib/text";
+import { indexSegments } from "@/lib/cite";
+import { resolveDecisionEvidence } from "@/lib/decisionEvidence";
 
 export default async function Decisions() {
-  const k = await getKB();
-  const ups = await updates();
-  const r = await resolver([], ups);
+  const [k, ups] = await Promise.all([getKB(), updates()]);
+  const [r, segments, sources] = await Promise.all([resolver([], ups), allSegments(ups), allSources(ups)]);
   const lineages = decisionLineages(k, ups);
+  const sourceIds = new Set(sources.map((s) => s.id));
+  const bySrc = indexSegments(segments.filter((s) => sourceIds.has(s.src)));
   const cols = ["Proposed", "Decided", "Delivered", "Validated"] as const;
+  const stages = ["proposed", "decided", "delivered", "validated"] as const satisfies readonly DecisionStage[];
+  const tones = { proposed: "text-proposal", decided: "text-primary", delivered: "text-delivery", validated: "text-validation" };
   return (
     <div className="space-y-6">
       <PageHeader title="Decisions" subtitle={<>Each decision&apos;s lifecycle. A proposal is not a decision; a delivery is not a validation.</>} />
@@ -20,10 +25,15 @@ export default async function Decisions() {
             {k.decisions.map((d) => (
               <tr key={d.id}>
                 <td className="p-3 font-semibold"><p className="section-label">BASELINE DECISION</p><span className="text-muted">{d.id}</span> {d.subject}</td>
-                <td className="p-3 text-proposal">{d.proposed}</td>
-                <td className="p-3 text-primary">{d.decided}</td>
-                <td className="p-3 text-delivery">{d.delivered}</td>
-                <td className="p-3 text-validation">{d.validated}</td>
+                {stages.map((stage) => {
+                  const cites = resolveDecisionEvidence(d.evidence?.[stage], bySrc);
+                  return <td key={stage} className={`p-3 ${tones[stage]}`}>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span>{d[stage]}</span>
+                      {cites.length > 0 ? <Chips cites={cites} /> : <span className="text-xs text-muted">Evidence not linked</span>}
+                    </div>
+                  </td>;
+                })}
                 <td className="p-3"><span className="decision-status">{d.status}</span></td>
               </tr>
             ))}
