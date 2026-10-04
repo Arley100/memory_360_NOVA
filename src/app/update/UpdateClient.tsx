@@ -58,10 +58,12 @@ export function UpdateClient() {
   };
   const flagged = (label: string) => res?.changeset.guardrails.notes.some((n) => n.startsWith(label)) ?? false;
 
+  const activeStep = busy.startsWith("Publishing") ? 3 : res ? 2 : busy ? 1 : 0;
+
   return (
     <div className="space-y-5">
       <ol className="workflow-steps" aria-label="Update workflow">
-        {["Add file", "Analyze", "Review impact", "Publish version"].map((step, i) => <li key={step} aria-current={(res ? i === 2 : busy ? i === 1 : i === 0) ? "step" : undefined}><span>{String(i + 1).padStart(2, "0")}</span>{step}</li>)}
+        {["Add file", "Analyze", "Review impact", "Publish version"].map((step, i) => <li key={step} aria-current={i === activeStep ? "step" : undefined}><span>{String(i + 1).padStart(2, "0")}</span>{step}</li>)}
       </ol>
       <label
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
@@ -74,7 +76,7 @@ export function UpdateClient() {
       </label>
       {needCode && <CodeGate onUnlocked={() => { const retry = needCode; setNeedCode(null); retry(); }} />}
       {busy && <p role="status" className="loading-status">{busy}</p>}
-      {error && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
+      {error && <p role="alert" className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
       {res && (
         <section className="review-result space-y-5">
           <h2 className="text-xl font-semibold">Review before publishing: {res.changeset.filename}</h2>

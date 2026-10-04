@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Skip link",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Skip targets main",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Sidebar keyboard focus",
+    "pass": true,
+    "detail": "{\"focused\":true,\"outline\":\"solid\",\"width\":\"3px\",\"visible\":true}"
+  },
+  {
+    "name": "Header search keyboard focus",
+    "pass": true,
+    "detail": "{\"focused\":true,\"outline\":\"solid\",\"width\":\"3px\",\"visible\":true}"
+  },
+  {
+    "name": "Evidence chip keyboard focus",
+    "pass": true,
+    "detail": "{\"focused\":true,\"outline\":\"solid\",\"width\":\"3px\",\"visible\":true}"
+  },
+  {
+    "name": "Table evidence keyboard focus",
+    "pass": true,
+    "detail": "{\"focused\":true,\"outline\":\"solid\",\"width\":\"3px\",\"visible\":true}"
+  },
+  {
+    "name": "File control keyboard focus",
+    "pass": true,
+    "detail": "{\"focused\":true,\"outline\":\"solid\",\"width\":\"3px\",\"visible\":true}"
+  },
+  {
+    "name": "Ask search keyboard focus",
+    "pass": true,
+    "detail": "{\"focused\":true,\"outline\":\"solid\",\"width\":\"3px\",\"visible\":true}"
+  },
+  {
+    "name": "Reduced motion",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Spreadsheet exact cell",
+    "pass": true,
+    "detail": "Plan projet!F7"
+  },
+  {
+    "name": "Overview 1920 overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Overview 1366 overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Overview 1024 overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Overview 768 overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Overview 390 overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Print shell hidden",
+    "pass": true,
+    "detail": ""
+  }
+]

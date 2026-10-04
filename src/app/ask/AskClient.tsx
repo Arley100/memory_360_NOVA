@@ -37,7 +37,7 @@ export function AskClient({ initial }: { initial: string }) {
   }
   useEffect(() => {
     if (initial && initial !== lastInitial.current) { lastInitial.current = initial; ask(initial); }
-  }, [initial]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [initial]);
   return (
     <div className="space-y-5">
       <form onSubmit={(e) => { e.preventDefault(); ask(q); }} className="ask-search">
@@ -51,7 +51,7 @@ export function AskClient({ initial }: { initial: string }) {
       </div>
       {busy && <p className="loading-status" role="status">Reading the NOVA files and checking evidence...</p>}
       {res?.needCode && <CodeGate onUnlocked={() => ask(asked)} />}
-      {res?.error && !res.needCode && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{res.error}</p>}
+      {res?.error && !res.needCode && <p role="alert" className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{res.error}</p>}
       {res?.answer && (
         <section className="panel answer-result p-6" aria-live="polite">
           <p className="mb-3 border-b border-line pb-2 text-sm text-muted">Answer to: <span className="font-semibold text-ink">{asked}</span></p>
