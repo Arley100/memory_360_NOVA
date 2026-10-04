@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Icon } from "@/components/UI";
 import { ChangeSetView } from "@/components/ChangeSetView";
 import { CodeGate } from "@/components/CodeGate";
 import type { ChangeSet, Segment } from "@/lib/types";
@@ -59,20 +60,24 @@ export function UpdateClient() {
 
   return (
     <div className="space-y-5">
+      <ol className="workflow-steps" aria-label="Update workflow">
+        {["Add file", "Analyze", "Review impact", "Publish version"].map((step, i) => <li key={step} aria-current={(res ? i === 2 : busy ? i === 1 : i === 0) ? "step" : undefined}><span>{String(i + 1).padStart(2, "0")}</span>{step}</li>)}
+      </ol>
       <label
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); upload(Array.from(e.dataTransfer.files)); }}
-        className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-10 text-center ${drag ? "border-primary bg-primary/5" : "border-line bg-surface"}`}>
-        <span className="text-lg font-semibold">Drop the new information here (one file or several), or click to choose</span>
-        <span className="text-sm text-muted">Any source: email (.eml), Word, PDF, Excel, PowerPoint, calendar invite (.ics), Teams/chat export (.json, .html), text, CSV, a screenshot, or a .zip of several files</span>
+        className={`upload-zone ${drag ? "is-dragging" : "border-line bg-surface"}`}>
+        <span className="upload-icon"><Icon name="upload" size={24} /></span>
+        <span className="text-base font-semibold">Drop the new information here (one file or several), or click to choose</span>
+        <span className="mt-2 max-w-3xl text-xs text-muted">Any source: email (.eml), Word, PDF, Excel, PowerPoint, calendar invite (.ics), Teams/chat export (.json, .html), text, CSV, a screenshot, or a .zip of several files</span>
         <input type="file" multiple className="sr-only" onChange={(e) => upload(Array.from(e.target.files ?? []))} />
       </label>
       {needCode && <CodeGate onUnlocked={() => { const retry = needCode; setNeedCode(null); retry(); }} />}
-      {busy && <p role="status" className="font-semibold text-primary">{busy}</p>}
+      {busy && <p role="status" className="loading-status">{busy}</p>}
       {error && <p className="rounded-md border border-blocker/40 bg-blocker/5 p-3 text-blocker">{error}</p>}
       {res && (
-        <section className="space-y-4 rounded-lg border-2 border-marker bg-surface p-5">
-          <h2 className="text-2xl font-bold">Review before publishing: {res.changeset.filename}</h2>
+        <section className="review-result space-y-5">
+          <h2 className="text-xl font-semibold">Review before publishing: {res.changeset.filename}</h2>
           <ChangeSetView cs={res.changeset} />
           <details className="rounded-md border border-line p-3">
             <summary className="cursor-pointer font-semibold">Edit the three columns (one item per line)</summary>
@@ -106,8 +111,8 @@ export function UpdateClient() {
             <ul className="quote mt-2 max-h-64 overflow-auto text-sm">{res.segments.map((s, i) => <li key={i}><span className="text-muted">{s.src} · {s.loc}</span> {s.text}</li>)}</ul>
           </details>
           <div className="flex gap-3">
-            <button onClick={publish} className="rounded-md bg-primary px-5 py-2 font-semibold text-white">Publish as a new version</button>
-            <button onClick={() => setRes(null)} className="rounded-md border border-line px-5 py-2">Discard</button>
+            <button onClick={publish} disabled={!!busy} className="button-primary disabled:opacity-50">Publish as a new version</button>
+            <button onClick={() => setRes(null)} className="button-secondary">Discard</button>
           </div>
         </section>
       )}

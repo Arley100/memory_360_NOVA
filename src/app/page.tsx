@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Chips, Tag } from "@/components/Chip";
 import { Icon, MetricCell, PageHeader, Panel, SectionHeader } from "@/components/UI";
 import { currentConditions, kb, resolver, updates } from "@/lib/store";
@@ -37,8 +37,8 @@ export default async function Overview() {
                   <div className="flex flex-wrap items-center gap-2"><h3>{c.title}</h3><Tag t={c.status === "met" ? "MET" : "OPEN"} />{c.changedIn && <span className="version-delta">changed in {c.changedIn}</span>}</div>
                   <p className="mt-1 text-xs text-muted">Owner: {c.owner}</p>
                   <p className="mt-2 text-[13px]">{c.changeText ?? c.state}</p>
-                  <div className="mt-2"><Chips cites={(c.changeCites ?? c.citations).map(r)} /></div>
                 </div>
+                <div className="condition-evidence"><Chips cites={(c.changeCites ?? c.citations).map(r)} /></div>
               </li>)}
             </ol>
           </Panel>
@@ -69,7 +69,7 @@ export default async function Overview() {
           </Panel>
           <Panel className="context-rail">
             <SectionHeader title="Next actions"><Link href="/actions" className="text-xs text-primary hover:underline">All actions →</Link></SectionHeader>
-            <ul className="action-feed">{[...k.actions.slice(0, 6), ...ups.flatMap((u) => u.cs.newActions.map((a, i) => ({ ...a, id: `${u.cs.id}-A${i + 1}` })))].map((a) => <li key={a.id}><span className="feed-marker" /><div><p className="text-xs font-semibold">{a.title}</p><p className="mt-1 text-[10px] text-muted">{a.id} · {a.owner} ({a.ownerStatus}) · due {a.due}</p><div className="mt-2"><Tag t={a.type} /></div></div></li>)}</ul>
+            <ul className="action-feed">{[...k.actions.slice(0, 6), ...ups.flatMap((u) => u.cs.newActions.map((a, i) => ({ ...a, id: `${u.cs.id}-A${i + 1}` })))].map((a) => <li key={a.id}><span className="feed-marker" /><div><p className="text-xs font-semibold">{a.title}</p><p className="mt-1 text-[10px] text-muted">{a.id} · {a.owner} ({a.ownerStatus}) · due {a.due}</p><span className="feed-type"><Tag t={a.type} /></span></div></li>)}</ul>
           </Panel>
           {ups.length > 0 && <Panel><SectionHeader title="Changes since the baseline" /><div className="divide-y divide-line">{ups.map((u) => <Link key={u.cs.id} href="/update" className="block p-4 text-xs hover:bg-canvas"><strong>{u.cs.id}</strong> · {u.cs.filename} · {u.cs.summary}</Link>)}</div></Panel>}
         </div>

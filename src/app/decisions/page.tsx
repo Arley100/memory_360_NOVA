@@ -18,7 +18,7 @@ export default function Decisions() {
                 <td className="p-3 text-primary">{d.decided}</td>
                 <td className="p-3 text-delivery">{d.delivered}</td>
                 <td className="p-3 text-validation">{d.validated}</td>
-                <td className="p-3 font-semibold">{d.status}</td>
+                <td className="p-3"><span className="decision-status">{d.status}</span></td>
               </tr>
             ))}
           </tbody>
