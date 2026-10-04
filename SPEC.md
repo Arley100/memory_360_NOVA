@@ -740,6 +740,8 @@ Expected: new proposal (not approved), **flag: outside contract period (ends Oct
 ### 13.5 If the app fails during the live update (fallback)
 Open `docs/UPDATE_TEMPLATE.md`, fill the 3 columns by hand while sharing screen, cite the new file + locator, and show that `docs/baseline/` is unchanged. Rehearse this once.
 
+This is an external review template, not a complete in-app manual ChangeSet editor. The current no-provider app can ingest/review sources and publish a version with three text columns; it cannot manually populate all structured impacts (see §14.1).
+
 ---
 
 ## 14. Technical architecture
@@ -749,7 +751,9 @@ Open `docs/UPDATE_TEMPLATE.md`, fill the 3 columns by hand while sharing screen,
 2. **No vector DB.** The corpus is ~38 000 characters of text + 8 screenshots (≈ 12–15k tokens). Use **full-context grounding**: send the KB + all normalized segments to the LLM. Simpler, more accurate, easier to explain.
 3. **Deterministic first, LLM second.** Parsing, locators, search, dedupe, citation verification are deterministic code. The LLM is used for: screenshot transcription, natural-language answers, update analysis. Every LLM output is checked by code.
 4. **Baseline is immutable.** Updates are additive ChangeSets.
-5. **Works without an API key.** All pages except chat/update analysis work with zero keys (jury must not need a paid subscription).
+5. **Without a configured AI provider.** Browsing, evidence and search still work. Source files can be uploaded, supported text extracted and reviewed, and published as a new version. The manual fallback edits only problem status, prior decisions and proposal text; it has no controls for citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was not performed, not that no items are affected. Publishing runs code guardrails and preserves the baseline; it does not complete impact analysis or recompute answers. Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update interpretation require a configured provider. New images need a vision-capable provider for transcription; scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically read. Existing baseline screenshot transcriptions remain available. Jurors need no paid subscription or personal Claude/OpenAI account: hosted AI access comes from the deployment/team's server configuration and supplied demo code (also required for upload/publication when configured).
+
+**Implementation note:** OCR fallback entries below describe planned work, not current no-provider behavior. The current upload path has no OCR or manual transcription editor.
 
 ### 14.2 Stack
 | Layer | Choice | Why |
@@ -1068,7 +1072,7 @@ Typography: **Source Sans 3** for UI and our synthesis; **Source Serif 4** for v
 - Contrast ≥ 4.5:1 for text (the ACC-302 lesson).
 - Responsive down to a laptop at 1280 px and a projector at 1024 px; mobile is nice-to-have.
 - Brief prints on one page (`@media print`: hide nav, 11pt, chips as compact text).
-- Empty and error states give direction ("No API key configured: chat is off. All pages and evidence still work.").
+- Empty and error states give direction ("No AI provider configured: browsing and evidence still work. Source upload/review/publication and the three text columns remain available; AI analysis and answer recomputation require a provider.").
 
 ---
 
@@ -1207,7 +1211,7 @@ Then *Do* and *Done when* (acceptance criteria). Move tickets on a GitHub Projec
 *Done when:* draft visible to all members.
 
 **M360-004 · LLM adapter + env** — P0 · 1h · DEV-BE · 001
-*Do:* `src/lib/llm/index.ts` interface `complete({system, messages, images?, json?})`; one provider adapter (any model with vision + JSON); env vars; app runs with no key (chat/update disabled with clear message).
+*Do:* `src/lib/llm/index.ts` interface `complete({system, messages, images?, json?})`; one provider adapter (any model with vision + JSON); env vars; app runs with no key (chat and automatic update analysis unavailable with clear message; source upload/review/publication and three-column text editing remain available, as limited in §14.1).
 *Done when:* `/api/health` reports `llmConfigured`; pages load without a key.
 
 ### EPIC 1 — Ground truth (highest value: 50 + 30 pts)
@@ -1520,10 +1524,14 @@ Style: same tokens as the app; real screenshots of the app; minimal text; no sto
 # Mémoire 360 — Usage guide
 
 ## Opening
-- Live: <URL> (no account, no subscription)
+- Live: <URL> (jurors need no paid subscription or personal Claude/OpenAI account;
+  hosted AI access uses the deployment/team's server configuration and supplied demo code)
 - Static (no app needed): <repo>/docs/BRIEF.md, ANSWERS.md, …
-- Local: `npm install && npm run build && npm start` (Node 20+). Optional: set LLM_API_KEY
-  in .env for chat and update analysis; everything else works without it.
+- Local: `npm install && npm run build && npm start` (Node 20+). For AI features, set
+  ANTHROPIC_API_KEY (or OPENAI_API_KEY + LLM_MODEL) in .env.local. Without a provider,
+  browsing, evidence, search and source upload/review/publication still work.
+  Chat, building the knowledge base, automatic impact analysis, answer recomputation
+  and AI-assisted update interpretation require a configured provider.
 
 ## Navigation
 Sidebar: Overview, Brief, Questions, Timeline, Decisions, Contradictions, Actions, Risks,
@@ -1540,10 +1548,18 @@ Type in the question bar (EN or FR). Answers cite verbatim quotes; unverifiable 
 are removed and flagged. "Not documented in the corpus" means the files don't say it.
 
 ## Adding new information
-Update → drop any file (.eml, .txt, .md, .pdf, .xlsx, .csv, .png, .jpg, .docx) → review the
+With a configured AI provider: Update → drop any file (.eml, .txt, .md, .pdf, .xlsx, .csv, .png, .jpg, .docx) → review the
 analysis (problem status / prior decision / new proposal, affected items, actions,
 guardrails) → Publish as U00n. Baseline (Sept 30, 2026 09:00) is never modified; switch
 versions in the header.
+Without a provider: upload → review supported extracted text → optionally edit problem status,
+prior decisions and proposal text → publish (demo code required if configured). This editor has
+no controls for citations, proposer/authority metadata, formal new decisions, affected questions/
+conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact
+fields mean analysis was not performed. Publication checks guardrails and preserves the baseline;
+it does not complete impact analysis or recompute answers. New images need a vision provider;
+scanned PDFs without a text layer and unreadable formats are retained for manual review.
+Existing baseline screenshot transcriptions remain available.
 
 ## Tools used
 <list frameworks, libraries, LLM provider + model, 21st.dev components, AI coding assistants>

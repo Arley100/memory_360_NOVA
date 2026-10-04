@@ -29,7 +29,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       <PageHeader title="NOVA" subtitle={`Where NOVA stands ${ups.length ? `(current state, after ${ups.at(-1)!.cs.id})` : "on Sept 30, 2026, 09:00"}`}>
         <span className="readiness-label"><span className="status-dot" />Go-live readiness · {status}</span>
       </PageHeader>
-      {justPublished && <div role="status" className="panel mb-5 p-4 text-sm"><strong>{justPublished.cs.id} published.</strong> {justPublished.cs.summary} <Link href="/questions" className="text-primary underline">Review question freshness</Link>; affected answers need manual recomputation.</div>}
+      {justPublished && <div role="status" className="panel mb-5 p-4 text-sm"><strong>{justPublished.cs.id} published.</strong> {justPublished.cs.summary} <Link href="/questions" className="text-primary underline">Review question freshness</Link>; answer recomputation requires a configured AI provider and must be triggered separately.</div>}
       <div className="metric-strip">
         <MetricCell label="Paid to date" value={money(b.paid)}>CAD · before tax</MetricCell>
         <MetricCell label="Go-live" value={fmtDate(k.goLive.date)}><span className="text-delivery">{status}</span></MetricCell>

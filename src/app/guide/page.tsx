@@ -56,7 +56,9 @@ export default async function Guide() {
         <ul className="list-disc pl-5">
           <li>Open <a className="text-primary underline" href="https://memory-360-nova.vercel.app">the deployed application</a> and start at <Link className="text-primary underline" href="/">Overview</Link>. Enter the jury demo code when prompted for protected operations.</li>
           <li>Locally: Node.js 20.9+, <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>; open <code>http://localhost:3000</code>.</li>
-        </ul></section>
+        </ul>
+        <p>Jurors need no paid subscription or personal Claude/OpenAI account. Hosted AI access uses the deployment/team&apos;s server configuration and supplied demo code. For local AI features, configure <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code> + <code>LLM_MODEL</code>) in <code>.env.local</code>.</p>
+        <p>Without a configured AI provider, browsing, evidence and search still work. Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update interpretation require a configured provider.</p></section>
       <section><h2 className="text-xl font-bold">Navigation</h2>
         <ul className="list-disc pl-5">
           <li><strong>Overview / Handover brief:</strong> readiness, budget, conditions and next actions / printable project summary.</li>
@@ -72,14 +74,16 @@ export default async function Guide() {
       <section><h2 className="text-xl font-bold">Questions and freshness</h2>
         <ul className="list-disc pl-5">
           <li><strong>Q01–Q10</strong> are the ten official dossier questions: cached answers, computation times, changed files and Up to date / Needs recompute / Requires review status.</li>
-          <li>Use individual refresh or Select stale → Recompute selected. More → Recompute from all sources gives full verification. After publishing, manually trigger recomputation of affected answers; failures preserve previous answers.</li>
+          <li>Use individual refresh or Select stale → Recompute selected. More → Recompute from all sources gives full verification. After publishing, trigger recomputation of affected answers separately; this requires a configured AI provider, and failures preserve previous answers.</li>
           <li>Expand original answers/traps. The page’s separate “Ask another question” form adds session answers below, outside official recomputation and header chat.</li>
         </ul></section>
       <section><h2 className="text-xl font-bold">Evidence and source navigation</h2>
         <p>Hover or focus a citation for passage, context, authority and quote verification; click for its highlighted source location. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. Inspect metadata, attachments and original files; return via Sources. Search ignores accents; “Show noise and duplicates” reveals hidden files.</p>
       </section>
       <section><h2 className="text-xl font-bold">Adding new information</h2>
-        <p><strong>Upload → analyze → review → publish → affected memory.</strong> Drop files/ZIP; review problem status, prior decisions, new proposals, affected items, actions, revised answers/brief and guardrails. Correct flagged content. Publish creates U001, U002… with sources/history; inspect current conditions/brief and recompute affected official questions.</p>
+        <p><strong>Upload → analyze → review → publish → affected memory.</strong> With a configured AI provider, drop files/ZIP; review problem status, prior decisions, new proposals, affected items, actions, revised answers/brief and guardrails. Correct flagged content. Publish creates U001, U002… with sources/history; inspect current conditions/brief and recompute affected official questions.</p>
+        <p>Without a provider, source files can still be uploaded, supported text extracted and reviewed, and published as a new version. The manual fallback edits only problem status, prior decisions and proposal text. It has no controls for citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was not performed, not that no items are affected. Publishing runs code guardrails; it does not complete impact analysis or recompute answers. A configured demo code is still required for upload and publication.</p>
+        <p>New images need a vision-capable provider for transcription. Scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically read. Existing baseline screenshot transcriptions remain available.</p>
       </section>
       <section><h2 className="text-xl font-bold">Baseline vs current</h2>
         <p><strong>Sep 30, 2026, 09:00 Montréal</strong> is the preserved baseline. Current includes published updates. Check header version, history and Assistant mode; earlier replies keep their original context. Ask again after updates.</p>
