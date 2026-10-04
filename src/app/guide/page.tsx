@@ -57,13 +57,12 @@ export default async function Guide() {
           <li>Open <a className="text-primary underline" href="https://memory-360-nova.vercel.app">the deployed application</a> and start at <Link className="text-primary underline" href="/">Overview</Link>. Enter the jury demo code when prompted for protected operations.</li>
           <li>Locally: Node.js 20.9+, <code>npm install</code>, <code>npm run ingest</code>, <code>npm run dev</code>; open <code>http://localhost:3000</code>.</li>
         </ul>
-        <p>Jurors need no paid subscription or personal Claude/OpenAI account. Hosted AI access uses the deployment/team&apos;s server configuration and supplied demo code. For local AI features, configure <code>ANTHROPIC_API_KEY</code> (or <code>OPENAI_API_KEY</code> + <code>LLM_MODEL</code>) in <code>.env.local</code>.</p>
-        <p>Without a configured AI provider, browsing, evidence and search still work. Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update interpretation require a configured provider.</p></section>
+        <p>Jurors need no paid subscription or personal AI account; hosted AI uses the team&apos;s configured provider and demo code.</p></section>
       <section><h2 className="text-xl font-bold">Navigation</h2>
         <ul className="list-disc pl-5">
           <li><strong>Overview / Handover brief:</strong> readiness, budget, conditions and next actions / printable project summary.</li>
-          <li><strong>Build from sources:</strong> AI rebuild of the memory from indexed files, with citation checks and answer-key scoring.</li>
-          <li><strong>Timeline / Decisions:</strong> dated events / proposal → decision → delivery → validation lifecycle.</li>
+          <li><strong>Build from sources:</strong> AI rebuild from indexed files, with citation checks and internal required-fact coverage.</li>
+          <li><strong>Timeline / Decisions:</strong> dated baseline/update events / cited proposal → decision → delivery → validation lineage.</li>
           <li><strong>Contradictions / Risks:</strong> conflicting claims and their resolution / register entries, current interpretations, stale evidence and baseline comparisons.</li>
           <li><strong>Actions / Team:</strong> commitments or recommendations, confirmed or proposed owners, dates or TBC / roles and responsibilities.</li>
           <li><strong>Questions / Sources / Add new information:</strong> official answers and freshness / searchable evidence / reviewed updates.</li>
@@ -81,25 +80,28 @@ export default async function Guide() {
         <p>Hover or focus a citation for passage, context, authority and quote verification; click for its highlighted source location. Locators: <code>L23</code> line, <code>¶3</code> email paragraph, <code>p.1</code> PDF page, <code>F7</code> spreadsheet cell, <code>row 4</code> screenshot row. Inspect metadata, attachments and original files; return via Sources. Search ignores accents; “Show noise and duplicates” reveals hidden files.</p>
       </section>
       <section><h2 className="text-xl font-bold">Adding new information</h2>
-        <p><strong>Upload → analyze → review → publish → affected memory.</strong> With a configured AI provider, drop files/ZIP; review problem status, prior decisions, new proposals, affected items, actions, revised answers/brief and guardrails. Correct flagged content. Publish creates U001, U002… with sources/history; inspect current conditions/brief and recompute affected official questions.</p>
-        <p>Without a provider, source files can still be uploaded, supported text extracted and reviewed, and published as a new version. The manual fallback edits only problem status, prior decisions and proposal text. It has no controls for citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was not performed, not that no items are affected. Publishing runs code guardrails; it does not complete impact analysis or recompute answers. A configured demo code is still required for upload and publication.</p>
-        <p>New images need a vision-capable provider for transcription. Scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically read. Existing baseline screenshot transcriptions remain available.</p>
+        <ul className="list-disc pl-5">
+          <li><strong>Upload → analyze → review → publish → affected memory.</strong> Drop files/ZIP. With AI configured, review problem status, prior decisions still in force, new proposals, affected items, actions, revised answers/brief and guardrails.</li>
+          <li>Correct flagged content, then publish U001, U002… with sources/history. Inspect current conditions/brief and recompute affected official questions separately.</li>
+          <li>AI off: supported text is extracted; manual fallback edits only the three status/decision/proposal text columns before publication. It cannot author citations, approvals or structured impacts/actions/revisions. Empty impacts mean unassessed. Guardrails still run; demo-code protection still applies.</li>
+        </ul>
       </section>
       <section><h2 className="text-xl font-bold">Baseline vs current</h2>
         <p><strong>Sep 30, 2026, 09:00 Montréal</strong> is the preserved baseline. Current includes published updates. Check header version, history and Assistant mode; earlier replies keep their original context. Ask again after updates.</p>
       </section>
       <section><h2 className="text-xl font-bold">Tools and automation</h2>
         <ul className="list-disc pl-5">
-          <li>AI accelerates analysis: Anthropic or an OpenAI-compatible provider. Build, chat, recomputation, automatic update analysis and new screenshot transcription require configured AI. Local setup: <code>.env.local</code>, following <code>.env.example</code>.</li>
-          <li>AI off: browse/search evidence and existing memory; parse text uploads, fill three review columns manually and publish. No automatic impact analysis; new image text requires vision support.</li>
-          <li>Next.js/React/TypeScript and document parsers; Vercel/Upstash hosting/storage. Claude, ChatGPT and Codex assisted development. AI-built memory is scored against a human-curated key.</li>
+          <li>AI accelerates analysis through Anthropic or an OpenAI-compatible provider. Build, chat, recomputation and automatic impact analysis require configured AI; new image transcription also needs vision support. Local setup: <code>.env.local</code>, following <code>.env.example</code>.</li>
+          <li>Browsing, indexed evidence, search and supported text extraction work without AI. Publication always requires human review.</li>
+          <li>Next.js/React/TypeScript, document parsers and Vercel/Upstash hosting/storage. Claude, ChatGPT and Codex assisted development; required-fact coverage is the team&apos;s internal verification.</li>
         </ul></section>
       <section><h2 className="text-xl font-bold">Manual review and limitations</h2>
         <ul className="list-disc pl-5">
           <li>NOVA facts require supplied corpus evidence. Citations are verified against indexed sources; AI can be wrong, unsupported claims are flagged, and quote matching does not prove conclusions.</li>
           <li>Human-review changes before publishing: extracted text, authority, approvals, owners and TBC dates. Baseline screenshots were human-transcribed; verify new image extraction.</li>
+          <li>Scanned PDFs without a text layer and unreadable formats need manual inspection; uploading a file does not guarantee its contents were extracted.</li>
           <li>Newer timestamps do not necessarily mean higher authority. Screenshots show past states; compare validation and dates of facts. Duplicates are not independent evidence.</li>
-          <li>Undocumented outcomes remain unknown. Hosted uploads: about 4.5 MB; split larger batches. Configured AI can still fail.</li>
+          <li>Undocumented outcomes remain unknown; recommendations are not commitments. Split oversized uploads as prompted. Configured AI can still fail.</li>
         </ul></section>
       <section className="guide-limits"><h2 className="text-xl font-bold">Current documented uncertainties</h2>
         <p>Verified baseline gaps below; published updates may supersede them. Check current evidence and question freshness.</p>
