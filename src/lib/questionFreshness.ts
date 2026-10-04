@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { updateFingerprint } from "./updateFingerprint";
 import type { Update } from "./updateStore";
 import type { Source } from "./types";
 import type { QuestionComputation, QuestionContextDelta, QuestionContextChange, QuestionFreshness, QuestionSourceSnapshot } from "./questionTypes";
@@ -18,7 +18,7 @@ export function snapshotSources(sources: Source[], updates: Update[]): Record<st
 
 export function snapshotUpdates(updates: Update[]): Record<string, string> {
   // IDs can be reused after reset. Fingerprint the actual update too; timestamps alone never decide freshness.
-  return Object.fromEntries(updates.map((u) => [u.cs.id, createHash("sha256").update(JSON.stringify({ cs: u.cs, sources: u.sources, segments: u.segments })).digest("hex")]));
+  return Object.fromEntries(updates.map((u) => [u.cs.id, updateFingerprint(u)]));
 }
 
 export function getQuestionFreshness(questionId: string, computation: QuestionComputation, updates: Update[], sources?: Source[]): QuestionFreshness {
