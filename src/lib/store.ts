@@ -16,7 +16,11 @@ export interface Condition { id: number; title: string; owner: string; status: "
 export interface Action { id: string; title: string; condition?: number; owner: string; ownerStatus: string; type: string; due: string; citations: Cite[] }
 export interface Contradiction { id: string; topic: string; a: string; aCit: Cite[]; b: string; bCit: Cite[]; resolution: string; rule: string; planOrRegister: boolean }
 export interface TimelineEvent { date: string; tag: string; title: string; citations: Cite[] }
-export interface Decision { id: string; subject: string; proposed: string; decided: string; delivered: string; validated: string; status: string }
+export type DecisionStage = "proposed" | "decided" | "delivered" | "validated";
+export interface Decision {
+  id: string; subject: string; proposed: string; decided: string; delivered: string; validated: string; status: string;
+  evidence?: Partial<Record<DecisionStage, Cite[]>>;
+}
 export interface KBMeta {
   source: "ai" | "curated"; generatedAt?: string; model?: string; durationMs?: number;
   citations?: { verified: number; dropped: number };

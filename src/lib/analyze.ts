@@ -9,6 +9,8 @@ import { scoreAgainstKey } from "./answerKey";
 import { allSegments, allSources, resolver, type KB } from "./store";
 import type { Cite } from "./types";
 import { plain, stripQ } from "./text";
+import { indexSegments } from "./cite";
+import { resolveDecisionEvidence } from "./decisionEvidence";
 
 export type Progress = { stage: string; status: "start" | "done" | "error"; label: string; detail?: string; done?: number; total?: number };
 
@@ -82,7 +84,11 @@ Amounts in CAD before tax, as plain numbers. Distinguish authorized, invoiced an
   const historyP = step("history", "Rebuilding the timeline and the decisions", () => call<{ timeline: KB["timeline"]; decisions: KB["decisions"] }>(
     `Rebuild the project's history up to the reference date.
 JSON: {"timeline": [{"date": "YYYY-MM-DD", "tag": "PROPOSAL|DECISION|DELIVERY|VALIDATION|ISSUE|FINANCE|ORG|REPORT|STATUS", "title": "short", "citations": [...]}] (25-35 key events, chronological),
-"decisions": [{"id": "D1", "subject", "proposed": "who, when", "decided": "who, when", "delivered": "who, when or —", "validated": "who, when or —", "status": "short"}] (6-9 decisions)}`, context),
+"decisions": [{"id": "D1", "subject", "proposed": "who, when", "decided": "who, when", "delivered": "who, when or —", "validated": "who, when or —", "status": "short",
+"evidence": {"proposed": [...], "decided": [...], "delivered": [...], "validated": [...]}}] (6-9 decisions)
+Each evidence array contains only citations for that specific lifecycle stage, with src, loc and verbatim quote.
+Use [] when that stage is not documented. Do not reuse a proposal as approval or a delivery as validation.
+Invoicing/payment is not evidence of delivery/technical validation. Keep historical proposals alongside superseding decisions.`, context),
     (r) => `${r.timeline?.length ?? 0} events · ${r.decisions?.length ?? 0} decisions`);
 
   const [answers, state, history] = await Promise.all([answersP, stateP, historyP]);
@@ -113,6 +119,13 @@ Label your own recommendations as recommendations.`, context, 8000),
   let verified = 0, dropped = 0;
   const clean = (cs: Cite[] = []) => cs.map(r).filter((c) => { if (c.verified) verified++; else dropped++; return c.verified; })
     .map(({ src, loc, quote }) => ({ src, loc, quote }));
+  const decisionIndex = indexSegments(segments);
+  const cleanDecision = (cs: Cite[] = []) => {
+    const cites = resolveDecisionEvidence(cs, decisionIndex);
+    verified += cites.length;
+    dropped += cs.length - cites.length;
+    return cites.map(({ src, loc, quote }) => ({ src, loc, quote }));
+  };
   const kb: KB = {
     version: "generated",
     asOf: "2026-09-30T09:00:00-04:00",
@@ -122,7 +135,10 @@ Label your own recommendations as recommendations.`, context, 8000),
     actions: issues.actions.map((a) => ({ ...a, title: plain(a.title), condition: a.condition ?? undefined, citations: clean(a.citations) })),
     contradictions: issues.contradictions.map((c) => ({ ...c, a: plain(c.a), b: plain(c.b), resolution: plain(c.resolution), aCit: clean(c.aCit), bCit: clean(c.bCit) })),
     timeline: history.timeline.map((e) => ({ ...e, title: plain(e.title), citations: clean(e.citations) })).sort((a, b) => a.date.localeCompare(b.date)),
-    decisions: history.decisions,
+    decisions: history.decisions.map((d) => ({ ...d, evidence: {
+      proposed: cleanDecision(d.evidence?.proposed), decided: cleanDecision(d.evidence?.decided),
+      delivered: cleanDecision(d.evidence?.delivered), validated: cleanDecision(d.evidence?.validated),
+    } })),
     budget: { ...state.budget, components: (state.budget.components ?? []).map((x) => ({ ...x, citations: clean(x.citations) })), unapprovedCitations: clean(state.budget.unapprovedCitations) },
     brief: { asOf: "Sept 30, 2026, 09:00 (Montréal)", sections: brief.sections.map((s) => ({ ...s, text: plain(s.text), citations: clean(s.citations) })) },
     people: state.people,
