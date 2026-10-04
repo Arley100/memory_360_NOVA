@@ -9,7 +9,12 @@ import { useNovaChat } from "./NovaChatProvider";
 export function NovaChatMessage({ message }: { message: ChatMessage }) {
   const chat = useNovaChat();
   const [copied, setCopied] = useState(false);
-  const a = message.answer;
+  const a = message.answer && {
+    ...message.answer,
+    blocks: message.answer.blocks.map((block) => ({ ...block, text: frenchText(block.text) })),
+    missing: message.answer.missing.map(frenchText),
+    followUps: message.answer.followUps.map(frenchText),
+  };
   if (message.role === "user")
     return (
       <article className="nova-user-message">
@@ -22,7 +27,7 @@ export function NovaChatMessage({ message }: { message: ChatMessage }) {
       <article
         className={`nova-status-message ${message.error ? "is-error" : ""}`}
       >
-        <p>{message.text}</p>
+        <p>{frenchText(message.text ?? "")}</p>
         {message.retryQuestion && (
           <button
             disabled={chat.busy}

@@ -136,7 +136,7 @@ test("legacy missing fingerprints fall back safely; ambiguous baseline names do 
   const baseline = baselineSources().find((s) => s.id === "SEC-210")!;
   const ambiguous = [baseline, { ...baseline, id: "OTHER", path: "corpus/other/SEC-210.txt" }];
   assert.equal(publishedSources("U001", draft, [{ name: draft.filename, data: bytes }], ambiguous)[0].logicalPath, "data/updates/SEC-210.txt");
-  assert.throws(() => publishedSources("U001", draft, [], []), /Upload the file again/);
+  assert.throws(() => publishedSources("U001", draft, [], []), /Téléversez à nouveau le fichier/);
 });
 
 test("local and Redis draft/publish round trips preserve the same original fingerprint, including oversized hosted files", async (t) => {

@@ -121,7 +121,7 @@ export function BuildClient({ current, hasKey }: { current: { source: string; me
           <ul className="build-current__facts">
             {current.meta.model && <li>{current.meta.model}</li>}
             {current.meta.citations && <li>{current.meta.citations.verified} citations vérifiées</li>}
-            <li><strong>{current.meta.answerKey?.score ?? "n/a"}</strong> faits requis</li>
+            <li><strong>{current.meta.answerKey?.score ?? "n/d"}</strong> faits requis</li>
           </ul>
         </> : <><h2>Faits requis vérifiés par l’équipe</h2><p className="build-console__note">Aucune analyse par IA. Reconstruisez depuis les sources pour obtenir l’analyse du système.</p></>}
       </section>

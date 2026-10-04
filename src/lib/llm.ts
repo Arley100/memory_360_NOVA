@@ -61,7 +61,8 @@ function extractJSON(text: string): unknown {
   const start = t.indexOf("{");
   const end = t.lastIndexOf("}");
   if (start < 0 || end < 0) throw new Error("Le modèle n’a pas renvoyé de JSON");
-  return JSON.parse(t.slice(start, end + 1));
+  try { return JSON.parse(t.slice(start, end + 1)); }
+  catch { throw new Error("Le modèle a renvoyé un JSON invalide. Réessayez."); }
 }
 
 export interface LlmRequest {
@@ -113,7 +114,7 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
           }],
         }),
       });
-      if (!res.ok) throw new Error(`Anthropic API ${res.status}: ${(await res.text()).slice(0, 400)}`);
+      if (!res.ok) throw new Error(`Le fournisseur Anthropic a refusé la requête (code ${res.status}). Réessayez ou vérifiez la configuration.`);
       const data = await res.json();
       const u = data.usage ?? {};
       lastUsage = { task: req.task, model, ms: Date.now() - started, input: u.input_tokens ?? 0, cacheWrite: u.cache_creation_input_tokens ?? 0, cacheRead: u.cache_read_input_tokens ?? 0, output: u.output_tokens ?? 0 };
@@ -144,7 +145,7 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
         ],
       }),
     });
-    if (!res.ok) throw new Error(`LLM API ${res.status}: ${(await res.text()).slice(0, 400)}`);
+    if (!res.ok) throw new Error(`Le fournisseur d’IA a refusé la requête (code ${res.status}). Réessayez ou vérifiez la configuration.`);
     const data = await res.json();
     const u = data.usage ?? {};
     lastUsage = { task: req.task, model, ms: Date.now() - started, input: u.prompt_tokens ?? 0, cacheWrite: 0, cacheRead: u.prompt_tokens_details?.cached_tokens ?? 0, output: u.completion_tokens ?? 0 };
@@ -153,6 +154,7 @@ export async function llmJSON(req: LlmRequest): Promise<unknown> {
   } catch (e) {
     if (req.signal?.aborted) throw new DOMException("Génération arrêtée.", "AbortError");
     if ((e as Error).name === "AbortError") throw new Error(`Le modèle a dépassé ${TIMEOUT_MS[req.task] / 1000}s (${req.task}). Réessayez ou passez en mode manuel.`);
+    if (e instanceof TypeError) throw new Error("Connexion au fournisseur d’IA impossible. Réessayez.");
     throw e;
   } finally {
     clearTimeout(timer);

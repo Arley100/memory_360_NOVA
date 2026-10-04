@@ -122,7 +122,7 @@ export async function currentBrief(ups?: Update[]): Promise<Revised<KB["brief"][
     let current: Revised<KB["brief"]["sections"][number]>["current"];
     for (const u of list) {
       const r = u.cs.revisedBrief?.find((x) => frenchText(x.theme).toLowerCase() === sec.theme.toLowerCase());
-      if (r) current = { text: r.text, citations: r.citations, changedIn: u.cs.id };
+      if (r) current = { text: frenchText(r.text), citations: r.citations, changedIn: u.cs.id };
     }
     return { item: sec, current };
   });

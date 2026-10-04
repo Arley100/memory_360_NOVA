@@ -273,7 +273,7 @@ export function Tag({ t }: { t: string }) {
     <span
       className={`semantic-tag ${TAGS[t] ?? "bg-canvas text-muted border-line"}`}
     >
-      {LABELS[t] ?? t}
+      {LABELS[t] ?? frenchLabel(t)}
     </span>
   );
 }

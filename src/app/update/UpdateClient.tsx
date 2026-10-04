@@ -160,17 +160,17 @@ export function UpdateClient() {
           <details className="rounded-md border border-line p-3">
             <summary className="cursor-pointer font-semibold">Modifier les trois colonnes (un élément par ligne)</summary>
             {(["problemStatus", "priorDecisions", "newProposals"] as const).map((k) => (
-              <label key={k} className="mt-2 block text-sm font-semibold">{k}
+              <label key={k} className="mt-2 block text-sm font-semibold">{{ problemStatus: "État du problème", priorDecisions: "Décisions antérieures", newProposals: "Nouvelles propositions" }[k]}
                 <textarea disabled={publishing} className="mt-1 w-full rounded border border-line p-2 font-normal" rows={3}
                   value={columnText[k] ?? res.changeset[k].map((x) => x.text).join("\n")} onChange={(e) => edit(k, e.target.value)} />
               </label>
             ))}
           </details>
           {((res.changeset.revisedAnswers?.length ?? 0) + (res.changeset.revisedBrief?.length ?? 0)) > 0 && (
-            <details className="rounded-md border border-line p-3" open={[...res.changeset.guardrails.notes, ...(review?.warnings ?? [])].some((n) => /^(Q\d\d|brief)/.test(n))}>
+            <details className="rounded-md border border-line p-3" open={[...res.changeset.guardrails.notes, ...(review?.warnings ?? [])].some((n) => /^(Q\d\d|brief|fiche)/.test(n))}>
               <summary className="cursor-pointer font-semibold">Vérifier le nouvel état (modifier ou retirer les textes révisés)</summary>
               {(["revisedBrief", "revisedAnswers"] as const).map((k) => (res.changeset[k] ?? []).map((x, i) => {
-                const label = "id" in x ? (x as { id: string }).id : `fiche «${(x as { theme: string }).theme}"`;
+                const label = "id" in x ? (x as { id: string }).id : `fiche «${(x as { theme: string }).theme}»`;
                 return (
                   <div key={`${k}${i}`} className={`mt-3 rounded border p-2 ${flagged(label) ? "border-blocker bg-blocker/5" : "border-line"}`}>
                     <div className="flex items-center justify-between gap-2 text-sm font-semibold">

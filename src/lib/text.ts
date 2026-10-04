@@ -21,14 +21,14 @@ export function prettyLoc(loc: string): string {
   if (loc.startsWith("header:")) return ({ From: "De", To: "À", Cc: "Cc", Subject: "Objet", Date: "Date" } as Record<string, string>)[loc.slice(7)] ?? loc.slice(7);
   if (loc.startsWith("page=")) return "p." + loc.slice(5);
   if (loc.startsWith("row=")) return "rangée " + loc.slice(4);
-  if (loc.startsWith("region=row-")) return "row " + loc.slice(11);
-  if (loc.startsWith("region=")) return loc.slice(7);
+  if (loc.startsWith("region=row-")) return "rangée " + loc.slice(11);
+  if (loc.startsWith("region=")) return ({ header: "en-tête", title: "titre", notes: "notes", description: "description" } as Record<string, string>)[loc.slice(7)] ?? loc.slice(7);
   if (loc.startsWith("att:")) return "pièce jointe " + loc.slice(4);
   if (/^P\d+$/.test(loc)) return "¶" + loc.slice(1);
   let m = /^(slide|notes)=(\d+):P(\d+)$/.exec(loc);
   if (m) return `${m[1] === "slide" ? "diapositive" : "notes"} ${m[2]} ¶${m[3]}`;
   m = /^event-(\d+):([A-Z]+)$/.exec(loc);
-  if (m) return `événement ${m[1]} · ${m[2].toLowerCase()}`;
+  if (m) return `événement ${m[1]} · ${({ SUMMARY: "résumé", DTSTART: "début", DTEND: "fin", LOCATION: "lieu", DESCRIPTION: "description", ORGANIZER: "organisateur", UID: "identifiant" } as Record<string, string>)[m[2]] ?? m[2].toLowerCase()}`;
   if (loc.startsWith("$")) return loc.length > 28 ? "…" + loc.slice(-27) : loc;
   if (loc === "file") return "fichier";
   if (loc.includes("!")) return loc.split("!")[1];
