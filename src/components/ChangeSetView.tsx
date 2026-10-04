@@ -61,7 +61,7 @@ export function ChangeSetView({ cs, animate }: { cs: ChangeSet; animate?: boolea
       {((cs.revisedAnswers?.length ?? 0) > 0 || (cs.revisedBrief?.length ?? 0) > 0) && (
         <div className="answer-delta p-5">
           <h3 className="font-bold">The new state</h3>
-          <p className="mb-4 mt-1 text-xs text-muted">Proposed revisions to the brief and knowledge state. Official question answers stay unchanged until manually recomputed.</p>
+          <p className="mb-4 mt-1 text-xs text-muted">Proposed revisions to the brief and knowledge state. Official question answers stay unchanged until you trigger recomputation, which requires a configured AI provider.</p>
           {cs.revisedBrief?.map((b, i) => <p key={`b${i}`} className="mb-2"><strong>Brief · {b.theme}:</strong> {b.text} {chips(b.citations)}</p>)}
           {cs.revisedAnswers?.map((a, i) => <p key={`a${i}`} className="mb-2"><strong>{a.id}:</strong> {a.text} {chips(a.citations)}</p>)}
         </div>

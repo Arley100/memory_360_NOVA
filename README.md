@@ -41,7 +41,7 @@ Taking over a project means reading everything. The NOVA dossier holds 64 files:
 
 **Ask, in English or French.** Answers come only from the files. Unverifiable quotes are removed; missing information is reported as "not documented" instead of guessed.
 
-**Add new information.** Drop any file: email with attachments, Word, PDF, Excel, PowerPoint, calendar invite, Teams export, screenshot, or a zip of several. The analysis runs in visible stages, then separates **problem status**, **prior decision still in force** and **new proposal (not approved)**, lists the affected answers, conditions and actions, and revises the brief. A person reviews, then publishes a new version. The baseline (Sept 30, 2026, 09:00) is never modified.
+**Add new information.** Drop any file: email with attachments, Word, PDF, Excel, PowerPoint, calendar invite, Teams export, screenshot, or a zip of several. With a configured AI provider, the analysis runs in visible stages, then separates **problem status**, **prior decision still in force** and **new proposal (not approved)**, lists the affected answers, conditions and actions, and revises the brief. A person reviews, then publishes a new version. The baseline (Sept 30, 2026, 09:00) is never modified.
 
 ![Update in progress](docs/screenshots/05-update-analyzing.png)
 
@@ -77,7 +77,11 @@ npm run ingest     # index the 64 files and verify the answer key's citations (1
 npm run dev        # http://localhost:3000
 ```
 
-Browsing, evidence and search work without any key. To enable the AI features, copy `.env.example` to `.env.local` and set `ANTHROPIC_API_KEY`. Then:
+Without a configured AI provider, browsing, evidence and search still work. Source files can be uploaded, supported text extracted and reviewed, and published as a new version. The manual fallback edits only problem status, prior decisions and proposal text; it has no controls for citations, proposer/authority metadata, formal new decisions, affected questions/conditions/actions, condition status changes, new actions, or revised answers/brief. Empty impact fields mean analysis was not performed, not that no items are affected. Publishing runs code guardrails and preserves the baseline; it does not complete impact analysis or recompute answers.
+
+Chat, building the knowledge base, automatic impact analysis, answer recomputation and AI-assisted update interpretation require a configured provider. New images need a vision-capable provider for transcription; scanned PDFs without a text layer and unreadable formats are retained for manual review, not automatically read. Existing baseline screenshot transcriptions remain available.
+
+To enable the AI features locally, copy `.env.example` to `.env.local` and set `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY` + `LLM_MODEL` for an OpenAI-compatible provider). Then:
 
 ```bash
 npm run analyze    # build the knowledge base from the raw files (about 1 to 2 minutes)
@@ -85,7 +89,7 @@ npm run eval       # 29-question evaluation with trap questions (about 2 minutes
 npm run check      # preflight before a demo: key, models, warm cache
 ```
 
-The hosted demo is at [memory-360-nova.vercel.app](https://memory-360-nova.vercel.app). AI features there require a demo code (provided to the judges). Hosting notes: [DEPLOY.md](DEPLOY.md).
+The hosted demo is at [memory-360-nova.vercel.app](https://memory-360-nova.vercel.app). Jurors need no paid subscription or personal Claude/OpenAI account: AI access is provided by the deployment/team's server configuration. AI features there require a demo code (provided to the judges); publishing and reset also require the code. Hosting notes: [DEPLOY.md](DEPLOY.md).
 
 ## How it works
 

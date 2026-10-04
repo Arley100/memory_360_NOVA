@@ -38,9 +38,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <header className="no-print workspace-header">
               <GlobalAskBar />
               <div className="ai-status"
-                title={ai ? `Ask: ${modelFor("ask")} · Update: ${modelFor("update")}. Run npm run check to test the connection.` : "No API key: evidence, search and manual updates still work."}>
+                title={ai ? `Ask: ${modelFor("ask")} · Update: ${modelFor("update")}. Run npm run check to test the connection.` : "No AI provider: browsing, evidence, search and source upload/review/publication work. Manual editing covers only the three text columns; AI impact analysis and answer recomputation require a provider."}>
                 <span className={`h-2.5 w-2.5 rounded-full ${ai ? "bg-validation" : "bg-muted"}`} aria-hidden />
-                {ai ? <span>AI configured</span> : <span>AI off · evidence-only mode</span>}
+                {ai ? <span>AI configured</span> : <span>AI off · manual review</span>}
               </div>
               <div className="version-status" title={`Baseline: Sept 30, 2026, 09:00 (Montréal)${last ? ` · Current state after ${last} · ${ups.length} published update(s)` : ""}`}>
                 <span className="font-semibold">{last ? `Current · ${last}` : "Baseline"}</span>

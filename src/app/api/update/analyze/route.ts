@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
         if (!llmProvider()) {
           const cs = emptyChangeSet(filename);
-          cs.guardrails.notes.push("No LLM key configured: fill the three columns by hand (manual mode). The file was parsed and is citable as NEW.");
+          cs.guardrails.notes.push("No AI provider configured: review the extracted passages and edit only problem status, prior decisions and proposal text. You can publish the source files and these notes, but this editor cannot add affected items, condition changes, new actions, revised answers/brief, formal decisions or citation/authority metadata. Empty impact fields mean analysis was not performed, not that nothing is affected. New images are not transcribed without a vision provider.");
           send({ type: "result", draftId, segments, changeset: cs });
           return;
         }
