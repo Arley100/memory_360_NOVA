@@ -1,8 +1,8 @@
 import { Chips, Tag } from "@/components/Chip";
-import { kb, resolver, updates } from "@/lib/store";
+import { getKB, resolver, updates } from "@/lib/store";
 
 export default async function Actions() {
-  const k = kb();
+  const k = await getKB();
   const ups = await updates();
   const r = await resolver([], ups);
   const extra = ups.flatMap((u) => u.cs.newActions.map((a, i) => ({ ...a, id: `${u.cs.id}-A${i + 1}`, condition: undefined as number | undefined })));

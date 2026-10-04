@@ -3,10 +3,29 @@
 import type { ChangeSet, Cite, Item, Segment } from "./types";
 import { indexSegments, resolveCite } from "./cite";
 
-const OWNER: Record<number, RegExp> = { 1: /sophie|s[ée]curit[ée]/i, 2: /m[ée]lissa/i, 3: /olivier|exploitation/i };
+export interface ProjectFacts {
+  conditions: { id: number; title: string; owner: string }[];
+  goLive: { date: string; headline?: string; citations?: Cite[] };
+  contractEnd?: string; // YYYY-MM-DD
+}
+const fold = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+// Validating owner's names, from the knowledge base: "Mélissa Gagnon (fix: Boréal)" -> ["melissa", "gagnon"].
+function ownerNames(owner: string): string[] {
+  return fold(owner.split(/[(,;/]| and | et /)[0]).split(/[^a-z-]+/).filter((w) => w.length >= 3);
+}
+const MONTHS: Record<string, number> = { janvier: 1, january: 1, fevrier: 2, february: 2, mars: 3, march: 3, avril: 4, april: 4, mai: 5, may: 5, juin: 6, june: 6,
+  juillet: 7, july: 7, aout: 8, august: 8, septembre: 9, september: 9, octobre: 10, october: 10, novembre: 11, november: 11, decembre: 12, december: 12 };
+// All dates mentioned in a text, as YYYY-MM-DD (year defaults to the given one).
+export function datesIn(text: string, year: number): string[] {
+  const t = fold(text), out: string[] = [];
+  const pad = (n: number) => String(n).padStart(2, "0");
+  for (const m of t.matchAll(/(\d{1,2})(?:er)?\s+(janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre|january|february|march|april|may|june|july|august|september|october|november|december)/g)) out.push(`${year}-${pad(MONTHS[m[2]])}-${pad(+m[1])}`);
+  for (const m of t.matchAll(/(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{1,2})\b/g)) out.push(`${year}-${pad(MONTHS[m[1]])}-${pad(+m[2])}`);
+  for (const m of t.matchAll(/\b(20\d\d)-(\d{2})-(\d{2})\b/g)) out.push(`${m[1]}-${m[2]}-${m[3]}`);
+  return out;
+}
 const CLOSING = /ferm|valid|accept|approuv|clos|re-?test ok|\bok\b|go exploitation/i;
 const APPROVAL = /approuv|d[ée]cid|approv|ent[ée]rin|adopt/i;
-const LATE_DATE = /(\d{1,2})(?:er)?\s+(novembre|d[ée]cembre|november|december)|(november|december|novembre|d[ée]cembre)\s+\d{1,2}|2026-1[12]-\d{2}/i;
 
 export function emptyChangeSet(filename: string): ChangeSet {
   return {
@@ -16,7 +35,7 @@ export function emptyChangeSet(filename: string): ChangeSet {
   };
 }
 
-export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segment[]): ChangeSet {
+export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segment[], facts: ProjectFacts): ChangeSet {
   const idx = indexSegments([...baseline, ...fresh]);
   const notes: string[] = [];
   let dropped = 0;
@@ -48,16 +67,22 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   for (const ch of cs.conditionChanges ?? []) {
     const cites = clean(ch.citations);
     if (ch.status !== "met") { out.conditionChanges.push({ ...ch, citations: cites }); continue; }
-    const ok = cites.some((c) => fromNew(c) && CLOSING.test(c.quote) && (OWNER[ch.id]?.test(c.quote) || OWNER[ch.id]?.test(segText(c)) || OWNER[ch.id]?.test(newHeaders)));
+    const cond = facts.conditions.find((x) => x.id === ch.id);
+    const names = cond ? ownerNames(cond.owner) : [];
+    const byOwner = (t: string) => names.some((n) => fold(t).includes(n));
+    const ok = cites.some((c) => fromNew(c) && CLOSING.test(c.quote) && (byOwner(c.quote) || byOwner(segText(c)) || byOwner(newHeaders)));
     if (ok) out.conditionChanges.push({ ...ch, citations: cites });
     else notes.push(`Condition ${ch.id} NOT closed: the new file does not quote its validating owner closing it.`);
   }
 
-  // 3. A new date proposal never replaces the approved Oct 22 decision by itself.
-  if (out.newProposals.length && !out.priorDecisions.some((p) => /22/.test(p.text))) {
+  // 3. A new date proposal never replaces the approved go-live decision by itself.
+  const year = +(facts.goLive.date?.slice(0, 4) || 2026);
+  const approvedDay = facts.goLive.date;
+  const mentionsApproved = (t: string) => datesIn(t, year).includes(approvedDay);
+  if (out.newProposals.length && approvedDay && !out.priorDecisions.some((p) => mentionsApproved(p.text))) {
     out.priorDecisions.push({
-      text: "Oct 22, 2026, approved by the steering committee on Sept 10, remains the official target until governance decides otherwise.",
-      citations: [{ src: "M04", quote: "Donc approuvé. Le 22 devient la date officielle", loc: "L23" }],
+      text: `Go-live ${approvedDay}${facts.goLive.headline ? `: ${facts.goLive.headline}` : "."} This remains the official target until the proper authority decides otherwise.`,
+      citations: (facts.goLive.citations ?? []).slice(0, 1),
     });
   }
 
@@ -71,7 +96,7 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
   }
   if (out.newDecisions.length === 0) {
     const DATE = /(\d{1,2})(?:er)?\s+(janvier|f[ée]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[ée]cembre)|(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}/gi;
-    const proposed = new Set(out.newProposals.flatMap((p) => p.text.match(DATE) ?? []).map((d) => d.toLowerCase()).filter((d) => !/22/.test(d)));
+    const proposed = new Set(out.newProposals.flatMap((p) => p.text.match(DATE) ?? []).map((d) => d.toLowerCase()).filter((d) => !datesIn(d, year).includes(approvedDay)));
     for (const x of [...out.revisedAnswers.map((a) => ({ label: a.id, text: a.text })), ...out.revisedBrief.map((b) => ({ label: `brief "${b.theme}"`, text: b.text }))]) {
       for (const d of proposed) {
         const i = x.text.toLowerCase().indexOf(d);
@@ -83,10 +108,12 @@ export function applyGuardrails(cs: ChangeSet, baseline: Segment[], fresh: Segme
     }
   }
 
-  // 5. Contract end check (Oct 31, 2026).
+  // 5. Contract end check (date from the knowledge base).
   const text = [...out.newProposals, ...out.newDecisions].map((x) => x.text).join(" ") + " " + fresh.map((s) => s.text).join(" ");
-  const late = LATE_DATE.test(text);
-  if (late) notes.push("A date after Oct 31, 2026 appears: outside the contract period, a contractual amendment would be needed.");
+  const end = facts.contractEnd && /^\d{4}-\d{2}-\d{2}$/.test(facts.contractEnd) ? facts.contractEnd : null;
+  const lateDates = end ? datesIn(text, year).filter((d) => d > end) : [];
+  const late = lateDates.length > 0;
+  if (late) notes.push(`A date after the contract end (${end}) appears (${Array.from(new Set(lateDates)).join(", ")}): outside the contract period, a contractual amendment would be needed.`);
   if (dropped) notes.push(`${dropped} citation(s) removed because the quote was not found in the cited file.`);
 
   out.affected = {

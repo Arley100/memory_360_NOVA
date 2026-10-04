@@ -29,7 +29,7 @@ async function main() {
   const effort = arg("effort") || effortFor("ask");
   const only = arg("only")?.split(",");
   const concurrency = Number(arg("concurrency") || 3);
-  const context = arg("context") === "corpus" ? "corpus" : "full";
+  const context = arg("context") === "full" ? "full" : "corpus"; // default = what the app uses: raw files only
   const all: Q[] = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/eval/questions.json"), "utf8"));
   const qs = only ? all.filter((q) => only.includes(q.id)) : all;
   console.log(`\nEvaluating ${qs.length} questions · model ${model} · effort ${effort} · context ${context === "corpus" ? "RAW CORPUS ONLY (no curated knowledge base)" : "curated knowledge base + corpus"} · ${concurrency} in parallel\n`);

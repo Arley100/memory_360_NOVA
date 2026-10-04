@@ -47,7 +47,7 @@ export function ChangeSetView({ cs }: { cs: ChangeSet }) {
           <ul className="text-sm">
             <li className={approvalWarn ? "font-semibold text-blocker" : ""}>{approvalWarn ? "⚠ A revised text may present a proposal as approved: review it below" : `✓ No approval invented${moved ? ` (${moved} unquoted decision moved to proposals)` : ""}`}</li>
             <li>✓ No condition closed without its validating owner{blocked ? ` (${blocked} attempt blocked)` : ""}</li>
-            <li>{g.beyondContractEnd ? "⚠ Date beyond contract end (Oct 31, 2026)" : "✓ Within contract period"}</li>
+            <li>{g.beyondContractEnd ? "⚠ A date falls after the contract end" : "✓ Within contract period"}</li>
             <li>✓ Baseline preserved (Sept 30, 2026, 09:00)</li>
           </ul>
           {g.notes.length > 0 && <ul className="mt-2 list-disc pl-5 text-sm text-delivery">{g.notes.map((n) => <li key={n}>{n}</li>)}</ul>}

@@ -28,3 +28,9 @@ mark { background: var(--color-marker); color: inherit; padding: 0 2px; border-r
   main { padding: 0 !important; max-width: none !important; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Mémo, the analysis presence: breathes while working, orbit ring turns while reading */
+@keyframes memo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes memo-orbit { to { transform: rotate(360deg); } }
+.memo-breathe { animation: memo-breathe 1.8s ease-in-out infinite; }
+.memo-orbit { animation: memo-orbit 6s linear infinite; }

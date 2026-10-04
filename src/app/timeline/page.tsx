@@ -1,8 +1,8 @@
 import { Chips, Tag } from "@/components/Chip";
-import { kb, resolver, updates } from "@/lib/store";
+import { getKB, resolver, updates } from "@/lib/store";
 
 export default async function Timeline() {
-  const k = kb();
+  const k = await getKB();
   const ups = await updates();
   const r = await resolver([], ups);
   const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
@@ -33,7 +33,7 @@ export default async function Timeline() {
             <div><span className="rounded bg-marker px-1.5 text-xs font-semibold">{u.cs.id}</span> <strong>{u.cs.filename}</strong>: {u.cs.summary}</div>
           </li>
         ))}
-        <li className="text-muted">Oct 22, 2026 · target go-live (conditional) · Oct 31, 2026 · contract ends</li>
+        <li className="text-muted">{k.goLive.date} · target go-live ({k.goLive.status ?? "conditional"}){k.goLive.contractEnd ? ` · ${k.goLive.contractEnd} · contract ends` : ""}</li>
       </ol>
     </div>
   );

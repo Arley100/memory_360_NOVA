@@ -4,7 +4,26 @@
  "goLive": {
   "date": "2026-10-22",
   "approvedOn": "2026-09-10",
-  "contractEnd": "2026-10-31"
+  "contractEnd": "2026-10-31",
+  "status": "conditional",
+  "headline": "Approved by the steering committee on Sept 10 after Boréal's Sept 8 proposal. It is not a guaranteed go.",
+  "citations": [
+   {
+    "src": "M04",
+    "quote": "Donc approuvé. Le 22 devient la date officielle"
+   },
+   {
+    "src": "E09",
+    "quote": "Merci de ne pas communiquer le 22 comme un go garanti"
+   }
+  ],
+  "contractEndNote": "The contract ends Oct 31, 2026, so any slip past Oct 22 eats the margin. Due dates for all three conditions are not documented (to be confirmed).",
+  "contractEndCitations": [
+   {
+    "src": "CONTRACT",
+    "quote": "7 juillet au 31 octobre 2026"
+   }
+  ]
  },
  "answers": [
   {
@@ -1190,6 +1209,35 @@
     "amount": 54000,
     "status": "In validation (18 000 $ CR-04 not approved)"
    }
+  ],
+  "components": [
+   {
+    "label": "initial contract",
+    "amount": 180000,
+    "citations": [
+     {
+      "src": "CONTRACT",
+      "quote": "Montant maximal initial"
+     }
+    ]
+   },
+   {
+    "label": "CR-01 (approved)",
+    "amount": 24000,
+    "citations": [
+     {
+      "src": "CR-01",
+      "quote": "APPROUVÉE"
+     }
+    ]
+   }
+  ],
+  "unapprovedLabel": "CR-04 line on INV-003, never approved",
+  "unapprovedCitations": [
+   {
+    "src": "INV-003",
+    "quote": "Optimisation interface mobile - CR-04"
+   }
   ]
  },
  "brief": {
@@ -1342,5 +1390,8 @@
    "since": "—",
    "owns": "Status message draft"
   }
- ]
+ ],
+ "meta": {
+  "source": "curated"
+ }
 }

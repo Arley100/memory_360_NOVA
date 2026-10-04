@@ -5,7 +5,7 @@ import { parseFile } from "@/lib/ingest";
 import { llmJSON, llmProvider, visionTranscribe } from "@/lib/llm";
 import { askContext } from "@/lib/ask";
 import { CITATION_FORMAT, RULES } from "@/lib/prompts";
-import { allSegments, kb } from "@/lib/store";
+import { allSegments, getKB } from "@/lib/store";
 import { applyGuardrails, emptyChangeSet } from "@/lib/update";
 import type { ChangeSet, Segment } from "@/lib/types";
 
@@ -50,14 +50,15 @@ export async function POST(req: Request) {
     return Response.json({ draftId, segments, changeset: cs });
   }
 
-  const k = kb();
+  const k = await getKB();
+  const condList = k.conditions.map((c) => `${c.id} = ${c.title} (validating owner: ${c.owner})`).join("; ");
   const system = `You analyze NEW information for project NOVA against the frozen baseline (2026-09-30 09:00).\n${RULES}
 Classify the new information exactly as the jury expects:
 - problemStatus: changes in the state of a problem (ticket reopened/closed, failed retest, new defect), citing the NEW file.
 - priorDecisions: earlier decisions that REMAIN IN FORCE unless the NEW file quotes the proper authority (steering committee / project manager) changing them.
 - newProposals: suggestions such as a new date, with the proposer. A proposal is NOT approved unless an approval is quoted.
 - newDecisions: ONLY if the NEW file quotes the proper authority deciding. Otherwise leave empty.
-- conditionChanges: go-live conditions are 1 = SEC-210 security validation (validating owner Sophie Lambert), 2 = ACC-303 closure (Mélissa Gagnon), 3 = runbook approval incl. rollback (Olivier Côté). Mark "met" ONLY if the NEW file quotes that owner closing/validating it. Never close other conditions.
+- conditionChanges: the go-live conditions are ${condList}. Mark "met" ONLY if the NEW file quotes that validating owner closing/validating it. Never close other conditions.
 - affected: answer ids Q01-Q10, condition ids 1-3, action ids A1-A12 that this changes.
 - newActions: owner (ownerStatus confirmed|proposed), type COMMITMENT (documented) or RECOMMENDATION (yours), due date only if stated else "TBC".
 - revisedAnswers: for EACH affected answer id, the full updated answer in English (same precision as the baseline answer:
@@ -76,7 +77,8 @@ Return JSON only: {"summary": string (1-2 sentences, English), "problemStatus": 
   const user = `${baselineAnswers}\n\nNEW INFORMATION "${filename}":\n${segments.map((s) => `[[${s.src}#${s.loc}]] ${s.text}`).join("\n")}`;
   try {
     const raw = (await llmJSON({ task: "update", system, context: await askContext(), user, maxTokens: 32000 })) as Partial<ChangeSet>;
-    const cs = applyGuardrails({ ...emptyChangeSet(filename), ...raw } as ChangeSet, await allSegments(), segments);
+    const cs = applyGuardrails({ ...emptyChangeSet(filename), ...raw } as ChangeSet, await allSegments(), segments,
+      { conditions: k.conditions, goLive: { date: k.goLive.date, headline: k.goLive.headline, citations: k.goLive.citations }, contractEnd: k.goLive.contractEnd });
     return Response.json({ draftId, segments, changeset: cs });
   } catch (e) {
     const cs = emptyChangeSet(filename);

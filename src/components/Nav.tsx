@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 const ITEMS = [
   ["/", "Overview", "Vue d'ensemble"],
+  ["/build", "Build from sources", "Construire la mémoire"],
   ["/brief", "Handover brief", "Brief de reprise"],
   ["/questions", "Ten questions", "Questions"],
   ["/timeline", "Timeline", "Chronologie"],

@@ -1,30 +1,34 @@
 import Link from "next/link";
 import { Chips, Tag } from "@/components/Chip";
-import { currentConditions, kb, resolver, updates } from "@/lib/store";
+import { currentConditions, getKB, resolver, updates } from "@/lib/store";
 import { money } from "@/lib/text";
 
+const fmtDate = (d?: string) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(`${d}T12:00:00`).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" }) : d ?? "TBC");
+
 export default async function Overview() {
-  const k = kb();
   const ups = await updates();
+  const k = await getKB();
   const r = await resolver([], ups);
   const conds = await currentConditions(ups);
   const met = conds.filter((c) => c.status === "met").length;
   const b = k.budget;
-  const pct = (n: number) => `${(n / b.authorized) * 100}%`;
+  const pct = (n: number) => `${Math.max(0, (n / Math.max(b.authorized, 1)) * 100)}%`;
   const proposals = ups.flatMap((u) => u.cs.newProposals.map((p) => ({ ...p, id: u.cs.id })));
+  const status = k.goLive.status ?? "conditional";
+  const components = b.components ?? (b.base !== undefined ? [{ label: "initial contract", amount: b.base }, { label: "approved change request", amount: b.cr01 ?? 0 }] : []);
 
   return (
     <div className="space-y-10">
       <section aria-labelledby="status">
-        <p className="text-muted">Where NOVA stands {ups.length ? `(current state, after ${ups.at(-1)!.cs.id})` : "on Sept 30, 2026, 09:00"}</p>
+        <p className="text-muted">Where NOVA stands {ups.length ? `(current state, after ${ups.at(-1)!.cs.id})` : "at the baseline (Sept 30, 2026, 09:00)"}</p>
         <h1 id="status" className="mt-1 text-4xl font-bold leading-tight tracking-tight">
-          Go-live Oct 22, 2026 is <span className="underline decoration-delivery decoration-4 underline-offset-4">conditional</span>.
-          <br />{met} of 3 go-live conditions met.
+          Go-live {fmtDate(k.goLive.date)} is{" "}
+          <span className="underline decoration-delivery decoration-4 underline-offset-4">{status}</span>.
+          {conds.length > 0 && <><br />{met} of {conds.length} go-live conditions met.</>}
         </h1>
-        <p className="mt-3 max-w-3xl text-lg">
-          Approved by the steering committee on Sept 10 after Boréal&apos;s Sept 8 proposal. It is not a guaranteed go.{" "}
-          <Chips cites={[r({ src: "M04", quote: "Donc approuvé. Le 22 devient la date officielle" }), r({ src: "E09", quote: "Merci de ne pas communiquer le 22 comme un go garanti" })]} />
-        </p>
+        {k.goLive.headline && (
+          <p className="mt-3 max-w-3xl text-lg">{k.goLive.headline} <Chips cites={(k.goLive.citations ?? []).map(r)} /></p>
+        )}
         {proposals.length > 0 && (
           <div className="mt-4 rounded-md border border-proposal/40 bg-proposal/5 p-3">
             <Tag t="PROPOSAL" /> <strong>New proposal on the table (not approved):</strong>{" "}
@@ -33,33 +37,38 @@ export default async function Overview() {
         )}
       </section>
 
-      <section aria-labelledby="conds" className="space-y-3">
-        <h2 id="conds" className="text-2xl font-bold">The three go-live conditions</h2>
-        <ol className="divide-y divide-line rounded-lg border border-line bg-surface">
-          {conds.map((c) => (
-            <li key={c.id} className="grid gap-2 p-4 md:grid-cols-[2.5rem_1fr_auto] md:items-start">
-              <span className="text-2xl font-bold text-muted">{c.id}</span>
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-lg font-semibold">{c.title}</h3>
-                  <Tag t={c.status === "met" ? "MET" : "OPEN"} />
-                  {c.changedIn && <span className="rounded bg-marker px-1.5 text-xs font-semibold">changed in {c.changedIn}</span>}
+      {conds.length > 0 && (
+        <section aria-labelledby="conds" className="space-y-3">
+          <h2 id="conds" className="text-2xl font-bold">The go-live conditions</h2>
+          <ol className="divide-y divide-line rounded-lg border border-line bg-surface">
+            {conds.map((c) => (
+              <li key={c.id} className="grid gap-2 p-4 md:grid-cols-[2.5rem_1fr_auto] md:items-start">
+                <span className="text-2xl font-bold text-muted">{c.id}</span>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg font-semibold">{c.title}</h3>
+                    <Tag t={c.status === "met" ? "MET" : "OPEN"} />
+                    {c.changedIn && <span className="rounded bg-marker px-1.5 text-xs font-semibold">changed in {c.changedIn}</span>}
+                  </div>
+                  <p className="text-muted">Owner: {c.owner}</p>
+                  <p className="mt-1">{c.changeText ?? c.state}</p>
                 </div>
-                <p className="text-muted">Owner: {c.owner}</p>
-                <p className="mt-1">{c.changeText ?? c.state}</p>
-              </div>
-              <Chips cites={(c.changeCites ?? c.citations).map(r)} />
-            </li>
-          ))}
-        </ol>
-      </section>
+                <Chips cites={(c.changeCites ?? c.citations).map(r)} />
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       <section aria-labelledby="budget" className="space-y-3">
         <h2 id="budget" className="text-2xl font-bold">Budget and invoices <span className="text-base font-normal text-muted">(CAD, before tax)</span></h2>
         <div className="rounded-lg border border-line bg-surface p-4">
-          <div className="flex items-baseline justify-between">
-            <span>Authorized <strong className="text-xl">{money(b.authorized)}</strong> = {money(b.base)} contract + {money(b.cr01)} CR-01</span>
-            <Chips cites={[r({ src: "CONTRACT", quote: "Montant maximal initial" }), r({ src: "CR-01", quote: "APPROUVÉE" })]} />
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <span>
+              Authorized <strong className="text-xl">{money(b.authorized)}</strong>
+              {components.length > 0 && <> = {components.map((x, i) => <span key={i}>{i > 0 && " + "}{money(x.amount)} {x.label}</span>)}</>}
+            </span>
+            <Chips cites={components.flatMap((x) => ("citations" in x ? (x.citations ?? []) : []).slice(0, 1)).map(r)} />
           </div>
           <div className="mt-3 flex items-stretch gap-2">
             <div className="flex h-8 flex-1 overflow-hidden rounded border border-line" role="img"
@@ -68,14 +77,18 @@ export default async function Overview() {
               <div className="bg-delivery/70" style={{ width: pct(b.invoicedValid - b.paid) }} />
               <div className="bg-canvas" style={{ width: pct(b.remaining) }} />
             </div>
-            <div className="flex h-8 w-24 items-center justify-center rounded border-2 border-dashed border-blocker text-xs font-bold text-blocker"
-              title="CR-04 line on INV-003, not approved">+18 000 $ ✗</div>
+            {b.unapproved > 0 && (
+              <div className="flex h-8 min-w-24 items-center justify-center rounded border-2 border-dashed border-blocker px-2 text-xs font-bold text-blocker"
+                title={b.unapprovedLabel || "Billed without approval"}>+{money(b.unapproved)} ✗</div>
+            )}
           </div>
           <ul className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm">
             <li><span className="mr-1 inline-block h-3 w-3 bg-validation align-middle" />Paid {money(b.paid)}</li>
-            <li><span className="mr-1 inline-block h-3 w-3 bg-delivery/70 align-middle" />Invoiced, not paid {money(b.invoicedValid - b.paid)} (INV-003 milestone 3)</li>
+            <li><span className="mr-1 inline-block h-3 w-3 bg-delivery/70 align-middle" />Invoiced, not paid {money(b.invoicedValid - b.paid)}</li>
             <li><span className="mr-1 inline-block h-3 w-3 border border-line bg-canvas align-middle" />Remaining {money(b.remaining)}</li>
-            <li className="text-blocker font-semibold">Not payable: {money(b.unapproved)} CR-04 on INV-003 <Chips cites={[r({ src: "INV-003", quote: "Optimisation interface mobile - CR-04" })]} /></li>
+            {b.unapproved > 0 && (
+              <li className="font-semibold text-blocker">Not payable: {money(b.unapproved)}{b.unapprovedLabel ? ` · ${b.unapprovedLabel}` : ""} <Chips cites={(b.unapprovedCitations ?? []).slice(0, 2).map(r)} /></li>
+            )}
           </ul>
         </div>
       </section>
@@ -108,10 +121,12 @@ export default async function Overview() {
         </section>
       )}
 
-      <p className="rounded-md border border-line bg-surface p-3 text-sm">
-        <strong>Watch:</strong> the contract ends Oct 31, 2026, so any slip past Oct 22 eats the margin. Due dates for all three conditions are not documented (to be confirmed).{" "}
-        <Chips cites={[r({ src: "CONTRACT", quote: "7 juillet au 31 octobre 2026" })]} />
-      </p>
+      {(k.goLive.contractEndNote || k.goLive.contractEnd) && (
+        <p className="rounded-md border border-line bg-surface p-3 text-sm">
+          <strong>Watch:</strong> {k.goLive.contractEndNote ?? `The contract ends ${fmtDate(k.goLive.contractEnd)}.`}{" "}
+          <Chips cites={(k.goLive.contractEndCitations ?? []).map(r)} />
+        </p>
+      )}
     </div>
   );
 }

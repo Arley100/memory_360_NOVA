@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Chips } from "@/components/Chip";
-import { currentBrief, kb, resolver, updates } from "@/lib/store";
+import { currentBrief, getKB, resolver, updates } from "@/lib/store";
 
 export default async function Brief({ searchParams }: { searchParams: Promise<{ view?: string }> }) {
   const { view } = await searchParams;
-  const k = kb();
+  const k = await getKB();
   const ups = await updates();
   const r = await resolver([], ups);
   const showCurrent = ups.length > 0 && view !== "baseline";

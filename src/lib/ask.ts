@@ -24,7 +24,8 @@ If the corpus does not contain the answer, say so plainly and put what is missin
 Return JSON only: {"answer": string, "citations": [{"src": string, "loc": string, "quote": string}], "missing": [string], "recommendations": [string]}`;
 
 export type ContextMode = "full" | "corpus";
-export const contextMode = (m?: string): ContextMode => ((m ?? process.env.ASK_CONTEXT) === "corpus" ? "corpus" : "full");
+// Default: raw corpus only (the model's own analysis). ASK_CONTEXT=full adds the active knowledge base.
+export const contextMode = (m?: string): ContextMode => ((m ?? process.env.ASK_CONTEXT) === "full" ? "full" : "corpus");
 
 // "full": curated knowledge base + corpus. "corpus": raw files only, so every answer is the model's own analysis.
 export async function askContext(mode: ContextMode = contextMode()): Promise<string> {
