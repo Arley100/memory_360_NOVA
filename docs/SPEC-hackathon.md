@@ -1,3 +1,5 @@
+> **Historical document.** This is the planning spec written during CodeML 2026 (Oct 3–4, 2026). Sections 7–12 are the answers, timeline and registers we first curated by hand; in the final system they serve only as the answer key that grades the AI (10/10), which generates the whole knowledge base from the raw files itself. Section 14.1 (principle 2) describes that first design, where the curated knowledge base was sent to the model; it was replaced by analysis of the raw files alone (29/29). Sections 22–26 are hackathon planning notes and templates. Folder names and some technical details differ from the final code: see the [README](../README.md) for the current architecture.
+
 # SPEC — Mémoire 360 (NOVA)
 ### CodeML 2026 · Loto-Québec Challenge 2: Project 360 / NOVA
 

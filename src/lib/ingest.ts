@@ -1,5 +1,5 @@
 // Parsers for every format a project's information can arrive in. Each returns citable segments with
-// locators (see SPEC.md section 15.3). Used by scripts/ingest.ts and by the live upload API.
+// locators (see docs/SPEC-hackathon.md section 15.3). Used by scripts/ingest.ts and by the live upload API.
 // Supported: .eml (with attachments), .txt/.log, .md, .csv/.tsv, .pdf, .xlsx/.xls/.xlsm/.ods, .docx, .pptx,
 // .ics (calendar), .json (e.g. Teams export), .html/.htm, images (.png/.jpg/.jpeg/.webp/.gif via vision).
 // Anything else that contains readable text is read as text; true binaries are kept for manual review.
