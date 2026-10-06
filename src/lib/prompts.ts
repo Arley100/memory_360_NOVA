@@ -1,4 +1,4 @@
-// Shared grounding context and rules (see SPEC.md section 21).
+// Shared grounding context and rules (see docs/SPEC-hackathon.md section 21).
 import { allSegments, allSources, getKB, updates, type Update } from "./store";
 
 export const RULES = `Règles de lecture (README du défi) :

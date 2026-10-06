@@ -1,4 +1,4 @@
-// Update engine guardrails (SPEC.md section 18): applied in code AFTER the LLM, so the model
+// Update engine guardrails (docs/SPEC-hackathon.md section 18): applied in code AFTER the LLM, so the model
 // can never invent an approval, close another condition, or miss a contract-end issue.
 import type { ChangeSet, Cite, Item, Segment } from "./types";
 import { indexSegments, resolveCite } from "./cite";
