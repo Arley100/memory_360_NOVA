@@ -6,6 +6,8 @@
 
 CodeML 2026 · Défi 2 de Loto-Québec · *Projet 360 / NOVA* · [Démonstration en ligne](https://memory-360-nova.vercel.app)
 
+**🏆 Gagnant · CodeML 2026 · Volet Loto-Québec, Défi n° 2 : Projet 360 / NOVA**
+
 </div>
 
 ---
